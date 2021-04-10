@@ -1,5 +1,5 @@
 footer {
-  position: absolute;  /* to remove */
+  position: sticky;
   bottom: 0;
   width: 100%;
   background: rgb(27, 0, 44);

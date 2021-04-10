@@ -7,6 +7,7 @@ import { NonAuthHeaderComponent } from './non-auth-header/non-auth-header.compon
 import { NonAuthFooterComponent } from './non-auth-footer/non-auth-footer.component';
 import { NonAuthLayoutComponent } from './non-auth-layout/non-auth-layout.component';
 import { WhyReadytaskComponent } from './why-readytask/why-readytask.component';
+import { NonAuthContentComponent } from './non-auth-content/non-auth-content.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { WhyReadytaskComponent } from './why-readytask/why-readytask.component';
     NonAuthHeaderComponent,
     NonAuthFooterComponent,
     NonAuthLayoutComponent,
-    WhyReadytaskComponent
+    WhyReadytaskComponent,
+    NonAuthContentComponent
   ],
   imports: [
     BrowserModule,

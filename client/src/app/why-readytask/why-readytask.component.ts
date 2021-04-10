@@ -5,6 +5,7 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './why-readytask.component.html',
   styleUrls: ['./why-readytask.component.css']
 })
+
 export class WhyReadytaskComponent implements OnInit {
 
   constructor() { }

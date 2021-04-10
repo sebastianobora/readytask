@@ -7,6 +7,12 @@
 
 html {
   font-size: 10px;
+  scroll-behavior: smooth;
+  scroll-padding-top: 60px;
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
 }
 
 body {
@@ -27,4 +33,5 @@ body {
   color: white;
   background: rgb(56, 0, 61);
   background: radial-gradient(circle, rgba(40, 0, 65, 1) 10%, rgba(0, 0, 0, 1) 100%);
+  background-attachment: fixed;
 }

@@ -7,3 +7,17 @@
   height: calc(100% - 120px);
   width: 100%;
 }
+
+main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  left: 50%;
+  transform: translate(-50%);
+  width: 100%;
+  max-width: 1200px;
+  border-radius: 5px;
+  z-index: 1;
+}
