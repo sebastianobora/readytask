@@ -22,7 +22,9 @@ const routes: Routes = [
 const routerExtraOptions: ExtraOptions = {
   useHash: false,
   anchorScrolling: 'enabled',
-  scrollOffset: [0, 60]
+  scrollOffset: [0, 60],
+  scrollPositionRestoration: 'enabled',
+  onSameUrlNavigation: 'reload'
 };
 
 @NgModule({

@@ -18,6 +18,42 @@ body {
     sans-serif;
 }
 
+/*BUTTONS*/
+
+button{
+  font-family: 'Comfortaa',
+  sans-serif;
+  font-weight: bold;
+  color: white;
+  text-decoration: none;
+  text-shadow: 0 0 5px black;
+  line-height: 50px;
+  box-shadow: 0 0 10px 1px rgba(255, 255, 255, 0.10);
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-size-mid{
+  max-width: 150px;
+  width: 100%;
+  margin: 15px;
+}
+
+.green-btn {
+  background-color: #30ab53;
+  transition: opacity 0.15s;
+}
+
+.blue-btn{
+  background-color: rgb(0, 116, 194);
+  transition: opacity 0.15s;
+}
+
+.green-btn:hover, .blue-btn:hover {
+  opacity: 0.80;
+}
+
 .container {
   position: relative;
   max-width: 1200px;
@@ -26,6 +62,8 @@ body {
   margin-right: auto;
   margin-left: auto;
 }
+
+/*BACKGROUND / FOOTER*/
 
 .non-auth-layout-background {
   background: rgb(56, 0, 61);
@@ -36,4 +74,29 @@ body {
 .non-auth-layout-footer {
   background: rgb(27, 0, 44);
   background: radial-gradient(circle, rgb(27, 0, 44) 0%, rgba(0, 0, 0, 1) 100%);
+}
+
+/*NON AUTH CONTENT*/
+
+.content-title {
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+.content-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 600px;
+  padding: 25px;
+  background: rgb(27, 0, 44);
+  background: radial-gradient(circle, rgba(40, 0, 65, 1) 10%, rgb(27, 0, 44) 100%);
+  border-radius: 3px;
+}
+
+.content-text {
+  font-weight: normal;
+  font-size: 2.2rem;
+  text-shadow: 0 0 25px rgba(0, 0, 0, 1);
+  margin: 20px 5px;
 }
