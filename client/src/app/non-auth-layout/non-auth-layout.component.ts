@@ -14,9 +14,11 @@ export class NonAuthLayoutComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.renderer.addClass(this.document.body, 'non-auth-layout-background');
+    this.renderer.addClass(this.document.getElementsByTagName('footer')[0], 'non-auth-layout-footer');
   }
 
   ngOnDestroy(): void {
     this.renderer.removeClass(this.document.body, 'non-auth-layout-background');
+    this.renderer.removeClass(this.document.getElementsByTagName('footer')[0], 'non-auth-layout-footer');
   }
 }

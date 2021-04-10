@@ -16,6 +16,7 @@ html {
 }
 
 body {
+  color: white;
   font-family: 'Comfortaa',
     sans-serif;
 }
@@ -30,8 +31,12 @@ body {
 }
 
 .non-auth-layout-background {
-  color: white;
   background: rgb(56, 0, 61);
   background: radial-gradient(circle, rgba(40, 0, 65, 1) 10%, rgba(0, 0, 0, 1) 100%);
   background-attachment: fixed;
+}
+
+.non-auth-layout-footer {
+  background: rgb(27, 0, 44);
+  background: radial-gradient(circle, rgb(27, 0, 44) 0%, rgba(0, 0, 0, 1) 100%);
 }
