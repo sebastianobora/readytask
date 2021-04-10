@@ -3,20 +3,26 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NonAuthHeaderComponent } from './non-auth-header/non-auth-header.component';
-import { NonAuthFooterComponent } from './non-auth-footer/non-auth-footer.component';
-import { NonAuthLayoutComponent } from './non-auth-layout/non-auth-layout.component';
-import { WhyReadytaskComponent } from './why-readytask/why-readytask.component';
-import { NonAuthContentComponent } from './non-auth-content/non-auth-content.component';
+import { NonAuthHeaderComponent } from './components/non-auth-header/non-auth-header.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { NonAuthLayoutComponent } from './components/non-auth-layout/non-auth-layout.component';
+import { WhyReadytaskComponent } from './components/why-readytask/why-readytask.component';
+import { NonAuthSectionComponent } from './components/non-auth-section/non-auth-section.component';
+import { NonAuthMainComponent } from './components/non-auth-main/non-auth-main.component';
+import { LoginComponent } from './components/login/login.component';
+import { RegisterComponent } from './components/register/register.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NonAuthHeaderComponent,
-    NonAuthFooterComponent,
+    FooterComponent,
     NonAuthLayoutComponent,
     WhyReadytaskComponent,
-    NonAuthContentComponent
+    NonAuthSectionComponent,
+    NonAuthMainComponent,
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,

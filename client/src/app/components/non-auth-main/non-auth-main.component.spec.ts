@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NonAuthContentComponent } from './non-auth-content.component';
+import { NonAuthMainComponent } from './non-auth-main.component';
 
-describe('NonAuthContentComponent', () => {
-  let component: NonAuthContentComponent;
-  let fixture: ComponentFixture<NonAuthContentComponent>;
+describe('NonAuthMainComponent', () => {
+  let component: NonAuthMainComponent;
+  let fixture: ComponentFixture<NonAuthMainComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ NonAuthContentComponent ]
+      declarations: [ NonAuthMainComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(NonAuthContentComponent);
+    fixture = TestBed.createComponent(NonAuthMainComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

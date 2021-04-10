@@ -8,11 +8,8 @@
 html {
   font-size: 10px;
   scroll-behavior: smooth;
-  scroll-padding-top: 60px;
   -ms-overflow-style: none;
-  /* IE and Edge */
   scrollbar-width: none;
-  /* Firefox */
 }
 
 body {

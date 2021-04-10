@@ -51,8 +51,8 @@
 }
 
 .logo-container:hover .logo {
-  transform: rotate(30deg) scale(115%);
-  -webkit-transform: rotate(30deg) scale(115%);
+  transform: rotate(30deg) scale(1.15);
+  -webkit-transform: rotate(30deg) scale(1.15);
 }
 
 .logo-container:hover .logo-name {
