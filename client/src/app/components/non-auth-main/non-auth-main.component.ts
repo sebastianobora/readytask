@@ -1,5 +1,5 @@
-import {AfterViewInit, Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-non-auth-main',
@@ -15,11 +15,12 @@ export class NonAuthMainComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.route.fragment.subscribe(f => {
-      console.log(f);
       const element = document.querySelector('#' + f);
-      console.log(element);
       if (element) {
-        element.scrollIntoView();
+        const headerOffset = 60;
+        const elementPosition = element.getBoundingClientRect().top;
+        const offsetPosition = elementPosition - headerOffset;
+        window.scrollTo({ top: offsetPosition });
       }
     });
   }
