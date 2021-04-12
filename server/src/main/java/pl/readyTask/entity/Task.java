@@ -7,9 +7,10 @@ import pl.readyTask.entity.enumeration.TaskState;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Set;
 
-@Entity(name="Task")
-@Table(name="task")
+@Entity(name = "Task")
+@Table(name = "task")
 @Getter
 @Setter
 public class Task {
@@ -18,29 +19,35 @@ public class Task {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="id")
+    @Column(name = "id")
     private Long id;
 
-    @Column(name="description", nullable = false)
+    @Column(name = "description", nullable = false)
     private String description;
 
-    @Column(name="deadline", nullable = false)
+    @Column(name = "deadline", nullable = false)
     private Date deadline;
 
     @CreationTimestamp
-    @Column(name="created_at")
+    @Column(name = "created_at")
     private Date createdAt;
 
     @Enumerated(EnumType.STRING)
-    @Column(name="state", nullable = false)
+    @Column(name = "state", nullable = false)
     private TaskState state;
 
-    @Column(name="id_user_assigned_to", nullable = false)
-    private Long idUserAssignedTo;
+    @ManyToOne
+    @JoinColumn(name = "user_assigned_to_id", nullable = false)
+    private User userAssignedToTask;
 
-    @Column(name="id_user_assigned_by", nullable = false)
-    private Long idUserAssignedBy;
+    @ManyToOne
+    @JoinColumn(name = "user_assigned_by_id", nullable = false)
+    private User authorOfTask;
 
-    @Column(name="id_team", nullable = false)
-    private Long idTeam;
+    @ManyToOne
+    @JoinColumn(name = "team_id", nullable = false)
+    private Team team;
+
+    @OneToMany(mappedBy = "task")
+    private Set<TaskComment> taskComments;
 }

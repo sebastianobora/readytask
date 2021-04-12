@@ -8,30 +8,32 @@ import org.hibernate.annotations.UpdateTimestamp;
 import javax.persistence.*;
 import java.util.Date;
 
-@Entity(name="TaskComment")
-@Table(name="task_comment")
+@Entity(name = "TaskComment")
+@Table(name = "task_comment")
 @Getter
 @Setter
 public class TaskComment {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="id")
+    @Column(name = "id")
     private Long id;
 
-    @Column(name="message", nullable = false)
+    @Column(name = "message", nullable = false)
     private String message;
 
-    @Column(name="created_at")
+    @Column(name = "created_at")
     @CreationTimestamp
     private Date createdAt;
 
-    @Column(name="edited_at")
+    @Column(name = "edited_at")
     @UpdateTimestamp
     private Date editedAt;
 
-    @Column(name="id_user", nullable = false)
-    private Long idUser;
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
-    @Column(name="id_task", nullable = false)
-    private Long idTask;
+    @ManyToOne
+    @JoinColumn(name = "task_id", nullable = false)
+    private Task task;
 }
