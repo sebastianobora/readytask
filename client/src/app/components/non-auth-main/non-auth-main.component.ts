@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -8,9 +8,22 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class NonAuthMainComponent implements OnInit, AfterViewInit {
 
+  mainSections: {
+    whyReadyTask: string,
+    tutorial: string,
+    about: string,
+    contact: string
+  } = {
+    whyReadyTask: 'why-readytask',
+    tutorial: 'tutorial',
+    about: 'about',
+    contact: 'contact'
+  };
+
   constructor(private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    console.log(this.mainSections.whyReadyTask);
   }
 
   ngAfterViewInit(): void {
@@ -20,9 +33,8 @@ export class NonAuthMainComponent implements OnInit, AfterViewInit {
         const headerOffset = 60;
         const elementPosition = element.getBoundingClientRect().top;
         const offsetPosition = elementPosition - headerOffset;
-        window.scrollTo({ top: offsetPosition });
+        window.scrollTo({ top: offsetPosition, behavior: 'auto' });
       }
     });
   }
-
 }

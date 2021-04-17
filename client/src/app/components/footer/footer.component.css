@@ -13,11 +13,12 @@ footer {
   font-size: 25px;
   color: white;
   line-height: 60px;
-  transition: color 0.3s;
+  transition: opacity 0.15s, transform 0.15s;
 }
 
 .footer-icon:hover {
-  color: #bb62e4;
+  opacity: 0.55;
+  transform: translateY(-2px);
 }
 
 .footer-text {

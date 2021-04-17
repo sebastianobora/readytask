@@ -11,6 +11,9 @@ import { NonAuthSectionComponent } from './components/non-auth-section/non-auth-
 import { NonAuthMainComponent } from './components/non-auth-main/non-auth-main.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
+import { TutorialComponent } from './components/tutorial/tutorial.component';
+import { AboutComponent } from './components/about/about.component';
+import { ContactComponent } from './components/contact/contact.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +25,10 @@ import { RegisterComponent } from './components/register/register.component';
     NonAuthSectionComponent,
     NonAuthMainComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    TutorialComponent,
+    AboutComponent,
+    ContactComponent
   ],
   imports: [
     BrowserModule,
