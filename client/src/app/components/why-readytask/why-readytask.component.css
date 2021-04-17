@@ -1,9 +1,7 @@
-.first {
-  box-shadow: rgba(255, 255, 255, 0.8) 0 0 0 2px inset, 0 0 5em black;
-}
-
 .buttons-container{
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   width: 100%;
+  max-width: 350px;
+  margin: 5px 0;
 }

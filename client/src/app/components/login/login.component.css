@@ -1,0 +1,27 @@
+.login-form {
+  text-align: center;
+  padding: 15px 15px 0 15px;
+  max-width: 360px;
+  width: 100%;
+}
+
+.login-header-text{
+  font-weight: bold;
+  font-size: 2.2rem;
+  text-shadow: 0 0 25px rgba(0, 0, 0, 1);
+  margin: 5px 0;
+}
+
+.email-input{
+  margin-bottom: 8px;
+}
+
+.password-input{
+  margin-bottom: 16px;
+}
+
+.forgot-password-link{
+  display: block;
+  margin-top: 16px;
+}
+

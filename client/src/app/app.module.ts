@@ -8,7 +8,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { NonAuthLayoutComponent } from './components/non-auth-layout/non-auth-layout.component';
 import { WhyReadytaskComponent } from './components/why-readytask/why-readytask.component';
 import { NonAuthSectionComponent } from './components/non-auth-section/non-auth-section.component';
-import { NonAuthMainComponent } from './components/non-auth-main/non-auth-main.component';
+import { NonAuthIndexComponent } from './components/non-auth-index/non-auth-index.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { TutorialComponent } from './components/tutorial/tutorial.component';
@@ -23,7 +23,7 @@ import { ContactComponent } from './components/contact/contact.component';
     NonAuthLayoutComponent,
     WhyReadytaskComponent,
     NonAuthSectionComponent,
-    NonAuthMainComponent,
+    NonAuthIndexComponent,
     LoginComponent,
     RegisterComponent,
     TutorialComponent,

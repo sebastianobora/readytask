@@ -2,11 +2,11 @@ import {AfterViewInit, Component, OnInit} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-non-auth-main',
-  templateUrl: './non-auth-main.component.html',
-  styleUrls: ['./non-auth-main.component.css']
+  selector: 'app-non-auth-index',
+  templateUrl: './non-auth-index.component.html',
+  styleUrls: ['./non-auth-index.component.css']
 })
-export class NonAuthMainComponent implements OnInit, AfterViewInit {
+export class NonAuthIndexComponent implements OnInit, AfterViewInit {
 
   mainSections: {
     whyReadyTask: string,
