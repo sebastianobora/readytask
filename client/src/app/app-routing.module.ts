@@ -3,8 +3,8 @@ import {ExtraOptions, RouterModule, Routes} from '@angular/router';
 
 import { NonAuthLayoutComponent } from './components/non-auth-layout/non-auth-layout.component';
 import {NonAuthIndexComponent} from './components/non-auth-index/non-auth-index.component';
-import {LoginComponent} from './components/login/login.component';
-import {RegisterComponent} from './components/register/register.component';
+import {LoginComponent} from './components/authorization/login/login.component';
+import {RegisterComponent} from './components/authorization/register/register.component';
 
 const routes: Routes = [
   {
