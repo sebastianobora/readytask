@@ -1,13 +1,3 @@
-.nav {
-  position: sticky;
-  top: 0;
-  height: 60px;
-  background: rgba(56, 0, 61, 0.5);
-  background: radial-gradient(circle, rgb(27, 0, 44) 0%, rgba(0, 0, 0, 1) 100%);
-  box-shadow: 0 0 5em black;
-  z-index: 2;
-}
-
 .avatar-container,
 .logo-container {
   position: absolute;
@@ -29,19 +19,6 @@
   height: 40px;
   width: 40px;
   border-radius: 50%;
-}
-
-.logo-name {
-  position: absolute;
-  top: 50%;
-  text-decoration: none;
-  color: white;
-  opacity: 0;
-  padding: 15px 15px;
-  font-weight: bold;
-  font-size: 2rem;
-  transform: translate(0, -50%) rotateX(-180deg);
-  transition: transform 0.3s, opacity 0.3s;
 }
 
 .logo {

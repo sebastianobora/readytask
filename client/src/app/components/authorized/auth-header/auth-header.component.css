@@ -1,0 +1,78 @@
+.header-wrapper{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10px;
+  height: 60px;
+}
+
+.nav-li {
+  display: inline-block;
+}
+
+.nav-ul {
+  list-style: none;
+}
+
+.nav-a{
+  padding: 15px 15px;
+  color: white;
+  font-size: 1.3rem;
+  letter-spacing: 2px;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: color 0.3s;
+}
+
+.nav-a:hover {
+  color: #bb62e4;
+}
+
+.logo {
+  transition: transform 0.3s cubic-bezier(0.445, 0.05, 0.55, 0.95);
+}
+
+.avatar {
+  border-radius: 50%;
+}
+
+.logo,
+.avatar,
+.logo-a{
+  width: 40px;
+  height: 40px;
+}
+
+.logo-a:hover .logo {
+  transform: rotate(30deg) scale(1.15);
+  -webkit-transform: rotate(30deg) scale(1.15);
+}
+
+.logo-a:hover+.logo-name {
+  transform: rotateX(0deg);
+  visibility: visible;
+  opacity: 1;
+}
+
+.avatar-container,
+.logo-container {
+  display: flex;
+  align-items: center;
+}
+
+.logo-name {
+  position: absolute;
+  font-weight: bold;
+  font-size: 2rem;
+  margin-left: 40px;
+  padding: 15px 15px;
+  color: white;
+  visibility: hidden;
+  opacity: 0;
+  transform: rotateX(-180deg);
+  transition: transform 0.3s, opacity 0.3s, visibility 0.3s;
+}
+
+.logo-name:hover{
+  cursor: default;
+}

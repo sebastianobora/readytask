@@ -1,13 +1,13 @@
-<app-non-auth-section>
+<app-section>
   <div class="content-container">
-    <p class="auth-header-text">Create your account</p>
+    <p class="auth-header-text">Sign in to Readytask</p>
     <form class="auth-form">
-      <input type="text" placeholder="username" class="input next-input"/>
       <input type="email" placeholder="email" class="input next-input"/>
       <input type="password" placeholder="password" class="input last-input"/>
-      <button type="submit" class="green-btn">Create account</button>
+      <button type="submit" class="blue-btn">Log in</button>
       <a routerLink="/reset-password" class="link forgot-password-link">Forgot password?</a>
       <div class="line"></div>
+      <button routerLink="/register" class="green-btn btn-size-mid">Create account</button>
     </form>
   </div>
-</app-non-auth-section>
+</app-section>

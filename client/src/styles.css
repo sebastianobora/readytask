@@ -18,6 +18,24 @@ body {
     sans-serif;
 }
 
+/* HEADER */
+header {
+  position: sticky;
+  top: 0;
+  height: 60px;
+  box-shadow: 0 0 5em black;
+  z-index: 2;
+}
+
+.non-auth-layout-header{
+  background: rgba(56, 0, 61, 0.5);
+  background: radial-gradient(circle, rgb(27, 0, 44) 0%, rgba(0, 0, 0, 1) 100%);
+}
+
+.auth-layout-header{
+  background-color: #222;
+}
+
 /* LINES */
 
 .line {
@@ -101,9 +119,17 @@ button{
   background-attachment: fixed;
 }
 
+.auth-layout-background{
+  background-color: #111;
+}
+
 .non-auth-layout-footer {
   background: rgb(27, 0, 44);
   background: radial-gradient(circle, rgb(27, 0, 44) 0%, rgba(0, 0, 0, 1) 100%);
+}
+
+.auth-layout-footer {
+  background-color: #222;
 }
 
 /*NON AUTH CONTENT*/
@@ -131,4 +157,20 @@ button{
   font-size: 2.2rem;
   text-shadow: 0 0 25px rgba(0, 0, 0, 1);
   margin: 20px 5px;
+}
+
+/* MAIN */
+
+main {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  left: 50%;
+  transform: translate(-50%);
+  width: 100%;
+  max-width: 1200px;
+  padding: 0 10px;
+  z-index: 1;
 }

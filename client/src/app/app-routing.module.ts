@@ -1,12 +1,21 @@
 import { NgModule } from '@angular/core';
 import {ExtraOptions, RouterModule, Routes} from '@angular/router';
 
-import { NonAuthLayoutComponent } from './components/non-auth-layout/non-auth-layout.component';
-import {NonAuthIndexComponent} from './components/non-auth-index/non-auth-index.component';
-import {LoginComponent} from './components/authorization/login/login.component';
-import {RegisterComponent} from './components/authorization/register/register.component';
+import { NonAuthLayoutComponent } from './components/non-authorized/non-auth-layout/non-auth-layout.component';
+import {NonAuthIndexComponent} from './components/non-authorized/non-auth-index/non-auth-index.component';
+import {LoginComponent} from './components/non-authorized/authorization/login/login.component';
+import {RegisterComponent} from './components/non-authorized/authorization/register/register.component';
+import {AuthLayoutComponent} from './components/authorized/auth-layout/auth-layout.component';
+import {AuthIndexComponent} from './components/authorized/auth-index/auth-index.component';
 
 const routes: Routes = [
+  {
+    path: '',
+    component: AuthLayoutComponent,
+    children: [
+      {path: '', component: AuthIndexComponent, pathMatch: 'full'}
+    ]
+  },
   {
     path: '',
     component: NonAuthLayoutComponent,
@@ -16,7 +25,7 @@ const routes: Routes = [
       { path: 'register', component: RegisterComponent }
     ]
   },
-  { path: '**', redirectTo: ''}
+  { path: '**', redirectTo: '' }
 ];
 
 const routerExtraOptions: ExtraOptions = {
