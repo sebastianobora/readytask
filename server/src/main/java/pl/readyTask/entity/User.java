@@ -44,18 +44,24 @@ public class User {
     @Column(name = "user_role", nullable = false)
     private UserRole userRole;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private Set<Membership> memberships;
 
-    @OneToMany(mappedBy="user")
+    @OneToMany(mappedBy="user", fetch = FetchType.LAZY)
     private Set<Todo> todos;
 
-    @OneToMany(mappedBy="user")
+    @OneToMany(mappedBy="user", fetch = FetchType.LAZY)
     private Set<TaskComment> taskComments;
 
-    @OneToMany(mappedBy = "userAssignedToTask")
+    @OneToMany(mappedBy = "userAssignedToTask", fetch = FetchType.LAZY)
     private Set<Task> tasksAssignedToUser;
 
-    @OneToMany(mappedBy = "authorOfTask")
+    @OneToMany(mappedBy = "authorOfTask", fetch = FetchType.LAZY)
     private Set<Task> tasksAssignedByUser;
+
+    public static User getNewUserFromId(Long userId){
+        User user = new User();
+        user.setId(userId);
+        return user;
+    }
 }

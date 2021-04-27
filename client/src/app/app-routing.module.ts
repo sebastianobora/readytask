@@ -11,18 +11,18 @@ import {AuthIndexComponent} from './components/authorized/auth-index/auth-index.
 const routes: Routes = [
   {
     path: '',
-    component: AuthLayoutComponent,
-    children: [
-      {path: '', component: AuthIndexComponent, pathMatch: 'full'}
-    ]
-  },
-  {
-    path: '',
     component: NonAuthLayoutComponent,
     children: [
       { path: '', component: NonAuthIndexComponent, pathMatch: 'full'},
       { path: 'login', component: LoginComponent },
       { path: 'register', component: RegisterComponent }
+    ]
+  },
+  {
+    path: '',
+    component: AuthLayoutComponent,
+    children: [
+      {path: 'auth', component: AuthIndexComponent, pathMatch: 'full'}
     ]
   },
   { path: '**', redirectTo: '' }
