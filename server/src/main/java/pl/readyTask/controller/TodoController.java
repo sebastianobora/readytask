@@ -9,8 +9,8 @@ import pl.readyTask.service.TodoService;
 import java.util.List;
 
 @RestController
-@AllArgsConstructor
 @RequestMapping("todos")
+@AllArgsConstructor
 public class TodoController {
     private final TodoService todoService;
 
@@ -21,7 +21,7 @@ public class TodoController {
 
     @GetMapping
     public ResponseEntity<List<Todo>> getUserTodoList(){
-        return ResponseEntity.ok(todoService.getAllByUserId(1L));
+        return ResponseEntity.ok(todoService.getAllByUserId(0L));
     }
 
     @PostMapping
