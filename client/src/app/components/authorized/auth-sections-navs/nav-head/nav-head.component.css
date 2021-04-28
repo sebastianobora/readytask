@@ -1,0 +1,44 @@
+.main-avatar-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 50px 50px 0 50px;
+  border-radius: 5px;
+}
+
+.main-avatar {
+  height: 120px;
+  width: 120px;
+  border-radius: 50%;
+  box-shadow: 0 0 50px rgba(255, 255, 255, 0.15);
+}
+
+.main-nav-a {
+  text-decoration: none;
+  color: white;
+  padding: 15px 15px;
+  line-height: 60px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 1.3rem;
+  transition: color 0.15s;
+  text-align: center;
+}
+
+.main-nav-a {
+  display: inline-block;
+  line-height: 30px;
+  padding: 15px 0 0 0;
+}
+
+.main-nav-a:hover {
+  color: #bb62e4;
+}
+
+.line {
+  margin: 20px 0;
+  max-width: 80px;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.6);
+}

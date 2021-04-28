@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AuthIndexComponent } from './auth-index.component';
+import { TodoNavComponent } from './todo-nav.component';
 
-describe('AuthIndexComponent', () => {
-  let component: AuthIndexComponent;
-  let fixture: ComponentFixture<AuthIndexComponent>;
+describe('TodoNavComponent', () => {
+  let component: TodoNavComponent;
+  let fixture: ComponentFixture<TodoNavComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AuthIndexComponent ]
+      declarations: [ TodoNavComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AuthIndexComponent);
+    fixture = TestBed.createComponent(TodoNavComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

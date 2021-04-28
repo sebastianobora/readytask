@@ -1,0 +1,10 @@
+.auth-section{
+  display: flex;
+  max-width: 1200px;
+  width: 100%;
+  height: calc(100vh - 280px);
+  background-color: #1b1b1b;
+  background-attachment: fixed;
+  box-shadow: 0 0 5em black;
+  border-radius: 5px;
+}

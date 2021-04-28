@@ -6,7 +6,8 @@ import {NonAuthIndexComponent} from './components/non-authorized/non-auth-index/
 import {LoginComponent} from './components/non-authorized/authorization/login/login.component';
 import {RegisterComponent} from './components/non-authorized/authorization/register/register.component';
 import {AuthLayoutComponent} from './components/authorized/auth-layout/auth-layout.component';
-import {AuthIndexComponent} from './components/authorized/auth-index/auth-index.component';
+import {TodoListComponent} from './components/authorized/todo/todo-list/todo-list.component';
+import {TodoSectionComponent} from './components/authorized/auth-sections/todo-section/todo-section.component';
 
 const routes: Routes = [
   {
@@ -22,10 +23,11 @@ const routes: Routes = [
     path: '',
     component: AuthLayoutComponent,
     children: [
-      {path: 'auth', component: AuthIndexComponent, pathMatch: 'full'}
+      {path: 'todo', component: TodoSectionComponent, children: [
+          { path: '', component: TodoListComponent}
+        ]}
     ]
-  },
-  { path: '**', redirectTo: '' }
+  }
 ];
 
 const routerExtraOptions: ExtraOptions = {

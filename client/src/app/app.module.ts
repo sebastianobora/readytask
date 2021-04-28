@@ -16,7 +16,12 @@ import { AboutComponent } from './components/non-authorized/about/about.componen
 import { ContactComponent } from './components/non-authorized/contact/contact.component';
 import { AuthHeaderComponent } from './components/authorized/auth-header/auth-header.component';
 import { AuthLayoutComponent } from './components/authorized/auth-layout/auth-layout.component';
-import { AuthIndexComponent } from './components/authorized/auth-index/auth-index.component';
+import { NavHeadComponent } from './components/authorized/auth-sections-navs/nav-head/nav-head.component';
+import { TodoSectionComponent } from './components/authorized/auth-sections/todo-section/todo-section.component';
+import { TodoNavComponent } from './components/authorized/auth-sections-navs/todo-nav/todo-nav.component';
+import { TodoListComponent } from './components/authorized/todo/todo-list/todo-list.component';
+import { TodoAddComponent } from './components/authorized/todo/todo-add/todo-add.component';
+import { TodoShowComponent } from './components/authorized/todo/todo-show/todo-show.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +39,12 @@ import { AuthIndexComponent } from './components/authorized/auth-index/auth-inde
     ContactComponent,
     AuthHeaderComponent,
     AuthLayoutComponent,
-    AuthIndexComponent
+    NavHeadComponent,
+    TodoSectionComponent,
+    TodoNavComponent,
+    TodoListComponent,
+    TodoAddComponent,
+    TodoShowComponent
   ],
   imports: [
     BrowserModule,
