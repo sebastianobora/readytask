@@ -7,7 +7,7 @@ import {LoginComponent} from './components/non-authorized/authorization/login/lo
 import {RegisterComponent} from './components/non-authorized/authorization/register/register.component';
 import {AuthLayoutComponent} from './components/authorized/auth-layout/auth-layout.component';
 import {TodoListComponent} from './components/authorized/todo/todo-list/todo-list.component';
-import {TodoSectionComponent} from './components/authorized/auth-sections/todo-section/todo-section.component';
+import {AuthSectionComponent} from './components/authorized/auth-section/auth-section.component';
 
 const routes: Routes = [
   {
@@ -23,9 +23,24 @@ const routes: Routes = [
     path: '',
     component: AuthLayoutComponent,
     children: [
-      {path: 'todo', component: TodoSectionComponent, children: [
-          { path: '', component: TodoListComponent}
-        ]}
+      {
+        path: 'todo',
+        component: AuthSectionComponent,
+        children: [
+          { path: '', redirectTo: 'all', pathMatch: 'full'},
+          { path: 'all', component: TodoListComponent}
+        ]
+      },
+      {
+        path: 'tasks',
+        component: AuthSectionComponent,
+        children: []
+      },
+      {
+        path: 'teams',
+        component: AuthSectionComponent,
+        children: []
+      }
     ]
   }
 ];

@@ -13,7 +13,7 @@ html {
 }
 
 body {
-  color: white;
+  color: #FFFFFF;
   font-family: 'Comfortaa',
     sans-serif;
 }
@@ -54,6 +54,10 @@ header {
   padding: 16px 16px;
   border-radius: 5px;
   border: none;
+}
+
+input:focus {
+  outline: none;
 }
 /*BUTTONS*/
 
@@ -171,6 +175,10 @@ main {
   transform: translate(-50%);
   width: 100%;
   max-width: 1200px;
-  padding: 0 10px;
+  padding: 0 15px;
   z-index: 1;
+}
+
+.active-link{
+ color: #bb62e4 !important;
 }

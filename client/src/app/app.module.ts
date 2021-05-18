@@ -16,12 +16,12 @@ import { AboutComponent } from './components/non-authorized/about/about.componen
 import { ContactComponent } from './components/non-authorized/contact/contact.component';
 import { AuthHeaderComponent } from './components/authorized/auth-header/auth-header.component';
 import { AuthLayoutComponent } from './components/authorized/auth-layout/auth-layout.component';
-import { NavHeadComponent } from './components/authorized/auth-sections-navs/nav-head/nav-head.component';
-import { TodoSectionComponent } from './components/authorized/auth-sections/todo-section/todo-section.component';
-import { TodoNavComponent } from './components/authorized/auth-sections-navs/todo-nav/todo-nav.component';
+import { AuthSectionComponent } from './components/authorized/auth-section/auth-section.component';
+import { AuthNavComponent } from './components/authorized/auth-nav/auth-nav.component';
 import { TodoListComponent } from './components/authorized/todo/todo-list/todo-list.component';
-import { TodoAddComponent } from './components/authorized/todo/todo-add/todo-add.component';
 import { TodoShowComponent } from './components/authorized/todo/todo-show/todo-show.component';
+import { HttpClientModule } from '@angular/common/http';
+import {FormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -39,16 +39,16 @@ import { TodoShowComponent } from './components/authorized/todo/todo-show/todo-s
     ContactComponent,
     AuthHeaderComponent,
     AuthLayoutComponent,
-    NavHeadComponent,
-    TodoSectionComponent,
-    TodoNavComponent,
+    AuthSectionComponent,
+    AuthNavComponent,
     TodoListComponent,
-    TodoAddComponent,
     TodoShowComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

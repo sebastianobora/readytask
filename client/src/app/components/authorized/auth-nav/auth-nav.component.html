@@ -1,0 +1,15 @@
+<nav class="main-nav">
+  <div class="main-avatar-container">
+    <img class="main-avatar" src="../../../../assets/img/rachel.jpg" alt="Avatar">
+    <a class="main-nav-a" href="">Rachel Green</a>
+    <div class="line"></div>
+  </div>
+  <p class="category">{{currentNavContent?.title}}</p>
+  <ul class="main-nav-ul">
+    <li *ngFor="let navElement of currentNavContent?.elements">
+      <a class="nav-a" routerLink="{{navElement?.link}}" routerLinkActive="active-link">
+        {{ navElement?.content }}
+      </a>
+    </li>
+  </ul>
+</nav>
