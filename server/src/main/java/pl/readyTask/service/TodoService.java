@@ -1,6 +1,5 @@
 package pl.readyTask.service;
 
-import com.sun.xml.bind.v2.TODO;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.readyTask.entity.Todo;

@@ -10,6 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("todos")
+@CrossOrigin("http://localhost:4200")
 @AllArgsConstructor
 public class TodoController {
     private final TodoService todoService;
@@ -26,6 +27,8 @@ public class TodoController {
 
     @PostMapping
     public ResponseEntity<Todo> add(@RequestBody Todo todo){
+        //TEMP
+        todo.setUserById(0L);
         return ResponseEntity.ok(todoService.add(todo));
     }
 
