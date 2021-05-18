@@ -1,21 +1,35 @@
-.table{
-  border-collapse: collapse;
-  margin: 10px 20px;
-}
-
-.table th:first-child{
-  min-width: 400px;
+:host{
   width: 100%;
-  text-align: left;
+  height: 100%;
+  padding: 20px 20px;
 }
 
-.table th{
-  font-weight: bold;
-  text-transform: uppercase;
-  min-width: 150px;
-  text-align: center;
+.add-task-form-wrapper{
+  width: 100%;
+  margin-bottom: 20px;
 }
 
+.add-task-input{
+  color: white;
+  font-weight: 400;
+  max-width: 400px;
+  background-color: transparent;
+  padding: 5px;
+  border-radius: 0;
+  border-bottom: rgba(255, 255, 255, 0.6) 1px solid;
+}
+
+.add-icon{
+  margin-left: 10px;
+  font-size: 1.5rem;
+}
+
+.table{
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th:first-child,
 .table tr td:first-child{
   text-align: left;
 }
@@ -30,17 +44,30 @@
   padding: 10px;
 }
 
-.add-task-input{
-  color: white;
-  font-weight: 400;
-  margin: 20px 10px 10px 20px;
-  max-width: 400px;
-  padding: 5px 10px;
-  background-color: transparent;
-  border-radius: 0;
-  border-bottom: rgba(255, 255, 255, 0.6) 1px solid;
+.table th{
+  text-align: center;
+  font-size: 1.6rem;
+  font-weight: bolder;
+  text-transform: uppercase;
 }
 
-.add-icon{
-  font-size: 1.5rem;
+.icon{
+  cursor: pointer;
+  font-size: 18px;
+  margin: 0 5px;
+  transition: color 0.15s;
 }
+
+.check, .cancel{
+  font-size: 19px;
+}
+
+.cancel:hover, .delete:hover{
+  color: #fa3e3e;
+}
+
+.check:hover{
+  color: #30ab53;
+}
+
+
