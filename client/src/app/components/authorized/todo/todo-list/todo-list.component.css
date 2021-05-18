@@ -4,6 +4,15 @@
   padding: 20px 20px;
 }
 
+label{
+  display: block;
+}
+
+.icon-btn{
+  background-color: transparent;
+  padding: 5px;
+}
+
 .add-task-form-wrapper{
   width: 100%;
   margin-bottom: 20px;

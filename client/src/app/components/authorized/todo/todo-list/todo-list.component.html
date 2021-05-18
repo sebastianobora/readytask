@@ -1,7 +1,6 @@
 <div class="add-task-form-wrapper">
   <form (ngSubmit)="add()" #form="ngForm">
     <input
-      id="content"
       type="text"
       [(ngModel)]="newTodo.content"
       name="content"
@@ -9,8 +8,7 @@
       class="input add-task-input"
       placeholder="Add todo"
       required>
-    <label for="content">Add todo</label>
-    <button type="submit" [disabled]="form.invalid">
+    <button class="icon-btn" type="submit" [disabled]="form.invalid">
       <i class="fas fa-plus icon"></i>
     </button>
   </form>
