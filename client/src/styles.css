@@ -74,28 +74,33 @@ button{
   line-height: 50px;
   border-radius: 8px;
   font-weight: bold;
-  box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.10);
+  box-shadow: 0 0 10px 1px rgba(255, 255, 255, 0.05);
   text-shadow: 0 0 3px #222;
 }
 
 
 .btn-size-mid{
   max-width: 150px;
-  /*margin: 0 15px;*/
 }
 
 .green-btn {
   background-color: #30ab53;
-  transition: opacity 0.15s;
 }
 
 .blue-btn{
   background-color: rgb(0, 116, 194);
-  transition: opacity 0.15s;
 }
 
-.green-btn:hover, .blue-btn:hover {
-  opacity: 0.80;
+.purple-btn{
+  background-color: #75418d;
+}
+
+.purple-btn, .blue-btn, .green-btn{
+  transition: opacity 0.10s;
+}
+
+.green-btn:hover, .blue-btn:hover, .purple-btn:hover {
+  opacity: 0.8;
 }
 
 .container {
@@ -112,6 +117,7 @@ button{
   font-size: 1.15rem;
   text-decoration: none;
   color: white;
+  cursor: pointer;
 }
 
 .link:hover {
@@ -177,7 +183,7 @@ main {
   left: 50%;
   transform: translate(-50%);
   width: 100%;
-  max-width: 1200px;
+  max-width: 1230px;
   padding: 0 15px;
   z-index: 1;
 }

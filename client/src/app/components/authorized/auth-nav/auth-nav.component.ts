@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute } from '@angular/router';
-import {NavObject, tasksNavContent, todoNavContent} from '../../../../assets/auth-nav-content-data';
+import {NavObject, tasksNavContent, teamsNavContent, todoNavContent} from '../../../../assets/auth-nav-content-data';
 
 @Component({
   selector: 'app-auth-nav',
@@ -11,7 +11,8 @@ export class AuthNavComponent implements OnInit {
   currentNavContent: NavObject | undefined;
   navContent = new Map([
     ['todo', todoNavContent],
-    ['tasks', tasksNavContent]
+    ['tasks', tasksNavContent],
+    ['teams', teamsNavContent]
   ]);
   constructor(private route: ActivatedRoute) {
   }

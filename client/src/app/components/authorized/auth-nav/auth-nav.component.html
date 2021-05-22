@@ -7,7 +7,7 @@
   <p class="category">{{currentNavContent?.title}}</p>
   <ul class="main-nav-ul">
     <li *ngFor="let navElement of currentNavContent?.elements">
-      <a class="nav-a" routerLink="{{navElement?.link}}" routerLinkActive="active-link">
+      <a class="nav-a" [routerLink]="navElement?.link" routerLinkActive="active-link">
         {{ navElement?.content }}
       </a>
     </li>

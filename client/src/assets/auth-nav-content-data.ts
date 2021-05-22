@@ -10,28 +10,11 @@ export interface NavElementObject{
 
 export const todoNavContent: NavObject = {
   title: 'TODO',
-  elements: [
-    {
-      content: 'ALL',
-      link: 'all'
-    },
-    {
-      content: 'TODAY',
-      link: 'today'
-    },
-    {
-      content: 'LAST WEEK',
-      link: 'last-week'
-    },
-    {
-      content: 'LAST MONTH',
-      link: 'last-month'
-    }
-  ]
+  elements: []
 };
 
 export const tasksNavContent: NavObject = {
-  title: 'TODO',
+  title: 'TASKS',
   elements: [
     {
       content: 'test1',
@@ -43,7 +26,16 @@ export const tasksNavContent: NavObject = {
     },
     {
       content: 'test2',
-      link: ''
+      link: 'test3'
     }
+  ]
+};
+
+export const teamsNavContent: NavObject = {
+  title: 'TEAMS',
+  elements: [
+    {content: 'MY TEAMS', link: 'my-teams'},
+    {content: 'ADD TEAM', link: 'add-team'},
+    {content: 'JOIN TEAM', link: 'join-team'}
   ]
 };

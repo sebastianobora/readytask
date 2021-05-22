@@ -18,10 +18,12 @@ import { AuthHeaderComponent } from './components/authorized/auth-header/auth-he
 import { AuthLayoutComponent } from './components/authorized/auth-layout/auth-layout.component';
 import { AuthSectionComponent } from './components/authorized/auth-section/auth-section.component';
 import { AuthNavComponent } from './components/authorized/auth-nav/auth-nav.component';
-import { TodoListComponent } from './components/authorized/todo/todo-list/todo-list.component';
-import { TodoShowComponent } from './components/authorized/todo/todo-show/todo-show.component';
+import { TodoComponent } from './components/authorized/todo/todo.component';
 import { HttpClientModule } from '@angular/common/http';
 import {FormsModule} from '@angular/forms';
+import { TeamsListComponent } from './components/authorized/teams/teams-list/teams-list.component';
+import { AddTeamComponent } from './components/authorized/teams/manage-team/add-team/add-team.component';
+import { JoinTeamComponent } from './components/authorized/teams/manage-team/join-team/join-team.component';
 
 @NgModule({
   declarations: [
@@ -41,8 +43,10 @@ import {FormsModule} from '@angular/forms';
     AuthLayoutComponent,
     AuthSectionComponent,
     AuthNavComponent,
-    TodoListComponent,
-    TodoShowComponent
+    TodoComponent,
+    TeamsListComponent,
+    AddTeamComponent,
+    JoinTeamComponent
   ],
   imports: [
     BrowserModule,

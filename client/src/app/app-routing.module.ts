@@ -6,8 +6,11 @@ import {NonAuthIndexComponent} from './components/non-authorized/non-auth-index/
 import {LoginComponent} from './components/non-authorized/authorization/login/login.component';
 import {RegisterComponent} from './components/non-authorized/authorization/register/register.component';
 import {AuthLayoutComponent} from './components/authorized/auth-layout/auth-layout.component';
-import {TodoListComponent} from './components/authorized/todo/todo-list/todo-list.component';
+import {TodoComponent} from './components/authorized/todo/todo.component';
 import {AuthSectionComponent} from './components/authorized/auth-section/auth-section.component';
+import {TeamsListComponent} from './components/authorized/teams/teams-list/teams-list.component';
+import {AddTeamComponent} from './components/authorized/teams/manage-team/add-team/add-team.component';
+import {JoinTeamComponent} from './components/authorized/teams/manage-team/join-team/join-team.component';
 
 const routes: Routes = [
   {
@@ -27,8 +30,7 @@ const routes: Routes = [
         path: 'todo',
         component: AuthSectionComponent,
         children: [
-          { path: '', redirectTo: 'all', pathMatch: 'full'},
-          { path: 'all', component: TodoListComponent}
+          { path: '', component: TodoComponent}
         ]
       },
       {
@@ -39,7 +41,12 @@ const routes: Routes = [
       {
         path: 'teams',
         component: AuthSectionComponent,
-        children: []
+        children: [
+          {path: '', redirectTo: 'my-teams', pathMatch: 'full'},
+          {path: 'my-teams', component: TeamsListComponent},
+          {path: 'add-team', component: AddTeamComponent},
+          {path: 'join-team', component: JoinTeamComponent}
+        ]
       }
     ]
   }
