@@ -1,6 +1,6 @@
 package pl.readyTask.entity;
 
-import com.sun.istack.NotNull;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -37,9 +37,17 @@ public class Team {
     @Column(name = "img", nullable = false)
     private String img;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "team")
     private Set<Membership> memberships;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "team")
     private Set<Task> tasks;
+
+    public static Team getNewTeamFromId(Long teamId){
+        Team team = new Team();
+        team.setId(teamId);
+        return team;
+    }
 }
