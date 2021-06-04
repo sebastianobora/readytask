@@ -1,5 +1,7 @@
 package pl.readyTask.entity;
 
+import com.fasterxml.jackson.annotation.*;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
@@ -38,16 +40,50 @@ public class Task {
 
     @ManyToOne
     @JoinColumn(name = "user_assigned_to_id", nullable = false)
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
+    @JsonProperty("userAssignedToTaskId")
+    @Setter(AccessLevel.NONE)
     private User userAssignedToTask;
 
     @ManyToOne
     @JoinColumn(name = "user_assigned_by_id", nullable = false)
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
+    @JsonProperty("authorOfTaskId")
+    @Setter(AccessLevel.NONE)
     private User authorOfTask;
 
     @ManyToOne
     @JoinColumn(name = "team_id", nullable = false)
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
+    @JsonProperty("teamId")
+    @Setter(AccessLevel.NONE)
     private Team team;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "task")
     private Set<TaskComment> taskComments;
+
+    @JsonProperty("teamId")
+    public void setTeamById(Long teamId){
+        team = Team.getNewTeamFromId(teamId);
+    }
+
+    @JsonProperty("userAssignedToTaskId")
+    public void setUserAssignedToTaskById(Long userId){
+        userAssignedToTask = User.getNewUserFromId(userId);
+    }
+
+    @JsonProperty("authorOfTaskId")
+    public void setAuthorOfTaskById(Long userId){
+        authorOfTask = User.getNewUserFromId(userId);
+    }
+
+    public static Task getNewTaskFromId(Long taskId){
+        Task task = new Task();
+        task.setId(taskId);
+        return task;
+    }
 }
