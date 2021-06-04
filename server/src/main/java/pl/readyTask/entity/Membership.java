@@ -1,5 +1,10 @@
 package pl.readyTask.entity;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -29,10 +34,18 @@ public class Membership {
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
+    @JsonProperty("userId")
+    @Setter(AccessLevel.NONE)
     private User user;
 
     @ManyToOne
     @JoinColumn(name = "team_id", nullable = false)
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
+    @JsonProperty("teamId")
+    @Setter(AccessLevel.NONE)
     private Team team;
 
     @CreationTimestamp
@@ -42,4 +55,14 @@ public class Membership {
     @Enumerated(EnumType.STRING)
     @Column(name = "member_role", nullable = false)
     private MemberRole memberRole;
+
+    @JsonProperty("userId")
+    public void setUserById(Long userId){
+        user = User.getNewUserFromId(userId);
+    }
+
+    @JsonProperty("teamId")
+    public void setTeamById(Long userId){
+        team = Team.getNewTeamFromId(userId);
+    }
 }
