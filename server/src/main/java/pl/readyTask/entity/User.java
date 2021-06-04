@@ -1,5 +1,6 @@
 package pl.readyTask.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -44,18 +45,23 @@ public class User {
     @Column(name = "user_role", nullable = false)
     private UserRole userRole;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private Set<Membership> memberships;
 
+    @JsonIgnore
     @OneToMany(mappedBy="user", fetch = FetchType.LAZY)
     private Set<Todo> todos;
 
+    @JsonIgnore
     @OneToMany(mappedBy="user", fetch = FetchType.LAZY)
     private Set<TaskComment> taskComments;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "userAssignedToTask", fetch = FetchType.LAZY)
     private Set<Task> tasksAssignedToUser;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "authorOfTask", fetch = FetchType.LAZY)
     private Set<Task> tasksAssignedByUser;
 
