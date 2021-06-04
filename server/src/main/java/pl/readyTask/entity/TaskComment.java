@@ -1,5 +1,10 @@
 package pl.readyTask.entity;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
@@ -31,9 +36,27 @@ public class TaskComment {
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
+    @JsonProperty("userId")
+    @Setter(AccessLevel.NONE)
     private User user;
 
     @ManyToOne
     @JoinColumn(name = "task_id", nullable = false)
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
+    @JsonProperty("taskId")
+    @Setter(AccessLevel.NONE)
     private Task task;
+
+    @JsonProperty("userId")
+    public void setUserById(Long userId){
+        user = User.getNewUserFromId(userId);
+    }
+
+    @JsonProperty("taskId")
+    public void setTaskById(Long taskId){
+        task = Task.getNewTaskFromId(taskId);
+    }
 }
