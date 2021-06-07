@@ -9,11 +9,6 @@ label{
   display: block;
 }
 
-.icon-btn{
-  background-color: transparent;
-  padding: 5px;
-}
-
 .add-task-form-wrapper{
   width: 100%;
   margin-bottom: 20px;
@@ -64,13 +59,6 @@ label{
   font-size: 1.6rem;
   font-weight: bolder;
   text-transform: uppercase;
-}
-
-.icon{
-  cursor: pointer;
-  font-size: 18px;
-  margin: 0 5px;
-  transition: color 0.15s;
 }
 
 .check, .cancel{

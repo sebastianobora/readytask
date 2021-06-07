@@ -7,7 +7,6 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./non-auth-index.component.css']
 })
 export class NonAuthIndexComponent implements OnInit, AfterViewInit {
-
   mainSections: {
     whyReadyTask: string,
     tutorial: string,
