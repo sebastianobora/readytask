@@ -1,0 +1,29 @@
+<button class="icon-btn" (click)="goBack()">
+  <i class="fas fa-arrow-left icon"></i>
+</button>
+<div *ngIf="team | async as team" class="team-wrapper">
+  <div class="team-container">
+    <div class="team-img-container">
+      <i *ngIf="team.membership.memberRole === adminRole" class="fas fa-star own-team-icon"></i>
+      <img class="team-img"
+           src="https://fakeimg.pl/180/75418d/ffffff?text=M&font_size=65&font=bebas" alt="Matematycy team picture">
+    </div>
+    <div class="team-details-container">
+      <div class="field-wrapper">
+        <p class="field-header">name</p>
+        <p class="team-field">{{team.name}}</p>
+      </div>
+      <div class="field-wrapper">
+        <p class="field-header">code</p>
+        <span class="team-field code" tooltip="{{tooltipMessage}}" ngxClipboard [cbContent]="team.code">{{team.code}}</span>
+      </div>
+      <div *ngIf="team.membership.memberRole === adminRole" class="field-wrapper">
+        <span class="team-field">Delete team</span>
+        <button class="icon-btn">
+          <i class="far fa-trash-alt icon"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
