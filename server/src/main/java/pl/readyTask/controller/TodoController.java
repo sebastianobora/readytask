@@ -27,7 +27,6 @@ public class TodoController {
 
     @PostMapping
     public ResponseEntity<Todo> add(@RequestBody Todo todo){
-        //TEMP
         todo.setUserById(0L);
         return ResponseEntity.ok(todoService.add(todo));
     }
