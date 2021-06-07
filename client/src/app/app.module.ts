@@ -24,6 +24,9 @@ import {FormsModule} from '@angular/forms';
 import { TeamsListComponent } from './components/authorized/teams/teams-list/teams-list.component';
 import { AddTeamComponent } from './components/authorized/teams/manage-team/add-team/add-team.component';
 import { JoinTeamComponent } from './components/authorized/teams/manage-team/join-team/join-team.component';
+import { TeamComponent } from './components/authorized/teams/team/team.component';
+import {ClipboardModule} from 'ngx-clipboard';
+import {TooltipModule} from 'ng2-tooltip-directive';
 
 @NgModule({
   declarations: [
@@ -46,13 +49,16 @@ import { JoinTeamComponent } from './components/authorized/teams/manage-team/joi
     TodoComponent,
     TeamsListComponent,
     AddTeamComponent,
-    JoinTeamComponent
+    JoinTeamComponent,
+    TeamComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ClipboardModule,
+    TooltipModule
   ],
   providers: [],
   bootstrap: [AppComponent]
