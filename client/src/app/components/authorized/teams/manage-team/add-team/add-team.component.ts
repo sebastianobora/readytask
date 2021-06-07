@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {Team} from '../../../../../entity/team';
+import {TeamService} from '../../../../../service/team.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-add-team',
@@ -6,10 +9,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['../manage-team-form.css']
 })
 export class AddTeamComponent implements OnInit {
+  team: Partial<Team> = {};
 
-  constructor() { }
+  constructor(private teamService: TeamService,
+              private router: Router) { }
 
   ngOnInit(): void {
   }
 
+  addTeam(): void{
+    this.teamService.addTeam(this.team as Team).subscribe();
+    this.router.navigate(['/teams/my-teams']);
+  }
 }

@@ -1,8 +1,13 @@
 <div class="join-team-container">
   <h2 class="team-h">Add new team</h2>
-  <div class="join-team-form-container">
-    <input class="input join-input" type="text" placeholder="Team name">
+  <form class="join-team-form-container" (ngSubmit)="addTeam()" #form="ngForm">
+    <input class="input join-input"
+           type="text"
+           placeholder="Team name"
+           [(ngModel)]="team.name"
+           name="name"
+           required
+           minlength="3">
     <button class="btn green-btn">Create new team</button>
-  </div>
-  <div id="particles-js" class="particles-js"></div>
+  </form>
 </div>
