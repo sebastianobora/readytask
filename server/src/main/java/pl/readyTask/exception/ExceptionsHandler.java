@@ -12,11 +12,21 @@ import java.time.ZonedDateTime;
 public class ExceptionsHandler {
     @ExceptionHandler(NoDataFoundException.class)
     public ResponseEntity<Object> noDataFoundExceptionHandler(NoDataFoundException e){
-        ExceptionBody customException = new ExceptionBody(
-                HttpStatus.NOT_FOUND,
+        ExceptionBody body = createExceptionBody(HttpStatus.NOT_FOUND, e.getMessage());
+        return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(RegisterException.class)
+    public ResponseEntity<Object> registerExceptionHandler(RegisterException e){
+        ExceptionBody body = createExceptionBody(HttpStatus.CONFLICT, e.getMessage());
+        return new ResponseEntity<>(body, HttpStatus.CONFLICT);
+    }
+
+    private ExceptionBody createExceptionBody(HttpStatus status, String message){
+        return new ExceptionBody(
+                status,
                 ZonedDateTime.now(ZoneId.of("Z")),
-                e.getMessage()
-                );
-        return new ResponseEntity<>(customException, HttpStatus.NOT_FOUND);
+                message
+        );
     }
 }
