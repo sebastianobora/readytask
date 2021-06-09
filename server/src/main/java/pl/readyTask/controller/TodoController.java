@@ -2,6 +2,7 @@ package pl.readyTask.controller;
 
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import pl.readyTask.entity.Todo;
 import pl.readyTask.service.TodoService;
@@ -21,14 +22,13 @@ public class TodoController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Todo>> getUserTodoList(){
-        return ResponseEntity.ok(todoService.getAllByUserId(0L));
+    public ResponseEntity<List<Todo>> getUserTodoList(Authentication authentication){
+        return ResponseEntity.ok(todoService.getAllByUserId(authentication));
     }
 
     @PostMapping
-    public ResponseEntity<Todo> add(@RequestBody Todo todo){
-        todo.setUserById(0L);
-        return ResponseEntity.ok(todoService.add(todo));
+    public ResponseEntity<Todo> add(@RequestBody Todo todo, Authentication authentication){
+        return ResponseEntity.ok(todoService.add(todo, authentication));
     }
 
     @DeleteMapping("/{id}")

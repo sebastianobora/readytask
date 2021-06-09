@@ -2,10 +2,13 @@ package pl.readyTask.controller;
 
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import pl.readyTask.entity.Team;
+import pl.readyTask.security.CustomUserDetails;
 import pl.readyTask.service.TeamService;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -26,7 +29,13 @@ public class TeamController {
     }
 
     @PostMapping
-    public ResponseEntity<Team> add(@RequestBody Team team){
-        return ResponseEntity.ok(teamService.add(team));
+    public ResponseEntity<Team> add(@RequestBody Team team, Authentication authentication){
+        return ResponseEntity.ok(teamService.add(team, authentication));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Object> delete(@PathVariable("id") Long id){
+        teamService.delete(id);
+        return ResponseEntity.ok().build();
     }
 }
