@@ -7,6 +7,9 @@ import lombok.Setter;
 import pl.readyTask.entity.enumeration.UserRole;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.Set;
 
 @Entity(name = "User")
@@ -23,12 +26,18 @@ public class User {
     @Column(name = "id")
     private Long id;
 
+    @NotBlank
+    @Size(max = 60)
+    @Email
     @Column(name = "email", nullable = false, unique = true)
     private String email;
 
+    @NotBlank
+    @Size(max = 20)
     @Column(name = "username", nullable = false, unique = true)
     private String username;
 
+    @NotBlank
     @Column(name = "password", nullable = false)
     private String password;
 

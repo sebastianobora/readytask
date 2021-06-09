@@ -4,13 +4,17 @@ import lombok.AllArgsConstructor;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import pl.readyTask.entity.Membership;
 import pl.readyTask.entity.Team;
+import pl.readyTask.entity.User;
 import pl.readyTask.entity.enumeration.MemberRole;
 import pl.readyTask.exception.NoDataFoundException;
 import pl.readyTask.repository.MembershipRepository;
 import pl.readyTask.repository.TeamRepository;
+import pl.readyTask.repository.UserRepository;
+import pl.readyTask.security.CustomUserDetails;
 
 import java.security.SecureRandom;
 import java.util.*;
@@ -19,11 +23,18 @@ import java.util.*;
 public class TeamService {
     private final TeamRepository teamRepository;
     private final MembershipService membershipService;
+    private final SecurityService securityService;
+    private final DefaultPlaceholderService defaultPlaceholderService;
 
     @Autowired
-    public TeamService(@Lazy MembershipService membershipService, TeamRepository teamRepository){
+    public TeamService(TeamRepository teamRepository,
+                       @Lazy MembershipService membershipService,
+                       SecurityService securityService,
+                       DefaultPlaceholderService defaultPlaceholderService) {
         this.teamRepository = teamRepository;
         this.membershipService = membershipService;
+        this.securityService = securityService;
+        this.defaultPlaceholderService = defaultPlaceholderService;
     }
 
     public Team getById(Long id){
@@ -38,22 +49,31 @@ public class TeamService {
         return teamRepository.findTeamsByUserId(userId).orElseThrow(() -> new NoDataFoundException("teams", userId));
     }
 
-    public Team add(Team team){
-        String code;
-        do{
-             code = generateTeamCode();
-        }while(isCodeAlreadyExists(code));
+    public void delete(Long id){
+        teamRepository.delete(getById(id));
+    }
+
+    public Team add(Team team, Authentication authentication){
+        User user = securityService.getUserByEmailFromAuthentication(authentication);
+        String code = getUniqueTeamCode();
+        String imgUrl = defaultPlaceholderService.getDefaultPlaceholder(team.getName());
 
         team.setCode(code);
-        Team newTeam = teamRepository.save(team);
+        team.setImg(imgUrl);
+        team = teamRepository.save(team);
 
-        Membership membership = new Membership();
-        membership.setMemberRole(MemberRole.ADMIN);
-        membership.setTeamById(newTeam.getId());
-        membership.setUserById(0L);
+        Membership membership = membershipService.getMembershipFromFields(
+                MemberRole.ADMIN, team.getId(), user.getId());
         membershipService.add(membership);
+        return team;
+    }
 
-        return newTeam;
+    public String getUniqueTeamCode(){
+        String code;
+        do{
+            code = generateTeamCode();
+        }while(isCodeAlreadyExists(code));
+        return code;
     }
 
     public boolean isCodeAlreadyExists(String code){

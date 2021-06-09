@@ -38,11 +38,11 @@ public class Team {
     private String img;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "team")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "team")
     private Set<Membership> memberships;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "team")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "team")
     private Set<Task> tasks;
 
     public static Team getNewTeamFromId(Long teamId){
