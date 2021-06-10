@@ -20,7 +20,7 @@ import { AuthSectionComponent } from './components/authorized/auth-section/auth-
 import { AuthNavComponent } from './components/authorized/auth-nav/auth-nav.component';
 import { TodoComponent } from './components/authorized/todo/todo.component';
 import { HttpClientModule } from '@angular/common/http';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { TeamsListComponent } from './components/authorized/teams/teams-list/teams-list.component';
 import { AddTeamComponent } from './components/authorized/teams/manage-team/add-team/add-team.component';
 import { JoinTeamComponent } from './components/authorized/teams/manage-team/join-team/join-team.component';
@@ -52,14 +52,15 @@ import {TooltipModule} from 'ng2-tooltip-directive';
     JoinTeamComponent,
     TeamComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    FormsModule,
-    ClipboardModule,
-    TooltipModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        HttpClientModule,
+        FormsModule,
+        ClipboardModule,
+        TooltipModule,
+        ReactiveFormsModule
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

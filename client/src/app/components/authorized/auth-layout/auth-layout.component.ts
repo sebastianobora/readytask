@@ -20,7 +20,7 @@ export class AuthLayoutComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.renderer.addClass(this.document.getElementsByTagName('header')[0], 'auth-layout-header');
+    this.renderer.removeClass(this.document.getElementsByTagName('header')[0], 'auth-layout-header');
     this.renderer.removeClass(this.document.body, 'auth-layout-background');
     this.renderer.removeClass(this.document.getElementsByTagName('footer')[0], 'auth-layout-footer');
   }
