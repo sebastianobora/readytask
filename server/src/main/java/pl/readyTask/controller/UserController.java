@@ -2,6 +2,7 @@ package pl.readyTask.controller;
 
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import pl.readyTask.entity.User;
 import pl.readyTask.service.UserService;
@@ -12,6 +13,11 @@ import pl.readyTask.service.UserService;
 @AllArgsConstructor
 public class UserController {
     private final UserService userService;
+
+    @GetMapping()
+    public ResponseEntity<User> getCurrentUser(Authentication authentication){
+        return ResponseEntity.ok(userService.getCurrentUser(authentication));
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<User> getById(@PathVariable("id") Long id){
