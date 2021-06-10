@@ -4,7 +4,6 @@ import {forkJoin, Observable} from 'rxjs';
 import {Team} from '../entity/team';
 import {map, mergeMap, switchMap} from 'rxjs/operators';
 import {MembershipService} from './membership.service';
-import {Todo} from '../entity/todo';
 
 @Injectable({
   providedIn: 'root'
@@ -42,5 +41,9 @@ export class TeamService {
 
   addTeam(team: Team): Observable<Team>{
     return this.httpClient.post<Team>(this.url, team);
+  }
+
+  deleteTeam(id: number): Observable<any>{
+    return this.httpClient.delete(this.url + '/' + id);
   }
 }

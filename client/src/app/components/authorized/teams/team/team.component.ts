@@ -1,9 +1,9 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Location} from '@angular/common';
 import {Team} from '../../../../entity/team';
 import {Observable} from 'rxjs';
 import {TeamService} from '../../../../service/team.service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {MemberRole} from '../../../../entity/member-role.enum';
 
 @Component({
@@ -19,7 +19,8 @@ export class TeamComponent implements OnInit {
   constructor(
     private location: Location,
     private teamService: TeamService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -30,5 +31,14 @@ export class TeamComponent implements OnInit {
   }
   goBack(): void{
     this.location.back();
+  }
+
+  delete(team: Team): void{
+    this.teamService.deleteTeam(team.id).subscribe(
+      () => {
+        const url = '/teams/my-teams/';
+        this.router.navigate([url]);
+      }
+    );
   }
 }

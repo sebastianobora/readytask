@@ -5,8 +5,7 @@
   <div class="team-container">
     <div class="team-img-container">
       <i *ngIf="team.membership.memberRole === adminRole" class="fas fa-star own-team-icon"></i>
-      <img class="team-img"
-           src="https://fakeimg.pl/180/75418d/ffffff?text=M&font_size=65&font=bebas">
+      <img class="team-img" src="{{team.img}}" alt="{{team.name}} team image">
     </div>
     <div class="team-details-container">
       <div class="field-wrapper">
@@ -19,7 +18,7 @@
       </div>
       <div *ngIf="team.membership.memberRole === adminRole" class="field-wrapper">
         <span class="team-field">Delete team</span>
-        <button class="icon-btn">
+        <button class="icon-btn" (click)="delete(team)">
           <i class="far fa-trash-alt icon"></i>
         </button>
       </div>
