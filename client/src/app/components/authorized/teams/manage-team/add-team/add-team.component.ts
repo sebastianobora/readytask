@@ -18,7 +18,11 @@ export class AddTeamComponent implements OnInit {
   }
 
   addTeam(): void{
-    this.teamService.addTeam(this.team as Team).subscribe();
-    this.router.navigate(['/teams/my-teams']);
+    this.teamService.addTeam(this.team as Team).subscribe(
+      res => {
+        const url = '/teams/team/' + res.id;
+        this.router.navigate([url]);
+      }
+    );
   }
 }

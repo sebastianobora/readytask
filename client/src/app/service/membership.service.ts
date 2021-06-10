@@ -14,4 +14,8 @@ export class MembershipService {
   getByTeamId(id: number): Observable<Membership>{
     return this.httpClient.get<Membership>(`${this.url}/getByTeamId/${id}`);
   }
+
+  addByTeamCode(code: string, membership: Membership): Observable<Membership>{
+    return this.httpClient.post<Membership>(`${this.url}/add-by-code/${code}`, membership);
+  }
 }
