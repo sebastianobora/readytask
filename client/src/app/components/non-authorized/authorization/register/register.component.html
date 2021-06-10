@@ -1,13 +1,37 @@
 <app-section>
   <div class="content-container">
     <p class="auth-header-text">Create your account</p>
-    <form class="auth-form">
-      <input type="text" placeholder="username" class="input next-input"/>
-      <input type="email" placeholder="email" class="input next-input"/>
-      <input type="password" placeholder="password" class="input last-input"/>
-      <button type="submit" class="btn green-btn">Create account</button>
+    <div class="auth-form">
+      <form [formGroup]="registerForm" (ngSubmit)="register()">
+        <input placeholder="username" class="input auth-input" formControlName="username"/>
+        <p *ngIf="registerForm.controls.username.dirty && registerForm.controls.username.invalid" class="msg-error-p">
+          Field must be between 6 & 20 characters!
+        </p>
+        <input placeholder="email" class="input auth-input" formControlName="email"/>
+        <p *ngIf="registerForm.controls.email.dirty && registerForm.controls.email.invalid" class="msg-error-p">
+          Provided email is not correct!
+        </p>
+        <input type="password" placeholder="password" formControlName="password" class="input auth-input"/>
+        <p *ngIf="registerForm.controls.password.dirty && registerForm.controls.password.invalid" class="msg-error-p">
+          Field must be between 6 & 30 characters!
+        </p>
+        <input placeholder="first name" formControlName="firstName" class="input auth-input"/>
+        <p *ngIf="registerForm.controls.firstName.dirty && registerForm.controls.firstName.invalid" class="msg-error-p">
+          Field must be between 2 & 30 characters!
+        </p>
+        <input placeholder="last name" formControlName="lastName" class="input auth-input"/>
+        <p *ngIf="registerForm.controls.lastName.dirty && registerForm.controls.lastName.invalid" class="msg-error-p">
+          Field must be between 2 & 30 characters!
+        </p>
+        <button type="submit" class="btn green-btn auth-btn" [disabled]="registerForm.invalid">Create account</button>
+      </form>
+      <div *ngIf="errorMessage" class="msg_error">
+        <i class="fas fa-times"></i>
+        <p>{{errorMessage}}</p>
+      </div>
       <a routerLink="/reset-password" class="link forgot-password-link">Forgot password?</a>
-      <div class="line"></div>
-    </form>
+      <div class="line register-line"></div>
+    </div>
+
   </div>
 </app-section>

@@ -1,13 +1,25 @@
 <app-section>
   <div class="content-container">
     <p class="auth-header-text">Sign in to Readytask</p>
-    <form class="auth-form">
-      <input type="email" placeholder="email" class="input next-input"/>
-      <input type="password" placeholder="password" class="input last-input"/>
-      <button type="submit" class="btn blue-btn">Log in</button>
+    <div class="auth-form">
+      <form  [formGroup]="loginForm" (ngSubmit)="login()" >
+        <input placeholder="username" class="input auth-input" formControlName="username"/>
+        <p *ngIf="loginForm.controls.username.dirty && loginForm.controls.username.invalid" class="msg-error-p">
+          Field must be between 5 & 20 characters
+        </p>
+        <input type="password" placeholder="password" formControlName="password" class="input auth-input"/>
+        <p *ngIf="loginForm.controls.password.dirty && loginForm.controls.password.invalid" class="msg-error-p">
+          Field must be between 5 & 30 characters
+        </p>
+        <button class="btn blue-btn auth-btn" type="submit" [disabled]="loginForm.invalid">Log in</button>
+      </form>
+      <div *ngIf="errorMessage" class="msg_error">
+        <i class="fas fa-times"></i>
+        <p>{{errorMessage}}</p>
+      </div>
       <a routerLink="/reset-password" class="link forgot-password-link">Forgot password?</a>
       <div class="line"></div>
       <button routerLink="/register" class="btn green-btn btn-size-mid">Create account</button>
-    </form>
+    </div>
   </div>
 </app-section>
