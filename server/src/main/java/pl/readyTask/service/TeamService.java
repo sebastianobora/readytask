@@ -1,7 +1,5 @@
 package pl.readyTask.service;
 
-import lombok.AllArgsConstructor;
-import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.Authentication;
@@ -11,13 +9,10 @@ import pl.readyTask.entity.Team;
 import pl.readyTask.entity.User;
 import pl.readyTask.entity.enumeration.MemberRole;
 import pl.readyTask.exception.NoDataFoundException;
-import pl.readyTask.repository.MembershipRepository;
 import pl.readyTask.repository.TeamRepository;
-import pl.readyTask.repository.UserRepository;
-import pl.readyTask.security.CustomUserDetails;
 
 import java.security.SecureRandom;
-import java.util.*;
+import java.util.List;
 
 @Service
 public class TeamService {
@@ -45,8 +40,9 @@ public class TeamService {
         return teamRepository.findByCode(code).orElseThrow(() -> new NoDataFoundException("team", code));
     }
 
-    public List<Team> getAllByUserId(Long userId){
-        return teamRepository.findTeamsByUserId(userId).orElseThrow(() -> new NoDataFoundException("teams", userId));
+    public List<Team> getAllByUserId(Authentication authentication){
+        User user = this.securityService.getUserByEmailFromAuthentication(authentication);
+        return teamRepository.findTeamsByUserId(user.getId()).orElseThrow(() -> new NoDataFoundException("teams", user.getId()));
     }
 
     public void delete(Long id){

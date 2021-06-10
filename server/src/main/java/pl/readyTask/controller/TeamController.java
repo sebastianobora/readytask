@@ -24,8 +24,8 @@ public class TeamController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Team>> getUserTeamList(){
-        return ResponseEntity.ok(teamService.getAllByUserId(0L));
+    public ResponseEntity<List<Team>> getUserTeamList(Authentication authentication){
+        return ResponseEntity.ok(teamService.getAllByUserId(authentication));
     }
 
     @PostMapping
