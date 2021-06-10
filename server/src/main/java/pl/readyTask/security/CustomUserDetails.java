@@ -1,6 +1,7 @@
 package pl.readyTask.security;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -37,6 +38,13 @@ public class CustomUserDetails implements UserDetails{
                 user.getEmail(),
                 user.getPassword(),
                 authorities);
+    }
+
+    public List<String> getListOfAuthorities(){
+        return this.getAuthorities()
+                .stream()
+                .map(GrantedAuthority::getAuthority)
+                .collect(Collectors.toList());
     }
 
     @Override

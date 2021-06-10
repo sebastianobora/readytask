@@ -56,7 +56,7 @@ public class TeamService {
     public Team add(Team team, Authentication authentication){
         User user = securityService.getUserByEmailFromAuthentication(authentication);
         String code = getUniqueTeamCode();
-        String imgUrl = defaultPlaceholderService.getDefaultPlaceholder(team.getName());
+        String imgUrl = defaultPlaceholderService.getTeamPlaceholder(team.getName());
 
         team.setCode(code);
         team.setImg(imgUrl);

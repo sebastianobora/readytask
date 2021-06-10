@@ -18,15 +18,14 @@ import pl.readyTask.service.SecurityService;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 @AllArgsConstructor
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-    private final SecurityService userDetailsService;
+    private final SecurityService securityService;
     private final AuthEntryPoint unauthorizedHandler;
     private final PasswordConfig passwordConfig;
     private final JwtUtils jwtUtils;
 
     @Override
     public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
-        //TODO: change to provider
-        authenticationManagerBuilder.userDetailsService(userDetailsService).passwordEncoder(passwordConfig.passwordEncoder());
+        authenticationManagerBuilder.userDetailsService(securityService).passwordEncoder(passwordConfig.passwordEncoder());
     }
 
     @Bean
@@ -41,7 +40,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .cors().and().csrf().disable()
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()
-            .addFilterBefore(new AuthenticationFilter(jwtUtils, userDetailsService), UsernamePasswordAuthenticationFilter.class)
+            .addFilterBefore(new AuthenticationFilter(jwtUtils, securityService), UsernamePasswordAuthenticationFilter.class)
             .exceptionHandling().authenticationEntryPoint(unauthorizedHandler)
             .and()
             .authorizeRequests()

@@ -11,6 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 public class JwtResponse {
     private final String token;
+    private final String tokenType;
     private final Long id;
     private final String username;
     private final String email;

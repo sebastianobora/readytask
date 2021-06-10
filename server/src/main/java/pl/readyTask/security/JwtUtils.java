@@ -26,13 +26,13 @@ public class JwtUtils {
 
         CustomUserDetails userPrincipal = (CustomUserDetails) authentication.getPrincipal();
 
-        return tokenPrefix + Jwts.builder()
+        return Jwts.builder()
                 .setSubject((userPrincipal.getUsername()))
                 .claim("authorities", userPrincipal.getAuthorities())
                 .claim("email", userPrincipal.getEmail())
                 .setIssuedAt(new Date())
                 .setExpiration(new Date((new Date()).getTime() + jwtTokenExpirationAfterMs))
-                .signWith(SignatureAlgorithm.HS512, jwtSecretKey)
+                .signWith(SignatureAlgorithm.HS512, jwtSecretKey)// change to RS256
                 .compact();
     }
 
