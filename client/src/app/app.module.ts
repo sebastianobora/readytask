@@ -36,7 +36,6 @@ import {AuthGuard} from './security/auth.guard';
 import {NonAuthGuard} from './security/non-auth.guard';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {AddTaskComponent} from './components/authorized/tasks/add-task/add-task.component';
-import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
 @NgModule({
   declarations: [
@@ -75,8 +74,7 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
     MatMenuModule,
     MatButtonModule,
     MatProgressSpinnerModule,
-    MatTooltipModule,
-    MatAutocompleteModule
+    MatTooltipModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
