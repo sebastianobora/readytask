@@ -7,14 +7,14 @@
   padding: 10px;
 }
 
-.join-team-form-container{
+.manage-team-form-container{
   display: flex;
   align-items: center;
   flex-direction: column;
   padding: 15px;
 }
 
-.join-input{
+.manage-team-input{
   margin: 15px 15px;
 }
 
@@ -22,7 +22,7 @@
   font-size: 16px;
 }
 
-.join-team-container {
+.manage-team-container {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -42,4 +42,15 @@
   font-size: 25px;
   margin-top: 15px;
   text-shadow: 0 0 15px rgba(255, 255, 255, 0.15);
+}
+
+.teams-not-found-btn-container{
+  display: flex;
+  width: 100%;
+  justify-content: space-evenly;
+}
+
+.not-found-manage-team-container{
+  justify-content: space-around;
+  max-height: 175px;
 }

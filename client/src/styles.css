@@ -15,7 +15,7 @@ html {
 body {
   color: #FFFFFF;
   font-family: 'Comfortaa',
-    sans-serif;
+    sans-serif !important;
 }
 
 /* HEADER */
@@ -233,4 +233,20 @@ main {
   justify-content: center;
   padding: 15px 0;
   margin: 10px 50px;
+}
+
+.loader{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.no-data-info{
+  font-size: 1.8em;
+}
+
+.mat-spinner circle {
+  stroke: #75419d;
 }
