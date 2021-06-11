@@ -34,8 +34,8 @@ export const tasksNavContent: NavObject = {
 export const teamsNavContent: NavObject = {
   title: 'TEAMS',
   elements: [
-    {content: 'MY TEAMS', link: 'my-teams'},
-    {content: 'ADD TEAM', link: 'add-team'},
-    {content: 'JOIN TEAM', link: 'join-team'}
+    {content: 'MY TEAMS', link: 'teams/my-teams'},
+    {content: 'ADD TEAM', link: 'teams/add-team'},
+    {content: 'JOIN TEAM', link: 'teams/join-team'}
   ]
 };

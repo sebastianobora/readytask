@@ -1,7 +1,7 @@
 <nav class="main-nav">
   <div class="main-avatar-container">
-    <img class="main-avatar" src="../../../../assets/img/rachel.jpg" alt="Avatar">
-    <a class="main-nav-a" href="">Rachel Green</a>
+    <img class="main-avatar" src="{{currentUser?.img}}" alt="Avatar">
+    <a class="main-nav-a" href="">{{currentUser?.firstName | uppercase}} {{currentUser?.lastName | uppercase}}</a>
     <div class="line"></div>
   </div>
   <p class="category">{{currentNavContent?.title}}</p>

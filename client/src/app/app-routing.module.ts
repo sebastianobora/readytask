@@ -7,7 +7,6 @@ import {LoginComponent} from './components/non-authorized/authorization/login/lo
 import {RegisterComponent} from './components/non-authorized/authorization/register/register.component';
 import {AuthLayoutComponent} from './components/authorized/auth-layout/auth-layout.component';
 import {TodoComponent} from './components/authorized/todo/todo.component';
-import {AuthSectionComponent} from './components/authorized/auth-section/auth-section.component';
 import {TeamsListComponent} from './components/authorized/teams/teams-list/teams-list.component';
 import {AddTeamComponent} from './components/authorized/teams/manage-team/add-team/add-team.component';
 import {JoinTeamComponent} from './components/authorized/teams/manage-team/join-team/join-team.component';
@@ -27,29 +26,12 @@ const routes: Routes = [
     path: '',
     component: AuthLayoutComponent,
     children: [
-      {
-        path: 'todo',
-        component: AuthSectionComponent,
-        children: [
-          { path: '', component: TodoComponent}
-        ]
-      },
-      {
-        path: 'tasks',
-        component: AuthSectionComponent,
-        children: []
-      },
-      {
-        path: 'teams',
-        component: AuthSectionComponent,
-        children: [
-          {path: '', redirectTo: 'my-teams', pathMatch: 'full'},
-          {path: 'team/:id', component: TeamComponent},
-          {path: 'my-teams', component: TeamsListComponent},
-          {path: 'add-team', component: AddTeamComponent},
-          {path: 'join-team', component: JoinTeamComponent}
-        ]
-      },
+      {path: 'todo', component: TodoComponent },
+      // {path: 'tasks', component: AuthSectionComponent},
+      {path: 'teams/my-teams', component: TeamsListComponent},
+      {path: 'teams/join-team', component: JoinTeamComponent},
+      {path: 'teams/add-team', component: AddTeamComponent},
+      {path: 'teams/team/:id', component: TeamComponent}
     ]
   }
 ];

@@ -16,10 +16,9 @@ import { AboutComponent } from './components/non-authorized/about/about.componen
 import { ContactComponent } from './components/non-authorized/contact/contact.component';
 import { AuthHeaderComponent } from './components/authorized/auth-header/auth-header.component';
 import { AuthLayoutComponent } from './components/authorized/auth-layout/auth-layout.component';
-import { AuthSectionComponent } from './components/authorized/auth-section/auth-section.component';
 import { AuthNavComponent } from './components/authorized/auth-nav/auth-nav.component';
 import { TodoComponent } from './components/authorized/todo/todo.component';
-import { HttpClientModule } from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { TeamsListComponent } from './components/authorized/teams/teams-list/teams-list.component';
 import { AddTeamComponent } from './components/authorized/teams/manage-team/add-team/add-team.component';
@@ -27,6 +26,7 @@ import { JoinTeamComponent } from './components/authorized/teams/manage-team/joi
 import { TeamComponent } from './components/authorized/teams/team/team.component';
 import {ClipboardModule} from 'ngx-clipboard';
 import {TooltipModule} from 'ng2-tooltip-directive';
+import {JwtInterceptor} from './security/jwt.interceptor';
 
 @NgModule({
   declarations: [
@@ -44,7 +44,6 @@ import {TooltipModule} from 'ng2-tooltip-directive';
     ContactComponent,
     AuthHeaderComponent,
     AuthLayoutComponent,
-    AuthSectionComponent,
     AuthNavComponent,
     TodoComponent,
     TeamsListComponent,
@@ -61,7 +60,9 @@ import {TooltipModule} from 'ng2-tooltip-directive';
         TooltipModule,
         ReactiveFormsModule
     ],
-  providers: [],
+  providers: [
+    {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
