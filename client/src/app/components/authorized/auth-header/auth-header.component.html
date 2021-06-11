@@ -2,17 +2,17 @@
   <div class="container">
     <div class="header-wrapper">
       <div class="logo-container">
-        <a class="logo-a" href="index.html"><img class="logo" src="assets/img/logo.svg" alt=""></a>
+        <a class="logo-a" routerLink="/teams/my-teams"><img class="logo" src="assets/img/logo.svg" alt=""></a>
         <p class="logo-name">readytask</p>
       </div>
 
       <ul class="nav-ul">
         <li class="nav-li"><a class="nav-a" routerLink="/todo" routerLinkActive="active-link">todo</a></li>
-        <li class="nav-li"><a class="nav-a" routerLink="/teams" routerLinkActive="active-link">teams</a></li>
+        <li class="nav-li"><a class="nav-a" routerLink="/teams/my-teams" routerLinkActive="active-link">teams</a></li>
         <li class="nav-li"><a class="nav-a" routerLink="/tasks" routerLinkActive="active-link">tasks</a></li>
       </ul>
       <div class="avatar-container">
-        <img class="avatar" src="assets/img/rachel.jpg" alt="Avatar">
+        <img class="avatar" src="{{currentUser?.img}}" alt="Avatar">
       </div>
     </div>
   </div>

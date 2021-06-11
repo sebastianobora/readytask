@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {User} from '../../../entity/user';
 
 @Component({
   selector: 'app-auth-header',
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./auth-header.component.css']
 })
 export class AuthHeaderComponent implements OnInit {
+  @Input()
+  currentUser: Partial<User> | undefined;
 
   constructor() { }
 
