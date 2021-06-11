@@ -1,11 +1,18 @@
-<div class="team-wrapper" [routerLink]="['/teams/team', team.id]" *ngFor="let team of teams">
-  <div class="team-img-wrapper">
-    <i *ngIf="team.membership.memberRole === adminRole" class="fas fa-star own-team-icon"></i>
-    <a>
-      <img class="team-img"
-           src="{{team.img}}"
-           alt="{{team.name}} team picture">
-    </a>
-  </div>
-  <a class="team-title">{{team.name}}</a>
+<div class="loader" *ngIf="isLoading; else content">
+  <mat-spinner></mat-spinner>
 </div>
+<ng-template #content>
+  <app-not-found-teams *ngIf="!teams"></app-not-found-teams>
+  <div class="team-wrapper" [routerLink]="['/teams/team', team.id]" *ngFor="let team of teams">
+    <div class="team-img-wrapper">
+      <i *ngIf="team.membership.memberRole === adminRole" class="fas fa-star own-team-icon"></i>
+      <a>
+        <img class="team-img"
+             src="{{team.img}}"
+             alt="{{team.name}} team picture">
+      </a>
+    </div>
+    <a class="team-title">{{team.name}}</a>
+  </div>
+</ng-template>
+

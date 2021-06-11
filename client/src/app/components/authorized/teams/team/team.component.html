@@ -14,13 +14,15 @@
       </div>
       <div class="field-wrapper">
         <p class="field-header">code</p>
-        <span class="team-field code" tooltip="{{tooltipMessage}}" ngxClipboard [cbContent]="team.code">{{team.code}}</span>
+        <span class="team-field code"
+              matTooltip="{{tooltipMessage}}"
+              matTooltipPosition="right"
+              ngxClipboard [cbContent]="team.code">
+          {{team.code}}
+        </span>
       </div>
-      <div *ngIf="team.membership.memberRole === adminRole" class="field-wrapper">
-        <span class="team-field">Delete team</span>
-        <button class="icon-btn" (click)="delete(team)">
-          <i class="far fa-trash-alt icon"></i>
-        </button>
+      <div *ngIf="team.membership.memberRole === adminRole" class="delete-btn-wrapper">
+        <button mat-raised-button (click)="delete(team)">Delete team <i class="far fa-trash-alt icon"></i></button>
       </div>
     </div>
   </div>

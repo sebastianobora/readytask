@@ -11,6 +11,9 @@ import {TeamsListComponent} from './components/authorized/teams/teams-list/teams
 import {AddTeamComponent} from './components/authorized/teams/manage-team/add-team/add-team.component';
 import {JoinTeamComponent} from './components/authorized/teams/manage-team/join-team/join-team.component';
 import {TeamComponent} from './components/authorized/teams/team/team.component';
+import {AuthGuard} from './security/auth.guard';
+import {NonAuthGuard} from './security/non-auth.guard';
+import {AddTaskComponent} from './components/authorized/tasks/add-task/add-task.component';
 
 const routes: Routes = [
   {
@@ -20,20 +23,23 @@ const routes: Routes = [
       { path: '', component: NonAuthIndexComponent, pathMatch: 'full'},
       { path: 'login', component: LoginComponent },
       { path: 'register', component: RegisterComponent }
-    ]
+    ],
+    canActivate: [NonAuthGuard]
   },
   {
     path: '',
     component: AuthLayoutComponent,
     children: [
       {path: 'todo', component: TodoComponent },
-      // {path: 'tasks', component: AuthSectionComponent},
+      {path: 'tasks/add-task', component: AddTaskComponent},
       {path: 'teams/my-teams', component: TeamsListComponent},
       {path: 'teams/join-team', component: JoinTeamComponent},
       {path: 'teams/add-team', component: AddTeamComponent},
       {path: 'teams/team/:id', component: TeamComponent}
-    ]
-  }
+    ],
+    canActivate: [AuthGuard]
+  },
+  {path: '**', redirectTo: ''}
 ];
 
 const routerExtraOptions: ExtraOptions = {

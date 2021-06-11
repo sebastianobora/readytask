@@ -17,16 +17,8 @@ export const tasksNavContent: NavObject = {
   title: 'TASKS',
   elements: [
     {
-      content: 'test1',
-      link: 'test1'
-    },
-    {
-      content: 'test2',
-      link: 'test2'
-    },
-    {
-      content: 'test2',
-      link: 'test3'
+      content: 'ADD TASK',
+      link: 'tasks/add-task'
     }
   ]
 };
