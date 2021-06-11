@@ -5,10 +5,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import pl.readyTask.entity.Team;
-import pl.readyTask.security.CustomUserDetails;
 import pl.readyTask.service.TeamService;
 
-import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -25,7 +23,7 @@ public class TeamController {
 
     @GetMapping
     public ResponseEntity<List<Team>> getUserTeamList(Authentication authentication){
-        return ResponseEntity.ok(teamService.getAllByUserId(authentication));
+        return ResponseEntity.ok(teamService.getAllByAuthUser(authentication));
     }
 
     @PostMapping

@@ -13,7 +13,7 @@ public class DefaultPlaceholderService {
     }
 
     public String getUserPlaceholder(String text){
-        String backgroundColor = "333333";
+        String backgroundColor = "444444";
         String fontColor = "FFFFFF";
         String fontSize = "95";
         return this.getPlaceholder(text, backgroundColor, fontColor, fontSize);

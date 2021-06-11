@@ -40,7 +40,7 @@ public class TeamService {
         return teamRepository.findByCode(code).orElseThrow(() -> new NoDataFoundException("team", code));
     }
 
-    public List<Team> getAllByUserId(Authentication authentication){
+    public List<Team> getAllByAuthUser(Authentication authentication){
         User user = this.securityService.getUserByEmailFromAuthentication(authentication);
         return teamRepository.findTeamsByUserId(user.getId()).orElseThrow(() -> new NoDataFoundException("teams", user.getId()));
     }
