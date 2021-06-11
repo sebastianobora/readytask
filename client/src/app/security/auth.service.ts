@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {ROLES, TOKEN, TOKEN_TYPE} from '../../assets/authrorization-utils';
+import {JwtHelperService} from '@auth0/angular-jwt';
 
 @Injectable({
   providedIn: 'root'
@@ -17,9 +18,7 @@ export class AuthService {
     return this.httpClient.post<any>(`${this.url}/login`, {username, password})
       .pipe(
         map(res => {
-          this.saveTokenInWebStorage(res.token);
-          this.saveTokenType(res.tokenType);
-          this.saveRolesInWebStorage(res.roles);
+          this.saveTokenDataAndRoleInWebStorage(res.token, res.tokenType, res.roles);
         })
       );
   }
@@ -28,16 +27,20 @@ export class AuthService {
     return this.httpClient.post<any>(`${this.url}/register`, {email, username, password, firstName, lastName});
   }
 
-  saveTokenInWebStorage(token: string): void{
+  logout(): void {
+    this.removeTokenDataAndRoleFromWebStorage();
+  }
+
+  saveTokenDataAndRoleInWebStorage(token: string, tokenType: string, roles: []): void{
     localStorage.setItem(TOKEN, token);
-  }
-
-  saveTokenType(tokenType: string): void{
     localStorage.setItem(TOKEN_TYPE, tokenType);
+    localStorage.setItem(ROLES, JSON.stringify(roles));
   }
 
-  saveRolesInWebStorage(roles: []): void{
-    localStorage.setItem(ROLES, JSON.stringify(roles));
+  removeTokenDataAndRoleFromWebStorage(): void{
+    localStorage.removeItem(TOKEN);
+    localStorage.removeItem(TOKEN_TYPE);
+    localStorage.removeItem(ROLES);
   }
 
   getToken(): string | null{
@@ -46,5 +49,12 @@ export class AuthService {
 
   getTokenType(): string | null {
     return localStorage.getItem(TOKEN_TYPE);
+  }
+
+  isAuthenticated(): boolean {
+    const jwtHelperService = new JwtHelperService();
+    const token = this.getToken();
+    const tokenType = this.getTokenType();
+    return !!(token && tokenType && !jwtHelperService.isTokenExpired(token));
   }
 }
