@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {Observable} from 'rxjs';
 import {Team} from '../../../../entity/team';
 import {TeamService} from '../../../../service/team.service';
 import {MemberRole} from '../../../../entity/member-role.enum';
@@ -11,13 +10,14 @@ import {MemberRole} from '../../../../entity/member-role.enum';
 })
 export class TeamsListComponent implements OnInit {
   adminRole: MemberRole = MemberRole.ADMIN;
-  teams: Observable<Team[]> = this.teamService.getTeams();
+
+  teams: Team[] | undefined;
 
   constructor(private teamService: TeamService) { }
 
   ngOnInit(): void {
-  }
-  getCapitalizedFirstLetterOfName(name: string): string{
-    return name.charAt(0).toUpperCase();
+    this.teamService.getTeams().subscribe(data => {
+      this.teams = data;
+    });
   }
 }

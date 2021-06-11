@@ -1,4 +1,4 @@
-<div class="team-wrapper" [routerLink]="['/teams/team', team.id]" *ngFor="let team of teams | async">
+<div class="team-wrapper" [routerLink]="['/teams/team', team.id]" *ngFor="let team of teams">
   <div class="team-img-wrapper">
     <i *ngIf="team.membership.memberRole === adminRole" class="fas fa-star own-team-icon"></i>
     <a>
