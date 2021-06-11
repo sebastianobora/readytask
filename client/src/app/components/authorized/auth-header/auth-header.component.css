@@ -34,6 +34,7 @@
 
 .avatar {
   border-radius: 50%;
+  transition: transform 0.3s;
 }
 
 .logo,
@@ -48,10 +49,19 @@
   -webkit-transform: rotate(30deg) scale(1.15);
 }
 
+.avatar:hover{
+  transform: scale(1.05);
+  -webkit-transform: scale(1.05);
+}
+
 .logo-a:hover+.logo-name {
   transform: rotateX(0deg);
   visibility: visible;
   opacity: 1;
+}
+
+.avatar-btn{
+  background-color: transparent;
 }
 
 .avatar-container,

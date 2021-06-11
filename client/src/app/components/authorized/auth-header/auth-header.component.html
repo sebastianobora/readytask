@@ -7,13 +7,19 @@
       </div>
 
       <ul class="nav-ul">
-        <li class="nav-li"><a class="nav-a" routerLink="/todo" routerLinkActive="active-link">todo</a></li>
         <li class="nav-li"><a class="nav-a" routerLink="/teams/my-teams" routerLinkActive="active-link">teams</a></li>
-        <li class="nav-li"><a class="nav-a" routerLink="/tasks" routerLinkActive="active-link">tasks</a></li>
+        <li class="nav-li"><a class="nav-a" routerLink="/todo" routerLinkActive="active-link">todo</a></li>
+        <li class="nav-li"><a class="nav-a" routerLink="/tasks/add-task" routerLinkActive="active-link">tasks</a></li>
       </ul>
       <div class="avatar-container">
-        <img class="avatar" src="{{currentUser?.img}}" alt="Avatar">
+        <button class="avatar-btn" [matMenuTriggerFor]="menu">
+          <img class="avatar" src="{{currentUser?.img}}" alt="Avatar">
+        </button>
       </div>
     </div>
   </div>
 </header>
+
+<mat-menu #menu="matMenu" xPosition="before">
+  <button mat-menu-item (click)="logout()">Logout</button>
+</mat-menu>
