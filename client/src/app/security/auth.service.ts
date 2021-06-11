@@ -39,4 +39,12 @@ export class AuthService {
   saveRolesInWebStorage(roles: []): void{
     localStorage.setItem(ROLES, JSON.stringify(roles));
   }
+
+  getToken(): string | null{
+    return localStorage.getItem(TOKEN);
+  }
+
+  getTokenType(): string | null {
+    return localStorage.getItem(TOKEN_TYPE);
+  }
 }

@@ -1,7 +1,10 @@
 <app-auth-header></app-auth-header>
 <main>
   <app-section>
-    <router-outlet></router-outlet>
+    <div class="auth-section">
+      <app-auth-nav [currentUser]="currentUser"></app-auth-nav>
+      <router-outlet></router-outlet>
+    </div>
   </app-section>
 </main>
 <app-footer></app-footer>
