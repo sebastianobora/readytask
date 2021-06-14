@@ -1,6 +1,6 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { NonAuthGuard } from './non-auth.guard';
+import {NonAuthGuard} from './non-auth.guard';
 
 describe('NonAuthGuard', () => {
   let guard: NonAuthGuard;

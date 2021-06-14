@@ -1,4 +1,4 @@
-:host{
+:host {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -7,18 +7,18 @@
   padding: 10px;
 }
 
-.manage-team-form-container{
+.manage-team-form-container {
   display: flex;
   align-items: center;
   flex-direction: column;
   padding: 15px;
 }
 
-.manage-team-input{
+.manage-team-input {
   margin: 15px 15px;
 }
 
-.join-input::placeholder{
+.join-input::placeholder {
   font-size: 16px;
 }
 
@@ -31,7 +31,7 @@
   max-width: 400px;
   max-height: 260px;
   height: 100%;
-  width:100%;
+  width: 100%;
   border: 2px rgba(255, 255, 255, 0.1) solid;
   border-radius: 2px;
   background-color: #333
@@ -44,13 +44,13 @@
   text-shadow: 0 0 15px rgba(255, 255, 255, 0.15);
 }
 
-.teams-not-found-btn-container{
+.teams-not-found-btn-container {
   display: flex;
   width: 100%;
   justify-content: space-evenly;
 }
 
-.not-found-manage-team-container{
+.not-found-manage-team-container {
   justify-content: space-around;
   max-height: 175px;
 }

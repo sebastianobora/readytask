@@ -2,7 +2,7 @@
   <div class="content-container">
     <p class="auth-header-text">Sign in to Readytask</p>
     <div class="auth-form">
-      <form  [formGroup]="loginForm" (ngSubmit)="login()" >
+      <form [formGroup]="loginForm" (ngSubmit)="login()">
         <input placeholder="username" class="input auth-input" formControlName="username"/>
         <p *ngIf="loginForm.controls.username.dirty && loginForm.controls.username.invalid" class="msg-error-p">
           Field must be between 5 & 20 characters

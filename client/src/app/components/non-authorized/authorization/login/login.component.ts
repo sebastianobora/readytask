@@ -34,8 +34,10 @@ export class LoginComponent implements OnInit {
       .subscribe(() => {
         this.router.navigate(['teams/my-teams']);
       }, () => {
-          this.errorMessage = 'Incorrect credentials!';
-          setTimeout(() => { this.errorMessage = ''; }, 2500);
+        this.errorMessage = 'Incorrect credentials!';
+        setTimeout(() => {
+          this.errorMessage = '';
+        }, 2500);
       });
   }
 }

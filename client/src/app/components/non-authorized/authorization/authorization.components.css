@@ -6,7 +6,7 @@
   margin: 18px;
 }
 
-.auth-header-text{
+.auth-header-text {
   font-weight: bold;
   font-size: 2.2rem;
   text-shadow: 0 0 25px rgba(0, 0, 0, 1);
@@ -14,19 +14,19 @@
   text-align: center;
 }
 
-.auth-input{
+.auth-input {
   margin: 4px 0;
 }
 
-.auth-btn{
+.auth-btn {
   margin-top: 8px;
 }
 
-.register-line{
+.register-line {
   margin-bottom: 0;
 }
 
-.forgot-password-link{
+.forgot-password-link {
   display: block;
   margin-top: 16px;
 }

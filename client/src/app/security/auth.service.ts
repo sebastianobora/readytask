@@ -52,10 +52,18 @@ export class AuthService {
     return localStorage.getItem(TOKEN_TYPE);
   }
 
-  isAuthenticated(): boolean {
+  isTokenExpired(): boolean {
     const jwtHelperService = new JwtHelperService();
     const token = this.getToken();
+    if (token) {
+      return jwtHelperService.isTokenExpired(token);
+    }
+    return true;
+  }
+
+  isAuthenticated(): boolean {
+    const token = this.getToken();
     const tokenType = this.getTokenType();
-    return !!(token && tokenType && !jwtHelperService.isTokenExpired(token));
+    return !!(token && tokenType && !this.isTokenExpired());
   }
 }
