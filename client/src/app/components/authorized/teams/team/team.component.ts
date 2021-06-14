@@ -21,19 +21,21 @@ export class TeamComponent implements OnInit {
     private teamService: TeamService,
     private route: ActivatedRoute,
     private router: Router
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
-    if (id){
+    if (id) {
       this.team = this.teamService.getTeam(id);
     }
   }
-  goBack(): void{
+
+  goBack(): void {
     this.location.back();
   }
 
-  delete(team: Team): void{
+  delete(team: Team): void {
     this.teamService.deleteTeam(team.id).subscribe(
       () => {
         const url = '/teams/my-teams/';

@@ -1,20 +1,19 @@
-:host{
+:host {
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
-  /*justify-content: space-evenly;*/
   padding: 10px;
   width: 100%;
   height: 100%;
 }
 
-.team-img{
+.team-img {
   max-width: 146px;
   max-height: 146px;
   border-radius: 2px;
 }
 
-.team-wrapper{
+.team-wrapper {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -28,18 +27,18 @@
   transition: background-color 0.10s;
 }
 
-.team-wrapper:hover{
+.team-wrapper:hover {
   background-color: #3b3b3b;
 }
 
-.team-img-wrapper{
+.team-img-wrapper {
   display: flex;
   position: relative;
   align-items: center;
   justify-content: center;
 }
 
-.own-team-icon{
+.own-team-icon {
   position: absolute;
   top: 8px;
   right: 8px;
@@ -47,14 +46,20 @@
   color: goldenrod;
 }
 
-.team-link{
+.team-link {
   text-decoration: none;
   color: white;
   cursor: pointer;
   font-size: 1.3em;
 }
 
-.team-title{
+.team-title {
   font-size: 13px;
   margin-top: 10px;
+}
+
+@media (max-width: 612px) {
+  :host {
+    justify-content: space-evenly;
+  }
 }

@@ -14,16 +14,18 @@ export class TeamsListComponent implements OnInit {
 
   teams: Team[] | undefined;
 
-  constructor(private teamService: TeamService) { }
+  constructor(private teamService: TeamService) {
+  }
 
   ngOnInit(): void {
     this.isLoading = true;
     this.teamService.getTeams().subscribe(data => {
-      this.teams = data;
-    },
-      () => {},
+        this.teams = data;
+      },
       () => {
-      this.isLoading = false;
+      },
+      () => {
+        this.isLoading = false;
       });
   }
 }

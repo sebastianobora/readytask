@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { WhyReadytaskComponent } from './why-readytask.component';
+import {WhyReadytaskComponent} from './why-readytask.component';
 
 describe('WhyReadytaskComponent', () => {
   let component: WhyReadytaskComponent;
@@ -8,9 +8,9 @@ describe('WhyReadytaskComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ WhyReadytaskComponent ]
+      declarations: [WhyReadytaskComponent]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {
