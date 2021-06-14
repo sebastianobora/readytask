@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { NotFoundTeamsComponent } from './not-found-teams.component';
+import {NotFoundTeamsComponent} from './not-found-teams.component';
 
 describe('NotFoundTeamsComponent', () => {
   let component: NotFoundTeamsComponent;
@@ -8,9 +8,9 @@ describe('NotFoundTeamsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ NotFoundTeamsComponent ]
+      declarations: [NotFoundTeamsComponent]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

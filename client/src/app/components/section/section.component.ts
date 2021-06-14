@@ -9,7 +9,8 @@ export class SectionComponent implements OnInit {
 
   @Input() sectionId: string | undefined;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit(): void {
   }

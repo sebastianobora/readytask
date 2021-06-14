@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { SectionComponent } from './section.component';
+import {SectionComponent} from './section.component';
 
 describe('NonAuthContentComponent', () => {
   let component: SectionComponent;
@@ -8,9 +8,9 @@ describe('NonAuthContentComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SectionComponent ]
+      declarations: [SectionComponent]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

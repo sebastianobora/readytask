@@ -62,3 +62,32 @@
   left: 90px;
   list-style: none;
 }
+
+.hamburger-container {
+  display: none;
+  height: 100%;
+  padding: 25px;
+  font-size: 24px;
+  align-items: center;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.hamburger-menu-btn {
+  font-family: 'Comfortaa', sans-serif;
+  font-size: 17px;
+}
+
+@media (max-width: 695px) {
+  .nav-ul {
+    display: none;
+  }
+
+  .hamburger-container {
+    display: flex;
+  }
+
+  .logo-container {
+    display: none;
+  }
+}

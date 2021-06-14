@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { NonAuthIndexComponent } from './non-auth-index.component';
+import {NonAuthIndexComponent} from './non-auth-index.component';
 
 describe('NonAuthMainComponent', () => {
   let component: NonAuthIndexComponent;
@@ -8,9 +8,9 @@ describe('NonAuthMainComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ NonAuthIndexComponent ]
+      declarations: [NonAuthIndexComponent]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { NonAuthHeaderComponent } from './non-auth-header.component';
+import {NonAuthHeaderComponent} from './non-auth-header.component';
 
 describe('NonAuthHeaderComponent', () => {
   let component: NonAuthHeaderComponent;
@@ -8,9 +8,9 @@ describe('NonAuthHeaderComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ NonAuthHeaderComponent ]
+      declarations: [NonAuthHeaderComponent]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

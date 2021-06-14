@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {AuthService} from '../../../../security/auth.service';
@@ -21,7 +21,7 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  initializeRegisterForm(): FormGroup{
+  initializeRegisterForm(): FormGroup {
     return this.formBuilder.group({
       username: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(20)]),
       email: new FormControl('', [Validators.required, Validators.email]),
@@ -44,7 +44,9 @@ export class RegisterComponent implements OnInit {
           );
         }, () => {
           this.errorMessage = 'User already exists!';
-          setTimeout(() => { this.errorMessage = ''; }, 2500);
+          setTimeout(() => {
+            this.errorMessage = '';
+          }, 2500);
         }
       );
   }

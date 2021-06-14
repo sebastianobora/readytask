@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { NonAuthLayoutComponent } from './non-auth-layout.component';
+import {NonAuthLayoutComponent} from './non-auth-layout.component';
 
 describe('NonAuthLayoutComponent', () => {
   let component: NonAuthLayoutComponent;
@@ -8,9 +8,9 @@ describe('NonAuthLayoutComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ NonAuthLayoutComponent ]
+      declarations: [NonAuthLayoutComponent]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

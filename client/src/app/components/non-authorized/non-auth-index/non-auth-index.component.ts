@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-non-auth-index',
@@ -19,10 +19,10 @@ export class NonAuthIndexComponent implements OnInit, AfterViewInit {
     contact: 'contact'
   };
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute) {
+  }
 
   ngOnInit(): void {
-    console.log(this.mainSections.whyReadyTask);
   }
 
   ngAfterViewInit(): void {
@@ -32,7 +32,7 @@ export class NonAuthIndexComponent implements OnInit, AfterViewInit {
         const headerOffset = 60;
         const elementPosition = element.getBoundingClientRect().top;
         const offsetPosition = elementPosition - headerOffset;
-        window.scrollTo({ top: offsetPosition, behavior: 'auto' });
+        window.scrollTo({top: offsetPosition, behavior: 'auto'});
       }
     });
   }

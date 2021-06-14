@@ -1,12 +1,14 @@
 <header>
   <div class="container">
+    <div class="hamburger-container" [matMenuTriggerFor]="hamburger">
+      <i class="fas fa-bars"></i>
+    </div>
     <div class="logo-container">
       <a class="logo-a" routerLink=""><img class="logo" src="assets/img/logo.svg" alt="logo readytask"></a>
     </div>
 
     <ul class="nav-ul">
       <li class="nav-li"><a class="nav-a" routerLink="" fragment="why-readytask">why readytask?</a></li>
-      <li class="nav-li"><a class="nav-a" routerLink="" fragment="tutorial">tutorial</a></li>
       <li class="nav-li"><a class="nav-a" routerLink="" fragment="about">about</a></li>
       <li class="nav-li"><a class="nav-a" routerLink="" fragment="contact">contact</a></li>
     </ul>
@@ -16,3 +18,15 @@
     </div>
   </div>
 </header>
+
+<mat-menu class="hamburger-content" #hamburger="matMenu">
+  <button class="hamburger-menu-btn" mat-menu-item routerLink="" fragment="why-readytask">
+    <i class="far fa-address-book mat-icon"></i>Why readytask?
+  </button>
+  <button class="hamburger-menu-btn" mat-menu-item routerLink="" fragment="about">
+    <i class="far fa-list-alt mat-icon"></i>About
+  </button>
+  <button class="hamburger-menu-btn" mat-menu-item routerLink="" fragment="contact">
+    <i class="fas fa-tasks mat-icon"></i>Contact
+  </button>
+</mat-menu>

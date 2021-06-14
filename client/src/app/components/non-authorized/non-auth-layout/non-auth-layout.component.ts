@@ -1,5 +1,5 @@
 import {Component, Inject, OnDestroy, OnInit, Renderer2} from '@angular/core';
-import { DOCUMENT } from '@angular/common';
+import {DOCUMENT} from '@angular/common';
 
 declare var particlesJS: any;
 
@@ -12,7 +12,8 @@ export class NonAuthLayoutComponent implements OnInit, OnDestroy {
   constructor(
     @Inject(DOCUMENT) private document: Document,
     private renderer: Renderer2
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     this.renderer.addClass(this.document.getElementsByTagName('header')[0], 'non-auth-layout-header');

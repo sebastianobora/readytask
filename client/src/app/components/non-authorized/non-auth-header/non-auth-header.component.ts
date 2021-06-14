@@ -5,9 +5,10 @@ import {Component, OnInit} from '@angular/core';
   templateUrl: './non-auth-header.component.html',
   styleUrls: ['./non-auth-header.component.css']
 })
-export class NonAuthHeaderComponent implements OnInit{
+export class NonAuthHeaderComponent implements OnInit {
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit(): void {
   }
