@@ -36,6 +36,20 @@ import {AuthGuard} from './security/auth.guard';
 import {NonAuthGuard} from './security/non-auth.guard';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {AddTaskComponent} from './components/authorized/tasks/add-task/add-task.component';
+import {QuillModule} from 'ngx-quill';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatNativeDateModule} from '@angular/material/core';
+import {MatInputModule} from '@angular/material/input';
+import {MatSelectModule} from '@angular/material/select';
+import {A11yModule} from '@angular/cdk/a11y';
+import {PickTeamDialogComponent} from './components/authorized/tasks/add-task/add-task-dialogs/pick-team-dialog/pick-team-dialog.component';
+import {MatDialogModule} from '@angular/material/dialog';
+import {PickUserDialogComponent} from './components/authorized/tasks/add-task/add-task-dialogs/pick-user-dialog/pick-user-dialog.component';
+import {PickDateDialogComponent} from './components/authorized/tasks/add-task/add-task-dialogs/pick-date-dialog/pick-date-dialog.component';
+import {MatCardModule} from '@angular/material/card';
+import {TaskComponent} from './components/authorized/tasks/task/task.component';
+import {MatTreeModule} from '@angular/material/tree';
 
 @NgModule({
   declarations: [
@@ -60,7 +74,11 @@ import {AddTaskComponent} from './components/authorized/tasks/add-task/add-task.
     JoinTeamComponent,
     TeamComponent,
     NotFoundTeamsComponent,
-    AddTaskComponent
+    AddTaskComponent,
+    PickTeamDialogComponent,
+    PickUserDialogComponent,
+    PickDateDialogComponent,
+    TaskComponent
   ],
   imports: [
     BrowserModule,
@@ -74,7 +92,17 @@ import {AddTaskComponent} from './components/authorized/tasks/add-task/add-task.
     MatMenuModule,
     MatButtonModule,
     MatProgressSpinnerModule,
-    MatTooltipModule
+    MatTooltipModule,
+    QuillModule.forRoot(),
+    MatDatepickerModule,
+    MatFormFieldModule,
+    MatNativeDateModule,
+    MatInputModule,
+    MatSelectModule,
+    A11yModule,
+    MatDialogModule,
+    MatCardModule,
+    MatTreeModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
@@ -83,4 +111,5 @@ import {AddTaskComponent} from './components/authorized/tasks/add-task/add-task.
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

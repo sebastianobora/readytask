@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
@@ -12,9 +12,10 @@ export class AuthService {
 
   private url = 'http://localhost:8080/authentication';
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) {
+  }
 
-  public login(username: string, password: string): Observable<any>{
+  public login(username: string, password: string): Observable<any> {
     return this.httpClient.post<any>(`${this.url}/login`, {username, password})
       .pipe(
         map(res => {
@@ -23,7 +24,7 @@ export class AuthService {
       );
   }
 
-  public register(email: string, username: string, password: string, firstName: string, lastName: string): Observable<any>{
+  public register(email: string, username: string, password: string, firstName: string, lastName: string): Observable<any> {
     return this.httpClient.post<any>(`${this.url}/register`, {email, username, password, firstName, lastName});
   }
 
@@ -31,19 +32,19 @@ export class AuthService {
     this.removeTokenDataAndRoleFromWebStorage();
   }
 
-  saveTokenDataAndRoleInWebStorage(token: string, tokenType: string, roles: []): void{
+  saveTokenDataAndRoleInWebStorage(token: string, tokenType: string, roles: []): void {
     localStorage.setItem(TOKEN, token);
     localStorage.setItem(TOKEN_TYPE, tokenType);
     localStorage.setItem(ROLES, JSON.stringify(roles));
   }
 
-  removeTokenDataAndRoleFromWebStorage(): void{
+  removeTokenDataAndRoleFromWebStorage(): void {
     localStorage.removeItem(TOKEN);
     localStorage.removeItem(TOKEN_TYPE);
     localStorage.removeItem(ROLES);
   }
 
-  getToken(): string | null{
+  getToken(): string | null {
     return localStorage.getItem(TOKEN);
   }
 

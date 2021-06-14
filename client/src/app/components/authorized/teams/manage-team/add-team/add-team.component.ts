@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Team} from '../../../../../entity/team';
 import {TeamService} from '../../../../../service/team.service';
 import {Router} from '@angular/router';
@@ -12,12 +12,13 @@ export class AddTeamComponent implements OnInit {
   team: Partial<Team> = {};
 
   constructor(private teamService: TeamService,
-              private router: Router) { }
+              private router: Router) {
+  }
 
   ngOnInit(): void {
   }
 
-  addTeam(): void{
+  addTeam(): void {
     this.teamService.addTeam(this.team as Team).subscribe(
       res => {
         const url = '/teams/team/' + res.id;
