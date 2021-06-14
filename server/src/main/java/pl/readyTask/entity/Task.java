@@ -26,6 +26,7 @@ public class Task {
     @Column(name = "id")
     private Long id;
 
+    @Lob
     @Column(name = "description", nullable = false)
     private String description;
 
