@@ -7,6 +7,8 @@ import pl.readyTask.entity.User;
 import pl.readyTask.exception.NoDataFoundException;
 import pl.readyTask.repository.UserRepository;
 
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 public class UserService {
@@ -20,5 +22,9 @@ public class UserService {
     public User getCurrentUser(Authentication authentication) {
         User user = securityService.getUserByEmailFromAuthentication(authentication);
         return userRepository.findById(user.getId()).orElseThrow(() -> new NoDataFoundException("user", user.getId()));
+    }
+
+    public List<User> getByTeamId(Long id) {
+        return userRepository.findUsersByTeamId(id);
     }
 }

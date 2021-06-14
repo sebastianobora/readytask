@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.*;
 import pl.readyTask.entity.User;
 import pl.readyTask.service.UserService;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("users")
 @CrossOrigin("http://localhost:4200")
@@ -22,5 +24,10 @@ public class UserController {
     @GetMapping("/{id}")
     public ResponseEntity<User> getById(@PathVariable("id") Long id){
         return ResponseEntity.ok(userService.getById(id));
+    }
+
+    @GetMapping("/by-team-id/{id}")
+    public ResponseEntity<List<User>> getByTeamId(@PathVariable("id") Long id){
+        return ResponseEntity.ok(userService.getByTeamId(id));
     }
 }
