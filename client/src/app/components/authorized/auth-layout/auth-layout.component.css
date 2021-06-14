@@ -1,4 +1,4 @@
-.auth-section{
+.auth-section {
   display: flex;
   align-items: flex-start;
   overflow-y: auto;
@@ -7,4 +7,10 @@
   box-shadow: 0 0 5em black;
   border-radius: 5px;
   width: 100%;
+}
+
+@media (max-width: 667px) {
+  .auth-section {
+    flex-direction: column;
+  }
 }

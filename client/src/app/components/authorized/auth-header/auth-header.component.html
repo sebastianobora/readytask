@@ -1,15 +1,18 @@
 <header>
   <div class="container">
     <div class="header-wrapper">
+      <div class="hamburger-container" [matMenuTriggerFor]="hamburger">
+        <i class="fas fa-bars"></i>
+      </div>
       <div class="logo-container">
         <a class="logo-a" routerLink="/teams/my-teams"><img class="logo" src="assets/img/logo.svg" alt=""></a>
         <p class="logo-name">readytask</p>
       </div>
 
       <ul class="nav-ul">
-        <li class="nav-li"><a class="nav-a" routerLink="/teams/my-teams" routerLinkActive="active-link">teams</a></li>
+        <li class="nav-li"><a class="nav-a" routerLink="/teams" routerLinkActive="active-link">teams</a></li>
         <li class="nav-li"><a class="nav-a" routerLink="/todo" routerLinkActive="active-link">todo</a></li>
-        <li class="nav-li"><a class="nav-a" routerLink="/tasks/add-task" routerLinkActive="active-link">tasks</a></li>
+        <li class="nav-li"><a class="nav-a" routerLink="/tasks" routerLinkActive="active-link">tasks</a></li>
       </ul>
       <div class="avatar-container">
         <button class="avatar-btn" [matMenuTriggerFor]="menu">
@@ -22,4 +25,16 @@
 
 <mat-menu #menu="matMenu" xPosition="before">
   <button mat-menu-item (click)="logout()">Logout</button>
+</mat-menu>
+
+<mat-menu class="hamburger-content" #hamburger="matMenu">
+  <button class="hamburger-menu-btn" mat-menu-item routerLink="/teams/my-teams" routerLinkActive="active-link">
+    <i class="far fa-address-book mat-icon"></i>Teams
+  </button>
+  <button class="hamburger-menu-btn" mat-menu-item routerLink="/todo" routerLinkActive="active-link">
+    <i class="far fa-list-alt mat-icon"></i>Todo
+  </button>
+  <button class="hamburger-menu-btn" mat-menu-item routerLink="/tasks/add-task" routerLinkActive="active-link">
+    <i class="fas fa-tasks mat-icon"></i>Tasks
+  </button>
 </mat-menu>

@@ -1,5 +1,5 @@
 import {Component, Inject, OnDestroy, OnInit, Renderer2} from '@angular/core';
-import { DOCUMENT } from '@angular/common';
+import {DOCUMENT} from '@angular/common';
 import {UserService} from '../../../service/user.service';
 import {User} from '../../../entity/user';
 
@@ -10,11 +10,13 @@ import {User} from '../../../entity/user';
 })
 export class AuthLayoutComponent implements OnInit, OnDestroy {
   currentUser: Partial<User> | undefined;
+
   constructor(
     @Inject(DOCUMENT) private document: Document,
     private renderer: Renderer2,
     private userService: UserService
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     this.getCurrentUser();
@@ -23,7 +25,7 @@ export class AuthLayoutComponent implements OnInit, OnDestroy {
     this.renderer.addClass(this.document.getElementsByTagName('footer')[0], 'auth-layout-footer');
   }
 
-  getCurrentUser(): void{
+  getCurrentUser(): void {
     this.userService.getCurrentUser().subscribe(data => {
       this.currentUser = data;
     });

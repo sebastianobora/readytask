@@ -18,10 +18,11 @@ export class AuthNavComponent implements OnInit {
     ['tasks', tasksNavContent],
     ['teams', teamsNavContent]
   ]);
+
   constructor(private router: Router) {
     this.router.events.subscribe(() => {
       const path = this.router.url.split('/')[1];
-      if (this.currentPath !== path){
+      if (this.currentPath !== path) {
         this.currentPath = path;
         this.setCurrentNavContent(this.currentPath);
       }
@@ -31,7 +32,7 @@ export class AuthNavComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  setCurrentNavContent(path: string): void{
+  setCurrentNavContent(path: string): void {
     this.currentNavContent = this.navContent.get(path);
   }
 }

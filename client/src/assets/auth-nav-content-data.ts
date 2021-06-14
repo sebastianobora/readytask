@@ -3,7 +3,7 @@ export interface NavObject {
   elements: NavElementObject[];
 }
 
-export interface NavElementObject{
+export interface NavElementObject {
   content: string;
   link: string;
 }

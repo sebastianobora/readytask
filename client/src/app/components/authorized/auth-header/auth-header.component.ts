@@ -13,11 +13,13 @@ export class AuthHeaderComponent implements OnInit {
   currentUser: Partial<User> | undefined;
 
   constructor(private authService: AuthService,
-              private router: Router) { }
+              private router: Router) {
+  }
 
   ngOnInit(): void {
   }
-  logout(): void{
+
+  logout(): void {
     this.authService.logout();
     this.router.navigate(['']);
   }
