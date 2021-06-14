@@ -1,3 +1,5 @@
+@import 'assets/custom-editor-styles.css';
+
 * {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
@@ -15,7 +17,7 @@ html {
 body {
   color: #FFFFFF;
   font-family: 'Comfortaa',
-    sans-serif !important;
+  sans-serif !important;
 }
 
 /* HEADER */
@@ -27,12 +29,12 @@ header {
   z-index: 2;
 }
 
-.non-auth-layout-header{
+.non-auth-layout-header {
   background: rgba(56, 0, 61, 0.5);
   background: radial-gradient(circle, rgb(27, 0, 44) 0%, rgba(0, 0, 0, 1) 100%);
 }
 
-.auth-layout-header{
+.auth-layout-header {
   background-color: #222;
 }
 
@@ -48,7 +50,7 @@ header {
 
 /*INPUTS*/
 
-.input{
+.input {
   width: 100%;
   font-size: 1.8rem;
   padding: 16px 16px;
@@ -59,8 +61,9 @@ header {
 input:focus {
   outline: none;
 }
+
 /*BUTTONS*/
-button{
+button {
   font-family: 'Comfortaa',
   sans-serif;
   color: white;
@@ -69,7 +72,7 @@ button{
   cursor: pointer;
 }
 
-.btn{
+.btn {
   width: 100%;
   line-height: 50px;
   border-radius: 8px;
@@ -79,7 +82,7 @@ button{
 }
 
 
-.btn-size-mid{
+.btn-size-mid {
   max-width: 150px;
 }
 
@@ -87,15 +90,15 @@ button{
   background-color: #30ab53;
 }
 
-.blue-btn{
+.blue-btn {
   background-color: rgb(0, 116, 194);
 }
 
-.purple-btn{
+.purple-btn {
   background-color: #75418d;
 }
 
-.purple-btn, .blue-btn, .green-btn{
+.purple-btn, .blue-btn, .green-btn {
   transition: opacity 0.10s;
 }
 
@@ -114,14 +117,14 @@ button{
 
 /* ICONS */
 
-.icon{
+.icon {
   cursor: pointer;
   font-size: 18px;
   margin: 0 5px;
   transition: color 0.15s;
 }
 
-.icon-btn{
+.icon-btn {
   background-color: transparent;
   padding: 5px;
 }
@@ -146,7 +149,7 @@ button{
   background-attachment: fixed;
 }
 
-.auth-layout-background{
+.auth-layout-background {
   background-color: #111;
 }
 
@@ -202,12 +205,13 @@ main {
   z-index: 1;
 }
 
-.active-link{
- color: #bb62e4 !important;
+.active-link {
+  color: #bb62e4 !important;
+  font-weight: bold;
 }
 
 /* MESSAGES */
-.msg-error-p{
+.msg-error-p {
   color: #ff5050;
 }
 
@@ -216,18 +220,19 @@ main {
   font-size: 1.3em;
   font-weight: bolder;
 }
+
 .msg_error {
   color: #ffffff;
   background-color: #860458;
   border-radius: 5px;
-  border: 3px solid #181818;
 }
 
 .msg_error > i {
+  margin-left: 15px;
   font-size: 1.5em;
 }
 
-.msg_error{
+.msg_error {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -235,7 +240,7 @@ main {
   margin: 10px 50px;
 }
 
-.loader{
+.loader {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -243,7 +248,7 @@ main {
   height: 100%;
 }
 
-.no-data-info{
+.no-data-info {
   font-size: 1.8em;
 }
 

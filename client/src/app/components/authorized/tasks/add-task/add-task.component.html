@@ -1,1 +1,8 @@
-<p>add-task works!</p>
+<form [formGroup]="editorForm" class="editor-form" (ngSubmit)="onSubmit()">
+  <quill-editor [modules]="config" placeholder="" formControlName="editor"></quill-editor>
+  <div class="edit-submit-container">
+    <button class="edit-submit-btn" mat-raised-button type="submit" [disabled]="!editorForm.controls.editor.value">
+      Submit task
+    </button>
+  </div>
+</form>
