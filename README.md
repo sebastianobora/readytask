@@ -10,12 +10,13 @@ You can plan your own todos and manage them.
 
 ## TECHNOLOGY STACK
 
+CLIENT-SERVER architecture
+
 **Backend**:
 - Spring Boot
 - Database in PostgreSQL
 - JPA Hibernate
 - Spring Security
-- CLIENT-SERVER architecture
 
 **Frontend**:
 - Angular
