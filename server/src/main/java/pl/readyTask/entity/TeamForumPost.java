@@ -11,31 +11,37 @@ import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-import pl.readyTask.entity.enumeration.MemberRole;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.util.Date;
 
-@Entity(name = "Membership")
-@Table(name = "membership",
-        uniqueConstraints={
-        @UniqueConstraint(columnNames = {"user_id", "team_id"})
-})
+@Entity(name = "TeamForumPost")
+@Table(name = "team_forum_post")
 @Getter
 @Setter
 @AllArgsConstructor
-public class Membership {
-
-    public Membership() {
-    }
+public class TeamForumPost {
+    public TeamForumPost(){}
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Column(name = "message", columnDefinition = "TEXT")
+    private String message;
+
+    @Column(name = "creation_time")
+    @CreationTimestamp
+    private Date creationTime;
+
+    @Column(name = "update_time")
+    @UpdateTimestamp
+    private Date updateTime;
+
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "user_id")
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
     @JsonIdentityReference(alwaysAsId = true)
@@ -51,14 +57,6 @@ public class Membership {
     @JsonProperty("teamId")
     @Setter(AccessLevel.NONE)
     private Team team;
-
-    @CreationTimestamp
-    @Column(name = "member_from")
-    private Date memberFrom;
-
-    @Enumerated(EnumType.STRING)
-    @Column(name = "member_role", nullable = false)
-    private MemberRole memberRole;
 
     @JsonProperty("userId")
     public void setUserById(Long userId){

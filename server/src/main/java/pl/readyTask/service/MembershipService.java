@@ -10,6 +10,8 @@ import pl.readyTask.entity.enumeration.MemberRole;
 import pl.readyTask.exception.NoDataFoundException;
 import pl.readyTask.repository.MembershipRepository;
 
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 public class MembershipService {
@@ -25,7 +27,7 @@ public class MembershipService {
         return membershipRepository.save(membership);
     }
 
-    public Membership addByCode(String code, Membership membershipToRemove, Authentication authentication) {
+    public Membership addByCode(String code, Authentication authentication) {
         User user = securityService.getUserByEmailFromAuthentication(authentication);
         Team team = teamService.getByCode(code);
         Membership membership = getMembershipFromFields(MemberRole.PARTICIPANT, team.getId(), user.getId());
@@ -44,5 +46,23 @@ public class MembershipService {
         User user = securityService.getUserByEmailFromAuthentication(authentication);
         return membershipRepository.findMembershipByTeamIdAndUserId(teamId, user.getId())
                 .orElseThrow(() -> new NoDataFoundException("membership", teamId));
+    }
+
+    public List<Membership> getMembershipsByTeamId(Long teamId) {
+        return membershipRepository.findMembershipsByTeamIdOrderByMemberFrom(teamId)
+                .orElseThrow(() -> new NoDataFoundException("membership", teamId));
+    }
+
+    public Integer getAmountOfAdminRoleMembersByTeamId(Long teamId) {
+        return membershipRepository.getAmountOfAdminRoleMembersByTeamId(teamId)
+                .orElseThrow(() -> new NoDataFoundException("membership", teamId));
+    }
+
+    public Membership update(Membership membership) {
+        return membershipRepository.save(membership);
+    }
+
+    public void delete(Long id){
+        membershipRepository.deleteById(id);
     }
 }

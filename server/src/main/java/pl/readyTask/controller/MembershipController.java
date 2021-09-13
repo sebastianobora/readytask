@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.*;
 import pl.readyTask.entity.Membership;
 import pl.readyTask.service.MembershipService;
 
+import java.util.List;
+
 
 @RestController
 @AllArgsConstructor
@@ -25,6 +27,16 @@ public class MembershipController {
         return ResponseEntity.ok(membershipService.getByTeamAndUserId(id, authentication));
     }
 
+    @GetMapping("/get-memberships-by-team-id/{id}")
+    public ResponseEntity<List<Membership>>getMembershipsByTeamId(@PathVariable Long id){
+        return ResponseEntity.ok(membershipService.getMembershipsByTeamId(id));
+    }
+
+    @GetMapping("/get-amount-of-admin-role-members-by-team-id/{teamId}")
+    public ResponseEntity<Integer>getAmountOfAdminRoleMembersByTeamId(@PathVariable Long teamId){
+        return ResponseEntity.ok(membershipService.getAmountOfAdminRoleMembersByTeamId(teamId));
+    }
+
     @PostMapping
     public ResponseEntity<Membership> add(@RequestBody Membership membership){
         return ResponseEntity.ok(membershipService.add(membership));
@@ -32,8 +44,18 @@ public class MembershipController {
 
     @PostMapping("/add-by-code/{code}")
     public ResponseEntity<Membership> addByCode(@PathVariable String code,
-                                                @RequestBody Membership membership,
                                                 Authentication authentication){
-        return ResponseEntity.ok(membershipService.addByCode(code, membership, authentication));
+        return ResponseEntity.ok(membershipService.addByCode(code, authentication));
+    }
+
+    @PutMapping("/update-membership")
+    public ResponseEntity<Membership> updateMembership(@RequestBody Membership membership){
+        return ResponseEntity.ok(membershipService.update(membership));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Object> deleteByTeamId(@PathVariable Long id){
+        membershipService.delete(id);
+        return ResponseEntity.ok().build();
     }
 }

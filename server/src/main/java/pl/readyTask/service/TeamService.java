@@ -33,16 +33,19 @@ public class TeamService {
     }
 
     public Team getById(Long id){
-        return teamRepository.findById(id).orElseThrow(() -> new NoDataFoundException("team", id));
+        return teamRepository.findById(id)
+                .orElseThrow(() -> new NoDataFoundException("team", id));
     }
 
     public Team getByCode(String code){
-        return teamRepository.findByCode(code).orElseThrow(() -> new NoDataFoundException("team", code));
+        return teamRepository.findByCode(code)
+                .orElseThrow(() -> new NoDataFoundException("team", code));
     }
 
     public List<Team> getAllByAuthUser(Authentication authentication){
         User user = this.securityService.getUserByEmailFromAuthentication(authentication);
-        return teamRepository.findTeamsByUserId(user.getId()).orElseThrow(() -> new NoDataFoundException("teams", user.getId()));
+        return teamRepository.findTeamsByUserId(user.getId())
+                .orElseThrow(() -> new NoDataFoundException("teams", user.getId()));
     }
 
     public void delete(Long id){
@@ -65,11 +68,8 @@ public class TeamService {
     }
 
     public String getUniqueTeamCode(){
-        String code;
-        do{
-            code = generateTeamCode();
-        }while(isCodeAlreadyExists(code));
-        return code;
+        String code = generateTeamCode();
+        return isCodeAlreadyExists(code) ? getUniqueTeamCode() : code;
     }
 
     public boolean isCodeAlreadyExists(String code){
