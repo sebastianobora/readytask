@@ -1,7 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit } from '@angular/core';
 import {Team} from '../../../../../entity/team';
 import {TeamService} from '../../../../../service/team.service';
 import {Router} from '@angular/router';
+import {NotifierService} from '../../../../../service/notifier.service';
 
 @Component({
   selector: 'app-add-team',
@@ -12,7 +13,8 @@ export class AddTeamComponent implements OnInit {
   team: Partial<Team> = {};
 
   constructor(private teamService: TeamService,
-              private router: Router) {
+              private router: Router,
+              private notifierService: NotifierService) {
   }
 
   ngOnInit(): void {
@@ -23,6 +25,7 @@ export class AddTeamComponent implements OnInit {
       res => {
         const url = '/teams/team/' + res.id;
         this.router.navigate([url]);
+        this.notifierService.notify(`${this.team.name} has been created successfully!`, 'success');
       }
     );
   }
