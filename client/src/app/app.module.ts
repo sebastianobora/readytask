@@ -39,7 +39,7 @@ import {AddTaskComponent} from './components/authorized/tasks/add-task/add-task.
 import {QuillModule} from 'ngx-quill';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatNativeDateModule} from '@angular/material/core';
+import {MatNativeDateModule, MatRippleModule} from '@angular/material/core';
 import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import {A11yModule} from '@angular/cdk/a11y';
@@ -50,6 +50,18 @@ import {PickDateDialogComponent} from './components/authorized/tasks/add-task/ad
 import {MatCardModule} from '@angular/material/card';
 import {TaskComponent} from './components/authorized/tasks/task/task.component';
 import {MatTreeModule} from '@angular/material/tree';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { NotificationComponent } from './components/notification/notification.component';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatTabsModule} from '@angular/material/tabs';
+import { ConfirmationComponent } from './components/confirmation/confirmation.component';
+import { TeamDetailsComponent } from './components/authorized/teams/team/team-details/team-details.component';
+import { ParticipantsComponent } from './components/authorized/teams/team/participants/participants.component';
+import {MatTableModule} from '@angular/material/table';
+import {MatSortModule} from '@angular/material/sort';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import { TeamForumComponent } from './components/authorized/teams/team/team-forum/team-forum.component';
+import { TrimTextPipe } from './pipes/trim-text.pipe';
 
 @NgModule({
   declarations: [
@@ -78,32 +90,45 @@ import {MatTreeModule} from '@angular/material/tree';
     PickTeamDialogComponent,
     PickUserDialogComponent,
     PickDateDialogComponent,
-    TaskComponent
+    TaskComponent,
+    NotificationComponent,
+    ConfirmationComponent,
+    TeamDetailsComponent,
+    ParticipantsComponent,
+    TeamForumComponent,
+    TrimTextPipe
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    FormsModule,
-    ClipboardModule,
-    TooltipModule,
-    ReactiveFormsModule,
-    BrowserAnimationsModule,
-    MatMenuModule,
-    MatButtonModule,
-    MatProgressSpinnerModule,
-    MatTooltipModule,
-    QuillModule.forRoot(),
-    MatDatepickerModule,
-    MatFormFieldModule,
-    MatNativeDateModule,
-    MatInputModule,
-    MatSelectModule,
-    A11yModule,
-    MatDialogModule,
-    MatCardModule,
-    MatTreeModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        HttpClientModule,
+        FormsModule,
+        ClipboardModule,
+        TooltipModule,
+        ReactiveFormsModule,
+        BrowserAnimationsModule,
+        MatMenuModule,
+        MatButtonModule,
+        MatProgressSpinnerModule,
+        MatTooltipModule,
+        QuillModule.forRoot(),
+        MatDatepickerModule,
+        MatFormFieldModule,
+        MatNativeDateModule,
+        MatInputModule,
+        MatSelectModule,
+        A11yModule,
+        MatDialogModule,
+        MatCardModule,
+        MatTreeModule,
+        MatSnackBarModule,
+        MatPaginatorModule,
+        MatTabsModule,
+        MatTableModule,
+        MatSortModule,
+        MatButtonToggleModule,
+        MatRippleModule
+    ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
     AuthGuard,
