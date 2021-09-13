@@ -1,7 +1,6 @@
 .auth-section {
   display: flex;
   align-items: flex-start;
-  overflow-y: auto;
   height: calc(100vh - 240px);
   background-color: #1b1b1b;
   box-shadow: 0 0 5em black;
