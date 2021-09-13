@@ -1,30 +1,30 @@
-<button class="icon-btn" (click)="goBack()">
+<button class="icon-btn back-button" (click)="goBack()">
   <i class="fas fa-arrow-left icon"></i>
 </button>
-<div *ngIf="team | async as team" class="team-wrapper">
-  <div class="team-container">
-    <div class="team-img-container">
-      <i *ngIf="team.membership.memberRole === adminRole" class="fas fa-star own-team-icon"></i>
-      <img class="team-img" src="{{team.img}}" alt="{{team.name}} team image">
-    </div>
-    <div class="team-details-container">
-      <div class="field-wrapper">
-        <p class="field-header">name</p>
-        <p class="team-field">{{team.name}}</p>
-      </div>
-      <div class="field-wrapper">
-        <p class="field-header">code</p>
-        <span class="team-field code"
-              matTooltip="{{tooltipMessage}}"
-              matTooltipPosition="right"
-              ngxClipboard [cbContent]="team.code">
-          {{team.code}}
-        </span>
-      </div>
-      <div *ngIf="team.membership.memberRole === adminRole" class="delete-btn-wrapper">
-        <button mat-raised-button (click)="delete(team)">Delete team <i class="far fa-trash-alt icon"></i></button>
-      </div>
-    </div>
-  </div>
-</div>
+<mat-tab-group mat-align-tabs="center">
+  <mat-tab label="Forum">
+    <ng-template matTabContent>
+      <!--      lazy load-->
+      <app-team-forum [teamId]="teamId"></app-team-forum>
+    </ng-template>
+  </mat-tab>
+<!--  temp-->
+
+  <mat-tab label="Team details">
+    <ng-template matTabContent>
+      <!--      lazy load-->
+      <app-team-details [teamId]="teamId"></app-team-details>
+    </ng-template>
+  </mat-tab>
+
+  <mat-tab label="Participants">
+    <ng-template matTabContent>
+      <!--      lazy load-->
+      <app-participants [teamId]="teamId"></app-participants>
+    </ng-template>
+  </mat-tab>
+</mat-tab-group>
+
+
+
 

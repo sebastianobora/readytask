@@ -1,0 +1,34 @@
+<ng-template #loader>
+  <div class="loader">
+    <mat-spinner></mat-spinner>
+  </div>
+</ng-template>
+
+<div *ngIf="(posts | async) as posts else loader" class="forum-container">
+  <div class="post-container" *ngFor="let post of posts">
+    <div class="avatar-container">
+      <img src="{{post.user.img}}" alt="avatar" class="avatar"/>
+    </div>
+    <div mat-ripple [matRippleTrigger]="trigger" [matRippleCentered]="isExpanded" class="message-container">
+      <div class="message-header-container">
+        <p class="post-author-details">{{post.user.firstName}} {{post.user.lastName}}</p>
+        <p class="post-creation-time">{{post.creationTime | date: 'H.d.y HH:mm'}}</p>
+        <div class="post-modify-actions">
+          <i (click)="toggleEditable()" class="far fa-edit icon"></i>
+          <i class="far fa-minus-square icon icon-delete"></i>
+        </div>
+      </div>
+      <div class="message-content">
+        <p autofocus [contentEditable]="isEditable">{{isExpanded ? post.message : post.message | trimText : lengthLimit}}</p>
+      </div>
+      <div class="post-interactions">
+        <div #trigger>
+          <button mat-raised-button *ngIf="post.message.length > lengthLimit" (click)="toggleExpand()" class="show-more-action">
+            <i class="far icon expand-icon" [ngClass]="isExpanded ? 'fa-caret-square-up' : 'fa-caret-square-down'"></i>
+            <span>{{expandMessage}}</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

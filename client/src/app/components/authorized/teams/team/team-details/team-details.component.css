@@ -1,0 +1,113 @@
+.team-img {
+  border-radius: 2px;
+  max-width: 180px;
+  max-height: 180px;
+}
+
+.team-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  min-width: 384px;
+}
+
+.team-container {
+  display: flex;
+  justify-content: center;
+  margin: 5px;
+  padding: 10px;
+  background-color: #333;
+  border: 2px rgba(255, 255, 255, 0.05) solid;
+  border-radius: 3px;
+}
+
+.team-img-container {
+  display: flex;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  margin: auto 0;
+}
+
+.own-team-icon {
+  position: absolute;
+  top: 10px;
+  right: 8px;
+  font-size: 21px;
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.team-field {
+  font-size: 20px;
+  font-weight: bold;
+  margin: 8px 0;
+}
+
+.field-header {
+  font-size: 10px;
+}
+
+.field-wrapper {
+  margin: 2px 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.team-details-container {
+  display: flex;
+  flex-direction: column;
+  margin-left: 8px;
+  margin-right: 20px;
+}
+
+.code {
+  display: inline-block;
+  transition: opacity 0.2s, transform 0.2s;
+}
+
+.code:hover {
+  cursor: pointer;
+}
+
+.code:active {
+  opacity: 0.75;
+  transform: scaleX(0.9);
+}
+
+.code-icon{
+  transition: opacity 0.2s;
+}
+
+.code:hover > .code-icon{
+  opacity: 0.75;
+}
+
+.delete-btn-wrapper {
+  display: flex;
+  width: 100%;
+  margin-top: 8px;
+  justify-content: center;
+}
+
+@media (max-width: 435px) {
+  .team-container{
+    flex-direction: column;
+  }
+
+  .team-wrapper{
+    min-width: unset;
+  }
+  .team-field{
+    margin: 4px 0;
+  }
+
+  .team-details-container{
+    margin: 4px 2px 0 2px;
+  }
+
+  .field-wrapper{
+    margin: 2px 0;
+  }
+}

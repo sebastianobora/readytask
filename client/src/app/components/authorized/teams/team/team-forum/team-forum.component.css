@@ -1,0 +1,94 @@
+.forum-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 8px 12px;
+}
+
+.post-container{
+  display: flex;
+  max-width: 800px;
+  width: 100%;
+  min-height: 60px;
+  margin: 8px;
+}
+.avatar-container{
+  margin-top: 5px;
+  margin-right: 10px;
+}
+
+
+.avatar{
+  height: 50px;
+  border-radius: 50%;
+  box-shadow: 0 4px 2px -2px rgba(0, 0, 0, 0.2),
+              0 2px 2px 0 rgba(0, 0, 0, 0.14),
+              0 3px 4px 0 rgba(0, 0, 0, 0.13);
+}
+
+.message-container{
+  width: 100%;
+  background-color: #333;
+  border: rgba(255, 255, 255, 0.05) 2px solid;
+  border-radius: 3px;
+}
+
+.message-header-container{
+  display: flex;
+  align-items: center;
+  margin: 12px 12px 8px 12px;
+}
+
+.message-content{
+  font-size: 1.3rem;
+  line-height: 1.7rem;
+  margin: 5px 12px;
+  overflow: hidden;
+}
+
+.post-author-details{
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.post-creation-time{
+  margin-left: 10px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.16rem;
+  letter-spacing: 0.04rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.post-modify-actions{
+  display: flex;
+  justify-content: flex-end;
+  flex-grow: 1;
+}
+
+.icon{
+  font-size: 1.6rem;
+  margin: 0 3px;
+}
+
+.icon-delete{
+  font-size: 1.7rem;
+}
+
+.post-interactions{
+  display: flex;
+  align-items: center;
+  margin: 9px;
+}
+
+.show-more-action{
+  padding: 0 10px;
+  min-width: 112px;
+  line-height: 28px;
+  font-size: 1.3rem;
+  color: #FFFFFF;
+}
+
+.expand-icon{
+  font-size: 1.5rem;
+  margin: 0 5px 0 0;
+}

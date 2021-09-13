@@ -1,0 +1,42 @@
+<ng-template #loader>
+  <div class="loader">
+    <mat-spinner></mat-spinner>
+  </div>
+</ng-template>
+
+<div *ngIf="numberOfAdminRoleMembers && (team | async) as team else loader" class="team-wrapper">
+  <div class="team-container">
+    <div class="team-img-container">
+      <i *ngIf="hasMemberAdminRole(team)" class="fas fa-crown own-team-icon"></i>
+      <img class="team-img" src="{{team.img}}" alt="{{team.name}} team image">
+    </div>
+    <div class="team-details-container">
+      <div class="field-wrapper">
+        <p class="field-header">name</p>
+        <p class="team-field">{{team.name}}</p>
+      </div>
+      <div class="field-wrapper">
+        <p class="field-header">code</p>
+        <span class="team-field code"
+              (click)="showCopyNotification()"
+              matTooltip="{{copyCodeTooltipMessage}}"
+              matTooltipPosition="above"
+              ngxClipboard [cbContent]="team.code">
+        {{team.code}} <i class="far fa-clone icon code-icon"></i>
+      </span>
+      </div>
+      <div *ngIf="hasMemberAdminRole(team)" class="field-wrapper">
+        <button mat-raised-button (click)="confirmAndDelete(team)"><i class="far fa-trash-alt icon"></i> Delete team</button>
+      </div>
+      <div class="field-wrapper"
+           [matTooltip]="cannotLeaveTeamTooltipMessage"
+           [matTooltipDisabled]="isLeaveTeamPossible(numberOfAdminRoleMembers) || !hasMemberAdminRole(team)"
+           matTooltipClass="tooltip">
+        <button mat-raised-button (click)="confirmAndLeave(team)"
+                [disabled]="!isLeaveTeamPossible(numberOfAdminRoleMembers) && hasMemberAdminRole(team)">
+          <i class="far fa-times-circle icon"></i> Leave team
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
