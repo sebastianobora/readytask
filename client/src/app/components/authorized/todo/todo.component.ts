@@ -10,9 +10,9 @@ import {switchMap} from 'rxjs/operators';
   styleUrls: ['./todo.component.css']
 })
 export class TodoComponent implements OnInit {
-  todos: Observable<Todo[]> | undefined;
-  selectedTodo: Todo | undefined;
-  editedContent: string | undefined;
+  todos?: Observable<Todo[]>;
+  selectedTodo?: Todo;
+  editedContent?: string;
   newTodo: Partial<Todo> = {};
 
   constructor(private todoService: TodoService) {

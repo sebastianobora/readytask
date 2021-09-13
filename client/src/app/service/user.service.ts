@@ -12,11 +12,15 @@ export class UserService {
   constructor(private httpClient: HttpClient) {
   }
 
+  getById(id: number): Observable<User> {
+    return this.httpClient.get<User>(`${this.url}/${id}`);
+  }
+
   getCurrentUser(): Observable<User> {
     return this.httpClient.get<User>(`${this.url}`);
   }
 
-  getUsersByTeamId(id: number): Observable<User[]> {
+  getUsersByTeamId(id: any): Observable<User[]> {
     return this.httpClient.get<User[]>(`${this.url}/by-team-id/${id}`);
   }
 }

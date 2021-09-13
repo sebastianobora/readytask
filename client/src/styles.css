@@ -5,6 +5,7 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  font-family: 'Comfortaa', sans-serif;
 }
 
 html {
@@ -16,8 +17,6 @@ html {
 
 body {
   color: #FFFFFF;
-  font-family: 'Comfortaa',
-  sans-serif !important;
 }
 
 /* HEADER */
@@ -63,9 +62,14 @@ input:focus {
 }
 
 /*BUTTONS*/
+
+.mat-raised-button:hover{
+  opacity: 0.8;
+}
+
 button {
-  font-family: 'Comfortaa',
-  sans-serif;
+  font-family: 'Comfortaa', sans-serif;
+  background-color: transparent;
   color: white;
   text-decoration: none;
   border: none;
@@ -75,10 +79,11 @@ button {
 .btn {
   width: 100%;
   line-height: 50px;
-  border-radius: 8px;
+  letter-spacing: 0.05rem;
   font-weight: bold;
+  text-shadow: 0 0 3px rgba(0, 0, 0, 0.4);
+  border-radius: 8px;
   box-shadow: 0 0 10px 1px rgba(255, 255, 255, 0.05);
-  text-shadow: 0 0 3px #222;
 }
 
 
@@ -106,22 +111,17 @@ button {
   opacity: 0.8;
 }
 
-.container {
-  position: relative;
-  max-width: 1200px;
-  width: 100%;
-  height: 100%;
-  margin-right: auto;
-  margin-left: auto;
-}
-
 /* ICONS */
 
 .icon {
   cursor: pointer;
   font-size: 18px;
-  margin: 0 5px;
-  transition: color 0.15s;
+  margin-right: 5px;
+  transition: opacity 0.15s;
+}
+
+.icon:hover{
+  opacity: 0.70;
 }
 
 .icon-btn {
@@ -141,7 +141,12 @@ button {
   text-decoration: underline;
 }
 
-/*BACKGROUND / FOOTER*/
+.active-link {
+  color: #bb62e4 !important;
+  font-weight: bold;
+}
+
+/*BACKGROUND & FOOTER*/
 
 .non-auth-layout-background {
   background: rgb(56, 0, 61);
@@ -189,7 +194,7 @@ button {
   margin: 20px 5px;
 }
 
-/* MAIN */
+/* MAIN  & MAIN CONTAINER*/
 
 main {
   display: flex;
@@ -205,12 +210,17 @@ main {
   z-index: 1;
 }
 
-.active-link {
-  color: #bb62e4 !important;
-  font-weight: bold;
+.container {
+  position: relative;
+  max-width: 1200px;
+  width: 100%;
+  height: 100%;
+  margin-right: auto;
+  margin-left: auto;
 }
 
 /* MESSAGES */
+
 .msg-error-p {
   color: #ff5050;
 }
@@ -218,7 +228,7 @@ main {
 .msg_error > p, .msg-error-p {
   margin: 0 10px;
   font-size: 1.3em;
-  font-weight: bolder;
+  font-weight: bold;
 }
 
 .msg_error {
@@ -240,6 +250,12 @@ main {
   margin: 10px 50px;
 }
 
+.no-data-info {
+  font-size: 1.8em;
+}
+
+/* LOADING SPINNER */
+
 .loader {
   display: flex;
   justify-content: center;
@@ -248,10 +264,59 @@ main {
   height: 100%;
 }
 
-.no-data-info {
-  font-size: 1.8em;
-}
-
 .mat-spinner circle {
   stroke: #75419d;
+}
+
+/*NOTIFICATIONS*/
+
+.notify-error.mat-snack-bar-container{
+  background-color: #b93c3c;
+}
+
+.notify-success.mat-snack-bar-container{
+  /*background-color: #644a80;*/
+  background-color: #30ab53;
+}
+
+.auth-notifier-cfg.mat-snack-bar-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 44px;
+  max-width: 600px;
+  margin: 68px 15px 0 15px !important;
+  font-size: 1.4em;
+  font-weight: bold;
+  color: white;
+}
+
+/*MAT TAB GROUP*/
+.mat-tab-body-wrapper{
+  height: 100%;
+}
+
+/* MAT TOOLTIP ROLE */
+.tooltip{
+  font-size: 1.3em;
+}
+
+/* MAT TOGGLE SETTINGS */
+
+.mat-button-toggle-appearance-standard .mat-button-toggle-label-content{
+  line-height: 35px;
+  width: 35px;
+  padding: 0 !important;
+}
+
+.mat-button-toggle-group-appearance-standard{
+  border: none;
+  box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2),
+              0 1px 1px 0 rgba(0, 0, 0, 0.14),
+              0 1px 3px 0 rgba(0, 0, 0, 0.12);
+}
+
+/* MAT MENU */
+.mat-menu-item{
+  font-family: 'Montserrat', sans-serif;
 }

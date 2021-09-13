@@ -14,7 +14,7 @@ label {
   margin-bottom: 20px;
 }
 
-.add-task-input {
+.add-todo-input {
   color: white;
   font-weight: 400;
   max-width: 400px;
@@ -23,6 +23,16 @@ label {
   border-radius: 0;
   border-bottom: rgba(255, 255, 255, 0.6) 1px solid;
   transition: border-bottom-color 0.15s;
+}
+
+.edited-todo-input{
+  max-width: 412px;
+  padding: 0 0 5px;
+  font-size: 1.1em;
+  color: white;
+  background-color: transparent;
+  border-bottom: dashed 1px white;
+  border-radius: 0;
 }
 
 .add-icon {
@@ -57,24 +67,10 @@ label {
 .table th {
   text-align: center;
   font-size: 1.6rem;
-  font-weight: bolder;
+  font-weight: bold;
   text-transform: uppercase;
 }
 
-.check, .cancel {
+.icon {
   font-size: 19px;
 }
-
-.cancel:hover, .delete:hover {
-  color: #fa3e3e;
-}
-
-.edit:hover {
-  color: #bb62e4;
-}
-
-.check:hover {
-  color: #30ab53;
-}
-
-
