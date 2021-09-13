@@ -1,0 +1,116 @@
+<ng-template #loader>
+  <div class="loader">
+    <mat-spinner></mat-spinner>
+  </div>
+</ng-template>
+
+<div *ngIf="participantsDataSource.data.length && team else loader">
+  <mat-form-field appearance="standard" class="filter">
+    <mat-label class="filter-input-label">Find member</mat-label>
+    <input matInput (keyup)="applyFilter($event)" class="filter-input" #filterInput>
+  </mat-form-field>
+
+  <table mat-table [dataSource]="participantsDataSource" class="participants-table">
+
+    <ng-container matColumnDef="img">
+      <th mat-header-cell *matHeaderCellDef>Avatar</th>
+      <td mat-cell *matCellDef="let element">
+        <div class="avatar-container">
+          <img class="avatar" src="{{element.user.img}}" alt="Avatar">
+        </div>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="firstName">
+      <th mat-header-cell *matHeaderCellDef>Name</th>
+      <td mat-cell *matCellDef="let element">{{element.user.firstName}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="lastName">
+      <th mat-header-cell *matHeaderCellDef>Surname</th>
+      <td mat-cell *matCellDef="let element">{{element.user.lastName}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="memberFrom">
+      <th mat-header-cell *matHeaderCellDef>Member from</th>
+      <td mat-cell *matCellDef="let element"> {{element.memberFrom | date: 'dd.MM.yyyy'}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="userRole">
+      <th mat-header-cell *matHeaderCellDef>Role</th>
+      <td mat-cell *matCellDef="let membership">
+        <mat-button-toggle-group [formControl]="selectedRole" *ngIf="isRoleEditable(membership) else memberRoleCard">
+          <mat-button-toggle checked="{{isMemberAdmin(membership)}}" value="{{memberRole.ADMIN}}">
+            <i matTooltip="Admin role"
+               matTooltipPosition="right"
+               matTooltipClass="tooltip"
+               class="fas fa-crown role-icon">
+            </i>
+          </mat-button-toggle>
+          <mat-button-toggle checked="{{!isMemberAdmin(membership)}}" value="{{memberRole.PARTICIPANT}}">
+            <i matTooltip="User role"
+               matTooltipPosition="right"
+               matTooltipClass="tooltip"
+               class="fas fa-user role-icon">
+            </i>
+          </mat-button-toggle>
+        </mat-button-toggle-group>
+
+        <ng-template #memberRoleCard>
+          <mat-card class="member-role">
+            <i matTooltip="Admin role"
+               matTooltipPosition="right"
+               matTooltipClass="tooltip"
+               *ngIf="isMemberAdmin(membership) else userIcon"
+               class="fas fa-crown role-icon">
+            </i>
+            <ng-template #userIcon>
+              <i matTooltip="User role"
+                 matTooltipPosition="right"
+                 matTooltipClass="tooltip"
+                 class="fas fa-user role-icon">
+              </i>
+            </ng-template>
+          </mat-card>
+        </ng-template>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="changeRole">
+      <th mat-header-cell *matHeaderCellDef class="center-cell">Change Role</th>
+      <td mat-cell *matCellDef="let membership" class="center-cell">
+        <ng-container *ngIf="isRoleEditable(membership) else editRoleButton">
+          <i (click)="confirmChanges()" class="far fa-check-square icon"></i>
+          <i (click)="cancelChanges()" class="far fa-window-close icon"></i>
+        </ng-container>
+        <ng-template #editRoleButton>
+          <button (click)="edit(membership)" [disabled]="isItCurrentUserMembership(membership)">
+            <i  class="fas fa-cog icon"></i>
+          </button>
+        </ng-template>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="deleteMember">
+      <th mat-header-cell *matHeaderCellDef class="center-cell">Delete member</th>
+      <td mat-cell *matCellDef="let membership" class="center-cell">
+        <button (click)="deleteMembership(membership)" [disabled]="isItCurrentUserMembership(membership)">
+          <i class="fas fa-user-minus icon"></i>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="columns"></tr>
+    <tr mat-row *matRowDef="let row; columns: columns;"></tr>
+
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="4">No data matching the filter "{{filterInput.value}}"</td>
+    </tr>
+  </table>
+
+  <mat-paginator [length]="100"
+                 [pageSize]="15"
+                 [hidePageSize]="true"
+                 [showFirstLastButtons]="true">
+  </mat-paginator>
+</div>
