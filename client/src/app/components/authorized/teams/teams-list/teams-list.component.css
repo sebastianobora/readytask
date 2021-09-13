@@ -1,10 +1,25 @@
 :host {
+  height: 100%;
+  width: 100%;
+}
+
+.mat-paginator{
+  border-bottom-right-radius: 5px;
+  background-color: #252525;
+}
+
+.teams-list-container{
   display: flex;
   flex-wrap: wrap;
-  align-items: flex-start;
-  padding: 10px;
+  align-content: flex-start;
   width: 100%;
   height: 100%;
+  padding: 9px;
+  overflow-y: auto;
+}
+
+.space-for-paginator{
+  max-height: calc(100% - 56px);
 }
 
 .team-img {
@@ -19,7 +34,7 @@
   justify-content: center;
   align-items: center;
   padding: 10px;
-  margin: 9px;
+  margin: 11px 9px;
   background-color: #333;
   border: 2px rgba(255, 255, 255, 0.05) solid;
   border-radius: 3px;
@@ -43,7 +58,7 @@
   top: 8px;
   right: 8px;
   font-size: 17px;
-  color: goldenrod;
+  color: rgba(255, 255, 255, 0.95);
 }
 
 .team-link {
