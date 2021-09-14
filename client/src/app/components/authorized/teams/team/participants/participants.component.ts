@@ -21,20 +21,20 @@ export class ParticipantsComponent implements OnInit {
   participantsDataSource = new MatTableDataSource<Membership>();
   selectedMembership = new FormControl();
   selectedRole = new FormControl();
-  testUser = {name : 'Sebastian', surname: 'Obora'};
-  testMembership = {role: 'krol', user : this.testUser};
 
   columns: string[] = [];
-  participantCols = ['img', 'firstName', 'lastName', 'memberFrom', 'userRole'];
+  participantCols = ['memberDetails', 'memberFrom', 'userRole'];
   adminCols = ['changeRole', 'deleteMember'];
-
 
   constructor(private membershipService: MembershipService,
               private teamService: TeamService,
-              private notifierService: NotifierService) { }
+              private notifierService: NotifierService) {
+    this.participantsDataSource.filterPredicate = (membership: Membership, filter: string) => {
+      return `${membership.user.firstName} ${membership.user.lastName}`.toLowerCase().includes(filter);
+    };
+  }
 
   ngOnInit(): void {
-    console.log(JSON.stringify(this.testMembership));
     this.teamService.getTeam(this.teamId).subscribe(team => {
       this.team = team;
       switch (team.membership.memberRole){
@@ -46,17 +46,16 @@ export class ParticipantsComponent implements OnInit {
           break;
       }
     });
-    this.loadMembershipData(this.teamId);
+    this.loadMembershipData();
   }
 
   applyFilter(event: Event): void {
     const filterValue = (event.target as HTMLInputElement).value;
-    console.log(filterValue.trim().toLowerCase());
     this.participantsDataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  loadMembershipData(teamId: string): void {
-    this.membershipService.getMembershipsByTeamId(teamId).subscribe(
+  loadMembershipData(): void {
+    this.membershipService.getMembershipsByTeamId(this.teamId).subscribe(
       memberships => {
         this.participantsDataSource.data = memberships;
       }
@@ -84,12 +83,9 @@ export class ParticipantsComponent implements OnInit {
     if (this.selectedMembership.value && this.selectedRole.value){
       this.selectedMembership.value.memberRole = this.selectedRole.value;
       this.membershipService.updateMembership(this.selectedMembership.value).subscribe(
-      membership => {
-          const name = this.selectedMembership.value.user.firstName;
-          const surname = this.selectedMembership.value.user.lastName;
-          const role = membership.memberRole.toLowerCase();
-          const message = `${name} ${surname} role has been changed to ${role}.`;
-          this.notifierService.notify(message, 'success');
+        () => {
+        const message = this.buildSuccessChangedRoleMessage(this.selectedMembership.value);
+        this.notifierService.notify(message, 'success');
       },
       () => {
         const message = `Role cannot be changed!`;
@@ -100,6 +96,13 @@ export class ParticipantsComponent implements OnInit {
         this.selectedRole.reset();
       });
     }
+  }
+
+  buildSuccessChangedRoleMessage(membership: Membership): string{
+    const name = membership.user.firstName;
+    const surname = membership.user.lastName;
+    const role = membership.memberRole.toLowerCase();
+    return `${name} ${surname} role has been changed to ${role}.`;
   }
 
   cancelChanges(): void {
@@ -113,7 +116,7 @@ export class ParticipantsComponent implements OnInit {
         const surname = membership.user.lastName;
         const message = `${name} ${surname} has been removed from ${this.team?.name} team.`;
         this.notifierService.notify(message, 'success');
-        this.loadMembershipData(this.teamId);
+        this.loadMembershipData();
       });
   }
 }

@@ -16,6 +16,7 @@ export class TeamForumComponent implements OnInit {
   isExpanded = false;
   expandMessage = 'Show more';
   isEditable = false;
+  panelOpenState = false;
 
   constructor(private teamForumPostService: TeamForumPostService) {
   }

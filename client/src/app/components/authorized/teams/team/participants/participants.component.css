@@ -67,7 +67,11 @@ button:disabled{
               0 1px 3px 0 rgba(0, 0, 0, 0.12);
 }
 
-.avatar-container{
+.user-details-container{
   display: flex;
   align-items: center;
+}
+
+.user-names{
+  margin-left: 10px;
 }

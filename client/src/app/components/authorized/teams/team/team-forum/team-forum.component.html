@@ -5,6 +5,21 @@
 </ng-template>
 
 <div *ngIf="(posts | async) as posts else loader" class="forum-container">
+  <div class="add-post-container">
+    <mat-expansion-panel hideToggle>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>add</mat-icon><p class="add-post-title">New post</p>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Post</mat-label>
+        <textarea matInput #post maxlength="256"></textarea>
+        <mat-hint align="end">{{post.value.length}} / 256</mat-hint>
+      </mat-form-field>
+    </mat-expansion-panel>
+  </div>
+
   <div class="post-container" *ngFor="let post of posts">
     <div class="avatar-container">
       <img src="{{post.user.img}}" alt="avatar" class="avatar"/>
@@ -12,7 +27,7 @@
     <div mat-ripple [matRippleTrigger]="trigger" [matRippleCentered]="isExpanded" class="message-container">
       <div class="message-header-container">
         <p class="post-author-details">{{post.user.firstName}} {{post.user.lastName}}</p>
-        <p class="post-creation-time">{{post.creationTime | date: 'H.d.y HH:mm'}}</p>
+        <p class="post-creation-time">{{post.creationTime | date: 'MM.dd.y HH:mm'}}</p>
         <div class="post-modify-actions">
           <i (click)="toggleEditable()" class="far fa-edit icon"></i>
           <i class="far fa-minus-square icon icon-delete"></i>
@@ -27,6 +42,10 @@
             <i class="far icon expand-icon" [ngClass]="isExpanded ? 'fa-caret-square-up' : 'fa-caret-square-down'"></i>
             <span>{{expandMessage}}</span>
           </button>
+        </div>
+        <div class="reactions-container">
+          <i class="fas fa-heart icon reaction-icon"></i>
+          <i class="fas fa-heart-broken icon reaction-icon"></i>
         </div>
       </div>
     </div>

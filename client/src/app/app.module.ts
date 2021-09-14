@@ -62,6 +62,8 @@ import {MatSortModule} from '@angular/material/sort';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import { TeamForumComponent } from './components/authorized/teams/team/team-forum/team-forum.component';
 import { TrimTextPipe } from './pipes/trim-text.pipe';
+import {MatExpansionModule} from '@angular/material/expansion';
+import {MatIconModule} from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -98,37 +100,39 @@ import { TrimTextPipe } from './pipes/trim-text.pipe';
     TeamForumComponent,
     TrimTextPipe
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        HttpClientModule,
-        FormsModule,
-        ClipboardModule,
-        TooltipModule,
-        ReactiveFormsModule,
-        BrowserAnimationsModule,
-        MatMenuModule,
-        MatButtonModule,
-        MatProgressSpinnerModule,
-        MatTooltipModule,
-        QuillModule.forRoot(),
-        MatDatepickerModule,
-        MatFormFieldModule,
-        MatNativeDateModule,
-        MatInputModule,
-        MatSelectModule,
-        A11yModule,
-        MatDialogModule,
-        MatCardModule,
-        MatTreeModule,
-        MatSnackBarModule,
-        MatPaginatorModule,
-        MatTabsModule,
-        MatTableModule,
-        MatSortModule,
-        MatButtonToggleModule,
-        MatRippleModule
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule,
+    ClipboardModule,
+    TooltipModule,
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    MatMenuModule,
+    MatButtonModule,
+    MatProgressSpinnerModule,
+    MatTooltipModule,
+    QuillModule.forRoot(),
+    MatDatepickerModule,
+    MatFormFieldModule,
+    MatNativeDateModule,
+    MatInputModule,
+    MatSelectModule,
+    A11yModule,
+    MatDialogModule,
+    MatCardModule,
+    MatTreeModule,
+    MatSnackBarModule,
+    MatPaginatorModule,
+    MatTabsModule,
+    MatTableModule,
+    MatSortModule,
+    MatButtonToggleModule,
+    MatRippleModule,
+    MatExpansionModule,
+    MatIconModule
+  ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
     AuthGuard,
