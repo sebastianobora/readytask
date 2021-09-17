@@ -49,7 +49,7 @@ public class TeamService {
     }
 
     public void delete(Long id){
-        teamRepository.delete(getById(id));
+        teamRepository.deleteById(id);
     }
 
     public Team add(Team team, Authentication authentication){
