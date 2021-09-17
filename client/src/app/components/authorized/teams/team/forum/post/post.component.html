@@ -1,0 +1,35 @@
+<div class="post-container">
+  <div class="avatar-container">
+    <img src="{{post.user.img}}" alt="avatar" class="avatar"/>
+  </div>
+  <div mat-ripple [matRippleTrigger]="trigger" [matRippleCentered]="isExpanded" class="message-container">
+    <div class="message-header-container">
+      <p class="post-author-details">{{post.user.firstName}} {{post.user.lastName}}</p>
+      <p class="post-creation-time">{{post.creationTime | date: 'MM.dd.y HH:mm'}}</p>
+      <div class="post-modify-actions" *ngIf="isUserAuthor(post) || isUserAdminOfTeam()">
+        <i *ngIf="!isEditable else confirmChanges" (click)="toggleEditable()" class="far fa-edit icon"></i>
+        <ng-template #confirmChanges>
+          <i class="far fa-check-square icon icon-confirm-changes" (click)="updatePost(post, message)"></i>
+        </ng-template>
+        <i (click)="confirmAndDeletePost(post)" class="far fa-minus-square icon icon-delete"></i>
+      </div>
+    </div>
+    <div class="message-content" [ngClass]="{'edit-message-content' : isEditable}">
+      <p class="post-message" #message appFocusOnChange [disabledOrHidden]="!isEditable" [contentEditable]="isEditable">
+        {{isExpanded ? post.message : post.message | trimText : postCollapsedLengthLimit}}
+      </p>
+    </div>
+    <div class="post-interactions">
+      <div #trigger>
+        <button [disabled]="isEditable" mat-raised-button *ngIf="isLongerThanLimit(post)" (click)="toggleExpand()" class="action-button">
+          <i class="far icon expand-icon" [ngClass]="isExpanded ? 'fa-caret-square-up' : 'fa-caret-square-down'"></i>
+          <span>{{expandMessage}}</span>
+        </button>
+      </div>
+      <div class="reactions-container">
+        <i class="fas fa-heart icon reaction-icon"></i>
+        <i class="fas fa-heart-broken icon reaction-icon"></i>
+      </div>
+    </div>
+  </div>
+</div>

@@ -320,3 +320,8 @@ main {
 .mat-menu-item{
   font-family: 'Montserrat', sans-serif;
 }
+
+/* MAT LABEL */
+mat-label{
+  color: rgba(255, 255, 255, 0.8);
+}

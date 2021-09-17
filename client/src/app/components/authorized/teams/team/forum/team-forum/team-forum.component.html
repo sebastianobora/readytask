@@ -1,0 +1,13 @@
+<ng-template #loader>
+  <div class="loader">
+    <mat-spinner></mat-spinner>
+  </div>
+</ng-template>
+
+<div class="forum-element-container">
+  <app-add-post [teamId]="teamId" (addPostEvent)="loadPosts()"></app-add-post>
+</div>
+
+<div *ngIf="(posts | async) as posts else loader" class="forum-element-container">
+  <app-post *ngFor="let post of posts" [post]="post" [team]="team" (reloadPosts)="loadPosts()"></app-post>
+</div>

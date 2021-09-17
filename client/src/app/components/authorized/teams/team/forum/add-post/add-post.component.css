@@ -1,0 +1,51 @@
+:host{
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.add-post-container{
+  display: flex;
+  align-self: center;
+  padding-left: 60px;
+  margin: 0 8px;
+  max-width: 800px;
+  width: 100%;
+}
+
+.add-post-title{
+  margin-left: 5px;
+  line-height: 24px;
+}
+
+.mat-expansion-panel{
+  transition: background-color 0.3s;
+}
+
+.mat-expansion-panel,
+.mat-form-field{
+  width: 100%;
+}
+
+.mat-expansion-panel.mat-expanded{
+  border: rgba(255, 255, 255, 0.05) 2px solid;
+  background-color: #333;
+}
+
+.add-post-text{
+  font-size: 1.3rem;
+  max-height: 494px;
+}
+
+.add-post-button{
+  padding: 0 10px;
+  margin-top: 5px;
+  line-height: 28px;
+  font-size: 1.3rem;
+  color: #FFFFFF;
+}
+
+.send-icon{
+  font-size: 1.4rem;
+  margin-left: 5px;
+}

@@ -31,4 +31,16 @@ export class TeamForumPostService {
         )
       );
   }
+
+  add(newPost: TeamForumPost): Observable<TeamForumPost> {
+    return this.httpClient.post<TeamForumPost>(`${this.url}`, newPost);
+  }
+
+  deleteById(post: TeamForumPost): Observable<any> {
+    return this.httpClient.delete(`${this.url}/${post.id}`);
+  }
+
+  update(post: TeamForumPost): Observable<TeamForumPost> {
+    return this.httpClient.put<TeamForumPost>(`${this.url}`, post);
+  }
 }

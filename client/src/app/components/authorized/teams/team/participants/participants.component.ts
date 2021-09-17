@@ -14,8 +14,7 @@ import {NotifierService} from '../../../../../service/notifier.service';
   styleUrls: ['./participants.component.css']
 })
 export class ParticipantsComponent implements OnInit {
-  @Input()
-  teamId!: string;
+  @Input() teamId!: string;
   team?: Team;
   memberRole = MemberRole;
   participantsDataSource = new MatTableDataSource<Membership>();

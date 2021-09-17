@@ -18,10 +18,6 @@ export class ConfirmationService {
     this.dialog
       .open(ConfirmationComponent, {autoFocus: true})
       .afterClosed()
-      .subscribe(value => {
-        if (value) {
-          callback();
-        }
-    });
+      .subscribe(value => value ? callback() : this.dialog.closeAll());
   }
 }

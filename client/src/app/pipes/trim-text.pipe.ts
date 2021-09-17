@@ -6,11 +6,10 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class TrimTextPipe implements PipeTransform {
 
   transform(text: string, limit: number): string {
-    limit = text.substr(0, limit).lastIndexOf(' ');
-    if (limit < 0 || text.length < limit){
+    if (text.length < limit){
       return text;
-    }else{
-      return text.substr(0, limit) + '...';
     }
+    limit = text.substr(0, limit).lastIndexOf(' ');
+    return limit < 0 ? text : text.substr(0, limit) + '...';
   }
 }

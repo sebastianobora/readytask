@@ -50,20 +50,22 @@ import {PickDateDialogComponent} from './components/authorized/tasks/add-task/ad
 import {MatCardModule} from '@angular/material/card';
 import {TaskComponent} from './components/authorized/tasks/task/task.component';
 import {MatTreeModule} from '@angular/material/tree';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { NotificationComponent } from './components/notification/notification.component';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {NotificationComponent} from './components/notification/notification.component';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatTabsModule} from '@angular/material/tabs';
-import { ConfirmationComponent } from './components/confirmation/confirmation.component';
-import { TeamDetailsComponent } from './components/authorized/teams/team/team-details/team-details.component';
-import { ParticipantsComponent } from './components/authorized/teams/team/participants/participants.component';
+import {ConfirmationComponent} from './components/confirmation/confirmation.component';
+import {TeamDetailsComponent} from './components/authorized/teams/team/team-details/team-details.component';
+import {ParticipantsComponent} from './components/authorized/teams/team/participants/participants.component';
 import {MatTableModule} from '@angular/material/table';
-import {MatSortModule} from '@angular/material/sort';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
-import { TeamForumComponent } from './components/authorized/teams/team/team-forum/team-forum.component';
-import { TrimTextPipe } from './pipes/trim-text.pipe';
+import {TeamForumComponent} from './components/authorized/teams/team/forum/team-forum/team-forum.component';
+import {TrimTextPipe} from './pipes/trim-text.pipe';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatIconModule} from '@angular/material/icon';
+import {AddPostComponent} from './components/authorized/teams/team/forum/add-post/add-post.component';
+import {PostComponent} from './components/authorized/teams/team/forum/post/post.component';
+import { FocusOnChangeDirective } from './directives/focus-on-change.directive';
 
 @NgModule({
   declarations: [
@@ -98,7 +100,10 @@ import {MatIconModule} from '@angular/material/icon';
     TeamDetailsComponent,
     ParticipantsComponent,
     TeamForumComponent,
-    TrimTextPipe
+    TrimTextPipe,
+    AddPostComponent,
+    PostComponent,
+    FocusOnChangeDirective
   ],
   imports: [
     BrowserModule,
@@ -127,7 +132,6 @@ import {MatIconModule} from '@angular/material/icon';
     MatPaginatorModule,
     MatTabsModule,
     MatTableModule,
-    MatSortModule,
     MatButtonToggleModule,
     MatRippleModule,
     MatExpansionModule,
