@@ -1,1 +1,3 @@
-<router-outlet></router-outlet>
+<div [ngClass]="isAuthorizedLayout ? authLayoutClassname : nonAuthLayoutClassname">
+  <router-outlet (activate)="changeLayout($event)"></router-outlet>
+</div>

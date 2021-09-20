@@ -1,3 +1,7 @@
+header {
+  background-color: #222;
+}
+
 .header-wrapper {
   display: flex;
   justify-content: space-between;

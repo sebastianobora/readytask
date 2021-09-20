@@ -1,5 +1,6 @@
-import {Component, Inject, OnDestroy, OnInit, Renderer2} from '@angular/core';
-import {DOCUMENT} from '@angular/common';
+import {AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {FooterComponent} from '../../footer/footer.component';
+import {LayoutService} from '../../../service/layout.service';
 
 declare var particlesJS: any;
 
@@ -8,21 +9,26 @@ declare var particlesJS: any;
   templateUrl: './non-auth-layout.component.html',
   styleUrls: ['./non-auth-layout.component.css']
 })
-export class NonAuthLayoutComponent implements OnInit, OnDestroy {
-  constructor(
-    @Inject(DOCUMENT) private document: Document,
-    private renderer: Renderer2
-  ) {
+export class NonAuthLayoutComponent implements OnInit, OnDestroy,  AfterViewInit{
+  @ViewChild(FooterComponent, {read: ElementRef}) footerEl!: ElementRef;
+  nonAuthLayoutFooterClass = 'non-auth-layout-footer';
+
+  constructor(private layoutService: LayoutService) {
+  }
+
+  ngAfterViewInit(): void {
+    this.layoutService.addFooterClass(this.footerEl, this.nonAuthLayoutFooterClass);
   }
 
   ngOnInit(): void {
-    this.renderer.addClass(this.document.getElementsByTagName('header')[0], 'non-auth-layout-header');
-    this.renderer.addClass(this.document.body, 'non-auth-layout-background');
-    this.renderer.addClass(this.document.getElementsByTagName('footer')[0], 'non-auth-layout-footer');
-    particlesJS.load('particles-js', 'assets/particlesjs-config.json', null);
+    this.loadParticleJS();
   }
 
   ngOnDestroy(): void {
-    this.renderer.removeClass(this.document.body, 'non-auth-layout-background');
+    this.layoutService.removeFooterClass(this.footerEl, this.nonAuthLayoutFooterClass);
+  }
+
+  loadParticleJS(): void{
+    particlesJS.load('particles-js', 'assets/particlesjs-config.json', null);
   }
 }

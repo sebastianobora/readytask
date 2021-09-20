@@ -1,0 +1,9 @@
+.non-auth-layout-background {
+  background: rgb(56, 0, 61);
+  background: radial-gradient(circle, rgba(40, 0, 65, 1) 10%, rgba(0, 0, 0, 1) 100%);
+  background-attachment: fixed;
+}
+
+.auth-layout-background {
+  background-color: #111;
+}

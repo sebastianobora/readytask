@@ -1,3 +1,7 @@
+header {
+  background: radial-gradient(circle, rgb(27, 0, 44) 0%, rgba(0, 0, 0, 1) 100%);
+}
+
 .avatar-container,
 .logo-container {
   position: absolute;

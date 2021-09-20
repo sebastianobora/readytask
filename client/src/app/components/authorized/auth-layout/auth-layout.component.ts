@@ -1,39 +1,40 @@
-import {Component, Inject, OnDestroy, OnInit, Renderer2} from '@angular/core';
-import {DOCUMENT} from '@angular/common';
+import {AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {UserService} from '../../../service/user.service';
 import {User} from '../../../entity/user';
+import {FooterComponent} from '../../footer/footer.component';
+import {LayoutService} from '../../../service/layout.service';
 
 @Component({
   selector: 'app-auth-layout',
   templateUrl: './auth-layout.component.html',
   styleUrls: ['./auth-layout.component.css']
 })
-export class AuthLayoutComponent implements OnInit, OnDestroy {
-  currentUser: Partial<User> | undefined;
+export class AuthLayoutComponent implements OnInit, AfterViewInit, OnDestroy {
+  @ViewChild(FooterComponent, {read: ElementRef}) footerEl!: ElementRef;
+  currentUser?: Partial<User>;
+  authLayoutFooterClass = 'auth-layout-footer';
 
   constructor(
-    @Inject(DOCUMENT) private document: Document,
-    private renderer: Renderer2,
-    private userService: UserService
+    private userService: UserService,
+    private layoutService: LayoutService
   ) {
   }
 
   ngOnInit(): void {
     this.getCurrentUser();
-    this.renderer.addClass(this.document.getElementsByTagName('header')[0], 'auth-layout-header');
-    this.renderer.addClass(this.document.body, 'auth-layout-background');
-    this.renderer.addClass(this.document.getElementsByTagName('footer')[0], 'auth-layout-footer');
   }
 
-  getCurrentUser(): void {
-    this.userService.getCurrentUser().subscribe(data => {
-      this.currentUser = data;
-    });
+  ngAfterViewInit(): void {
+    this.layoutService.addFooterClass(this.footerEl, this.authLayoutFooterClass);
   }
 
   ngOnDestroy(): void {
-    this.renderer.removeClass(this.document.getElementsByTagName('header')[0], 'auth-layout-header');
-    this.renderer.removeClass(this.document.body, 'auth-layout-background');
-    this.renderer.removeClass(this.document.getElementsByTagName('footer')[0], 'auth-layout-footer');
+    this.layoutService.removeFooterClass(this.footerEl, this.authLayoutFooterClass);
+  }
+
+  getCurrentUser(): void {
+    this.userService.getCurrentUser().subscribe(user => {
+      this.currentUser = user;
+    });
   }
 }
