@@ -1,6 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {TeamForumPostService} from '../../../../../../service/team-forum-post.service';
-import {Observable} from 'rxjs';
 import {TeamForumPost} from '../../../../../../entity/team-forum-post';
 import {Team} from '../../../../../../entity/team';
 import {TeamService} from '../../../../../../service/team.service';
@@ -14,7 +13,8 @@ export class TeamForumComponent implements OnInit {
   @Input()
   teamId!: string;
   team!: Team;
-  posts!: Observable<TeamForumPost[]>;
+  posts: TeamForumPost[] = [];
+  isLoading!: boolean;
 
   constructor(private teamForumPostService: TeamForumPostService,
               private teamService: TeamService) {
@@ -31,7 +31,27 @@ export class TeamForumComponent implements OnInit {
     );
   }
 
+  setLoader(state: true | false): void{
+    this.isLoading = state;
+  }
+
+  clearPosts(): void{
+    if (this.posts.length > 0){
+      this.posts.length = 0;
+    }
+  }
+
   loadPosts(): void{
-    this.posts = this.teamForumPostService.getPostsByTeamId(this.teamId);
+    this.setLoader(true);
+    this.clearPosts();
+    this.teamForumPostService.getPostsByTeamId(this.teamId).subscribe(
+      posts => {
+        this.posts = posts;
+      },
+    () => {},
+    () => {
+        this.setLoader(false);
+      }
+    );
   }
 }

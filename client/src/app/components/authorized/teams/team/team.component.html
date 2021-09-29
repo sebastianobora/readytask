@@ -1,15 +1,8 @@
 <button class="icon-btn back-button" (click)="goBack()">
   <i class="fas fa-arrow-left icon"></i>
 </button>
-<mat-tab-group mat-align-tabs="center">
-  <mat-tab label="Forum">
-    <ng-template matTabContent>
-      <!--      lazy load-->
-      <app-team-forum [teamId]="teamId"></app-team-forum>
-    </ng-template>
-  </mat-tab>
-<!--  temp-->
 
+<mat-tab-group mat-align-tabs="center">
   <mat-tab label="Team details">
     <ng-template matTabContent>
       <!--      lazy load-->
@@ -17,14 +10,15 @@
     </ng-template>
   </mat-tab>
 
+  <mat-tab label="Forum">
+    <ng-template matTabContent>
+      <app-team-forum [teamId]="teamId"></app-team-forum>
+    </ng-template>
+  </mat-tab>
+
   <mat-tab label="Participants">
     <ng-template matTabContent>
-      <!--      lazy load-->
       <app-participants [teamId]="teamId"></app-participants>
     </ng-template>
   </mat-tab>
 </mat-tab-group>
-
-
-
-

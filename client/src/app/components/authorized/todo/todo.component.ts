@@ -2,7 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {Observable} from 'rxjs';
 import {Todo} from '../../../entity/todo';
 import {TodoService} from '../../../service/todo.service';
-import {switchMap} from 'rxjs/operators';
+import {NotifierService} from '../../../service/notifier.service';
+import {ConfirmationService} from '../../../service/confirmation.service';
 
 @Component({
   selector: 'app-todo',
@@ -12,17 +13,20 @@ import {switchMap} from 'rxjs/operators';
 export class TodoComponent implements OnInit {
   todos?: Observable<Todo[]>;
   selectedTodo?: Todo;
-  editedContent?: string;
   newTodo: Partial<Todo> = {};
+  editedContent?: string;
+  maxTodoLength = 50;
 
-  constructor(private todoService: TodoService) {
+  constructor(private todoService: TodoService,
+              private notifierService: NotifierService,
+              private confirmationService: ConfirmationService) {
   }
 
   ngOnInit(): void {
-    this.getTodos();
+    this.loadTodos();
   }
 
-  getTodos(): void {
+  loadTodos(): void {
     this.todos = this.todoService.getTodos();
   }
 
@@ -35,10 +39,15 @@ export class TodoComponent implements OnInit {
   }
 
   add(): void {
-    this.todoService.addTodo(this.newTodo as Todo).pipe(
-      switchMap(() => this.todoService.getTodos())
-    ).pipe(data => this.todos = data);
-    this.newTodo = {};
+    this.todoService.addTodo(this.newTodo as Todo).subscribe(
+      () => {
+        this.loadTodos();
+      },
+      () => {},
+      () => {
+        this.newTodo = {};
+      }
+    );
   }
 
   edit(todo: Todo): void {
@@ -47,12 +56,18 @@ export class TodoComponent implements OnInit {
   }
 
   cancelEdit(): void {
-    this.selectedTodo = undefined;
+    this.selectedTodo = {} as Todo;
+  }
+
+  confirmAndDelete(todo: Todo): void{
+    this.confirmationService.isConfirmed(() => this.delete(todo));
   }
 
   delete(todo: Todo): void {
-    this.todoService.deleteTodo(todo.id).pipe(
-      switchMap(() => this.todoService.getTodos())
-    ).pipe(data => this.todos = data);
+    this.todoService.deleteTodo(todo.id).subscribe(
+      () => this.notifierService.notify('Todo has been deleted!', 'success'),
+      () => this.notifierService.notify('Todo cannot be deleted!', 'error'),
+      () => this.loadTodos()
+    );
   }
 }

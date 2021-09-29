@@ -66,6 +66,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {AddPostComponent} from './components/authorized/teams/team/forum/add-post/add-post.component';
 import {PostComponent} from './components/authorized/teams/team/forum/post/post.component';
 import { FocusOnChangeDirective } from './directives/focus-on-change.directive';
+import {InformationComponent} from './components/authorized/teams/team/forum/information/information.component';
 
 @NgModule({
   declarations: [
@@ -103,7 +104,8 @@ import { FocusOnChangeDirective } from './directives/focus-on-change.directive';
     TrimTextPipe,
     AddPostComponent,
     PostComponent,
-    FocusOnChangeDirective
+    FocusOnChangeDirective,
+    InformationComponent
   ],
   imports: [
     BrowserModule,

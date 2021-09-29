@@ -3,12 +3,13 @@
     <input
       type="text"
       [(ngModel)]="newTodo.content"
+      [maxlength]="maxTodoLength"
       name="content"
       class="input add-todo-input"
       placeholder="Add todo"
       required>
-    <button class="icon-btn" type="submit" [disabled]="form.invalid">
-      <i class="fas fa-plus icon add-icon"></i>
+    <button mat-icon-button class="icon-btn add-icon" type="submit" [disabled]="form.invalid">
+      <i class="fas fa-plus icon"></i>
     </button>
   </form>
 </div>
@@ -26,6 +27,7 @@
         <input
           class="input edited-todo-input"
           [(ngModel)]="editedContent"
+          [maxlength]="maxTodoLength"
           (keydown.Enter)="confirmChanges()"
           (keydown.Meta.Enter)="confirmChanges()"
           (keydown.Escape)="cancelEdit()"
@@ -37,16 +39,16 @@
         <i (click)="cancelEdit()" class="far fa-window-close icon"></i>
       </td>
       <td>
-        <i (click)="delete(todo)" class="far fa-trash-alt icon"></i>
+        <i (click)="confirmAndDelete(todo)" class="far fa-trash-alt icon"></i>
       </td>
     </ng-container>
 
     <ng-template #todoTemplate>
-      <td>{{todo.content}}</td>
+      <td>{{todo.content | trimText: 50}}</td>
       <td>{{todo.createdAt | date: 'dd.MM.yyyy - HH:mm'}}</td>
       <td (click)="edit(todo)"><i class="far fa-edit icon"></i></td>
       <td>
-        <i (click)="delete(todo)" class="far fa-trash-alt icon"></i>
+        <i (click)="confirmAndDelete(todo)" class="far fa-trash-alt icon"></i>
       </td>
     </ng-template>
   </tr>

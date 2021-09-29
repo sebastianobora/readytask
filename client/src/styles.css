@@ -107,7 +107,6 @@ button {
 .icon {
   cursor: pointer;
   font-size: 18px;
-  margin-right: 5px;
   transition: opacity 0.15s;
 }
 

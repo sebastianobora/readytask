@@ -2,7 +2,6 @@
   width: 100%;
   height: 100%;
   padding: 20px 20px;
-  overflow: scroll;
 }
 
 label {
@@ -35,13 +34,13 @@ label {
   border-radius: 0;
 }
 
+.icon{
+  margin-right: 5px;
+}
+
 .add-icon {
   margin-left: 10px;
   font-size: 1.5rem;
-}
-
-.add-icon:hover {
-  color: #bb62e4;
 }
 
 .table {

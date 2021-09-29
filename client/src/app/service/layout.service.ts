@@ -1,10 +1,9 @@
-import {ElementRef, EventEmitter, Injectable, Output} from '@angular/core';
+import {ElementRef, Injectable} from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LayoutService {
-  @Output() changeLayout = new EventEmitter();
   constructor() { }
 
   addFooterClass(element: ElementRef, className: string): void{

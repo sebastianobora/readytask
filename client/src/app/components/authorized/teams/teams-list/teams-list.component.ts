@@ -12,7 +12,7 @@ export class TeamsListComponent implements OnInit {
   isLoading = true;
   adminRole: MemberRole = MemberRole.ADMIN;
 
-  teams: Team[] | undefined;
+  teams?: Team[];
 
   constructor(private teamService: TeamService) {
   }

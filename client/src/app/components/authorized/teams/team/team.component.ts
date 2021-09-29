@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Location} from '@angular/common';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
+import {TeamService} from '../../../../service/team.service';
 
 @Component({
   selector: 'app-team',
@@ -12,7 +13,9 @@ export class TeamComponent implements OnInit {
 
   constructor(
     private location: Location,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private teamService: TeamService,
+    private router: Router
   ) {
   }
 
@@ -21,6 +24,7 @@ export class TeamComponent implements OnInit {
     if (teamId){
       this.teamId = teamId;
     }
+    this.teamService.getTeam(teamId as string).subscribe(() => {}, () => this.router.navigate(['teams/my-teams']));
   }
 
   goBack(): void {
