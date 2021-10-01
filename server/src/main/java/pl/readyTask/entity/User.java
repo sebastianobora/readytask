@@ -3,6 +3,7 @@ package pl.readyTask.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import pl.readyTask.entity.enumeration.UserRole;
 
@@ -17,10 +18,8 @@ import java.util.Set;
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 public class User {
-    public User() {
-    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
@@ -68,7 +67,7 @@ public class User {
     private Set<TeamForumPost> teamForumPosts;
 
     @JsonIgnore
-    @OneToMany(mappedBy="user", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private Set<TaskComment> taskComments;
 
     @JsonIgnore
@@ -78,6 +77,10 @@ public class User {
     @JsonIgnore
     @OneToMany(mappedBy = "authorOfTask", fetch = FetchType.LAZY)
     private Set<Task> tasksAssignedByUser;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private Set<SocialResourceReaction> socialReactions;
 
     public static User getNewUserFromId(Long userId){
         User user = new User();

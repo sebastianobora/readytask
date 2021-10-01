@@ -4,34 +4,31 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.Setter;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
+import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
-import java.util.Date;
 
-@Entity(name = "TaskComment")
-@Table(name = "task_comment")
+
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
-public class TaskComment extends SocialResource{
+@Entity(name = "SocialResourceReaction")
+@Table(name = "social_resource_reaction")
+public class SocialResourceReaction {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
+    private Long id;
 
-    @Column(name = "message", nullable = false)
-    private String message;
-
-    @Column(name = "created_at")
-    @CreationTimestamp
-    private Date createdAt;
-
-    @Column(name = "edited_at")
-    @UpdateTimestamp
-    private Date editedAt;
+    @Column(name = "is_positive")
+    private boolean isPositive;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
     @JsonIdentityReference(alwaysAsId = true)
     @JsonProperty("userId")
@@ -39,20 +36,21 @@ public class TaskComment extends SocialResource{
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "task_id", nullable = false)
+    @JoinColumn(name = "social_resource_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
     @JsonIdentityReference(alwaysAsId = true)
-    @JsonProperty("taskId")
+    @JsonProperty("socialResourceId")
     @Setter(AccessLevel.NONE)
-    private Task task;
+    private SocialResource socialResource;
 
     @JsonProperty("userId")
     public void setUserById(Long userId){
         user = User.getNewUserFromId(userId);
     }
 
-    @JsonProperty("taskId")
-    public void setTaskById(Long taskId){
-        task = Task.getNewTaskFromId(taskId);
+    @JsonProperty("socialResourceId")
+    public void setSocialResource(Long socialResourceId){
+        socialResource = SocialResource.getSocialResourceFromId(socialResourceId);
     }
 }
