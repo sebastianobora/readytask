@@ -65,4 +65,8 @@ public class MembershipService {
     public void delete(Long id){
         membershipRepository.deleteById(id);
     }
+
+    public boolean isUserMemberOfTeam(User user, Team team){
+        return membershipRepository.existsByUserIdAndTeamId(user.getId(), team.getId());
+    }
 }

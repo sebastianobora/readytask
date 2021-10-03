@@ -12,14 +12,23 @@ import java.time.ZonedDateTime;
 public class ExceptionsHandler {
     @ExceptionHandler(NoDataFoundException.class)
     public ResponseEntity<Object> noDataFoundExceptionHandler(NoDataFoundException e){
-        ExceptionBody body = createExceptionBody(HttpStatus.NOT_FOUND, e.getMessage());
-        return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
+        HttpStatus status = HttpStatus.NOT_FOUND;
+        ExceptionBody body = createExceptionBody(status, e.getMessage());
+        return new ResponseEntity<>(body, status);
     }
 
     @ExceptionHandler(RegisterException.class)
     public ResponseEntity<Object> registerExceptionHandler(RegisterException e){
-        ExceptionBody body = createExceptionBody(HttpStatus.CONFLICT, e.getMessage());
-        return new ResponseEntity<>(body, HttpStatus.CONFLICT);
+        HttpStatus status = HttpStatus.CONFLICT;
+        ExceptionBody body = createExceptionBody(status, e.getMessage());
+        return new ResponseEntity<>(body, status);
+    }
+
+    @ExceptionHandler(AccessDeniedToActionException.class)
+    public ResponseEntity<Object> AccessDeniedToActionExceptionHandler(AccessDeniedToActionException e){
+        HttpStatus status = HttpStatus.FORBIDDEN;
+        ExceptionBody body = createExceptionBody(status, e.getMessage());
+        return new ResponseEntity<>(body, status);
     }
 
     private ExceptionBody createExceptionBody(HttpStatus status, String message){

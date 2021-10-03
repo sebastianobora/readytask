@@ -16,7 +16,10 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity(name = "SocialResourceReaction")
-@Table(name = "social_resource_reaction")
+@Table(name = "social_resource_reaction",
+        uniqueConstraints={
+        @UniqueConstraint(columnNames = {"user_id", "social_resource_id"})
+        })
 public class SocialResourceReaction {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -24,7 +27,7 @@ public class SocialResourceReaction {
     private Long id;
 
     @Column(name = "is_positive")
-    private boolean isPositive;
+    private boolean positive;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
@@ -50,7 +53,7 @@ public class SocialResourceReaction {
     }
 
     @JsonProperty("socialResourceId")
-    public void setSocialResource(Long socialResourceId){
+    public void setSocialResourceById(Long socialResourceId){
         socialResource = SocialResource.getSocialResourceFromId(socialResourceId);
     }
 }

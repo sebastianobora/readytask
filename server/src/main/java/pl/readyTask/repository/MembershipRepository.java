@@ -16,4 +16,6 @@ public interface MembershipRepository extends JpaRepository<Membership, Long> {
 
     @Query("SELECT count(m.id) FROM Membership as m WHERE m.memberRole = 'ADMIN' AND m.team.id = ?1")
     Optional<Integer> getAmountOfAdminRoleMembersByTeamId(Long teamId);
+
+    boolean existsByUserIdAndTeamId(Long user_id, Long team_id);
 }
