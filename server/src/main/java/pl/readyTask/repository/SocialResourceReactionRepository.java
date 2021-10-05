@@ -15,7 +15,7 @@ public interface SocialResourceReactionRepository extends JpaRepository<SocialRe
     @Transactional
     void deleteBySocialResourceIdAndUserId(Long socialResource_id, Long user_id);
 
-    Integer countAllBySocialResourceIdAndUserIdAndPositiveEquals(Long socialResource_id, Long user_id, boolean positive);
+    Integer countAllBySocialResourceIdAndPositiveEquals(Long socialResource_id, boolean positive);
 
     @Query("SELECT srr.positive FROM SocialResourceReaction as srr WHERE srr.socialResource.id = ?1 and srr.user.id = ?2")
     Optional<Boolean> getIsLiked(Long social_resource_id, Long user_id);

@@ -1,4 +1,4 @@
-package pl.readyTask.dto;
+package pl.readyTask.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ResourceStatisticsResponse {
+public class ResourceStatistics {
     private Boolean isLiked;
     private int likes;
     private int dislikes;

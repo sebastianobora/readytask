@@ -16,6 +16,11 @@ public class TeamForumPostService {
     private final TeamForumPostRepository teamForumPostRepository;
     private final SecurityService securityService;
 
+    public TeamForumPost getById(Long id){
+        return teamForumPostRepository.findById(id)
+                .orElseThrow(() -> new NoDataFoundException("TeamForumPost", id));
+    }
+
     public List<TeamForumPost> getPostsByTeamId(Long id) {
         return teamForumPostRepository.findAllByTeamIdOrderByCreationTimeDesc(id)
                 .orElseThrow(() -> new NoDataFoundException("TeamForumPost", id));

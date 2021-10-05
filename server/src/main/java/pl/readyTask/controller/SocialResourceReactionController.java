@@ -5,8 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
-import pl.readyTask.dto.ResourceStatisticsResponse;
-import pl.readyTask.entity.TeamForumPost;
+import pl.readyTask.entity.ResourceStatistics;
 import pl.readyTask.service.SocialResourceReactionService;
 
 @RestController
@@ -17,31 +16,29 @@ public class SocialResourceReactionController {
     private final SocialResourceReactionService socialResourceReactionService;
 
     @GetMapping("/post-statistics/{postId}")
-    public ResponseEntity<ResourceStatisticsResponse> postStatistics(Authentication authentication, @PathVariable Long postId){
+    public ResponseEntity<ResourceStatistics> postStatistics(Authentication authentication, @PathVariable Long postId){
         return ResponseEntity.ok(socialResourceReactionService.getResourceStatistics(authentication, postId));
     }
 
-    @PostMapping("/like-post")
-    public ResponseEntity<HttpStatus> likePost(Authentication authentication, @RequestBody TeamForumPost post){
-        socialResourceReactionService.addPostReaction(authentication, post, true);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+    @PostMapping("/like-post/{postId}")
+    public ResponseEntity<ResourceStatistics> likePost(Authentication authentication, @PathVariable Long postId){
+        return new ResponseEntity<>(socialResourceReactionService.addPostReaction(authentication, postId, true),
+                HttpStatus.CREATED);
     }
 
-    @PostMapping("/dislike-post")
-    public ResponseEntity<HttpStatus> dislikePost(Authentication authentication, @RequestBody TeamForumPost post){
-        socialResourceReactionService.addPostReaction(authentication, post, false);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+    @PostMapping("/dislike-post/{postId}")
+    public ResponseEntity<ResourceStatistics> dislikePost(Authentication authentication, @PathVariable Long postId){
+        return new ResponseEntity<>(socialResourceReactionService.addPostReaction(authentication, postId, false),
+                HttpStatus.CREATED);
     }
 
-    @PutMapping("/swap-post-reaction")
-    public ResponseEntity<HttpStatus> swapPostReaction(Authentication authentication, @RequestBody TeamForumPost post){
-        socialResourceReactionService.swapPostReaction(authentication, post);
-        return new ResponseEntity<>(HttpStatus.OK);
+    @PutMapping("/swap-post-reaction/{postId}")
+    public ResponseEntity<ResourceStatistics> swapPostReaction(Authentication authentication, @PathVariable Long postId){
+        return ResponseEntity.ok(socialResourceReactionService.swapPostReaction(authentication, postId));
     }
 
-    @DeleteMapping
-    public ResponseEntity<HttpStatus> deleteReaction(Authentication authentication, @RequestBody TeamForumPost post){
-        socialResourceReactionService.deletePostReaction(authentication, post);
-        return new ResponseEntity<>(HttpStatus.OK);
+    @DeleteMapping("/{postId}")
+    public ResponseEntity<ResourceStatistics> deleteReaction(Authentication authentication, @PathVariable Long postId){
+        return ResponseEntity.ok(socialResourceReactionService.deletePostReaction(authentication, postId));
     }
 }
