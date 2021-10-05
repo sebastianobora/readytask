@@ -5,6 +5,8 @@ import {NotifierService} from '../../../../../../service/notifier.service';
 import {ConfirmationService} from '../../../../../../service/confirmation.service';
 import {Team} from '../../../../../../entity/team';
 import {MemberRole} from '../../../../../../entity/member-role.enum';
+import {FormControl} from '@angular/forms';
+import {ReactionService} from '../../../../../../service/reaction.service';
 
 @Component({
   selector: 'app-post',
@@ -17,6 +19,7 @@ export class PostComponent implements OnInit {
   @Input() team!: Team;
   isExpanded = false;
   isEditable = false;
+  isLiked: FormControl = new FormControl();
   postCollapsedLengthLimit = 290;
   expandMessage = 'Show more';
   successfulDeleteMessage = 'Post has been deleted successfully!';
@@ -25,16 +28,19 @@ export class PostComponent implements OnInit {
 
   constructor(private teamForumPostService: TeamForumPostService,
               private notifierService: NotifierService,
-              private confirmationService: ConfirmationService) { }
-
-  ngOnInit(): void {
+              private confirmationService: ConfirmationService,
+              private reactionService: ReactionService) {
   }
 
-  confirmAndDeletePost(post: any): void{
+  ngOnInit(): void {
+    this.isLiked.setValue(this.post.resourceStatistics.isLiked);
+  }
+
+  confirmAndDeletePost(post: any): void {
     this.confirmationService.isConfirmed(() => this.deletePost(post));
   }
 
-  deletePost(post: TeamForumPost): void{
+  deletePost(post: TeamForumPost): void {
     this.teamForumPostService.deleteById(post).subscribe(
       () => {
         this.notifierService.notify(this.successfulDeleteMessage, 'success');
@@ -57,11 +63,7 @@ export class PostComponent implements OnInit {
     this.expandMessage = 'Show less';
   }
 
-  isLongerThanLimit(post: TeamForumPost): boolean {
-    return post.message.length > this.postCollapsedLengthLimit;
-  }
-
-  isUserAuthor(post: TeamForumPost): boolean{
+  isUserAuthor(post: TeamForumPost): boolean {
     return this.team.membership.userId === post.user.id;
   }
 
@@ -78,8 +80,30 @@ export class PostComponent implements OnInit {
           this.reloadPosts.emit();
         }
       );
-    }else{
+    } else {
       this.isEditable = false;
     }
+  }
+
+  react(type: 'like' | 'dislike'): void {
+    const state = type === 'like';
+    if (this.isLiked.value === state) {
+      this.reactionService.removeReactionFromPost(this.post.id)
+        .subscribe(stats => this.post.resourceStatistics = stats);
+    } else if (typeof this.isLiked.value === 'boolean') {
+      this.reactionService.swapPostReaction(this.post.id)
+        .subscribe(stats => this.post.resourceStatistics = stats);
+    } else {
+      state ?
+        this.reactionService.addLikeToPost(this.post.id)
+          .subscribe(stats => this.post.resourceStatistics = stats) :
+        this.reactionService.addDislikeToPost(this.post.id)
+          .subscribe(stats => this.post.resourceStatistics = stats);
+    }
+    this.swapLikeFlag(state);
+  }
+
+  swapLikeFlag(state: boolean): void {
+    this.isLiked.value === state ? this.isLiked.reset() : this.isLiked.setValue(state);
   }
 }

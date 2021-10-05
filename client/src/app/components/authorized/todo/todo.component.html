@@ -1,14 +1,14 @@
 <div class="add-task-form-wrapper">
-  <form (ngSubmit)="add()" #form="ngForm">
+  <form #form="ngForm" (ngSubmit)="add()">
     <input
-      type="text"
       [(ngModel)]="newTodo.content"
       [maxlength]="maxTodoLength"
-      name="content"
       class="input add-todo-input"
+      name="content"
       placeholder="Add todo"
-      required>
-    <button mat-icon-button class="icon-btn add-icon" type="submit" [disabled]="form.invalid">
+      required
+      type="text">
+    <button [disabled]="form.invalid" class="icon-btn add-icon" mat-icon-button type="submit">
       <i class="fas fa-plus icon"></i>
     </button>
   </form>
@@ -25,12 +25,12 @@
     <ng-container *ngIf="todo === selectedTodo else todoTemplate">
       <td>
         <input
-          class="input edited-todo-input"
+          (keydown.Enter)="confirmChanges()"
+          (keydown.Escape)="cancelEdit()"
+          (keydown.Meta.Enter)="confirmChanges()"
           [(ngModel)]="editedContent"
           [maxlength]="maxTodoLength"
-          (keydown.Enter)="confirmChanges()"
-          (keydown.Meta.Enter)="confirmChanges()"
-          (keydown.Escape)="cancelEdit()"
+          class="input edited-todo-input"
         />
       </td>
       <td>{{selectedTodo.createdAt | date: 'dd.MM.yyyy - HH:mm'}}</td>

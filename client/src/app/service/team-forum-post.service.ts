@@ -4,43 +4,53 @@ import {TeamForumPost} from '../entity/team-forum-post';
 import {HttpClient} from '@angular/common/http';
 import {map, mergeMap} from 'rxjs/operators';
 import {UserService} from './user.service';
+import {ReactionService} from './reaction.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TeamForumPostService {
-  private url = 'http://localhost:8080/team-forum-post';
+  private baseUrl = 'http://localhost:8080/team-forum-post';
 
   constructor(private httpClient: HttpClient,
-              private userService: UserService) {
+              private userService: UserService,
+              private reactionService: ReactionService) {
   }
 
   getPostsByTeamId(teamId: string): Observable<TeamForumPost[]> {
-    return this.httpClient.get<TeamForumPost[]>(`${this.url}/by-team-id/${teamId}`).pipe(
-        mergeMap(posts => {
-            return forkJoin(
-              posts.map(post => {
-                return this.userService.getById(post.userId).pipe(
-                  map(user => {
-                    post.user = user;
-                    return post;
-                  })
-                );
+    const url = `${this.baseUrl}/by-team-id/${teamId}`;
+    return this.httpClient.get<TeamForumPost[]>(url).pipe(
+      mergeMap(posts => {
+        return forkJoin(
+          posts.map(post => {
+            return this.userService.getById(post.userId).pipe(
+              map(user => {
+                post.user = user;
+                return post;
               }));
-          }
-        )
-      );
+          }));
+      }),
+      mergeMap(posts => {
+        return forkJoin(
+          posts.map(post => {
+            return this.reactionService.getPostStatistics(post.id).pipe(
+              map(statistics => {
+                post.resourceStatistics = statistics;
+                return post;
+              }));
+          }));
+      }));
   }
 
   add(newPost: TeamForumPost): Observable<TeamForumPost> {
-    return this.httpClient.post<TeamForumPost>(`${this.url}`, newPost);
+    return this.httpClient.post<TeamForumPost>(`${this.baseUrl}`, newPost);
   }
 
   deleteById(post: TeamForumPost): Observable<any> {
-    return this.httpClient.delete(`${this.url}/${post.id}`);
+    return this.httpClient.delete(`${this.baseUrl}/${post.id}`);
   }
 
   update(post: TeamForumPost): Observable<TeamForumPost> {
-    return this.httpClient.put<TeamForumPost>(`${this.url}`, post);
+    return this.httpClient.put<TeamForumPost>(`${this.baseUrl}`, post);
   }
 }

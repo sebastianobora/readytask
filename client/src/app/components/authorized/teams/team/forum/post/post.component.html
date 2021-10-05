@@ -1,34 +1,44 @@
 <div class="post-container">
   <div class="avatar-container">
-    <img src="{{post.user.img}}" alt="avatar" class="avatar"/>
+    <img alt="avatar" class="avatar" src="{{post.user.img}}"/>
   </div>
-  <div mat-ripple [matRippleTrigger]="trigger" [matRippleCentered]="isExpanded" class="message-container">
+  <div [matRippleCentered]="isExpanded" [matRippleTrigger]="trigger" class="message-container" mat-ripple>
     <div class="message-header-container">
       <p class="post-author-details">{{post.user.firstName}} {{post.user.lastName}}</p>
       <p class="post-creation-time">{{post.creationTime | date: 'MM.dd.y HH:mm'}}</p>
-      <div class="post-modify-actions" *ngIf="isUserAuthor(post) || isUserAdminOfTeam()">
-        <i *ngIf="!isEditable else confirmChanges" (click)="toggleEditable()" class="far fa-edit icon"></i>
+      <div *ngIf="isUserAuthor(post) || isUserAdminOfTeam()" class="post-modify-actions">
+        <i (click)="toggleEditable()" *ngIf="!isEditable else confirmChanges" class="far fa-edit icon"></i>
         <ng-template #confirmChanges>
-          <i class="far fa-check-square icon icon-confirm-changes" (click)="updatePost(post, message)"></i>
+          <i (click)="updatePost(post, message)" class="far fa-check-square icon icon-confirm-changes"></i>
         </ng-template>
         <i (click)="confirmAndDeletePost(post)" class="far fa-minus-square icon icon-delete"></i>
       </div>
     </div>
-    <div class="message-content" [ngClass]="{'edit-message-content' : isEditable}">
-      <p class="post-message" #message appFocusOnChange [disabledOrHidden]="!isEditable" [contentEditable]="isEditable">
+    <div [ngClass]="{'edit-message-content' : isEditable}" class="message-content">
+      <p #message [contentEditable]="isEditable" [disabledOrHidden]="!isEditable" appFocusOnChange class="post-message">
         {{isExpanded ? post.message : post.message | trimText : postCollapsedLengthLimit}}
       </p>
     </div>
     <div class="post-interactions">
       <div #trigger>
-        <button [disabled]="isEditable" mat-raised-button *ngIf="isLongerThanLimit(post)" (click)="toggleExpand()" class="action-button">
-          <i class="far icon expand-icon" [ngClass]="isExpanded ? 'fa-caret-square-up' : 'fa-caret-square-down'"></i>
+        <button (click)="toggleExpand()"
+                *ngIf="post.message.length > postCollapsedLengthLimit"
+                [disabled]="isEditable" class="action-button"
+                mat-raised-button>
+          <i [ngClass]="isExpanded ? 'fa-caret-square-up' : 'fa-caret-square-down'" class="far icon expand-icon"></i>
           <span>{{expandMessage}}</span>
         </button>
       </div>
       <div class="reactions-container">
-        <i class="fas fa-heart icon reaction-icon"></i>
-        <i class="fas fa-heart-broken icon reaction-icon"></i>
+        <i (click)="react('like')"
+           [ngClass]="{'reaction': isLiked.value === true}"
+           class="fas fa-heart icon reaction-icon">
+        </i>
+        <span class="reaction-amount">{{post.resourceStatistics.likes}}</span>
+        <i (click)="react('dislike')"
+           [ngClass]="{'reaction': isLiked.value === false}"
+           class="fas fa-heart-broken icon reaction-icon"></i>
+        <span class="reaction-amount">{{post.resourceStatistics.dislikes}}</span>
       </div>
     </div>
   </div>

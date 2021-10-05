@@ -43,7 +43,8 @@ export class TodoComponent implements OnInit {
       () => {
         this.loadTodos();
       },
-      () => {},
+      () => {
+      },
       () => {
         this.newTodo = {};
       }
@@ -59,7 +60,7 @@ export class TodoComponent implements OnInit {
     this.selectedTodo = {} as Todo;
   }
 
-  confirmAndDelete(todo: Todo): void{
+  confirmAndDelete(todo: Todo): void {
     this.confirmationService.isConfirmed(() => this.delete(todo));
   }
 
