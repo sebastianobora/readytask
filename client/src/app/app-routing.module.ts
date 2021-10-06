@@ -15,6 +15,7 @@ import {AuthGuard} from './security/auth.guard';
 import {NonAuthGuard} from './security/non-auth.guard';
 import {AddTaskComponent} from './components/authorized/tasks/add-task/add-task.component';
 import {TaskComponent} from './components/authorized/tasks/task/task.component';
+import {ProfileComponent} from './components/authorized/profile/profile.component';
 
 const routes: Routes = [
   {
@@ -40,6 +41,7 @@ const routes: Routes = [
       {path: 'tasks', redirectTo: 'tasks/add-task'},
       {path: 'tasks/add-task', component: AddTaskComponent},
       {path: 'tasks/task/:id', component: TaskComponent},
+      {path: 'my-profile', component: ProfileComponent}
     ],
     canActivate: [AuthGuard]
   },

@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {User} from '../entity/user';
+import {Router} from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,12 @@ import {User} from '../entity/user';
 export class UserService {
   private url = 'http://localhost:8080/users';
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private httpClient: HttpClient,
+              private router: Router) {
+  }
+
+  redirectToMyProfile(): void {
+    this.router.navigate(['my-profile']);
   }
 
   getById(id: number): Observable<User> {

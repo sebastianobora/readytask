@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-import {NavObject, tasksNavContent, teamsNavContent, todoNavContent} from '../../../../assets/auth-nav-content-data';
+import {myProfileNavContent, NavObject, tasksNavContent, teamsNavContent, todoNavContent} from '../../../../assets/auth-nav-content-data';
 import {User} from '../../../entity/user';
 
 @Component({
@@ -10,13 +10,14 @@ import {User} from '../../../entity/user';
 })
 export class AuthNavComponent implements OnInit {
   @Input()
-  currentUser: Partial<User> | undefined;
-  currentNavContent: NavObject | undefined;
+  currentUser?: Partial<User>;
+  currentNavContent?: NavObject;
   currentPath: string | undefined;
   navContent = new Map([
     ['todo', todoNavContent],
     ['tasks', tasksNavContent],
-    ['teams', teamsNavContent]
+    ['teams', teamsNavContent],
+    ['my-profile', myProfileNavContent]
   ]);
 
   constructor(private router: Router) {

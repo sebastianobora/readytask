@@ -17,8 +17,7 @@ export const tasksNavContent: NavObject = {
   title: 'TASKS',
   elements: [
     {
-      content: 'ADD TASK',
-      link: 'tasks/add-task'
+      content: 'ADD TASK', link: 'tasks/add-task'
     }
   ]
 };
@@ -29,5 +28,12 @@ export const teamsNavContent: NavObject = {
     {content: 'MY TEAMS', link: 'teams/my-teams'},
     {content: 'ADD TEAM', link: 'teams/add-team'},
     {content: 'JOIN TEAM', link: 'teams/join-team'}
+  ]
+};
+
+export const myProfileNavContent: NavObject = {
+  title: 'PROFILE',
+  elements: [
+    {content: 'MY PROFILE', link: 'my-profile'}
   ]
 };

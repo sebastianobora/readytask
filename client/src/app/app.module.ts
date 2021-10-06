@@ -65,8 +65,9 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import {MatIconModule} from '@angular/material/icon';
 import {AddPostComponent} from './components/authorized/teams/team/forum/add-post/add-post.component';
 import {PostComponent} from './components/authorized/teams/team/forum/post/post.component';
-import { FocusOnChangeDirective } from './directives/focus-on-change.directive';
-import {InformationComponent} from './components/authorized/teams/team/forum/information/information.component';
+import {FocusOnChangeDirective} from './directives/focus-on-change.directive';
+import {InformationComponent} from './components/information/information.component';
+import {ProfileComponent} from './components/authorized/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -105,7 +106,8 @@ import {InformationComponent} from './components/authorized/teams/team/forum/inf
     AddPostComponent,
     PostComponent,
     FocusOnChangeDirective,
-    InformationComponent
+    InformationComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

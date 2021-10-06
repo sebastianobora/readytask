@@ -1,11 +1,11 @@
 <header>
   <div class="container">
     <div class="header-wrapper">
-      <div class="hamburger-container" [matMenuTriggerFor]="hamburger">
+      <div [matMenuTriggerFor]="hamburger" class="hamburger-container">
         <i class="fas fa-bars"></i>
       </div>
       <div class="logo-container">
-        <a class="logo-a" routerLink="/teams/my-teams"><img class="logo" src="assets/img/logo.svg" alt=""></a>
+        <a class="logo-a" routerLink="/teams/my-teams"><img alt="" class="logo" src="assets/img/logo.svg"></a>
         <p class="logo-name">readytask</p>
       </div>
 
@@ -15,8 +15,8 @@
         <li class="nav-li"><a class="nav-a" routerLink="/tasks" routerLinkActive="active-link">tasks</a></li>
       </ul>
       <div class="avatar-container">
-        <button class="avatar-btn" [matMenuTriggerFor]="menu">
-          <img class="avatar" src="{{currentUser?.img}}" alt="Avatar">
+        <button [matMenuTriggerFor]="menu" class="avatar-btn">
+          <img alt="Avatar" class="avatar" src="{{currentUser?.img}}">
         </button>
       </div>
     </div>
@@ -24,10 +24,11 @@
 </header>
 
 <mat-menu #menu="matMenu" xPosition="before">
-  <button mat-menu-item (click)="logout()">Logout</button>
+  <button (click)="userService.redirectToMyProfile()" mat-menu-item>My profile</button>
+  <button (click)="authService.logout()" mat-menu-item>Logout</button>
 </mat-menu>
 
-<mat-menu class="hamburger-content" #hamburger="matMenu">
+<mat-menu #hamburger="matMenu" class="hamburger-content">
   <button class="hamburger-menu-btn" mat-menu-item routerLink="/teams/my-teams" routerLinkActive="active-link">
     <i class="far fa-address-book mat-icon"></i>Teams
   </button>

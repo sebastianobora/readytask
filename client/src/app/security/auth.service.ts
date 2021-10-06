@@ -4,6 +4,7 @@ import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {ROLES, TOKEN, TOKEN_TYPE} from '../../assets/authrorization-utils';
 import {JwtHelperService} from '@auth0/angular-jwt';
+import {Router} from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,8 @@ export class AuthService {
 
   private url = 'http://localhost:8080/authentication';
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private httpClient: HttpClient,
+              private router: Router) {
   }
 
   public login(username: string, password: string): Observable<any> {
@@ -30,6 +32,7 @@ export class AuthService {
 
   logout(): void {
     this.removeTokenDataAndRoleFromWebStorage();
+    this.router.navigate(['']);
   }
 
   saveTokenDataAndRoleInWebStorage(token: string, tokenType: string, roles: []): void {

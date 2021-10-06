@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {User} from '../../../entity/user';
 import {AuthService} from '../../../security/auth.service';
-import {Router} from '@angular/router';
+import {UserService} from '../../../service/user.service';
 
 @Component({
   selector: 'app-auth-header',
@@ -10,18 +10,13 @@ import {Router} from '@angular/router';
 })
 export class AuthHeaderComponent implements OnInit {
   @Input()
-  currentUser: Partial<User> | undefined;
+  currentUser?: User;
 
-  constructor(private authService: AuthService,
-              private router: Router) {
+  constructor(public authService: AuthService,
+              public userService: UserService) {
   }
 
   ngOnInit(): void {
-  }
-
-  logout(): void {
-    this.authService.logout();
-    this.router.navigate(['']);
   }
 }
 

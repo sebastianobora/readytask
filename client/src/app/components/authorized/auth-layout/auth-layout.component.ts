@@ -11,7 +11,7 @@ import {LayoutService} from '../../../service/layout.service';
 })
 export class AuthLayoutComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild(FooterComponent, {read: ElementRef}) footerEl!: ElementRef;
-  currentUser?: Partial<User>;
+  currentUser?: User;
   authLayoutFooterClass = 'auth-layout-footer';
 
   constructor(
@@ -21,7 +21,7 @@ export class AuthLayoutComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.getCurrentUser();
+    this.setCurrentUser();
   }
 
   ngAfterViewInit(): void {
@@ -32,7 +32,7 @@ export class AuthLayoutComponent implements OnInit, AfterViewInit, OnDestroy {
     this.layoutService.removeFooterClass(this.footerEl, this.authLayoutFooterClass);
   }
 
-  getCurrentUser(): void {
+  setCurrentUser(): void {
     this.userService.getCurrentUser().subscribe(user => {
       this.currentUser = user;
     });
