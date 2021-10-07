@@ -7,5 +7,6 @@ export interface User {
   firstName: string;
   lastName: string;
   img: string;
+  creationTime: Date;
   userRole: UserRole;
 }

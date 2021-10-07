@@ -54,7 +54,7 @@ input:focus {
 
 /*BUTTONS*/
 
-.mat-raised-button:hover{
+.mat-raised-button:hover {
   opacity: 0.8;
 }
 
@@ -110,7 +110,7 @@ button {
   transition: opacity 0.15s;
 }
 
-.icon:hover{
+.icon:hover {
   opacity: 0.70;
 }
 
@@ -250,16 +250,16 @@ main {
 
 /*NOTIFICATIONS*/
 
-.notify-error.mat-snack-bar-container{
+.notify-error.mat-snack-bar-container {
   background-color: #b93c3c;
 }
 
-.notify-success.mat-snack-bar-container{
+.notify-success.mat-snack-bar-container {
   /*background-color: #644a80;*/
   background-color: #30ab53;
 }
 
-.auth-notifier-cfg.mat-snack-bar-container{
+.auth-notifier-cfg.mat-snack-bar-container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -272,36 +272,36 @@ main {
 }
 
 /*MAT TAB GROUP*/
-.mat-tab-body-wrapper{
+.mat-tab-body-wrapper {
   height: 100%;
 }
 
 /* MAT TOOLTIP ROLE */
-.tooltip{
+.tooltip {
   font-size: 1.3em;
 }
 
 /* MAT TOGGLE SETTINGS */
 
-.mat-button-toggle-appearance-standard .mat-button-toggle-label-content{
+.mat-button-toggle-appearance-standard .mat-button-toggle-label-content {
   line-height: 35px;
   width: 35px;
   padding: 0 !important;
 }
 
-.mat-button-toggle-group-appearance-standard{
+.mat-button-toggle-group-appearance-standard {
   border: none;
   box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2),
-              0 1px 1px 0 rgba(0, 0, 0, 0.14),
-              0 1px 3px 0 rgba(0, 0, 0, 0.12);
+  0 1px 1px 0 rgba(0, 0, 0, 0.14),
+  0 1px 3px 0 rgba(0, 0, 0, 0.12);
 }
 
 /* MAT MENU */
-.mat-menu-item{
+.mat-menu-item {
   font-family: 'Montserrat', sans-serif;
 }
 
 /* MAT LABEL */
-mat-label{
+mat-label {
   color: rgba(255, 255, 255, 0.8);
 }

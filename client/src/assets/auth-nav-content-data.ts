@@ -31,9 +31,13 @@ export const teamsNavContent: NavObject = {
   ]
 };
 
-export const myProfileNavContent: NavObject = {
+export const profileNavContent: NavObject = {
   title: 'PROFILE',
   elements: [
-    {content: 'MY PROFILE', link: 'my-profile'}
+    {content: 'PUBLIC PROFILE', link: 'profile/public/'},
+    {content: 'MANAGE PROFILE', link: 'profile/manage-profile'},
+    {content: 'PHOTO', link: 'profile/change-photo'},
+    {content: 'ACCOUNT', link: 'profile/account'},
+    {content: 'CLOSE ACCOUNT', link: 'profile/close-account'}
   ]
 };

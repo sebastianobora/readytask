@@ -67,7 +67,7 @@ import {AddPostComponent} from './components/authorized/teams/team/forum/add-pos
 import {PostComponent} from './components/authorized/teams/team/forum/post/post.component';
 import {FocusOnChangeDirective} from './directives/focus-on-change.directive';
 import {InformationComponent} from './components/information/information.component';
-import {ProfileComponent} from './components/authorized/profile/profile.component';
+import {PublicProfileComponent} from './components/authorized/profile/public-profile/public-profile.component';
 
 @NgModule({
   declarations: [
@@ -107,7 +107,7 @@ import {ProfileComponent} from './components/authorized/profile/profile.componen
     PostComponent,
     FocusOnChangeDirective,
     InformationComponent,
-    ProfileComponent
+    PublicProfileComponent
   ],
   imports: [
     BrowserModule,

@@ -1,17 +1,18 @@
-<div class="auth-nav-mobile" [matMenuTriggerFor]="navMobile">
+<div [matMenuTriggerFor]="navMobile" class="auth-nav-mobile">
   <p class="mobile-category">{{currentNavContent?.title | titlecase}}</p>
   <i class="fas fa-chevron-down nav-mobile-icon"></i>
 </div>
 <nav class="main-nav">
   <div class="main-avatar-container">
-    <img class="main-avatar" src="{{currentUser?.img}}" alt="Avatar">
-    <a class="main-nav-a" href="">{{currentUser?.firstName | uppercase}} {{currentUser?.lastName | uppercase}}</a>
+    <img alt="Avatar" class="main-avatar" src="{{currentUser?.img}}">
+    <a class="main-nav-a"
+       routerLink="profile/public/{{currentUser?.username}}">{{currentUser?.firstName | uppercase}} {{currentUser?.lastName | uppercase}}</a>
     <div class="line"></div>
   </div>
   <p class="category">{{currentNavContent?.title}}</p>
   <ul class="main-nav-ul">
     <li *ngFor="let navElement of currentNavContent?.elements">
-      <a class="nav-a" [routerLink]="navElement?.link" routerLinkActive="active-link">
+      <a [routerLink]="navElement?.link" class="nav-a" routerLinkActive="active-link">
         {{ navElement?.content }}
       </a>
     </li>
@@ -20,9 +21,9 @@
 
 <mat-menu #navMobile="matMenu" xPosition="before">
   <button *ngFor="let navElement of currentNavContent?.elements"
+          [routerLink]="navElement?.link"
           class="hamburger-menu-btn"
           mat-menu-item
-          [routerLink]="navElement?.link"
           routerLinkActive="active-link">
     {{ navElement?.content | titlecase}}
   </button>

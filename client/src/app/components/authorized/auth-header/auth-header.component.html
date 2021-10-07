@@ -24,7 +24,7 @@
 </header>
 
 <mat-menu #menu="matMenu" xPosition="before">
-  <button (click)="userService.redirectToMyProfile()" mat-menu-item>My profile</button>
+  <button mat-menu-item routerLink="profile/public/{{currentUser?.username}}">My profile</button>
   <button (click)="authService.logout()" mat-menu-item>Logout</button>
 </mat-menu>
 

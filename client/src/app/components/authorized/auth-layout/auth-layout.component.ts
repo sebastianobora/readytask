@@ -12,6 +12,7 @@ import {LayoutService} from '../../../service/layout.service';
 export class AuthLayoutComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild(FooterComponent, {read: ElementRef}) footerEl!: ElementRef;
   currentUser?: User;
+  navEnabled = true;
   authLayoutFooterClass = 'auth-layout-footer';
 
   constructor(

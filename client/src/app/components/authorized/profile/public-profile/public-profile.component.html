@@ -1,0 +1,36 @@
+<div *ngIf="user else userNotFound" class="profile-card-container">
+  <div class="profile-card-left">
+    <img [src]="user?.img" alt="Avatar"
+         class="profile-avatar"/>
+  </div>
+  <div class="separator"></div>
+  <div class="profile-card-right">
+    <div class="user-info-header">
+      <div class="user-names-container">
+        <p class="names">{{user?.firstName}} {{user?.lastName}}</p>
+        <p [cbContent]="user?.username"
+           class="username"
+           matTooltip="Copy username"
+           ngxClipboard>@{{user?.username}}</p>
+      </div>
+      <p class="join-date">Joined {{user?.creationTime | date: 'MM.dd.yy'}}</p>
+    </div>
+    <p class="description">{{user?.creationTime}}
+      Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
+      standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make
+      a
+      type specimen book.
+    </p>
+  </div>
+</div>
+
+<ng-template #userNotFound>
+  <app-information *ngIf="doesUserNotExists else loader" information="User does not exists."></app-information>
+</ng-template>
+
+<ng-template #loader>
+  <div class="loader">
+    <mat-spinner></mat-spinner>
+  </div>
+</ng-template>
+

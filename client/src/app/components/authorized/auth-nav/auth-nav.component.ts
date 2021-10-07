@@ -1,6 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {Router} from '@angular/router';
-import {myProfileNavContent, NavObject, tasksNavContent, teamsNavContent, todoNavContent} from '../../../../assets/auth-nav-content-data';
+import {NavObject, profileNavContent, tasksNavContent, teamsNavContent, todoNavContent} from '../../../../assets/auth-nav-content-data';
 import {User} from '../../../entity/user';
 
 @Component({
@@ -8,16 +8,15 @@ import {User} from '../../../entity/user';
   templateUrl: './auth-nav.component.html',
   styleUrls: ['./auth-nav.component.css']
 })
-export class AuthNavComponent implements OnInit {
-  @Input()
-  currentUser?: Partial<User>;
+export class AuthNavComponent implements OnInit, OnChanges {
+  @Input() currentUser?: User;
   currentNavContent?: NavObject;
-  currentPath: string | undefined;
+  currentPath?: string;
   navContent = new Map([
     ['todo', todoNavContent],
     ['tasks', tasksNavContent],
     ['teams', teamsNavContent],
-    ['my-profile', myProfileNavContent]
+    ['profile', profileNavContent]
   ]);
 
   constructor(private router: Router) {
@@ -31,6 +30,20 @@ export class AuthNavComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    const currentUserKey = 'currentUser';
+    const username = changes[currentUserKey]?.currentValue?.username;
+    if (username) {
+      this.addUsernameToPublicProfileLink(username);
+    }
+  }
+
+  addUsernameToPublicProfileLink(username: string): void {
+    const profileNavContentWithUsername = profileNavContent;
+    profileNavContentWithUsername.elements[0].link += username;
+    this.navContent.set('profile', profileNavContentWithUsername);
   }
 
   setCurrentNavContent(path: string): void {
