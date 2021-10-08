@@ -10,9 +10,9 @@ import java.util.Optional;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
-    Optional<User> findUserByUsername(String username);
+    Optional<User> findByUsername(String username);
 
-    Optional<User> findUserByEmail(String email);
+    Optional<User> findByEmail(String email);
 
     @Query("SELECT u FROM User u JOIN u.memberships m WHERE m.team.id = ?1")
     List<User> findUsersByTeamId(Long id);

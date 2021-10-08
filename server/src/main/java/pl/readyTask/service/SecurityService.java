@@ -46,14 +46,15 @@ public class SecurityService implements UserDetailsService {
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findUserByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException(String.format("User with user %s not found", username)));
+        String failureMessage = String.format("User with user %s not found", username);
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException(failureMessage));
         return CustomUserDetails.build(user);
     }
 
     public User getUserByEmailFromAuthentication(Authentication authentication){
         CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
-        return userRepository.findUserByEmail(userDetails.getEmail())
+        return userRepository.findByEmail(userDetails.getEmail())
                 .orElseThrow(()-> new NoDataFoundException("user", userDetails.getEmail()));
     }
 

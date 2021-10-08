@@ -27,4 +27,8 @@ public class UserService {
     public List<User> getByTeamId(Long id) {
         return userRepository.findUsersByTeamId(id);
     }
+
+    public User getByUsername(String username){
+        return userRepository.findByUsername(username).orElseThrow(() -> new NoDataFoundException("user", username));
+    }
 }

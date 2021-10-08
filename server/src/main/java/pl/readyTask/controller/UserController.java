@@ -30,4 +30,9 @@ public class UserController {
     public ResponseEntity<List<User>> getByTeamId(@PathVariable("id") Long id){
         return ResponseEntity.ok(userService.getByTeamId(id));
     }
+
+    @GetMapping("/by-username/{username}")
+    public ResponseEntity<User> getByUsername(@PathVariable String username){
+        return ResponseEntity.ok(userService.getByUsername(username));
+    }
 }
