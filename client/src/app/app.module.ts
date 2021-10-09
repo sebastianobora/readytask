@@ -68,6 +68,7 @@ import {PostComponent} from './components/authorized/teams/team/forum/post/post.
 import {FocusOnChangeDirective} from './directives/focus-on-change.directive';
 import {InformationComponent} from './components/information/information.component';
 import {PublicProfileComponent} from './components/authorized/profile/public-profile/public-profile.component';
+import { PlaceholderComponent } from './components/placeholder/placeholder.component';
 
 @NgModule({
   declarations: [
@@ -107,7 +108,8 @@ import {PublicProfileComponent} from './components/authorized/profile/public-pro
     PostComponent,
     FocusOnChangeDirective,
     InformationComponent,
-    PublicProfileComponent
+    PublicProfileComponent,
+    PlaceholderComponent
   ],
   imports: [
     BrowserModule,

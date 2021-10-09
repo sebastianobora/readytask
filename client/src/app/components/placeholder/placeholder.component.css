@@ -1,0 +1,50 @@
+div{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #FFFFFF;
+}
+
+p{
+  font-family: 'Bebas Neue', cursive;
+}
+
+.small{
+  height: 40px;
+  width: 40px;
+  font-size: 1.8em;
+}
+
+.medium{
+  height: 120px;
+  width: 120px;
+  font-size: 6.3em;
+}
+
+.big{
+  height: 146px;
+  width: 146px;
+  font-size: 7.7em;
+}
+
+.rounded{
+  border-radius: 50%;
+}
+
+.purple{
+  background-color: #75419d;
+}
+
+.grey{
+  background-color: #444444;
+}
+
+.dark{
+  box-shadow: 0 4px 2px -2px rgba(0, 0, 0, 0.2),
+              0 2px 2px 0 rgba(0, 0, 0, 0.14),
+              0 3px 4px 0 rgba(0, 0, 0, 0.13);
+}
+
+.light{
+  box-shadow: 0 0 50px rgba(255, 255, 255, 0.15);
+}
