@@ -4,7 +4,13 @@
 </div>
 <nav class="main-nav">
   <div class="main-avatar-container">
-    <img alt="Avatar" class="main-avatar" src="{{currentUser?.img}}">
+    <img *ngIf="currentUser?.img else placeholder"
+         [src]="currentUser?.img"
+         alt="Avatar"
+         class="main-avatar"/>
+    <ng-template #placeholder>
+      <app-placeholder size="large" shadow="light" [text]="currentUser?.firstName"></app-placeholder>
+    </ng-template>
     <a class="main-nav-a"
        routerLink="profile/public/{{currentUser?.username}}">{{currentUser?.firstName | uppercase}} {{currentUser?.lastName | uppercase}}</a>
     <div class="line"></div>

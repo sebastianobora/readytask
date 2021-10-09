@@ -22,12 +22,6 @@
   max-height: calc(100% - 56px);
 }
 
-.team-img {
-  max-width: 146px;
-  max-height: 146px;
-  border-radius: 2px;
-}
-
 .team-wrapper {
   display: flex;
   flex-direction: column;

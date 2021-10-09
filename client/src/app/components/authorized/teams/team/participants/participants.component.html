@@ -15,7 +15,13 @@
       <th mat-header-cell *matHeaderCellDef>Member details</th>
       <td mat-cell *matCellDef="let membership">
         <div class="user-details-container">
-          <img class="avatar" src="{{membership.user.img}}" alt="Avatar">
+          <img *ngIf="membership.user?.img else placeholder"
+               [src]="membership.user.img"
+               alt="Avatar"
+               class="avatar"/>
+          <ng-template #placeholder>
+            <app-placeholder size="x-small" shadow="dark" [text]="membership.user.firstName"></app-placeholder>
+          </ng-template>
           <p class="user-names">{{membership.user.firstName}} {{membership.user.lastName}}</p>
         </div>
       </td>

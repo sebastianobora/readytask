@@ -16,7 +16,13 @@
       </ul>
       <div class="avatar-container">
         <button [matMenuTriggerFor]="menu" class="avatar-btn">
-          <img alt="Avatar" class="avatar" src="{{currentUser?.img}}">
+          <img *ngIf="currentUser?.img else placeholder"
+               [src]="currentUser?.img"
+               alt="Avatar"
+               class="avatar"/>
+          <ng-template #placeholder>
+            <app-placeholder size="x-small" shadow="dark" [text]="currentUser?.firstName"></app-placeholder>
+          </ng-template>
         </button>
       </div>
     </div>

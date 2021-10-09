@@ -9,8 +9,8 @@ export class PlaceholderComponent implements OnInit {
   @Input() text?: string;
   @Input() shape: 'rounded' | 'square' = 'rounded';
   @Input() color: 'grey' | 'purple' = 'grey';
-  @Input() size!: 'small' | 'medium' | 'big';
-  @Input() shadow: 'dark' | 'light' = 'dark';
+  @Input() size!: 'x-small' | 'small' | 'medium' | 'large' | 'x-large';
+  @Input() shadow!: 'dark' | 'light';
   placeholderClasses!: string;
 
   constructor() { }

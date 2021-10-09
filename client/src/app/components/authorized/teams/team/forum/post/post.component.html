@@ -1,6 +1,12 @@
 <div class="post-container">
   <div class="avatar-container">
-    <img alt="avatar" class="avatar" src="{{post.user.img}}"/>
+    <img *ngIf="post.user?.img else placeholder"
+         [src]="post.user.img"
+         alt="Avatar"
+         class="avatar"/>
+    <ng-template #placeholder>
+      <app-placeholder size="small" shadow="dark" [text]="post.user.firstName"></app-placeholder>
+    </ng-template>
   </div>
   <div [matRippleCentered]="isExpanded" [matRippleTrigger]="trigger" class="message-container" mat-ripple>
     <div class="message-header-container">

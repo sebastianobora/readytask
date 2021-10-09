@@ -1,9 +1,3 @@
-.team-img {
-  border-radius: 2px;
-  max-width: 180px;
-  max-height: 180px;
-}
-
 .team-wrapper {
   display: flex;
   justify-content: center;

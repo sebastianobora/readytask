@@ -9,10 +9,16 @@ p{
   font-family: 'Bebas Neue', cursive;
 }
 
-.small{
+.x-small{
   height: 40px;
   width: 40px;
   font-size: 1.8em;
+}
+
+.small{
+  height: 50px;
+  width: 50px;
+  font-size: 2em;
 }
 
 .medium{
@@ -21,14 +27,24 @@ p{
   font-size: 6.3em;
 }
 
-.big{
+.large{
   height: 146px;
   width: 146px;
   font-size: 7.7em;
 }
 
+.x-large{
+  height: 180px;
+  width: 180px;
+  font-size: 9.4em;
+}
+
 .rounded{
   border-radius: 50%;
+}
+
+.square{
+  border-radius: 2px;
 }
 
 .purple{

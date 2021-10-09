@@ -8,7 +8,7 @@
   <div class="team-container">
     <div class="team-img-container">
       <i *ngIf="hasMemberAdminRole(team)" class="fas fa-crown own-team-icon"></i>
-      <img class="team-img" src="{{team.img}}" alt="{{team.name}} team image">
+      <app-placeholder size="x-large" color="purple" shape="square" [text]="team.name"></app-placeholder>
     </div>
     <div class="team-details-container">
       <div class="field-wrapper">

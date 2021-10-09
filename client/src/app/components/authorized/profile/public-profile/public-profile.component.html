@@ -1,7 +1,12 @@
 <div *ngIf="user else userNotFound" class="profile-card-container">
   <div class="profile-card-left">
-    <img [src]="user?.img" alt="Avatar"
+    <img *ngIf="user.img else placeholder"
+         [src]="user?.img"
+         alt="Avatar"
          class="profile-avatar"/>
+    <ng-template #placeholder>
+      <app-placeholder size="large" shadow="dark" [text]="user?.firstName"></app-placeholder>
+    </ng-template>
   </div>
   <div class="separator"></div>
   <div class="profile-card-right">

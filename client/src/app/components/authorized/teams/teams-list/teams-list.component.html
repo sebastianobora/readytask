@@ -9,9 +9,7 @@
       <div class="team-img-wrapper">
         <i *ngIf="team.membership.memberRole === adminRole" class="fas fa-crown own-team-icon"></i>
         <a>
-          <img class="team-img"
-               src="{{team.img}}"
-               alt="{{team.name}} team picture">
+          <app-placeholder size="large" shape="square" color="purple" [text]="team.name"></app-placeholder>
         </a>
       </div>
       <a class="team-title">{{team.name}}</a>
