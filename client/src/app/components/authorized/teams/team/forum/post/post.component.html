@@ -5,13 +5,13 @@
          alt="Avatar"
          class="avatar"/>
     <ng-template #placeholder>
-      <app-placeholder size="small" shadow="dark" [text]="post.user.firstName"></app-placeholder>
+      <app-placeholder [text]="post.user.firstName" shadow="dark" size="small"></app-placeholder>
     </ng-template>
   </div>
   <div [matRippleCentered]="isExpanded" [matRippleTrigger]="trigger" class="message-container" mat-ripple>
     <div class="message-header-container">
       <p class="post-author-details">{{post.user.firstName}} {{post.user.lastName}}</p>
-      <p class="post-creation-time">{{post.creationTime | date: 'MM.dd.y HH:mm'}}</p>
+      <p class="post-creation-time">{{post.creationTime | date: 'dd.MM.y HH:mm'}}</p>
       <div *ngIf="isUserAuthor(post) || isUserAdminOfTeam()" class="post-modify-actions">
         <i (click)="toggleEditable()" *ngIf="!isEditable else confirmChanges" class="far fa-edit icon"></i>
         <ng-template #confirmChanges>

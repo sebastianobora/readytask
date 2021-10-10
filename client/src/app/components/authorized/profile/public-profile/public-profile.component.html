@@ -5,7 +5,7 @@
          alt="Avatar"
          class="profile-avatar"/>
     <ng-template #placeholder>
-      <app-placeholder size="large" shadow="dark" [text]="user?.firstName"></app-placeholder>
+      <app-placeholder [text]="user?.firstName" shadow="dark" size="large"></app-placeholder>
     </ng-template>
   </div>
   <div class="separator"></div>
@@ -18,9 +18,9 @@
            matTooltip="Copy username"
            ngxClipboard>@{{user?.username}}</p>
       </div>
-      <p class="join-date">Joined {{user?.creationTime | date: 'MM.dd.yy'}}</p>
+      <p class="join-date">Joined {{user?.creationTime | date: 'dd.MM.yyyy'}}</p>
     </div>
-    <p class="description">{{user?.creationTime}}
+    <p class="description">{{user?.description}}
       Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
       standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make
       a
