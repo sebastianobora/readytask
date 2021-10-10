@@ -19,17 +19,14 @@ public class TeamService {
     private final TeamRepository teamRepository;
     private final MembershipService membershipService;
     private final SecurityService securityService;
-    private final DefaultPlaceholderService defaultPlaceholderService;
 
     @Autowired
     public TeamService(TeamRepository teamRepository,
                        @Lazy MembershipService membershipService,
-                       SecurityService securityService,
-                       DefaultPlaceholderService defaultPlaceholderService) {
+                       SecurityService securityService) {
         this.teamRepository = teamRepository;
         this.membershipService = membershipService;
         this.securityService = securityService;
-        this.defaultPlaceholderService = defaultPlaceholderService;
     }
 
     public Team getById(Long id){
@@ -55,10 +52,7 @@ public class TeamService {
     public Team add(Team team, Authentication authentication){
         User user = securityService.getUserByEmailFromAuthentication(authentication);
         String code = getUniqueTeamCode();
-        String imgUrl = defaultPlaceholderService.getTeamPlaceholder(team.getName());
-
         team.setCode(code);
-        team.setImg(imgUrl);
         team = teamRepository.save(team);
 
         Membership membership = membershipService.getMembershipFromFields(

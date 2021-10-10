@@ -34,7 +34,7 @@ public class Team {
     @Column(name = "created_at")
     private Date createdAt;
 
-    @Column(name = "img", nullable = false)
+    @Column(name = "img")
     private String img;
 
     @JsonIgnore

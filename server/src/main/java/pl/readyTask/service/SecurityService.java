@@ -27,18 +27,15 @@ import javax.transaction.Transactional;
 public class SecurityService implements UserDetailsService {
     private final UserRepository userRepository;
     private final JwtUtils jwtUtils;
-    private final DefaultPlaceholderService defaultPlaceholderService;
     private final AuthenticationManager authenticationManager;
     private final PasswordEncoder encoder;
 
     public SecurityService(UserRepository userRepository,
                            JwtUtils jwtUtils,
-                           DefaultPlaceholderService defaultPlaceholderService,
                            @Lazy AuthenticationManager authenticationManager,
                            PasswordEncoder encoder) {
         this.userRepository = userRepository;
         this.jwtUtils = jwtUtils;
-        this.defaultPlaceholderService = defaultPlaceholderService;
         this.authenticationManager = authenticationManager;
         this.encoder = encoder;
     }
@@ -89,7 +86,6 @@ public class SecurityService implements UserDetailsService {
 
     public User getNewUserFromRequest(RegisterRequest request){
         User user = new User();
-        String img = defaultPlaceholderService.getUserPlaceholder(request.getFirstName());
 
         user.setEmail(request.getEmail());
         user.setUsername(request.getUsername());
@@ -97,7 +93,6 @@ public class SecurityService implements UserDetailsService {
         user.setFirstName(request.getFirstName());
         user.setLastName(request.getLastName());
         user.setUserRole(UserRole.ROLE_USER);
-        user.setImg(img);
         return user;
     }
 }

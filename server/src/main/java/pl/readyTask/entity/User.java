@@ -49,7 +49,7 @@ public class User {
     @Column(name = "last_name", nullable = false)
     private String lastName;
 
-    @Column(name = "img", nullable = false)
+    @Column(name = "img")
     private String img;
 
     @Enumerated(EnumType.STRING)

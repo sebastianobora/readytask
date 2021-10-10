@@ -47,6 +47,7 @@ public class Task {
     @JsonIdentityReference(alwaysAsId = true)
     @JsonProperty("userAssignedToTaskId")
     @Setter(AccessLevel.NONE)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private User userAssignedToTask;
 
     @ManyToOne
@@ -55,6 +56,7 @@ public class Task {
     @JsonIdentityReference(alwaysAsId = true)
     @JsonProperty("authorOfTaskId")
     @Setter(AccessLevel.NONE)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private User authorOfTask;
 
     @ManyToOne
