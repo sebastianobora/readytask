@@ -20,11 +20,13 @@
       </div>
       <p class="join-date">Joined {{user?.creationTime | date: 'dd.MM.yyyy'}}</p>
     </div>
-    <p class="description">{{user?.description}}
-      Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
-      standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make
-      a
-      type specimen book.
+    <p class="description">
+      <ng-container *ngIf="user?.description else noDescription">
+        {{user.description}}
+      </ng-container>
+      <ng-template #noDescription>
+        {{user?.firstName}} has not added a profile description yet.
+      </ng-template>
     </p>
   </div>
 </div>
