@@ -23,6 +23,7 @@ export class PublicProfileComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.routerSubscription = this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
+        this.doesUserNotExists = false;
         this.setUserFromRoute();
       }
     });

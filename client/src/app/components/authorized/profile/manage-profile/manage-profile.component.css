@@ -1,0 +1,47 @@
+:host {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.close-account-container {
+  margin: 10px;
+  padding: 30px 40px;
+  background-color: #292929;
+  border: 2px rgba(255, 255, 255, 0.05) solid;
+  border-radius: 2px;
+}
+
+.container-size {
+  max-width: 510px;
+  width: 100%;
+}
+
+.close-account-header {
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.close-account-description {
+  opacity: 0.85;
+}
+
+.separator {
+  width: 100%;
+  border-top: rgba(255, 255, 255, 0.05) 2px solid;
+  margin: 30px auto;
+}
+
+.close-account-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.submit-button {
+  max-width: 200px;
+  margin: 10px auto 0 auto;
+}

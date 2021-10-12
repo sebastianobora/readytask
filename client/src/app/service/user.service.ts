@@ -32,9 +32,9 @@ export class UserService {
     return this.httpClient.get<User>(url);
   }
 
-  deleteCurrentLogged(user: User): Observable<any>{
+  deleteCurrentLogged(password: string): Observable<any> {
     const url = `${this.baseUrl}/currentLogged`;
-    return this.httpClient.delete(url, );
+    return this.httpClient.request('delete', url, {body: password});
   }
 }
 

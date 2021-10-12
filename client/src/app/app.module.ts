@@ -70,6 +70,7 @@ import {InformationComponent} from './components/information/information.compone
 import {PublicProfileComponent} from './components/authorized/profile/public-profile/public-profile.component';
 import { PlaceholderComponent } from './components/placeholder/placeholder.component';
 import { CloseAccountComponent } from './components/authorized/profile/close-account/close-account.component';
+import { ManageProfileComponent } from './components/authorized/profile/manage-profile/manage-profile.component';
 
 @NgModule({
   declarations: [
@@ -111,7 +112,8 @@ import { CloseAccountComponent } from './components/authorized/profile/close-acc
     InformationComponent,
     PublicProfileComponent,
     PlaceholderComponent,
-    CloseAccountComponent
+    CloseAccountComponent,
+    ManageProfileComponent
   ],
   imports: [
     BrowserModule,

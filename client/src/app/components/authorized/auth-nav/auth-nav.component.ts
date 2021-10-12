@@ -35,7 +35,8 @@ export class AuthNavComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     const currentUserKey = 'currentUser';
     const username = changes[currentUserKey]?.currentValue?.username;
-    if (username) {
+    const usernameDifferentThanPrevious = username !== changes[currentUserKey].previousValue;
+    if (username && usernameDifferentThanPrevious) {
       this.addUsernameToPublicProfileLink(username);
     }
   }
