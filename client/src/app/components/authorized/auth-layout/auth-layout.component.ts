@@ -34,7 +34,7 @@ export class AuthLayoutComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   setCurrentUser(): void {
-    this.userService.getCurrentUser().subscribe(user => {
+    this.userService.getCurrentLogged().subscribe(user => {
       this.currentUser = user;
     });
   }

@@ -16,6 +16,7 @@ import {NonAuthGuard} from './security/non-auth.guard';
 import {AddTaskComponent} from './components/authorized/tasks/add-task/add-task.component';
 import {TaskComponent} from './components/authorized/tasks/task/task.component';
 import {PublicProfileComponent} from './components/authorized/profile/public-profile/public-profile.component';
+import {CloseAccountComponent} from './components/authorized/profile/close-account/close-account.component';
 
 const routes: Routes = [
   {
@@ -42,7 +43,8 @@ const routes: Routes = [
       {path: 'tasks/add-task', component: AddTaskComponent},
       {path: 'tasks/task/:id', component: TaskComponent},
       {path: 'profile/public/:username', component: PublicProfileComponent, runGuardsAndResolvers: 'always'},
-      {path: 'profile/my-profile', component: PublicProfileComponent}
+      {path: 'profile/my-profile', component: PublicProfileComponent},
+      {path: 'profile/close-account', component: CloseAccountComponent}
     ],
     canActivate: [AuthGuard]
   },

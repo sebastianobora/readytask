@@ -69,6 +69,7 @@ import {FocusOnChangeDirective} from './directives/focus-on-change.directive';
 import {InformationComponent} from './components/information/information.component';
 import {PublicProfileComponent} from './components/authorized/profile/public-profile/public-profile.component';
 import { PlaceholderComponent } from './components/placeholder/placeholder.component';
+import { CloseAccountComponent } from './components/authorized/profile/close-account/close-account.component';
 
 @NgModule({
   declarations: [
@@ -109,7 +110,8 @@ import { PlaceholderComponent } from './components/placeholder/placeholder.compo
     FocusOnChangeDirective,
     InformationComponent,
     PublicProfileComponent,
-    PlaceholderComponent
+    PlaceholderComponent,
+    CloseAccountComponent
   ],
   imports: [
     BrowserModule,

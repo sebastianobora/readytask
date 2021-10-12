@@ -17,7 +17,7 @@ export class UserService {
     return this.httpClient.get<User>(url);
   }
 
-  getCurrentUser(): Observable<User> {
+  getCurrentLogged(): Observable<User> {
     const url = `${this.baseUrl}`;
     return this.httpClient.get<User>(url);
   }
@@ -31,4 +31,10 @@ export class UserService {
     const url = `${this.baseUrl}/by-username/${username}`;
     return this.httpClient.get<User>(url);
   }
+
+  deleteCurrentLogged(user: User): Observable<any>{
+    const url = `${this.baseUrl}/currentLogged`;
+    return this.httpClient.delete(url, );
+  }
 }
+
