@@ -31,6 +31,13 @@ public class ExceptionsHandler {
         return new ResponseEntity<>(body, status);
     }
 
+    @ExceptionHandler(InvalidPasswordException.class)
+    public ResponseEntity<Object> invalidPasswordExceptionHandler(InvalidPasswordException e){
+        HttpStatus status = HttpStatus.UNAUTHORIZED;
+        ExceptionBody body = createExceptionBody(status, e.getMessage());
+        return new ResponseEntity<>(body, status);
+    }
+
     private ExceptionBody createExceptionBody(HttpStatus status, String message){
         return new ExceptionBody(
                 status,

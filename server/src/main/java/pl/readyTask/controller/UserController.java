@@ -35,4 +35,10 @@ public class UserController {
     public ResponseEntity<User> getByUsername(@PathVariable String username){
         return ResponseEntity.ok(userService.getByUsername(username));
     }
+    
+    @DeleteMapping("/currentLogged")
+    public ResponseEntity<Object> deleteCurrentLogged(@RequestBody String password, Authentication authentication){
+        userService.deleteCurrentLogged(password, authentication);
+        return ResponseEntity.ok().build();
+    }
 }
