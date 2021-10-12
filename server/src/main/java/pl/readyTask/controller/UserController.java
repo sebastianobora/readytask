@@ -35,6 +35,12 @@ public class UserController {
     public ResponseEntity<User> getByUsername(@PathVariable String username){
         return ResponseEntity.ok(userService.getByUsername(username));
     }
+
+    @PatchMapping
+    public ResponseEntity<Object> update(@RequestBody User user, Authentication authentication){
+        userService.update(user, authentication);
+        return ResponseEntity.ok().build();
+    }
     
     @DeleteMapping("/currentLogged")
     public ResponseEntity<Object> deleteCurrentLogged(@RequestBody String password, Authentication authentication){

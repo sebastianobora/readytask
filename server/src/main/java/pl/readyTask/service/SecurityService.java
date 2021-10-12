@@ -15,6 +15,7 @@ import pl.readyTask.dto.LoginRequest;
 import pl.readyTask.dto.RegisterRequest;
 import pl.readyTask.entity.User;
 import pl.readyTask.entity.enumeration.UserRole;
+import pl.readyTask.exception.InvalidPasswordException;
 import pl.readyTask.exception.NoDataFoundException;
 import pl.readyTask.exception.RegisterException;
 import pl.readyTask.repository.UserRepository;
@@ -94,5 +95,11 @@ public class SecurityService implements UserDetailsService {
         user.setLastName(request.getLastName());
         user.setUserRole(UserRole.ROLE_USER);
         return user;
+    }
+
+    public void checkPasswords(String password, String expectedPassword){
+        if (!encoder.matches(password, expectedPassword)){
+            throw new InvalidPasswordException();
+        }
     }
 }
