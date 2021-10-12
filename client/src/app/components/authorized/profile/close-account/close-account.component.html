@@ -1,0 +1,11 @@
+<div class="close-account-container">
+  <p class="close-account-header">Close account</p>
+  <form #form="ngForm" (ngSubmit)="closeAccount(form.value.password)" class="close-account-form">
+    <mat-form-field appearance="fill">
+      <mat-label>Password</mat-label>
+      <input name="password" type="password" ngModel matInput required minlength="6" maxlength="20">
+    </mat-form-field>
+    <button mat-raised-button type="submit" [disabled]="!form.valid">Close account</button>
+  </form>
+</div>
+

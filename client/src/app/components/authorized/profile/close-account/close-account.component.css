@@ -1,0 +1,33 @@
+:host{
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.close-account-container{
+  margin: 10px;
+  padding: 30px 40px;
+  background-color: #292929;
+  border: 2px rgba(255, 255, 255, 0.05) solid;
+  border-radius: 2px;
+}
+
+.close-account-header{
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.close-account-form{
+  display: flex;
+  flex-direction: column;
+  max-width: 300px;
+  width: 100%;
+}
+
+
+
+
