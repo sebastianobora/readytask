@@ -1,22 +1,25 @@
 import {Component, OnInit} from '@angular/core';
-import {FormControl, FormGroup} from '@angular/forms';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {UserService} from '../../../../service/user.service';
 import {User} from '../../../../entity/user';
+import {NotifierService} from '../../../../service/notifier.service';
 
 @Component({
   selector: 'app-manage-profile',
   templateUrl: './manage-profile.component.html',
-  styleUrls: ['./manage-profile.component.css']
+  styleUrls: ['./manage-profile.component.css', '../profile.css']
 })
 export class ManageProfileComponent implements OnInit {
+  successfulUpdateMessage = 'Your profile has been updated successfully!';
   user?: User;
   manageProfileForm = new FormGroup({
-    name: new FormControl(''),
-    surname: new FormControl(''),
-    description: new FormControl('')
+    name: new FormControl('', [Validators.required, Validators.max(50)]),
+    surname: new FormControl('', [Validators.required, Validators.max(50)]),
+    description: new FormControl('', [Validators.max(255)])
   });
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService,
+              private notifierService: NotifierService) {
   }
 
   ngOnInit(): void {
@@ -39,6 +42,17 @@ export class ManageProfileComponent implements OnInit {
   }
 
   confirmAndUpdateChanges(): void {
-    console.log(this.manageProfileForm.value);
+    const user = this.getUpdatedUser();
+    this.userService.update(user)
+      .subscribe(() => this.notifierService.notify(this.successfulUpdateMessage, 'success'));
+  }
+
+  getUpdatedUser(): Partial<User> {
+    return {
+      id: this.user?.id,
+      firstName: this.manageProfileForm.value.name,
+      lastName: this.manageProfileForm.value.surname,
+      description: this.manageProfileForm.value.description
+    };
   }
 }

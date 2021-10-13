@@ -7,7 +7,7 @@ import {NotifierService} from '../../../../service/notifier.service';
 @Component({
   selector: 'app-close-account',
   templateUrl: './close-account.component.html',
-  styleUrls: ['./close-account.component.css']
+  styleUrls: ['./close-account.component.css', '../profile.css']
 })
 export class CloseAccountComponent implements OnInit {
   successfulMessage = 'Your account has been closed.';

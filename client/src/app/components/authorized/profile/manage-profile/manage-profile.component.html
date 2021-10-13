@@ -1,10 +1,10 @@
-<div class="close-account-container container-size">
-  <p class="close-account-header">Manage profile</p>
+<div class="container container-size">
+  <p class="header">Manage profile</p>
   <p class="close-account-description">
     Add or edit information about yourself - it will be displayed on your public profile
   </p>
   <div class="separator"></div>
-  <form (ngSubmit)="confirmAndUpdateChanges()" [formGroup]="manageProfileForm" class="close-account-form">
+  <form (ngSubmit)="confirmAndUpdateChanges()" [formGroup]="manageProfileForm" class="form">
     <mat-form-field appearance="fill">
       <mat-label>Name</mat-label>
       <input formControlName="name" matInput type="text">
@@ -15,9 +15,13 @@
     </mat-form-field>
     <mat-form-field appearance="fill">
       <mat-label>About me</mat-label>
-      <textarea formControlName="description" matInput></textarea>
+      <textarea cdkAutosizeMaxRows="6"
+                cdkAutosizeMinRows="3"
+                cdkTextareaAutosize
+                formControlName="description"
+                matInput>
+      </textarea>
     </mat-form-field>
-
     <button class="submit-button"
             mat-raised-button
             type="submit">Save changes

@@ -1,16 +1,16 @@
 <header>
-  <div class="container">
-    <div class="hamburger-container" [matMenuTriggerFor]="hamburger">
+  <div class="page-container">
+    <div [matMenuTriggerFor]="hamburger" class="hamburger-container">
       <i class="fas fa-bars"></i>
     </div>
     <div class="logo-container">
-      <a class="logo-a" routerLink=""><img class="logo" src="assets/img/logo.svg" alt="logo readytask"></a>
+      <a class="logo-a" routerLink=""><img alt="logo readytask" class="logo" src="assets/img/logo.svg"></a>
     </div>
 
     <ul class="nav-ul">
-      <li class="nav-li"><a class="nav-a" routerLink="" fragment="why-readytask">why readytask?</a></li>
-      <li class="nav-li"><a class="nav-a" routerLink="" fragment="about">about</a></li>
-      <li class="nav-li"><a class="nav-a" routerLink="" fragment="contact">contact</a></li>
+      <li class="nav-li"><a class="nav-a" fragment="why-readytask" routerLink="">why readytask?</a></li>
+      <li class="nav-li"><a class="nav-a" fragment="about" routerLink="">about</a></li>
+      <li class="nav-li"><a class="nav-a" fragment="contact" routerLink="">contact</a></li>
     </ul>
     <div class="avatar-container">
       <a class="log-in nav-a" routerLink="/login" routerLinkActive="active-link">log in</a>
@@ -19,14 +19,14 @@
   </div>
 </header>
 
-<mat-menu class="hamburger-content" #hamburger="matMenu">
-  <button class="hamburger-menu-btn" mat-menu-item routerLink="" fragment="why-readytask">
+<mat-menu #hamburger="matMenu" class="hamburger-content">
+  <button class="hamburger-menu-btn" fragment="why-readytask" mat-menu-item routerLink="">
     <i class="far fa-address-book mat-icon"></i>Why readytask?
   </button>
-  <button class="hamburger-menu-btn" mat-menu-item routerLink="" fragment="about">
+  <button class="hamburger-menu-btn" fragment="about" mat-menu-item routerLink="">
     <i class="far fa-list-alt mat-icon"></i>About
   </button>
-  <button class="hamburger-menu-btn" mat-menu-item routerLink="" fragment="contact">
+  <button class="hamburger-menu-btn" fragment="contact" mat-menu-item routerLink="">
     <i class="fas fa-tasks mat-icon"></i>Contact
   </button>
 </mat-menu>

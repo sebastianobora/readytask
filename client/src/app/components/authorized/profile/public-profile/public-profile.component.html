@@ -13,7 +13,8 @@
     <div class="user-info-header">
       <div class="user-names-container">
         <p class="names">{{user?.firstName}} {{user?.lastName}}</p>
-        <p [cbContent]="user?.username"
+        <p (click)="showCopyNotification()"
+           [cbContent]="user?.username"
            class="username"
            matTooltip="Copy username"
            ngxClipboard>@{{user?.username}}</p>

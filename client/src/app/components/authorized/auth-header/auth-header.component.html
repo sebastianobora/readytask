@@ -1,5 +1,5 @@
 <header>
-  <div class="container">
+  <div class="page-container">
     <div class="header-wrapper">
       <div [matMenuTriggerFor]="hamburger" class="hamburger-container">
         <i class="fas fa-bars"></i>
@@ -21,7 +21,7 @@
                alt="Avatar"
                class="avatar"/>
           <ng-template #placeholder>
-            <app-placeholder size="x-small" shadow="dark" [text]="currentUser?.firstName"></app-placeholder>
+            <app-placeholder [text]="currentUser?.firstName" shadow="dark" size="x-small"></app-placeholder>
           </ng-template>
         </button>
       </div>

@@ -36,5 +36,10 @@ export class UserService {
     const url = `${this.baseUrl}/currentLogged`;
     return this.httpClient.request('delete', url, {body: password});
   }
+
+  update(user: Partial<User>): Observable<any> {
+    const url = `${this.baseUrl}`;
+    return this.httpClient.patch(url, user);
+  }
 }
 
