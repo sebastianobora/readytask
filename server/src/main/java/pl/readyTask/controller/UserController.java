@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+import pl.readyTask.dto.UpdatePasswordRequest;
 import pl.readyTask.entity.User;
 import pl.readyTask.service.UserService;
 
@@ -36,9 +37,15 @@ public class UserController {
         return ResponseEntity.ok(userService.getByUsername(username));
     }
 
-    @PatchMapping
-    public ResponseEntity<Object> update(@RequestBody User user, Authentication authentication){
-        userService.update(user, authentication);
+    @PatchMapping("/profile")
+    public ResponseEntity<Object> updateProfile(@RequestBody User user, Authentication authentication){
+        userService.updateProfile(user, authentication);
+        return ResponseEntity.ok().build();
+    }
+
+    @PatchMapping("/password")
+    public ResponseEntity<Object> updatePassword(@RequestBody UpdatePasswordRequest updatePasswordRequest, Authentication authentication){
+        userService.updatePassword(updatePasswordRequest, authentication);
         return ResponseEntity.ok().build();
     }
     

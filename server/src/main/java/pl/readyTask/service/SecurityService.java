@@ -90,16 +90,20 @@ public class SecurityService implements UserDetailsService {
 
         user.setEmail(request.getEmail());
         user.setUsername(request.getUsername());
-        user.setPassword(encoder.encode(request.getPassword()));
+        user.setPassword(encodePassword(request.getPassword()));
         user.setFirstName(request.getFirstName());
         user.setLastName(request.getLastName());
         user.setUserRole(UserRole.ROLE_USER);
         return user;
     }
 
-    public void checkPasswords(String password, String expectedPassword){
-        if (!encoder.matches(password, expectedPassword)){
+    public void checkPasswords(String rawPassword, String expectedPassword){
+        if (!encoder.matches(rawPassword, expectedPassword)){
             throw new InvalidPasswordException();
         }
+    }
+
+    public String encodePassword(String password){
+        return encoder.encode(password);
     }
 }

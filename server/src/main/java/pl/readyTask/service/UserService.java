@@ -3,6 +3,7 @@ package pl.readyTask.service;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
+import pl.readyTask.dto.UpdatePasswordRequest;
 import pl.readyTask.entity.User;
 import pl.readyTask.exception.AccessDeniedToActionException;
 import pl.readyTask.exception.NoDataFoundException;
@@ -40,10 +41,31 @@ public class UserService {
         userRepository.delete(user);
     }
 
-    public void update(User userToUpdate, Authentication authentication){
+    public void updateProfile(User userToUpdate, Authentication authentication){
         User user = securityService.getUserByEmailFromAuthentication(authentication);
         if(!Objects.equals(user.getId(), userToUpdate.getId()))
-            throw new AccessDeniedToActionException(user, "update user");
-        userRepository.save(userToUpdate);
+            throw new AccessDeniedToActionException(user, "update profile");
+        setUpdatedProfileFieldsToUser(userToUpdate, user);
+        userRepository.save(user);
+    }
+
+    public void setUpdatedProfileFieldsToUser(User updatedUser, User user){
+        user.setFirstName(updatedUser.getFirstName());
+        user.setLastName(updatedUser.getLastName());
+        user.setDescription(updatedUser.getDescription());
+    }
+
+    public void updatePassword(UpdatePasswordRequest updatePasswordRequest, Authentication authentication) {
+        User user = securityService.getUserByEmailFromAuthentication(authentication);
+        if(!Objects.equals(user.getId(), updatePasswordRequest.getUserId()))
+            throw new AccessDeniedToActionException(user, "update password");
+        securityService.checkPasswords(updatePasswordRequest.getCurrentPassword(), user.getPassword());
+        setUpdatedPasswordToUser(updatePasswordRequest.getNewPassword(), user);
+        userRepository.save(user);
+    }
+
+    public void setUpdatedPasswordToUser(String rawPassword, User user){
+        String encodedPassword = securityService.encodePassword(rawPassword);
+        user.setPassword(encodedPassword);
     }
 }
