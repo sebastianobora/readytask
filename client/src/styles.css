@@ -302,12 +302,12 @@ main {
 }
 
 /* MAT LABEL */
-mat-label {
+.mat-form-field.mat-focused .mat-form-field-label {
   color: rgba(255, 255, 255, 0.8);
 }
 
-/* CARET COLOR */
-
-.mat-input-element, textarea, input {
-  caret-color: rgba(255, 255, 255, 0.8);
+/* MAT ERROR */
+.mat-error {
+  font-size: 1.05rem;
+  letter-spacing: calc(1px / 2);
 }

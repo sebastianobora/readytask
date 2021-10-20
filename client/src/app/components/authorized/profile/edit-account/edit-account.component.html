@@ -1,0 +1,32 @@
+<div class="container container-size">
+  <p class="header">ACCOUNT</p>
+  <p class="close-account-description">
+    Edit your account settings and change password.
+  </p>
+  <div class="separator"></div>
+  <form (ngSubmit)="changePassword()" [formGroup]="changePasswordForm" class="form">
+    <mat-form-field appearance="fill">
+      <mat-label>Password</mat-label>
+      <input formControlName="currentPassword" matInput type="password">
+      <mat-error *ngIf="currentPassword.errors">
+        Password field is required!
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>New password</mat-label>
+      <input formControlName="newPassword" matInput type="password">
+      <mat-error>{{newPassword.errors | json}}</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Confirm new password</mat-label>
+      <input formControlName="confirmNewPassword" id="test" matInput type="password">
+      <mat-error *ngIf="confirmNewPassword.errors?.notMatch">
+        Passwords does not match!
+      </mat-error>
+    </mat-form-field>
+    <button class="submit-button"
+            mat-raised-button
+            type="submit">Change password
+    </button>
+  </form>
+</div>

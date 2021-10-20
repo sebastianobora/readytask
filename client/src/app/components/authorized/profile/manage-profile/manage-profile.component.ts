@@ -3,6 +3,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {UserService} from '../../../../service/user.service';
 import {User} from '../../../../entity/user';
 import {NotifierService} from '../../../../service/notifier.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-manage-profile',
@@ -19,7 +20,8 @@ export class ManageProfileComponent implements OnInit {
   });
 
   constructor(private userService: UserService,
-              private notifierService: NotifierService) {
+              private notifierService: NotifierService,
+              private router: Router) {
   }
 
   ngOnInit(): void {
@@ -43,8 +45,11 @@ export class ManageProfileComponent implements OnInit {
 
   confirmAndUpdateChanges(): void {
     const user = this.getUpdatedUser();
-    this.userService.update(user)
-      .subscribe(() => this.notifierService.notify(this.successfulUpdateMessage, 'success'));
+    this.userService.updateProfile(user)
+      .subscribe(() => {
+        this.notifierService.notify(this.successfulUpdateMessage, 'success');
+        this.router.navigate(['profile/public/' + this.user?.username]);
+      });
   }
 
   getUpdatedUser(): Partial<User> {

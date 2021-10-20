@@ -18,6 +18,7 @@ import {TaskComponent} from './components/authorized/tasks/task/task.component';
 import {PublicProfileComponent} from './components/authorized/profile/public-profile/public-profile.component';
 import {CloseAccountComponent} from './components/authorized/profile/close-account/close-account.component';
 import {ManageProfileComponent} from './components/authorized/profile/manage-profile/manage-profile.component';
+import {EditAccountComponent} from './components/authorized/profile/edit-account/edit-account.component';
 
 const routes: Routes = [
   {
@@ -46,6 +47,7 @@ const routes: Routes = [
       {path: 'profile/public/:username', component: PublicProfileComponent, runGuardsAndResolvers: 'always'},
       {path: 'profile/my-profile', component: PublicProfileComponent},
       {path: 'profile/manage-profile', component: ManageProfileComponent},
+      {path: 'profile/account', component: EditAccountComponent},
       {path: 'profile/close-account', component: CloseAccountComponent}
     ],
     canActivate: [AuthGuard]

@@ -1,0 +1,13 @@
+.separator {
+  width: 100%;
+  border-top: rgba(255, 255, 255, 0.05) 2px solid;
+  margin: 30px auto;
+}
+
+.submit-button {
+  margin-top: 3px;
+}
+
+mat-form-field {
+  margin-bottom: 6px;
+}

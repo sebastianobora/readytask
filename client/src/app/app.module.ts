@@ -71,6 +71,7 @@ import {PublicProfileComponent} from './components/authorized/profile/public-pro
 import { PlaceholderComponent } from './components/placeholder/placeholder.component';
 import { CloseAccountComponent } from './components/authorized/profile/close-account/close-account.component';
 import { ManageProfileComponent } from './components/authorized/profile/manage-profile/manage-profile.component';
+import { EditAccountComponent } from './components/authorized/profile/edit-account/edit-account.component';
 
 @NgModule({
   declarations: [
@@ -113,7 +114,8 @@ import { ManageProfileComponent } from './components/authorized/profile/manage-p
     PublicProfileComponent,
     PlaceholderComponent,
     CloseAccountComponent,
-    ManageProfileComponent
+    ManageProfileComponent,
+    EditAccountComponent
   ],
   imports: [
     BrowserModule,
