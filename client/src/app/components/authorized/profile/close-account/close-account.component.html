@@ -1,10 +1,16 @@
 <div class="container container-size">
   <p class="header">Close account</p>
-  <form #form="ngForm" (ngSubmit)="confirmAndCloseAccount(form.value.password)" class="form">
+  <form (ngSubmit)="confirmAndCloseAccount()" class="form">
     <mat-form-field appearance="fill">
       <mat-label>Password</mat-label>
-      <input matInput maxlength="20" minlength="6" name="password" ngModel required type="password">
+      <input [formControl]="closeAccountFormControl" matInput type="password">
+      <mat-error *ngIf="closeAccountFormControl.errors?.invalidPassword">{{errorMessage}}</mat-error>
+      <mat-error *ngIf="closeAccountFormControl.errors?.required">{{requiredMessage}}</mat-error>
     </mat-form-field>
-    <button [disabled]="!form.valid" mat-raised-button type="submit">Close account</button>
+    <button [disabled]="!closeAccountFormControl.valid"
+            class="submit-button" mat-raised-button
+            type="submit">
+      Close account
+    </button>
   </form>
 </div>

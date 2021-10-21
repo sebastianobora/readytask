@@ -22,6 +22,8 @@
                 matInput>
       </textarea>
     </mat-form-field>
-    <button [disabled]="!manageProfileForm.dirty" mat-raised-button type="submit">Save changes</button>
+    <button [disabled]="manageProfileForm.invalid || !manageProfileForm.dirty" mat-raised-button type="submit">
+      Save changes
+    </button>
   </form>
 </div>

@@ -2,3 +2,7 @@
   width: 100%;
   max-width: 300px;
 }
+
+.submit-button {
+  margin-top: 5px;
+}
