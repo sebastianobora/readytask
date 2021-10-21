@@ -4,6 +4,15 @@
   margin: 30px auto;
 }
 
+.close-account-description {
+  text-align: center;
+}
+
+.container-size {
+  max-width: 510px;
+  width: 100%;
+}
+
 .submit-button {
   margin-top: 3px;
 }

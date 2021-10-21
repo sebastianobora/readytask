@@ -309,5 +309,4 @@ main {
 /* MAT ERROR */
 .mat-error {
   font-size: 1.05rem;
-  letter-spacing: calc(1px / 2);
 }

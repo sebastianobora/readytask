@@ -8,24 +8,35 @@
     <mat-form-field appearance="fill">
       <mat-label>Password</mat-label>
       <input formControlName="currentPassword" matInput type="password">
-      <mat-error *ngIf="currentPassword.errors">
+      <mat-error *ngIf="currentPassword.errors?.required">
         Password field is required!
+      </mat-error>
+      <mat-error *ngIf="currentPassword.errors?.incorrectPassword">
+        Entered password is incorrect!
       </mat-error>
     </mat-form-field>
     <mat-form-field appearance="fill">
       <mat-label>New password</mat-label>
       <input formControlName="newPassword" matInput type="password">
-      <mat-error>{{newPassword.errors | json}}</mat-error>
+      <mat-error *ngIf="newPassword.errors && newPassword.invalid && (newPassword.dirty || newPassword.touched)">
+        {{getNewPasswordErrorMessage(newPassword.errors)}}
+      </mat-error>
     </mat-form-field>
     <mat-form-field appearance="fill">
       <mat-label>Confirm new password</mat-label>
-      <input formControlName="confirmNewPassword" id="test" matInput type="password">
+      <input formControlName="confirmNewPassword" matInput type="password">
+      <mat-error *ngIf="confirmNewPassword.errors?.required">
+        Password field is required!
+      </mat-error>
       <mat-error *ngIf="confirmNewPassword.errors?.notMatch">
         Passwords does not match!
       </mat-error>
     </mat-form-field>
-    <button class="submit-button"
+    <button [disabled]="changePasswordForm.invalid"
+            [matTooltipDisabled]="changePasswordForm.valid"
+            class="submit-button"
             mat-raised-button
+            matTooltip="Fill all fields!"
             type="submit">Change password
     </button>
   </form>
