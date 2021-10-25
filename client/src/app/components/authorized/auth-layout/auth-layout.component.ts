@@ -1,7 +1,7 @@
 import {AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {UserService} from '../../../service/user.service';
 import {User} from '../../../entity/user';
-import {FooterComponent} from '../../footer/footer.component';
+import {FooterComponent} from '../../common/footer/footer.component';
 import {LayoutService} from '../../../service/layout.service';
 
 @Component({

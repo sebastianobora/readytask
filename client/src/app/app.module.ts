@@ -4,10 +4,10 @@ import {BrowserModule} from '@angular/platform-browser';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {NonAuthHeaderComponent} from './components/non-authorized/non-auth-header/non-auth-header.component';
-import {FooterComponent} from './components/footer/footer.component';
+import {FooterComponent} from './components/common/footer/footer.component';
 import {NonAuthLayoutComponent} from './components/non-authorized/non-auth-layout/non-auth-layout.component';
 import {WhyReadytaskComponent} from './components/non-authorized/why-readytask/why-readytask.component';
-import {SectionComponent} from './components/section/section.component';
+import {SectionComponent} from './components/common/section/section.component';
 import {NonAuthIndexComponent} from './components/non-authorized/non-auth-index/non-auth-index.component';
 import {LoginComponent} from './components/non-authorized/authorization/login/login.component';
 import {RegisterComponent} from './components/non-authorized/authorization/register/register.component';
@@ -51,10 +51,10 @@ import {MatCardModule} from '@angular/material/card';
 import {TaskComponent} from './components/authorized/tasks/task/task.component';
 import {MatTreeModule} from '@angular/material/tree';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
-import {NotificationComponent} from './components/notification/notification.component';
+import {NotificationComponent} from './components/common/notification/notification.component';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatTabsModule} from '@angular/material/tabs';
-import {ConfirmationComponent} from './components/confirmation/confirmation.component';
+import {ConfirmationComponent} from './components/common/confirmation/confirmation.component';
 import {TeamDetailsComponent} from './components/authorized/teams/team/team-details/team-details.component';
 import {ParticipantsComponent} from './components/authorized/teams/team/participants/participants.component';
 import {MatTableModule} from '@angular/material/table';
@@ -66,12 +66,13 @@ import {MatIconModule} from '@angular/material/icon';
 import {AddPostComponent} from './components/authorized/teams/team/forum/add-post/add-post.component';
 import {PostComponent} from './components/authorized/teams/team/forum/post/post.component';
 import {FocusOnChangeDirective} from './directives/focus-on-change.directive';
-import {InformationComponent} from './components/information/information.component';
+import {InformationComponent} from './components/common/information/information.component';
 import {PublicProfileComponent} from './components/authorized/profile/public-profile/public-profile.component';
-import { PlaceholderComponent } from './components/placeholder/placeholder.component';
+import { PlaceholderComponent } from './components/common/placeholder/placeholder.component';
 import { CloseAccountComponent } from './components/authorized/profile/close-account/close-account.component';
 import { ManageProfileComponent } from './components/authorized/profile/manage-profile/manage-profile.component';
 import { EditAccountComponent } from './components/authorized/profile/edit-account/edit-account.component';
+import { ChangePhotoComponent } from './components/authorized/profile/change-photo/change-photo.component';
 
 @NgModule({
   declarations: [
@@ -115,7 +116,8 @@ import { EditAccountComponent } from './components/authorized/profile/edit-accou
     PlaceholderComponent,
     CloseAccountComponent,
     ManageProfileComponent,
-    EditAccountComponent
+    EditAccountComponent,
+    ChangePhotoComponent
   ],
   imports: [
     BrowserModule,

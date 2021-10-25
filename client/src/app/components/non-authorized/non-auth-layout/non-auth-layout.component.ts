@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {FooterComponent} from '../../footer/footer.component';
+import {FooterComponent} from '../../common/footer/footer.component';
 import {LayoutService} from '../../../service/layout.service';
 
 declare var particlesJS: any;

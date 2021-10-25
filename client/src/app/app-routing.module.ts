@@ -19,6 +19,7 @@ import {PublicProfileComponent} from './components/authorized/profile/public-pro
 import {CloseAccountComponent} from './components/authorized/profile/close-account/close-account.component';
 import {ManageProfileComponent} from './components/authorized/profile/manage-profile/manage-profile.component';
 import {EditAccountComponent} from './components/authorized/profile/edit-account/edit-account.component';
+import {ChangePhotoComponent} from './components/authorized/profile/change-photo/change-photo.component';
 
 const routes: Routes = [
   {
@@ -47,6 +48,7 @@ const routes: Routes = [
       {path: 'profile/public/:username', component: PublicProfileComponent, runGuardsAndResolvers: 'always'},
       {path: 'profile/my-profile', component: PublicProfileComponent},
       {path: 'profile/manage-profile', component: ManageProfileComponent},
+      {path: 'profile/change-photo', component: ChangePhotoComponent},
       {path: 'profile/account', component: EditAccountComponent},
       {path: 'profile/close-account', component: CloseAccountComponent}
     ],
