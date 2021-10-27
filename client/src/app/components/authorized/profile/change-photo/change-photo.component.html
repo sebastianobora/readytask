@@ -1,0 +1,23 @@
+<div class="container container-size">
+  <p class="header">Change photo</p>
+  <div class="separator"></div>
+  <img *ngIf="currentDisplayedPhoto else placeholder" [src]="currentDisplayedPhoto" alt="User photo" (load)="freeMemory()"/>
+  <ng-template #placeholder>
+    <app-placeholder size="xx-large" shape="rounded" shadow="dark" [text]="user?.firstName"></app-placeholder>
+  </ng-template>
+  <form class="form">
+    <input class="input-photo" type="file" accept=".png, .jpg, .jpeg" #inputPhoto (change)="setPhoto($event)">
+    <button mat-raised-button (click)="inputPhoto.click()">
+      Browse files
+      <i class="far fa-file-image"></i>
+    </button>
+    <button mat-raised-button
+            [disabled]="!uploadedPhoto"
+            [matTooltip]="changePhotoDisabledHint"
+            [matTooltipDisabled]="!!uploadedPhoto"
+            (click)="changePhoto()">
+      Change
+      <i class="fas fa-file-upload"></i>
+    </button>
+  </form>
+</div>
