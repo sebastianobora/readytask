@@ -9,21 +9,22 @@ export class PlaceholderComponent implements OnInit {
   @Input() text?: string;
   @Input() shape: 'rounded' | 'square' = 'rounded';
   @Input() color: 'grey' | 'purple' = 'grey';
-  @Input() size!: 'x-small' | 'small' | 'medium' | 'large' | 'x-large' | 'xx-large';
+  @Input() size!: 'x-small' | 'small' | 'medium' | 'large' | 'x-large';
   @Input() shadow!: 'dark' | 'light';
   placeholderClasses!: string;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit(): void {
     this.placeholderClasses = this.getPlaceholderClasses();
   }
 
-  getProperties(): string[]{
+  getProperties(): string[] {
     return [this.shape, this.color, this.size, this.shadow];
   }
 
-  getPlaceholderClasses(): string{
+  getPlaceholderClasses(): string {
     return this.getProperties().join(' ');
   }
 }

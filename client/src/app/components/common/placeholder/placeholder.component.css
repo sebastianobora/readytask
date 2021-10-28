@@ -1,73 +1,66 @@
-div{
+div {
   display: flex;
   justify-content: center;
   align-items: center;
   color: #FFFFFF;
 }
 
-p{
+p {
   font-family: 'Bebas Neue', cursive;
 }
 
-.x-small{
+.x-small {
   height: 40px;
   width: 40px;
   font-size: 1.8em;
 }
 
-.small{
+.small {
   height: 50px;
   width: 50px;
   font-size: 2em;
 }
 
-.medium{
+.medium {
   height: 120px;
   width: 120px;
   font-size: 6.3em;
 }
 
-.large{
+.large {
   height: 146px;
   width: 146px;
   font-size: 7.7em;
 }
 
-.x-large{
+.x-large {
   height: 180px;
   width: 180px;
   font-size: 9.4em;
 }
 
-.xx-large{
-  height: 225px;
-  width: 225px;
-  font-size: 11.7em;
-
-}
-
-.rounded{
+.rounded {
   border-radius: 50%;
 }
 
-.square{
+.square {
   border-radius: 2px;
 }
 
-.purple{
+.purple {
   background-color: #75419d;
 }
 
-.grey{
+.grey {
   background-color: #444444;
 }
 
-.dark{
+.dark {
   box-shadow: 0 4px 2px -2px rgba(0, 0, 0, 0.2),
-              0 2px 2px 0 rgba(0, 0, 0, 0.14),
-              0 3px 4px 0 rgba(0, 0, 0, 0.13);
+  0 2px 2px 0 rgba(0, 0, 0, 0.14),
+  0 3px 4px 0 rgba(0, 0, 0, 0.13);
 }
 
-.light{
+.light {
   box-shadow: 0 0 50px rgba(255, 255, 255, 0.15);
 }

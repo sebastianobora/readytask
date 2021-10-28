@@ -4,28 +4,28 @@
   margin: 15px auto;
 }
 
-.form{
-  margin-top: 8px;
+.form {
+  margin-top: 15px;
 }
 
-.input-photo{
+.input-photo {
   display: none;
 }
 
-button{
-  margin: 8px 0;
+button {
+  margin: 5px 0;
 }
 
-img{
-  height: 225px;
-  width: 225px;
+img {
+  height: 180px;
+  width: 180px;
   border-radius: 50%;
   box-shadow: 0 4px 2px -2px rgba(0, 0, 0, 0.2),
   0 2px 2px 0 rgba(0, 0, 0, 0.14),
   0 3px 4px 0 rgba(0, 0, 0, 0.13);
 }
 
-i{
+i {
   margin-left: 4px;
   font-size: 1.6rem;
 }

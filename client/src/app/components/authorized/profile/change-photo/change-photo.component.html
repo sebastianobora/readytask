@@ -1,21 +1,24 @@
 <div class="container container-size">
   <p class="header">Change photo</p>
   <div class="separator"></div>
-  <img *ngIf="currentDisplayedPhoto else placeholder" [src]="currentDisplayedPhoto" alt="User photo" (load)="freeMemory()"/>
+  <img (load)="freeMemory()" *ngIf="currentDisplayedPhoto else placeholder" [src]="currentDisplayedPhoto"
+       alt="User photo"/>
   <ng-template #placeholder>
-    <app-placeholder size="xx-large" shape="rounded" shadow="dark" [text]="user?.firstName"></app-placeholder>
+    <app-placeholder [text]="user?.firstName" shadow="dark" shape="rounded" size="x-large"></app-placeholder>
   </ng-template>
+  <mat-error>error</mat-error>
   <form class="form">
-    <input class="input-photo" type="file" accept=".png, .jpg, .jpeg" #inputPhoto (change)="setPhoto($event)">
-    <button mat-raised-button (click)="inputPhoto.click()">
+    <input #inputPhoto (change)="setPhoto($event)" accept=".png, .jpg, .jpeg"
+           class="input-photo" type="file">
+    <button (click)="inputPhoto.click()" mat-raised-button>
       Browse files
       <i class="far fa-file-image"></i>
     </button>
-    <button mat-raised-button
+    <button (click)="validAndChangePhoto()"
             [disabled]="!uploadedPhoto"
-            [matTooltip]="changePhotoDisabledHint"
             [matTooltipDisabled]="!!uploadedPhoto"
-            (click)="changePhoto()">
+            [matTooltip]="changePhotoDisabledHint"
+            mat-raised-button>
       Change
       <i class="fas fa-file-upload"></i>
     </button>
