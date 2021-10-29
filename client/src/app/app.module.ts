@@ -68,11 +68,15 @@ import {PostComponent} from './components/authorized/teams/team/forum/post/post.
 import {FocusOnChangeDirective} from './directives/focus-on-change.directive';
 import {InformationComponent} from './components/common/information/information.component';
 import {PublicProfileComponent} from './components/authorized/profile/public-profile/public-profile.component';
-import { PlaceholderComponent } from './components/common/placeholder/placeholder.component';
-import { CloseAccountComponent } from './components/authorized/profile/close-account/close-account.component';
-import { ManageProfileComponent } from './components/authorized/profile/manage-profile/manage-profile.component';
-import { EditAccountComponent } from './components/authorized/profile/edit-account/edit-account.component';
-import { ChangePhotoComponent } from './components/authorized/profile/change-photo/change-photo.component';
+import {PlaceholderComponent} from './components/common/placeholder/placeholder.component';
+import {CloseAccountComponent} from './components/authorized/profile/close-account/close-account.component';
+import {ManageProfileComponent} from './components/authorized/profile/manage-profile/manage-profile.component';
+import {EditAccountComponent} from './components/authorized/profile/edit-account/edit-account.component';
+import {ChangePhotoComponent} from './components/authorized/profile/change-photo/change-photo.component';
+import {AngularFirestore} from '@angular/fire/compat/firestore';
+import {AngularFireModule} from '@angular/fire/compat';
+import {AngularFireStorageModule} from '@angular/fire/compat/storage';
+import {firebaseConfig} from '../assets/firebaseConfig';
 
 @NgModule({
   declarations: [
@@ -149,12 +153,15 @@ import { ChangePhotoComponent } from './components/authorized/profile/change-pho
     MatButtonToggleModule,
     MatRippleModule,
     MatExpansionModule,
-    MatIconModule
+    MatIconModule,
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireStorageModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
     AuthGuard,
-    NonAuthGuard
+    NonAuthGuard,
+    AngularFirestore
   ],
   bootstrap: [AppComponent]
 })
