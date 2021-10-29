@@ -72,10 +72,6 @@ import {CloseAccountComponent} from './components/authorized/profile/close-accou
 import {ManageProfileComponent} from './components/authorized/profile/manage-profile/manage-profile.component';
 import {EditAccountComponent} from './components/authorized/profile/edit-account/edit-account.component';
 import {ChangePhotoComponent} from './components/authorized/profile/change-photo/change-photo.component';
-import {AngularFirestore} from '@angular/fire/compat/firestore';
-import {AngularFireModule} from '@angular/fire/compat';
-import {AngularFireStorageModule} from '@angular/fire/compat/storage';
-import {firebaseConfig} from '../assets/firebase-config';
 
 @NgModule({
   declarations: [
@@ -151,15 +147,12 @@ import {firebaseConfig} from '../assets/firebase-config';
     MatButtonToggleModule,
     MatRippleModule,
     MatExpansionModule,
-    MatIconModule,
-    AngularFireModule.initializeApp(firebaseConfig),
-    AngularFireStorageModule
+    MatIconModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
     AuthGuard,
-    NonAuthGuard,
-    AngularFirestore
+    NonAuthGuard
   ],
   bootstrap: [AppComponent]
 })
