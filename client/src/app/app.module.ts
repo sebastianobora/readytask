@@ -72,6 +72,9 @@ import {CloseAccountComponent} from './components/authorized/profile/close-accou
 import {ManageProfileComponent} from './components/authorized/profile/manage-profile/manage-profile.component';
 import {EditAccountComponent} from './components/authorized/profile/edit-account/edit-account.component';
 import {ChangePhotoComponent} from './components/authorized/profile/change-photo/change-photo.component';
+import {AngularFireModule} from '@angular/fire/compat';
+import {firebaseConfig} from '../assets/firebase-config';
+import {AngularFireStorageModule} from '@angular/fire/compat/storage';
 
 @NgModule({
   declarations: [
@@ -147,7 +150,9 @@ import {ChangePhotoComponent} from './components/authorized/profile/change-photo
     MatButtonToggleModule,
     MatRippleModule,
     MatExpansionModule,
-    MatIconModule
+    MatIconModule,
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireStorageModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
