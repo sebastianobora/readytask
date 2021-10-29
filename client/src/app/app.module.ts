@@ -25,7 +25,6 @@ import {AddTeamComponent} from './components/authorized/teams/manage-team/add-te
 import {JoinTeamComponent} from './components/authorized/teams/manage-team/join-team/join-team.component';
 import {TeamComponent} from './components/authorized/teams/team/team.component';
 import {ClipboardModule} from 'ngx-clipboard';
-import {TooltipModule} from 'ng2-tooltip-directive';
 import {JwtInterceptor} from './security/jwt.interceptor';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatMenuModule} from '@angular/material/menu';
@@ -129,7 +128,6 @@ import {firebaseConfig} from '../assets/firebase-config';
     HttpClientModule,
     FormsModule,
     ClipboardModule,
-    TooltipModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
     MatMenuModule,

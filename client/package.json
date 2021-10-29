@@ -25,7 +25,6 @@
     "@angular/router": "~11.2.5",
     "@auth0/angular-jwt": "^5.0.2",
     "firebase": "^9.2.0",
-    "ng2-tooltip-directive": "^2.9.22",
     "ngx-clipboard": "^14.0.1",
     "ngx-quill": "^14.0.0",
     "quill": "^1.3.7",
