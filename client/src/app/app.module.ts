@@ -76,7 +76,7 @@ import {ChangePhotoComponent} from './components/authorized/profile/change-photo
 import {AngularFirestore} from '@angular/fire/compat/firestore';
 import {AngularFireModule} from '@angular/fire/compat';
 import {AngularFireStorageModule} from '@angular/fire/compat/storage';
-import {firebaseConfig} from '../assets/firebaseConfig';
+import {firebaseConfig} from '../assets/firebase-config';
 
 @NgModule({
   declarations: [
