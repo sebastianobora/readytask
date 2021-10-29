@@ -11,9 +11,12 @@ import {NotifierService} from '../../../../service/notifier.service';
 })
 export class ChangePhotoComponent implements OnInit {
   changePhotoDisabledHint = 'First browse files and pick photo!';
-  user!: User;
+  invalidTypeError = 'Selected photo has invalid type!';
+  invalidSizeError = 'Selected photo has invalid size!';
+  maxPhotoSizeInMb = 5;
+  invalidPhotoError?: string;
   currentDisplayedPhoto?: string;
-  invalidPhotoMessages: string[] = [];
+  user!: User;
   uploadedPhoto?: File;
 
   constructor(private userService: UserService,
@@ -33,11 +36,17 @@ export class ChangePhotoComponent implements OnInit {
   }
 
   setPhoto(event: any): void {
+    this.resetErrorsAndCurrentDisplayedPhoto();
     this.uploadedPhoto = event.target.files[0];
-    if (this.uploadedPhoto) {
+    if (this.uploadedPhoto && this.isPhotoValid(this.uploadedPhoto)) {
       const photoUrl = URL.createObjectURL(this.uploadedPhoto);
       this.currentDisplayedPhoto = this.getTrustedUrl(photoUrl);
     }
+  }
+
+  resetErrorsAndCurrentDisplayedPhoto(): void {
+    this.invalidPhotoError = '';
+    this.currentDisplayedPhoto = '';
   }
 
   validAndChangePhoto(): void {
@@ -51,19 +60,16 @@ export class ChangePhotoComponent implements OnInit {
   }
 
   isPhotoValid(photo: File): boolean {
-    const isTypeValid = this.isPhotoTypeValid(photo.type);
     const isSizeValid = this.isPhotoSizeValid(photo.size);
-
-    if (!isTypeValid) {
-      this.notifierService.notify('Uploaded photo has invalid type!', 'error');
-      return false;
-    }
-
+    const isTypeValid = this.isPhotoTypeValid(photo.type);
+    
     if (!isSizeValid) {
-      this.notifierService.notify('Uploaded photo has invalid size!', 'error');
-      return false;
+      this.invalidPhotoError = this.invalidSizeError;
     }
-    return true;
+    if (!isTypeValid) {
+      this.invalidPhotoError = this.invalidTypeError;
+    }
+    return isTypeValid && isSizeValid;
   }
 
   isPhotoTypeValid(type: string): boolean {
@@ -72,7 +78,7 @@ export class ChangePhotoComponent implements OnInit {
   }
 
   isPhotoSizeValid(size: number): boolean {
-    const sizeLimitInKb = 5 * 1024 * 1024;
+    const sizeLimitInKb = this.maxPhotoSizeInMb * 1024 * 1024;
     return size <= sizeLimitInKb;
   }
 

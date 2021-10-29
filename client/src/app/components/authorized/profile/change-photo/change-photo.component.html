@@ -1,12 +1,15 @@
 <div class="container container-size">
   <p class="header">Change photo</p>
+  <p class="description">Maximum photo size is {{maxPhotoSizeInMb}}MB</p>
   <div class="separator"></div>
   <img (load)="freeMemory()" *ngIf="currentDisplayedPhoto else placeholder" [src]="currentDisplayedPhoto"
        alt="User photo"/>
   <ng-template #placeholder>
     <app-placeholder [text]="user?.firstName" shadow="dark" shape="rounded" size="x-large"></app-placeholder>
   </ng-template>
-  <mat-error>error</mat-error>
+  <mat-error>
+    <p class="photo-error">{{invalidPhotoError}}</p>
+  </mat-error>
   <form class="form">
     <input #inputPhoto (change)="setPhoto($event)" accept=".png, .jpg, .jpeg"
            class="input-photo" type="file">
@@ -15,8 +18,8 @@
       <i class="far fa-file-image"></i>
     </button>
     <button (click)="validAndChangePhoto()"
-            [disabled]="!uploadedPhoto"
-            [matTooltipDisabled]="!!uploadedPhoto"
+            [disabled]="!uploadedPhoto || !!invalidPhotoError"
+            [matTooltipDisabled]="!!uploadedPhoto && !invalidPhotoError"
             [matTooltip]="changePhotoDisabledHint"
             mat-raised-button>
       Change

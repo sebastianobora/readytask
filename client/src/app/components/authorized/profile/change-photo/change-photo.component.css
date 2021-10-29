@@ -4,12 +4,22 @@
   margin: 15px auto;
 }
 
+.description {
+  text-align: center;
+  opacity: 0.6;
+}
+
 .form {
-  margin-top: 15px;
+  margin-top: 5px;
 }
 
 .input-photo {
   display: none;
+}
+
+.photo-error {
+  text-align: center;
+  margin-top: 10px;
 }
 
 button {
