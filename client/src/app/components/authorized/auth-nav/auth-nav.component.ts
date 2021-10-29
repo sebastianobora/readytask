@@ -1,6 +1,13 @@
 import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {Router} from '@angular/router';
-import {NavObject, profileNavContent, tasksNavContent, teamsNavContent, todoNavContent} from '../../../../assets/auth-nav-content-data';
+import {
+  NavObject,
+  profileNavContent,
+  publicProfileLink,
+  tasksNavContent,
+  teamsNavContent,
+  todoNavContent
+} from '../../../../assets/auth-nav-content-data';
 import {User} from '../../../entity/user';
 
 @Component({
@@ -43,7 +50,7 @@ export class AuthNavComponent implements OnInit, OnChanges {
 
   addUsernameToPublicProfileLink(username: string): void {
     const profileNavContentWithUsername = profileNavContent;
-    profileNavContentWithUsername.elements[0].link += username;
+    profileNavContentWithUsername.elements[0].link = publicProfileLink + username;
     this.navContent.set('profile', profileNavContentWithUsername);
   }
 

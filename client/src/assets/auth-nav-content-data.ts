@@ -31,10 +31,11 @@ export const teamsNavContent: NavObject = {
   ]
 };
 
+export const publicProfileLink = 'profile/public/';
 export const profileNavContent: NavObject = {
   title: 'PROFILE',
   elements: [
-    {content: 'PUBLIC PROFILE', link: 'profile/public/'},
+    {content: 'PUBLIC PROFILE', link: ''},
     {content: 'MANAGE PROFILE', link: 'profile/manage-profile'},
     {content: 'PHOTO', link: 'profile/change-photo'},
     {content: 'ACCOUNT', link: 'profile/account'},
