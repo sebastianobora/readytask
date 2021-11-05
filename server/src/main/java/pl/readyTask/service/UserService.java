@@ -41,6 +41,14 @@ public class UserService {
         userRepository.delete(user);
     }
 
+    public void updateImage(User userToUpdate, Authentication authentication){
+        User user = securityService.getUserByEmailFromAuthentication(authentication);
+        if(!Objects.equals(user.getId(), userToUpdate.getId()))
+            throw new AccessDeniedToActionException(user, "update image");
+        user.setImg(userToUpdate.getImg());
+        userRepository.save(user);
+    }
+
     public void updateProfile(User userToUpdate, Authentication authentication){
         User user = securityService.getUserByEmailFromAuthentication(authentication);
         if(!Objects.equals(user.getId(), userToUpdate.getId()))

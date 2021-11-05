@@ -1,6 +1,7 @@
 package pl.readyTask.controller;
 
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
@@ -35,6 +36,12 @@ public class UserController {
     @GetMapping("/by-username/{username}")
     public ResponseEntity<User> getByUsername(@PathVariable String username){
         return ResponseEntity.ok(userService.getByUsername(username));
+    }
+
+    @PatchMapping("/image")
+    public ResponseEntity<Object> updateImage(@RequestBody User user, Authentication authentication){
+        userService.updateImage(user, authentication);
+        return ResponseEntity.ok().build();
     }
 
     @PatchMapping("/profile")
