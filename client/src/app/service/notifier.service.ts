@@ -7,9 +7,10 @@ import {NotificationComponent} from '../components/common/notification/notificat
 })
 export class NotifierService {
 
-  constructor(private snackBar: MatSnackBar) { }
+  constructor(private snackBar: MatSnackBar) {
+  }
 
-  notify(message: string, type: 'error' | 'success'): void{
+  notify(message: string, type: 'error' | 'success'): void {
     const className = `notify-${type}`;
     this.snackBar.openFromComponent(NotificationComponent, {
       data: {

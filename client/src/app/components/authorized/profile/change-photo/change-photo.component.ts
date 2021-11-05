@@ -8,6 +8,7 @@ import {AngularFireStorage} from '@angular/fire/compat/storage';
 import {finalize} from 'rxjs/operators';
 import {LoggedUserService} from '../../../../service/logged-user.service';
 import {FormControl} from '@angular/forms';
+import {ConfirmationService} from '../../../../service/confirmation.service';
 
 @Component({
   selector: 'app-change-photo',
@@ -16,6 +17,7 @@ import {FormControl} from '@angular/forms';
 })
 export class ChangePhotoComponent implements OnInit, OnDestroy {
   imageChangedMessage = 'Your photo has been changed';
+  imageDeletedMessage = 'Your photo has been deleted';
   changeImageDisabledHint = 'First browse files and pick photo!';
   invalidTypeError = 'Selected photo has invalid type!';
   invalidSizeError = 'Selected photo has invalid size!';
@@ -29,7 +31,8 @@ export class ChangePhotoComponent implements OnInit, OnDestroy {
 
   constructor(private userService: UserService,
               private notifierService: NotifierService,
-              public loggedUserService: LoggedUserService,
+              private loggedUserService: LoggedUserService,
+              private confirmationService: ConfirmationService,
               private storage: AngularFireStorage,
               private sanitizer: DomSanitizer) {
   }
@@ -116,14 +119,27 @@ export class ChangePhotoComponent implements OnInit, OnDestroy {
     const user = {id: this.user.id, img: imageUrl};
     this.userService
       .updateImage(user)
-      .subscribe(() => this.notifyAndResetForm());
+      .subscribe(() => this.notifyAndResetForm(this.imageChangedMessage));
   }
 
-  notifyAndResetForm(): void {
+  notifyAndResetForm(notifyMessage: string): void {
     this.loggedUserService.loadLoggedUser();
-    this.notifierService.notify(this.imageChangedMessage, 'success');
+    this.notifierService.notify(notifyMessage, 'success');
     this.uploadedImage.reset();
     this.uploadPercent = new Observable(undefined);
+  }
+
+  confirmAndDeleteImage(): void {
+    this.confirmationService.isConfirmed(() => this.deleteImage());
+  }
+
+  deleteImage(): void {
+    this.userService.updateImage({id: this.user.id, img: ''}).subscribe(
+      () => {
+        this.storage.refFromURL(this.user.img).delete();
+        this.notifyAndResetForm(this.imageDeletedMessage);
+      }
+    );
   }
 
   freeMemory(): void {

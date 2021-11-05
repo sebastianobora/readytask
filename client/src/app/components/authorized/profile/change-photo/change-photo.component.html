@@ -3,8 +3,8 @@
   <p class="description">Maximum photo size is {{maxImageSizeInMb}}MB</p>
   <div class="separator"></div>
   <div *ngIf="currentDisplayedImage else placeholder" class="image-container">
-    <div class="delete-container">
-      <i class="fas fa-trash delete"></i>
+    <div *ngIf="user?.img && !uploadedImage.value" class="delete-container">
+      <i (click)="confirmAndDeleteImage()" class="fas fa-trash delete"></i>
     </div>
     <img (load)="freeMemory()" [src]="currentDisplayedImage" alt="User photo"/>
   </div>

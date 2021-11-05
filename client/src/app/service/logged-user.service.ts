@@ -3,9 +3,7 @@ import {ReplaySubject} from 'rxjs';
 import {UserService} from './user.service';
 import {User} from '../entity/user';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class LoggedUserService {
   private loggedUserDataSource = new ReplaySubject<User>(1);
   public loggedUser = this.loggedUserDataSource.asObservable();

@@ -24,8 +24,7 @@ header {
   position: sticky;
   top: 0;
   height: 60px;
-  box-shadow: 0 0 5em black;
-  z-index: 2;
+  z-index: 1001;
 }
 
 /* LINES */
