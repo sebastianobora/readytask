@@ -18,9 +18,9 @@ export class PublicProfileComponent implements OnInit, OnDestroy {
   usernameCopyMessage = 'Username has been copied.';
 
   constructor(private userService: UserService,
+              private notifierService: NotifierService,
               private route: ActivatedRoute,
-              private router: Router,
-              private notifierService: NotifierService) {
+              private router: Router) {
   }
 
   ngOnInit(): void {

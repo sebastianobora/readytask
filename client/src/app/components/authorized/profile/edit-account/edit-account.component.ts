@@ -4,6 +4,7 @@ import {AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, 
 import {User} from '../../../../entity/user';
 import CustomValidators from '../../../../validators/CustomValidators';
 import {NotifierService} from '../../../../service/notifier.service';
+import {LoggedUserService} from '../../../../service/logged-user.service';
 
 @Component({
   selector: 'app-edit-account',
@@ -16,8 +17,9 @@ export class EditAccountComponent implements OnInit {
   successfulMessage = 'Your password has been changed!';
 
   constructor(private userService: UserService,
-              private formBuilder: FormBuilder,
-              private notifierService: NotifierService) {
+              private loggedUserService: LoggedUserService,
+              private notifierService: NotifierService,
+              private formBuilder: FormBuilder) {
     this.changePasswordForm = this.getChangePasswordForm();
   }
 
@@ -37,7 +39,11 @@ export class EditAccountComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.userService.getCurrentLogged().subscribe(user => this.user = user);
+    this.getLoggedUser();
+  }
+
+  getLoggedUser(): void {
+    this.loggedUserService.loggedUser.subscribe(user => this.user = user);
   }
 
   getChangePasswordForm(): FormGroup {

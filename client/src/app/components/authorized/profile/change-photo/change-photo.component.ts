@@ -3,7 +3,7 @@ import {User} from '../../../../entity/user';
 import {UserService} from '../../../../service/user.service';
 import {DomSanitizer} from '@angular/platform-browser';
 import {NotifierService} from '../../../../service/notifier.service';
-import {Observable, Subscription} from 'rxjs';
+import {Subscription} from 'rxjs';
 import {AngularFireStorage} from '@angular/fire/compat/storage';
 import {finalize} from 'rxjs/operators';
 import {LoggedUserService} from '../../../../service/logged-user.service';
@@ -26,7 +26,7 @@ export class ChangePhotoComponent implements OnInit, OnDestroy {
   currentDisplayedImage?: string;
   user!: User;
   uploadedImage = new FormControl();
-  uploadPercent!: Observable<number | undefined>;
+  uploadPercent?: number;
   loggedUserSubscription!: Subscription;
 
   constructor(private userService: UserService,
@@ -104,7 +104,8 @@ export class ChangePhotoComponent implements OnInit, OnDestroy {
     const filePath = this.getImagePath();
     const fileUrl = this.storage.ref(filePath).getDownloadURL();
     const uploadTask = this.storage.upload(filePath, image);
-    this.uploadPercent = uploadTask.percentageChanges();
+    uploadTask.percentageChanges()
+      .subscribe(percentage => this.uploadPercent = percentage);
     uploadTask.snapshotChanges().pipe(
       finalize(() => fileUrl.subscribe(url => this.updateUserImage(url)))
     ).subscribe();
@@ -126,7 +127,7 @@ export class ChangePhotoComponent implements OnInit, OnDestroy {
     this.loggedUserService.loadLoggedUser();
     this.notifierService.notify(notifyMessage, 'success');
     this.uploadedImage.reset();
-    this.uploadPercent = new Observable(undefined);
+    this.uploadPercent = undefined;
   }
 
   confirmAndDeleteImage(): void {

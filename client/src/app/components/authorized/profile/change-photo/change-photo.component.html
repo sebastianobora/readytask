@@ -3,7 +3,7 @@
   <p class="description">Maximum photo size is {{maxImageSizeInMb}}MB</p>
   <div class="separator"></div>
   <div *ngIf="currentDisplayedImage else placeholder" class="image-container">
-    <div *ngIf="user?.img && !uploadedImage.value" class="delete-container">
+    <div *ngIf="user?.img && !uploadedImage.value" class="delete-container" mat-ripple>
       <i (click)="confirmAndDeleteImage()" class="fas fa-trash delete"></i>
     </div>
     <img (load)="freeMemory()" [src]="currentDisplayedImage" alt="User photo"/>
@@ -17,19 +17,26 @@
   <form class="form">
     <input #inputPhoto (change)="setImage($event)" accept=".png, .jpg, .jpeg"
            class="input-photo" type="file">
-    <button (click)="inputPhoto.click()" mat-raised-button>
+    <button (click)="inputPhoto.click()" [disabled]="!!uploadPercent" mat-raised-button>
       Browse files
       <i class="far fa-file-image"></i>
     </button>
-    <button (click)="validAndSaveImage()"
-            [disabled]="!uploadedImage.value || !!invalidImageError"
-            [matTooltipDisabled]="!!uploadedImage.value && !invalidImageError"
-            [matTooltip]="changeImageDisabledHint"
-            mat-raised-button>
-      Save
-      <i class="fas fa-file-upload"></i>
+    <button
+      (click)="validAndSaveImage()"
+      [disabled]="!uploadedImage.value || !!invalidImageError || !!uploadPercent"
+      [matTooltipDisabled]="!!uploadedImage.value && !invalidImageError"
+      [matTooltip]="changeImageDisabledHint"
+      [ngClass]="{'load-percent' : uploadPercent}"
+      mat-raised-button>
+      <ng-container *ngIf="uploadPercent else save">
+        {{uploadPercent | number: '1.0-0'}}%
+      </ng-container>
+      <ng-template #save>
+        Save
+        <i class="fas fa-file-upload"></i>
+      </ng-template>
     </button>
-    <ng-container *ngIf="uploadPercent | async as uploadPercent">
+    <ng-container *ngIf="uploadPercent">
       <mat-progress-bar [value]="uploadPercent" class="progress-bar" mode="determinate"></mat-progress-bar>
     </ng-container>
   </form>

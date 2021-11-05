@@ -4,6 +4,7 @@ import {UserService} from '../../../../service/user.service';
 import {User} from '../../../../entity/user';
 import {NotifierService} from '../../../../service/notifier.service';
 import {Router} from '@angular/router';
+import {LoggedUserService} from '../../../../service/logged-user.service';
 
 @Component({
   selector: 'app-manage-profile',
@@ -20,16 +21,17 @@ export class ManageProfileComponent implements OnInit {
   });
 
   constructor(private userService: UserService,
+              private loggedUserService: LoggedUserService,
               private notifierService: NotifierService,
               private router: Router) {
   }
 
   ngOnInit(): void {
-    this.loadCurrentLoggedUser();
+    this.loadLoggedUser();
   }
 
-  loadCurrentLoggedUser(): void {
-    this.userService.getCurrentLogged().subscribe(
+  loadLoggedUser(): void {
+    this.loggedUserService.loggedUser.subscribe(
       user => {
         this.user = user;
         this.setFormValues(user);

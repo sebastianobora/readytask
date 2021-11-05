@@ -11,7 +11,6 @@ import {MemberRole} from '../../../../entity/member-role.enum';
 export class TeamsListComponent implements OnInit {
   isLoading = true;
   adminRole: MemberRole = MemberRole.ADMIN;
-
   teams?: Team[];
 
   constructor(private teamService: TeamService) {
