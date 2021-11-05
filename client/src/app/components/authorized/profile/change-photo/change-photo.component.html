@@ -1,29 +1,36 @@
 <div class="container container-size">
   <p class="header">Change photo</p>
-  <p class="description">Maximum photo size is {{maxPhotoSizeInMb}}MB</p>
+  <p class="description">Maximum photo size is {{maxImageSizeInMb}}MB</p>
   <div class="separator"></div>
-  <img (load)="freeMemory()" *ngIf="currentDisplayedPhoto else placeholder" [src]="currentDisplayedPhoto"
-       alt="User photo"/>
+  <div *ngIf="currentDisplayedImage else placeholder" class="image-container">
+    <div class="delete-container">
+      <i class="fas fa-trash delete"></i>
+    </div>
+    <img (load)="freeMemory()" [src]="currentDisplayedImage" alt="User photo"/>
+  </div>
   <ng-template #placeholder>
     <app-placeholder [text]="user?.firstName" shadow="dark" shape="rounded" size="x-large"></app-placeholder>
   </ng-template>
   <mat-error>
-    <p class="photo-error">{{invalidPhotoError}}</p>
+    <p class="photo-error">{{invalidImageError}}</p>
   </mat-error>
   <form class="form">
-    <input #inputPhoto (change)="setPhoto($event)" accept=".png, .jpg, .jpeg"
+    <input #inputPhoto (change)="setImage($event)" accept=".png, .jpg, .jpeg"
            class="input-photo" type="file">
     <button (click)="inputPhoto.click()" mat-raised-button>
       Browse files
       <i class="far fa-file-image"></i>
     </button>
-    <button (click)="validAndChangePhoto()"
-            [disabled]="!uploadedPhoto || !!invalidPhotoError"
-            [matTooltipDisabled]="!!uploadedPhoto && !invalidPhotoError"
-            [matTooltip]="changePhotoDisabledHint"
+    <button (click)="validAndSaveImage()"
+            [disabled]="!uploadedImage.value || !!invalidImageError"
+            [matTooltipDisabled]="!!uploadedImage.value && !invalidImageError"
+            [matTooltip]="changeImageDisabledHint"
             mat-raised-button>
-      Change
+      Save
       <i class="fas fa-file-upload"></i>
     </button>
+    <ng-container *ngIf="uploadPercent | async as uploadPercent">
+      <mat-progress-bar [value]="uploadPercent" class="progress-bar" mode="determinate"></mat-progress-bar>
+    </ng-container>
   </form>
 </div>

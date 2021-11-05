@@ -1,84 +1,89 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {User} from '../../../../entity/user';
 import {UserService} from '../../../../service/user.service';
 import {DomSanitizer} from '@angular/platform-browser';
 import {NotifierService} from '../../../../service/notifier.service';
+import {Observable, Subscription} from 'rxjs';
+import {AngularFireStorage} from '@angular/fire/compat/storage';
+import {finalize} from 'rxjs/operators';
+import {LoggedUserService} from '../../../../service/logged-user.service';
+import {FormControl} from '@angular/forms';
 
 @Component({
   selector: 'app-change-photo',
   templateUrl: './change-photo.component.html',
   styleUrls: ['./change-photo.component.css', '../profile.css']
 })
-export class ChangePhotoComponent implements OnInit {
-  changePhotoDisabledHint = 'First browse files and pick photo!';
+export class ChangePhotoComponent implements OnInit, OnDestroy {
+  imageChangedMessage = 'Your photo has been changed';
+  changeImageDisabledHint = 'First browse files and pick photo!';
   invalidTypeError = 'Selected photo has invalid type!';
   invalidSizeError = 'Selected photo has invalid size!';
-  maxPhotoSizeInMb = 5;
-  invalidPhotoError?: string;
-  currentDisplayedPhoto?: string;
+  maxImageSizeInMb = 5;
+  invalidImageError?: string;
+  currentDisplayedImage?: string;
   user!: User;
-  uploadedPhoto?: File;
+  uploadedImage = new FormControl();
+  uploadPercent!: Observable<number | undefined>;
+  loggedUserSubscription!: Subscription;
 
   constructor(private userService: UserService,
               private notifierService: NotifierService,
+              public loggedUserService: LoggedUserService,
+              private storage: AngularFireStorage,
               private sanitizer: DomSanitizer) {
   }
 
   ngOnInit(): void {
-    this.setCurrentLoggedUser();
+    this.setLoggedUser();
   }
 
-  setCurrentLoggedUser(): void {
-    this.userService.getCurrentLogged().subscribe(user => {
-      this.user = user;
-      this.currentDisplayedPhoto = user?.img;
-    });
+  ngOnDestroy(): void {
+    this.loggedUserSubscription.unsubscribe();
   }
 
-  setPhoto(event: any): void {
+  setLoggedUser(): void {
+    this.loggedUserSubscription = this.loggedUserService.loggedUser.subscribe(
+      user => {
+        this.user = user;
+        this.currentDisplayedImage = user.img;
+      });
+  }
+
+  setImage(event: any): void {
     this.resetErrorsAndCurrentDisplayedPhoto();
-    this.uploadedPhoto = event.target.files[0];
-    if (this.uploadedPhoto && this.isPhotoValid(this.uploadedPhoto)) {
-      const photoUrl = URL.createObjectURL(this.uploadedPhoto);
-      this.currentDisplayedPhoto = this.getTrustedUrl(photoUrl);
+    this.uploadedImage.setValue(event.target.files[0]);
+    if (this.uploadedImage && this.isImageValid(this.uploadedImage.value)) {
+      const imageUrl = URL.createObjectURL(this.uploadedImage.value);
+      this.currentDisplayedImage = this.getTrustedUrl(imageUrl);
     }
   }
 
   resetErrorsAndCurrentDisplayedPhoto(): void {
-    this.invalidPhotoError = '';
-    this.currentDisplayedPhoto = '';
+    this.invalidImageError = '';
+    this.currentDisplayedImage = '';
   }
 
-  validAndChangePhoto(): void {
-    if (this.uploadedPhoto && this.isPhotoValid(this.uploadedPhoto)) {
-      this.changePhoto();
-    }
-  }
+  isImageValid(image: File): boolean {
+    const isSizeValid = this.isImageSizeValid(image.size);
+    const isTypeValid = this.isImageTypeValid(image.type);
 
-  changePhoto(): void {
-    this.notifierService.notify('Photo has been changed!', 'success');
-  }
-
-  isPhotoValid(photo: File): boolean {
-    const isSizeValid = this.isPhotoSizeValid(photo.size);
-    const isTypeValid = this.isPhotoTypeValid(photo.type);
-    
     if (!isSizeValid) {
-      this.invalidPhotoError = this.invalidSizeError;
+      this.invalidImageError = this.invalidSizeError;
     }
     if (!isTypeValid) {
-      this.invalidPhotoError = this.invalidTypeError;
+      this.invalidImageError = this.invalidTypeError;
     }
     return isTypeValid && isSizeValid;
   }
 
-  isPhotoTypeValid(type: string): boolean {
+  isImageTypeValid(type: string): boolean {
     const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png'];
     return allowedTypes.includes(type);
   }
 
-  isPhotoSizeValid(size: number): boolean {
-    const sizeLimitInKb = this.maxPhotoSizeInMb * 1024 * 1024;
+  isImageSizeValid(size: number): boolean {
+    const sizeLimitInKb = this.maxImageSizeInMb * 1024 * 1024;
     return size <= sizeLimitInKb;
   }
 
@@ -86,9 +91,44 @@ export class ChangePhotoComponent implements OnInit {
     return this.sanitizer.bypassSecurityTrustUrl(url) as string;
   }
 
+  validAndSaveImage(): void {
+    if (this.uploadedImage.value && this.isImageValid(this.uploadedImage.value)) {
+      this.saveImage(this.uploadedImage.value);
+    }
+  }
+
+  saveImage(image: File): void {
+    const filePath = this.getImagePath();
+    const fileUrl = this.storage.ref(filePath).getDownloadURL();
+    const uploadTask = this.storage.upload(filePath, image);
+    this.uploadPercent = uploadTask.percentageChanges();
+    uploadTask.snapshotChanges().pipe(
+      finalize(() => fileUrl.subscribe(url => this.updateUserImage(url)))
+    ).subscribe();
+  }
+
+  getImagePath(): string {
+    const baseUrl = `profile-photos/photo-`;
+    return baseUrl + this.user.username;
+  }
+
+  updateUserImage(imageUrl: string): void {
+    const user = {id: this.user.id, img: imageUrl};
+    this.userService
+      .updateImage(user)
+      .subscribe(() => this.notifyAndResetForm());
+  }
+
+  notifyAndResetForm(): void {
+    this.loggedUserService.loadLoggedUser();
+    this.notifierService.notify(this.imageChangedMessage, 'success');
+    this.uploadedImage.reset();
+    this.uploadPercent = new Observable(undefined);
+  }
+
   freeMemory(): void {
-    if (this.currentDisplayedPhoto) {
-      URL.revokeObjectURL(this.currentDisplayedPhoto);
+    if (this.currentDisplayedImage) {
+      URL.revokeObjectURL(this.currentDisplayedImage);
     }
   }
 }
