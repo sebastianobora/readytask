@@ -75,6 +75,7 @@ import {ChangePhotoComponent} from './components/authorized/profile/change-photo
 import {AngularFireModule} from '@angular/fire/compat';
 import {firebaseConfig} from '../assets/firebase-config';
 import {AngularFireStorageModule} from '@angular/fire/compat/storage';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 @NgModule({
   declarations: [
@@ -152,7 +153,8 @@ import {AngularFireStorageModule} from '@angular/fire/compat/storage';
     MatExpansionModule,
     MatIconModule,
     AngularFireModule.initializeApp(firebaseConfig),
-    AngularFireStorageModule
+    AngularFireStorageModule,
+    MatProgressBarModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
