@@ -76,6 +76,7 @@ import {AngularFireModule} from '@angular/fire/compat';
 import {firebaseConfig} from '../assets/firebase-config';
 import {AngularFireStorageModule} from '@angular/fire/compat/storage';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {MarkedTestComponent} from './components/authorized/tasks/marked-test/marked-test.component';
 
 @NgModule({
   declarations: [
@@ -120,7 +121,8 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
     CloseAccountComponent,
     ManageProfileComponent,
     EditAccountComponent,
-    ChangePhotoComponent
+    ChangePhotoComponent,
+    MarkedTestComponent
   ],
   imports: [
     BrowserModule,

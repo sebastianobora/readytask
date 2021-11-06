@@ -20,6 +20,7 @@ import {CloseAccountComponent} from './components/authorized/profile/close-accou
 import {ManageProfileComponent} from './components/authorized/profile/manage-profile/manage-profile.component';
 import {EditAccountComponent} from './components/authorized/profile/edit-account/edit-account.component';
 import {ChangePhotoComponent} from './components/authorized/profile/change-photo/change-photo.component';
+import {MarkedTestComponent} from './components/authorized/tasks/marked-test/marked-test.component';
 
 const routes: Routes = [
   {
@@ -45,6 +46,7 @@ const routes: Routes = [
       {path: 'tasks', redirectTo: 'tasks/add-task'},
       {path: 'tasks/add-task', component: AddTaskComponent},
       {path: 'tasks/task/:id', component: TaskComponent},
+      {path: 'tasks/marked-test', component: MarkedTestComponent},
       {path: 'profile/public/:username', component: PublicProfileComponent, runGuardsAndResolvers: 'always'},
       {path: 'profile/my-profile', component: PublicProfileComponent},
       {path: 'profile/manage-profile', component: ManageProfileComponent},
