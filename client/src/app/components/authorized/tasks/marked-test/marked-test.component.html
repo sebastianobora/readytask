@@ -1,1 +1,3 @@
-<p>marked-test works!</p>
+<input [formControl]="inputText" matInput type="text">
+<textarea cdkTextareaAutosize>{{parseToMarkdown(inputText.value)}}</textarea>
+<div [innerHTML]="parseToMarkdown(inputText.value)"></div>
