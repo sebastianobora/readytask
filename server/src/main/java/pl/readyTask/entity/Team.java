@@ -45,7 +45,7 @@ public class Team {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "team")
     private Set<Task> tasks;
 
-    public static Team getNewTeamFromId(Long teamId){
+    public static Team getNewTeamFromId(Long teamId) {
         Team team = new Team();
         team.setId(teamId);
         return team;

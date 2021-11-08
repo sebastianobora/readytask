@@ -6,25 +6,24 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import pl.readyTask.entity.User;
 
-import java.io.Serial;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class CustomUserDetails implements UserDetails{
+public class CustomUserDetails implements UserDetails {
     private static final long serialVersionUID = 1L;
 
-    private Long id;
-    private String username;
-    private String email;
+    private final Long id;
+    private final String username;
+    private final String email;
     @JsonIgnore
-    private String password;
-    private Collection<? extends GrantedAuthority> authorities;
+    private final String password;
+    private final Collection<? extends GrantedAuthority> authorities;
 
     public CustomUserDetails(Long id, String username, String email, String password,
-                           Collection<? extends GrantedAuthority> authorities) {
+                             Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
         this.username = username;
         this.email = email;
@@ -43,7 +42,7 @@ public class CustomUserDetails implements UserDetails{
                 authorities);
     }
 
-    public List<String> getListOfAuthorities(){
+    public List<String> getListOfAuthorities() {
         return this.getAuthorities()
                 .stream()
                 .map(GrantedAuthority::getAuthority)

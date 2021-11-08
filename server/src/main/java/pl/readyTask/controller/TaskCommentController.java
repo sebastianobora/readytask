@@ -16,7 +16,7 @@ public class TaskCommentController {
     private final TaskCommentService taskCommentService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<TaskComment> getById(@PathVariable("id") Long id){
+    public ResponseEntity<TaskComment> getById(@PathVariable("id") Long id) {
         return ResponseEntity.ok(taskCommentService.getById(id));
     }
 }

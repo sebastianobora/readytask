@@ -15,12 +15,12 @@ public class TaskController {
     private final TaskService taskService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<Task> getById(@PathVariable("id") Long id){
+    public ResponseEntity<Task> getById(@PathVariable("id") Long id) {
         return ResponseEntity.ok(taskService.getById(id));
     }
 
     @PostMapping
-    public ResponseEntity<Task> add(@RequestBody Task task, Authentication authentication){
+    public ResponseEntity<Task> add(@RequestBody Task task, Authentication authentication) {
         return ResponseEntity.ok(taskService.add(task, authentication));
     }
 }

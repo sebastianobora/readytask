@@ -73,21 +73,21 @@ public class Task {
     private Set<TaskComment> taskComments;
 
     @JsonProperty("teamId")
-    public void setTeamById(Long teamId){
+    public void setTeamById(Long teamId) {
         team = Team.getNewTeamFromId(teamId);
     }
 
     @JsonProperty("userAssignedToTaskId")
-    public void setUserAssignedToTaskById(Long userId){
+    public void setUserAssignedToTaskById(Long userId) {
         userAssignedToTask = User.getNewUserFromId(userId);
     }
 
     @JsonProperty("authorOfTaskId")
-    public void setAuthorOfTaskById(Long userId){
+    public void setAuthorOfTaskById(Long userId) {
         authorOfTask = User.getNewUserFromId(userId);
     }
 
-    public static Task getNewTaskFromId(Long taskId){
+    public static Task getNewTaskFromId(Long taskId) {
         Task task = new Task();
         task.setId(taskId);
         return task;

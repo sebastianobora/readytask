@@ -16,12 +16,12 @@ public class SecurityController {
     private final SecurityService securityService;
 
     @PostMapping("/login")
-    public ResponseEntity<JwtResponse> login(@RequestBody LoginRequest request){
+    public ResponseEntity<JwtResponse> login(@RequestBody LoginRequest request) {
         return ResponseEntity.ok(securityService.login(request));
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody RegisterRequest request){
+    public ResponseEntity<?> register(@RequestBody RegisterRequest request) {
         securityService.register(request);
         return ResponseEntity.ok().build();
     }

@@ -17,23 +17,23 @@ public class TeamForumPostController {
     private final TeamForumPostService teamForumPostService;
 
     @GetMapping("/by-team-id/{id}")
-    public ResponseEntity<List<TeamForumPost>> getPostsByTeamId(@PathVariable Long id){
+    public ResponseEntity<List<TeamForumPost>> getPostsByTeamId(@PathVariable Long id) {
         return ResponseEntity.ok(teamForumPostService.getPostsByTeamId(id));
     }
 
     @PostMapping
-    public ResponseEntity<TeamForumPost> addPost(@RequestBody TeamForumPost post,Authentication authentication){
+    public ResponseEntity<TeamForumPost> addPost(@RequestBody TeamForumPost post, Authentication authentication) {
         return ResponseEntity.ok(teamForumPostService.add(post, authentication));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Object> deletePost(@PathVariable Long id){
+    public ResponseEntity<Object> deletePost(@PathVariable Long id) {
         teamForumPostService.delete(id);
         return ResponseEntity.ok().build();
     }
 
     @PutMapping
-    public ResponseEntity<TeamForumPost> updatePost(@RequestBody TeamForumPost post){
+    public ResponseEntity<TeamForumPost> updatePost(@RequestBody TeamForumPost post) {
         return ResponseEntity.ok(teamForumPostService.update(post));
     }
 }

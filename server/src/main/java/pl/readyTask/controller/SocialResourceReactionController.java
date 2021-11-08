@@ -16,29 +16,29 @@ public class SocialResourceReactionController {
     private final SocialResourceReactionService socialResourceReactionService;
 
     @GetMapping("/post-statistics/{postId}")
-    public ResponseEntity<ResourceStatistics> postStatistics(Authentication authentication, @PathVariable Long postId){
+    public ResponseEntity<ResourceStatistics> postStatistics(Authentication authentication, @PathVariable Long postId) {
         return ResponseEntity.ok(socialResourceReactionService.getResourceStatistics(authentication, postId));
     }
 
     @PostMapping("/like-post/{postId}")
-    public ResponseEntity<ResourceStatistics> likePost(Authentication authentication, @PathVariable Long postId){
+    public ResponseEntity<ResourceStatistics> likePost(Authentication authentication, @PathVariable Long postId) {
         return new ResponseEntity<>(socialResourceReactionService.addPostReaction(authentication, postId, true),
                 HttpStatus.CREATED);
     }
 
     @PostMapping("/dislike-post/{postId}")
-    public ResponseEntity<ResourceStatistics> dislikePost(Authentication authentication, @PathVariable Long postId){
+    public ResponseEntity<ResourceStatistics> dislikePost(Authentication authentication, @PathVariable Long postId) {
         return new ResponseEntity<>(socialResourceReactionService.addPostReaction(authentication, postId, false),
                 HttpStatus.CREATED);
     }
 
     @PutMapping("/swap-post-reaction/{postId}")
-    public ResponseEntity<ResourceStatistics> swapPostReaction(Authentication authentication, @PathVariable Long postId){
+    public ResponseEntity<ResourceStatistics> swapPostReaction(Authentication authentication, @PathVariable Long postId) {
         return ResponseEntity.ok(socialResourceReactionService.swapPostReaction(authentication, postId));
     }
 
     @DeleteMapping("/{postId}")
-    public ResponseEntity<ResourceStatistics> deleteReaction(Authentication authentication, @PathVariable Long postId){
+    public ResponseEntity<ResourceStatistics> deleteReaction(Authentication authentication, @PathVariable Long postId) {
         return ResponseEntity.ok(socialResourceReactionService.deletePostReaction(authentication, postId));
     }
 }

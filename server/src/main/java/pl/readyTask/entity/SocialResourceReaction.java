@@ -17,8 +17,8 @@ import javax.persistence.*;
 @Setter
 @Entity(name = "SocialResourceReaction")
 @Table(name = "social_resource_reaction",
-        uniqueConstraints={
-        @UniqueConstraint(columnNames = {"user_id", "social_resource_id"})
+        uniqueConstraints = {
+                @UniqueConstraint(columnNames = {"user_id", "social_resource_id"})
         })
 public class SocialResourceReaction {
     @Id
@@ -48,12 +48,12 @@ public class SocialResourceReaction {
     private SocialResource socialResource;
 
     @JsonProperty("userId")
-    public void setUserById(Long userId){
+    public void setUserById(Long userId) {
         user = User.getNewUserFromId(userId);
     }
 
     @JsonProperty("socialResourceId")
-    public void setSocialResourceById(Long socialResourceId){
+    public void setSocialResourceById(Long socialResourceId) {
         socialResource = SocialResource.getSocialResourceFromId(socialResourceId);
     }
 }

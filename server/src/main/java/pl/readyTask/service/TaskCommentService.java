@@ -11,7 +11,7 @@ import pl.readyTask.repository.TaskCommentRepository;
 public class TaskCommentService {
     private final TaskCommentRepository taskCommentRepository;
 
-    public TaskComment getById(Long id){
+    public TaskComment getById(Long id) {
         return taskCommentRepository.findById(id).orElseThrow(() -> new NoDataFoundException("taskComment", id));
     }
 }

@@ -68,7 +68,7 @@ public class User {
     private Set<Membership> memberships;
 
     @JsonIgnore
-    @OneToMany(mappedBy="user", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private Set<Todo> todos;
 
     @JsonIgnore
@@ -91,7 +91,7 @@ public class User {
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private Set<SocialResourceReaction> socialReactions;
 
-    public static User getNewUserFromId(Long userId){
+    public static User getNewUserFromId(Long userId) {
         User user = new User();
         user.setId(userId);
         return user;

@@ -19,11 +19,11 @@ public class MembershipService {
     private final TeamService teamService;
     private final SecurityService securityService;
 
-    public Membership getById(Long id){
+    public Membership getById(Long id) {
         return membershipRepository.findById(id).orElseThrow(() -> new NoDataFoundException("membership", id));
     }
 
-    public Membership add(Membership membership){
+    public Membership add(Membership membership) {
         return membershipRepository.save(membership);
     }
 
@@ -34,7 +34,7 @@ public class MembershipService {
         return membershipRepository.save(membership);
     }
 
-    public Membership getMembershipFromFields(MemberRole role, Long teamId, Long userId){
+    public Membership getMembershipFromFields(MemberRole role, Long teamId, Long userId) {
         Membership membership = new Membership();
         membership.setMemberRole(role);
         membership.setTeamById(teamId);
@@ -42,7 +42,7 @@ public class MembershipService {
         return membership;
     }
 
-    public Membership getByTeamAndUserId(Long teamId, Authentication authentication){
+    public Membership getByTeamAndUserId(Long teamId, Authentication authentication) {
         User user = securityService.getUserByEmailFromAuthentication(authentication);
         return membershipRepository.findMembershipByTeamIdAndUserId(teamId, user.getId())
                 .orElseThrow(() -> new NoDataFoundException("membership", teamId));
@@ -62,11 +62,11 @@ public class MembershipService {
         return membershipRepository.save(membership);
     }
 
-    public void delete(Long id){
+    public void delete(Long id) {
         membershipRepository.deleteById(id);
     }
 
-    public boolean isUserMemberOfTeam(User user, Team team){
+    public boolean isUserMemberOfTeam(User user, Team team) {
         return membershipRepository.existsByUserIdAndTeamId(user.getId(), team.getId());
     }
 }

@@ -15,7 +15,7 @@ public class TaskService {
     private final TaskRepository taskRepository;
     private final SecurityService securityService;
 
-    public Task getById(Long id){
+    public Task getById(Long id) {
         return taskRepository.findById(id).orElseThrow(() -> new NoDataFoundException("task", id));
     }
 

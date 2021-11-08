@@ -51,12 +51,12 @@ public class TeamForumPost extends SocialResource {
     private Team team;
 
     @JsonProperty("userId")
-    public void setUserById(Long userId){
+    public void setUserById(Long userId) {
         user = User.getNewUserFromId(userId);
     }
 
     @JsonProperty("teamId")
-    public void setTeamById(Long teamId){
+    public void setTeamById(Long teamId) {
         team = Team.getNewTeamFromId(teamId);
     }
 }

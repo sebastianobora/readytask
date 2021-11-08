@@ -50,24 +50,24 @@ public class SecurityService implements UserDetailsService {
         return CustomUserDetails.build(user);
     }
 
-    public User getUserByEmailFromAuthentication(Authentication authentication){
+    public User getUserByEmailFromAuthentication(Authentication authentication) {
         CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
         return userRepository.findByEmail(userDetails.getEmail())
-                .orElseThrow(()-> new NoDataFoundException("user", userDetails.getEmail()));
+                .orElseThrow(() -> new NoDataFoundException("user", userDetails.getEmail()));
     }
 
-    public void register(RegisterRequest request){
-        if(userRepository.existsByEmail(request.getEmail())){
+    public void register(RegisterRequest request) {
+        if (userRepository.existsByEmail(request.getEmail())) {
             throw new RegisterException("e-mail");
         }
-        if(userRepository.existsByUsername(request.getUsername())){
+        if (userRepository.existsByUsername(request.getUsername())) {
             throw new RegisterException("username");
         }
         User user = getNewUserFromRequest(request);
         userRepository.save(user);
     }
 
-    public JwtResponse login(LoginRequest request){
+    public JwtResponse login(LoginRequest request) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -76,7 +76,7 @@ public class SecurityService implements UserDetailsService {
         return getJwtResponseFromJwtAndUserDetails(jwtToken, userDetails);
     }
 
-    public JwtResponse getJwtResponseFromJwtAndUserDetails(String jwt, CustomUserDetails userDetails){
+    public JwtResponse getJwtResponseFromJwtAndUserDetails(String jwt, CustomUserDetails userDetails) {
         return new JwtResponse(jwt,
                 jwtUtils.getTokenPrefix(),
                 userDetails.getId(),
@@ -85,7 +85,7 @@ public class SecurityService implements UserDetailsService {
                 userDetails.getListOfAuthorities());
     }
 
-    public User getNewUserFromRequest(RegisterRequest request){
+    public User getNewUserFromRequest(RegisterRequest request) {
         User user = new User();
 
         user.setEmail(request.getEmail());
@@ -97,13 +97,13 @@ public class SecurityService implements UserDetailsService {
         return user;
     }
 
-    public void checkPasswords(String rawPassword, String expectedPassword){
-        if (!encoder.matches(rawPassword, expectedPassword)){
+    public void checkPasswords(String rawPassword, String expectedPassword) {
+        if (!encoder.matches(rawPassword, expectedPassword)) {
             throw new InvalidPasswordException();
         }
     }
 
-    public String encodePassword(String password){
+    public String encodePassword(String password) {
         return encoder.encode(password);
     }
 }

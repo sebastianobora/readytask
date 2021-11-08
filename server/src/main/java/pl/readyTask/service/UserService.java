@@ -18,7 +18,7 @@ public class UserService {
     private final SecurityService securityService;
     private final UserRepository userRepository;
 
-    public User getById(Long id){
+    public User getById(Long id) {
         return userRepository.findById(id).orElseThrow(() -> new NoDataFoundException("user", id));
     }
 
@@ -31,7 +31,7 @@ public class UserService {
         return userRepository.findUsersByTeamId(id);
     }
 
-    public User getByUsername(String username){
+    public User getByUsername(String username) {
         return userRepository.findByUsername(username).orElseThrow(() -> new NoDataFoundException("user", username));
     }
 
@@ -41,28 +41,28 @@ public class UserService {
         userRepository.delete(user);
     }
 
-    public void updateImage(User userToUpdate, Authentication authentication){
+    public void updateImage(User userToUpdate, Authentication authentication) {
         User user = securityService.getUserByEmailFromAuthentication(authentication);
-        if(!Objects.equals(user.getId(), userToUpdate.getId()))
+        if (!Objects.equals(user.getId(), userToUpdate.getId()))
             throw new AccessDeniedToActionException(user, "update image");
         String updatedImg = getUpdatedImageValue(userToUpdate.getImg());
         user.setImg(updatedImg);
         userRepository.save(user);
     }
 
-    private String getUpdatedImageValue(String img){
+    private String getUpdatedImageValue(String img) {
         return !Objects.equals(img, "") ? img : null;
     }
 
-    public void updateProfile(User userToUpdate, Authentication authentication){
+    public void updateProfile(User userToUpdate, Authentication authentication) {
         User user = securityService.getUserByEmailFromAuthentication(authentication);
-        if(!Objects.equals(user.getId(), userToUpdate.getId()))
+        if (!Objects.equals(user.getId(), userToUpdate.getId()))
             throw new AccessDeniedToActionException(user, "update profile");
         setUpdatedProfileFieldsToUser(userToUpdate, user);
         userRepository.save(user);
     }
 
-    public void setUpdatedProfileFieldsToUser(User updatedUser, User user){
+    public void setUpdatedProfileFieldsToUser(User updatedUser, User user) {
         user.setFirstName(updatedUser.getFirstName());
         user.setLastName(updatedUser.getLastName());
         user.setDescription(updatedUser.getDescription());
@@ -70,14 +70,14 @@ public class UserService {
 
     public void updatePassword(UpdatePasswordRequest updatePasswordRequest, Authentication authentication) {
         User user = securityService.getUserByEmailFromAuthentication(authentication);
-        if(!Objects.equals(user.getId(), updatePasswordRequest.getUserId()))
+        if (!Objects.equals(user.getId(), updatePasswordRequest.getUserId()))
             throw new AccessDeniedToActionException(user, "update password");
         securityService.checkPasswords(updatePasswordRequest.getCurrentPassword(), user.getPassword());
         setUpdatedPasswordToUser(updatePasswordRequest.getNewPassword(), user);
         userRepository.save(user);
     }
 
-    public void setUpdatedPasswordToUser(String rawPassword, User user){
+    public void setUpdatedPasswordToUser(String rawPassword, User user) {
         String encodedPassword = securityService.encodePassword(rawPassword);
         user.setPassword(encodedPassword);
     }

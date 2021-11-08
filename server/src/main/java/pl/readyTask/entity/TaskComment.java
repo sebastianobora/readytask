@@ -17,7 +17,7 @@ import java.util.Date;
 @Table(name = "task_comment")
 @Getter
 @Setter
-public class TaskComment extends SocialResource{
+public class TaskComment extends SocialResource {
 
     @Column(name = "message", nullable = false)
     private String message;
@@ -47,12 +47,12 @@ public class TaskComment extends SocialResource{
     private Task task;
 
     @JsonProperty("userId")
-    public void setUserById(Long userId){
+    public void setUserById(Long userId) {
         user = User.getNewUserFromId(userId);
     }
 
     @JsonProperty("taskId")
-    public void setTaskById(Long taskId){
+    public void setTaskById(Long taskId) {
         task = Task.getNewTaskFromId(taskId);
     }
 }

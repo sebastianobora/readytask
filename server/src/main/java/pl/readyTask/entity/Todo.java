@@ -19,21 +19,15 @@ import java.util.Date;
 @Getter
 @Setter
 public class Todo {
-    public Todo() {
-    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private Long id;
-
     @Column(name = "content", nullable = false)
     private String content;
-
     @CreationTimestamp
     @Column(name = "created_at")
     private Date createdAt;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
@@ -43,8 +37,11 @@ public class Todo {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
 
+    public Todo() {
+    }
+
     @JsonProperty("userId")
-    public void setUserById(Long userId){
+    public void setUserById(Long userId) {
         user = User.getNewUserFromId(userId);
     }
 }

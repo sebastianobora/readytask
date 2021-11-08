@@ -18,9 +18,9 @@ import java.util.Date;
 
 @Entity(name = "Membership")
 @Table(name = "membership",
-        uniqueConstraints={
-        @UniqueConstraint(columnNames = {"user_id", "team_id"})
-})
+        uniqueConstraints = {
+                @UniqueConstraint(columnNames = {"user_id", "team_id"})
+        })
 @Getter
 @Setter
 @AllArgsConstructor
@@ -61,12 +61,12 @@ public class Membership {
     private MemberRole memberRole;
 
     @JsonProperty("userId")
-    public void setUserById(Long userId){
+    public void setUserById(Long userId) {
         user = User.getNewUserFromId(userId);
     }
 
     @JsonProperty("teamId")
-    public void setTeamById(Long teamId){
+    public void setTeamById(Long teamId) {
         team = Team.getNewTeamFromId(teamId);
     }
 }

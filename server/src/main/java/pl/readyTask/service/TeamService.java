@@ -29,27 +29,27 @@ public class TeamService {
         this.securityService = securityService;
     }
 
-    public Team getById(Long id){
+    public Team getById(Long id) {
         return teamRepository.findById(id)
                 .orElseThrow(() -> new NoDataFoundException("team", id));
     }
 
-    public Team getByCode(String code){
+    public Team getByCode(String code) {
         return teamRepository.findByCode(code)
                 .orElseThrow(() -> new NoDataFoundException("team", code));
     }
 
-    public List<Team> getAllByAuthUser(Authentication authentication){
+    public List<Team> getAllByAuthUser(Authentication authentication) {
         User user = this.securityService.getUserByEmailFromAuthentication(authentication);
         return teamRepository.findTeamsByUserId(user.getId())
                 .orElseThrow(() -> new NoDataFoundException("teams", user.getId()));
     }
 
-    public void delete(Long id){
+    public void delete(Long id) {
         teamRepository.deleteById(id);
     }
 
-    public Team add(Team team, Authentication authentication){
+    public Team add(Team team, Authentication authentication) {
         User user = securityService.getUserByEmailFromAuthentication(authentication);
         String code = getUniqueTeamCode();
         team.setCode(code);
@@ -61,20 +61,20 @@ public class TeamService {
         return team;
     }
 
-    public String getUniqueTeamCode(){
+    public String getUniqueTeamCode() {
         String code = generateTeamCode();
         return isCodeAlreadyExists(code) ? getUniqueTeamCode() : code;
     }
 
-    public boolean isCodeAlreadyExists(String code){
+    public boolean isCodeAlreadyExists(String code) {
         return teamRepository.existsTeamByCode(code);
     }
 
-    public String generateTeamCode(){
+    public String generateTeamCode() {
         String AB = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         SecureRandom rnd = new SecureRandom();
         StringBuilder sb = new StringBuilder(8);
-        for(int i = 0; i < 8; i++)
+        for (int i = 0; i < 8; i++)
             sb.append(AB.charAt(rnd.nextInt(AB.length())));
         return sb.toString();
     }
