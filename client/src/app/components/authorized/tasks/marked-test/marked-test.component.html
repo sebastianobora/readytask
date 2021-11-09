@@ -1,3 +1,5 @@
-<input [formControl]="inputText" matInput type="text">
-<textarea cdkTextareaAutosize>{{parseToMarkdown(inputText.value)}}</textarea>
-<div [innerHTML]="parseToMarkdown(inputText.value)"></div>
+<mat-form-field>
+  <textarea [formControl]="inputText" matInput type="text"></textarea>
+</mat-form-field>
+<button (click)="parseToHtml(inputText.value)" mat-raised-button>Test</button>
+

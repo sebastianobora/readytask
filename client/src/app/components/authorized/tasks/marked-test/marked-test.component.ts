@@ -1,6 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, SecurityContext} from '@angular/core';
 import * as marked from 'marked';
 import {FormControl} from '@angular/forms';
+import {DomSanitizer} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-marked-test',
@@ -10,15 +11,16 @@ import {FormControl} from '@angular/forms';
 export class MarkedTestComponent implements OnInit {
   inputText: FormControl = new FormControl('');
 
-  constructor() {
+  constructor(private sanitizer: DomSanitizer) {
 
   }
 
   ngOnInit(): void {
   }
 
-  parseToMarkdown(text: string): string {
-    return marked.parse(text);
+  parseToHtml(text: string): string {
+    const textParsedToHtml = marked.parse(text);
+    return this.sanitizer.sanitize(SecurityContext.HTML, textParsedToHtml) as string;
   }
 
 }
