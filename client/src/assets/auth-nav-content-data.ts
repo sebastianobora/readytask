@@ -10,15 +10,16 @@ export interface NavElementObject {
 
 export const todoNavContent: NavObject = {
   title: 'TODO',
-  elements: []
+  elements: [
+    {content: 'MY TODOS', link: 'todo/my-todos'}
+  ]
 };
 
 export const tasksNavContent: NavObject = {
   title: 'TASKS',
   elements: [
-    {
-      content: 'ADD TASK', link: 'tasks/add-task'
-    }
+    {content: 'MY TASKS', link: 'tasks/my-tasks'},
+    {content: 'ADD TASK', link: 'tasks/add-task'}
   ]
 };
 

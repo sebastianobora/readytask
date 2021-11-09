@@ -5,7 +5,7 @@
 
 .separator {
   width: 100%;
-  border-top: rgba(255, 255, 255, 0.02) 2px solid;
+  border-top: rgba(255, 255, 255, 0.05) 2px solid;
   margin: 15px auto;
 }
 

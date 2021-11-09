@@ -21,6 +21,7 @@ import {ManageProfileComponent} from './components/authorized/profile/manage-pro
 import {EditAccountComponent} from './components/authorized/profile/edit-account/edit-account.component';
 import {ChangePhotoComponent} from './components/authorized/profile/change-photo/change-photo.component';
 import {MarkedTestComponent} from './components/authorized/tasks/marked-test/marked-test.component';
+import {MyTasksComponent} from './components/authorized/tasks/my-tasks/my-tasks.component';
 
 const routes: Routes = [
   {
@@ -37,13 +38,15 @@ const routes: Routes = [
     path: '',
     component: AuthLayoutComponent,
     children: [
-      {path: 'todo', component: TodoComponent},
+      {path: 'todo', redirectTo: 'todo/my-todos'},
+      {path: 'todo/my-todos', component: TodoComponent},
       {path: 'teams', redirectTo: 'teams/my-teams'},
       {path: 'teams/my-teams', component: TeamsListComponent},
       {path: 'teams/join-team', component: JoinTeamComponent},
       {path: 'teams/add-team', component: AddTeamComponent},
       {path: 'teams/team/:id', component: TeamComponent},
-      {path: 'tasks', redirectTo: 'tasks/add-task'},
+      {path: 'tasks', redirectTo: 'tasks/my-tasks'},
+      {path: 'tasks/my-tasks', component: MyTasksComponent},
       {path: 'tasks/add-task', component: AddTaskComponent},
       {path: 'tasks/task/:id', component: TaskComponent},
       {path: 'tasks/marked-test', component: MarkedTestComponent},

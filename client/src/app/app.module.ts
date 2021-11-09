@@ -77,6 +77,7 @@ import {firebaseConfig} from '../assets/firebase-config';
 import {AngularFireStorageModule} from '@angular/fire/compat/storage';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MarkedTestComponent} from './components/authorized/tasks/marked-test/marked-test.component';
+import { MyTasksComponent } from './components/authorized/tasks/my-tasks/my-tasks.component';
 
 @NgModule({
   declarations: [
@@ -122,7 +123,8 @@ import {MarkedTestComponent} from './components/authorized/tasks/marked-test/mar
     ManageProfileComponent,
     EditAccountComponent,
     ChangePhotoComponent,
-    MarkedTestComponent
+    MarkedTestComponent,
+    MyTasksComponent
   ],
   imports: [
     BrowserModule,
