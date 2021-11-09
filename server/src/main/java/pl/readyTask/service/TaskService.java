@@ -9,6 +9,9 @@ import pl.readyTask.entity.enumeration.TaskState;
 import pl.readyTask.exception.NoDataFoundException;
 import pl.readyTask.repository.TaskRepository;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 public class TaskService {
@@ -24,5 +27,9 @@ public class TaskService {
         task.setAuthorOfTaskById(user.getId());
         task.setState(TaskState.NEW);
         return taskRepository.save(task);
+    }
+
+    public List<Task> getByUserAssignedToId(Long userId) {
+        return new ArrayList<Task>();
     }
 }

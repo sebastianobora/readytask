@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.*;
 import pl.readyTask.entity.Task;
 import pl.readyTask.service.TaskService;
 
+import java.util.List;
+
 @RestController
 @AllArgsConstructor
 @RequestMapping("tasks")
@@ -17,6 +19,11 @@ public class TaskController {
     @GetMapping("/{id}")
     public ResponseEntity<Task> getById(@PathVariable("id") Long id) {
         return ResponseEntity.ok(taskService.getById(id));
+    }
+
+    @GetMapping("/user-assigned-to/{userId}")
+    public ResponseEntity<List<Task>> getByUserAssignedToId(@PathVariable Long userId){
+        return ResponseEntity.ok(taskService.getByUserAssignedToId(userId));
     }
 
     @PostMapping
