@@ -2,31 +2,32 @@
   <mat-expansion-panel #addPanel hideToggle>
     <mat-expansion-panel-header>
       <mat-panel-title>
-        <mat-icon>add</mat-icon><p class="add-post-title">New post</p>
+        <mat-icon>add</mat-icon>
+        <p class="add-post-title">New post</p>
       </mat-panel-title>
     </mat-expansion-panel-header>
     <form (ngSubmit)="addPost()">
       <mat-form-field appearance="fill">
         <mat-label>Type your post</mat-label>
         <textarea #post
-                  matInput
                   [formControl]="newPostMessage"
-                  [minLength]="50"
                   [maxLength]="postMaxLength"
-                  class="add-post-text">
-          </textarea>
-        <mat-hint align="start" *ngIf="newPostMessage.invalid && (newPostMessage.dirty || newPostMessage.touched)">
+                  [minLength]="50"
+                  class="add-post-text"
+                  matInput>
+        </textarea>
+        <mat-hint *ngIf="newPostMessage.invalid && (newPostMessage.dirty || newPostMessage.touched)" align="start">
           <span *ngIf="newPostMessage.errors?.required">Content is required</span>
           <span *ngIf="newPostMessage.errors?.minlength">Post is too short! ({{postMinLength}})</span>
           <span *ngIf="newPostMessage.errors?.maxlength">Post is too long! ({{postMaxLength}})</span>
         </mat-hint>
         <mat-hint align="end">{{post.value.length}} / {{postMaxLength}}</mat-hint>
       </mat-form-field>
-      <button mat-raised-button
-              type="submit"
+      <button (click)="addPanel.close()"
               [disabled]="newPostMessage.invalid"
               class="add-post-button"
-              (click)="addPanel.close()">
+              mat-raised-button
+              type="submit">
         <span>Add post</span>
         <i class="fas fa-paper-plane send-icon"></i>
       </button>

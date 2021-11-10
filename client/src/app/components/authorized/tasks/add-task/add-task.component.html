@@ -1,8 +1,42 @@
-<form [formGroup]="editorForm" class="editor-form" (ngSubmit)="onSubmit()">
-  <quill-editor [modules]="config" placeholder="" formControlName="editor"></quill-editor>
-  <div class="edit-submit-container">
-    <button class="edit-submit-btn" mat-raised-button type="submit" [disabled]="!editorForm.controls.editor.value">
-      Submit task
-    </button>
-  </div>
-</form>
+<mat-stepper>
+  <mat-step>
+    <ng-template matStepLabel>Add title and description</ng-template>
+    <ng-template matStepContent>
+      <form (ngSubmit)="onSubmit()" [formGroup]="addTaskForm" class="add-task-form">
+        <mat-form-field appearance="fill">
+          <mat-label>Task title</mat-label>
+          <input formControlName="title" matInput type="text">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Task description</mat-label>
+          <textarea cdkTextareaAutosize
+                    class="test"
+                    formControlName="description"
+                    matInput
+                    type="text">
+          </textarea>
+        </mat-form-field>
+        <div [innerHTML]="markdownToHtml(addTaskForm.controls['description'].value)"></div>
+        <!--        <button [disabled]="!addTaskForm.controls.description.value"-->
+        <!--                mat-raised-button-->
+        <!--                type="submit">-->
+        <!--          Submit task-->
+        <!--        </button>-->
+        <button mat-raised-button matStepperNext type="button">Submit task</button>
+      </form>
+    </ng-template>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Step 2</ng-template>
+    <ng-template matStepContent>
+      <p>This content was also rendered lazily</p>
+      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button matStepperNext>Next</button>
+    </ng-template>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Step 3</ng-template>
+    <p>This content was rendered eagerly</p>
+    <button mat-button matStepperPrevious>Back</button>
+  </mat-step>
+</mat-stepper>

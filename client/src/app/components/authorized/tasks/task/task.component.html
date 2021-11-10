@@ -1,4 +1,3 @@
 <ng-container *ngIf="task | async as task">
-  <quill-view-html [content]="task.description" theme="snow"></quill-view-html>
+  <div [innerHTML]="task.description"></div>
 </ng-container>
-

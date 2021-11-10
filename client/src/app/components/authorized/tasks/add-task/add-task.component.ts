@@ -14,6 +14,8 @@ import {Team} from '../../../../entity/team';
 import {Observable} from 'rxjs';
 import {ComponentType} from '@angular/cdk/overlay';
 import {User} from '../../../../entity/user';
+import * as marked from 'marked';
+import {DomSanitizer} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-add-task',
@@ -22,37 +24,28 @@ import {User} from '../../../../entity/user';
 })
 export class AddTaskComponent implements OnInit {
   task: Partial<Task> = {};
-  editorForm: FormGroup;
-
-  config = {
-    toolbar: [
-      ['bold', 'italic', 'underline', 'strike'],
-      ['code-block'],
-      [{header: 1}, {header: 2}],
-      [{list: 'ordered'}, {list: 'bullet'}],
-      [{align: ''}, {align: 'center'}],
-      [{script: 'sub'}, {script: 'super'}],
-      [{indent: '-1'}, {indent: '+1'}],
-      [{size: ['small', false, 'large', 'huge']}],
-      [{color: []}, {background: []}],
-      ['clean']
-    ]
-  };
+  addTaskForm: FormGroup = new FormGroup({
+    title: new FormControl('', Validators.required),
+    description: new FormControl('', Validators.required)
+  });
 
   constructor(public dialog: MatDialog,
               private teamService: TeamService,
               private userService: UserService,
               private taskService: TaskService,
-              private router: Router) {
-    this.editorForm = new FormGroup({
-      editor: new FormControl(null, Validators.required)
-    });
+              private router: Router,
+              private sanitizer: DomSanitizer) {
   }
 
   ngOnInit(): void {
   }
 
+  markdownToHtml(markdownText: string): string {
+    return this.sanitizer.bypassSecurityTrustHtml(marked.parse(markdownText)) as string;
+  }
+
   addTaskAndRedirect(task: Task): void {
+    task.title = 'title';
     this.taskService.addTask(task).subscribe(res => {
         const url = '/tasks/task/' + res.id;
         this.router.navigate([url]);
@@ -69,7 +62,7 @@ export class AddTaskComponent implements OnInit {
   }
 
   getEditorValue(): string {
-    return this.editorForm.controls.editor.value;
+    return this.addTaskForm.controls.description.value;
   }
 
   onSubmit(): void {

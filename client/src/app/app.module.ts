@@ -35,7 +35,6 @@ import {AuthGuard} from './security/auth.guard';
 import {NonAuthGuard} from './security/non-auth.guard';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {AddTaskComponent} from './components/authorized/tasks/add-task/add-task.component';
-import {QuillModule} from 'ngx-quill';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatNativeDateModule, MatRippleModule} from '@angular/material/core';
@@ -77,7 +76,8 @@ import {firebaseConfig} from '../assets/firebase-config';
 import {AngularFireStorageModule} from '@angular/fire/compat/storage';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MarkedTestComponent} from './components/authorized/tasks/marked-test/marked-test.component';
-import { MyTasksComponent } from './components/authorized/tasks/my-tasks/my-tasks.component';
+import {MyTasksComponent} from './components/authorized/tasks/my-tasks/my-tasks.component';
+import {MatStepperModule} from '@angular/material/stepper';
 
 @NgModule({
   declarations: [
@@ -138,7 +138,6 @@ import { MyTasksComponent } from './components/authorized/tasks/my-tasks/my-task
     MatButtonModule,
     MatProgressSpinnerModule,
     MatTooltipModule,
-    QuillModule.forRoot(),
     MatDatepickerModule,
     MatFormFieldModule,
     MatNativeDateModule,
@@ -158,7 +157,8 @@ import { MyTasksComponent } from './components/authorized/tasks/my-tasks/my-task
     MatIconModule,
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireStorageModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatStepperModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
