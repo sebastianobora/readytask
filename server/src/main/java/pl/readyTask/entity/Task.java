@@ -1,7 +1,7 @@
 package pl.readyTask.entity;
 
-import com.fasterxml.jackson.annotation.*;
-import lombok.AccessLevel;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
@@ -26,6 +26,9 @@ public class Task {
     @Column(name = "id")
     private Long id;
 
+    @Column(name = "title", nullable = false)
+    private String title;
+
     @Lob
     @Column(name = "description", nullable = false)
     private String description;
@@ -43,29 +46,17 @@ public class Task {
 
     @ManyToOne
     @JoinColumn(name = "user_assigned_to_id", nullable = false)
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-    @JsonIdentityReference(alwaysAsId = true)
-    @JsonProperty("userAssignedToTaskId")
-    @Setter(AccessLevel.NONE)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private User userAssignedToTask;
 
     @ManyToOne
     @JoinColumn(name = "user_assigned_by_id", nullable = false)
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-    @JsonIdentityReference(alwaysAsId = true)
-    @JsonProperty("authorOfTaskId")
-    @Setter(AccessLevel.NONE)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private User authorOfTask;
 
     @ManyToOne
     @JoinColumn(name = "team_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-    @JsonIdentityReference(alwaysAsId = true)
-    @JsonProperty("teamId")
-    @Setter(AccessLevel.NONE)
     private Team team;
 
     @JsonIgnore
