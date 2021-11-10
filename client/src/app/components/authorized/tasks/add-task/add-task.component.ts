@@ -16,6 +16,7 @@ import {ComponentType} from '@angular/cdk/overlay';
 import {User} from '../../../../entity/user';
 import * as marked from 'marked';
 import {DomSanitizer} from '@angular/platform-browser';
+import {map} from 'rxjs/operators';
 
 @Component({
   selector: 'app-add-task',
@@ -23,8 +24,11 @@ import {DomSanitizer} from '@angular/platform-browser';
   styleUrls: ['./add-task.component.css']
 })
 export class AddTaskComponent implements OnInit {
+  teams: Observable<Team[]> = this.teamService.getTeams().pipe(
+    map(teams => this.filterTeamsByAdminRole(teams)));
+  selectedTeam: Team | undefined;
   task: Partial<Task> = {};
-  addTaskForm: FormGroup = new FormGroup({
+  taskForm: FormGroup = new FormGroup({
     title: new FormControl('', Validators.required),
     description: new FormControl('', Validators.required)
   });
@@ -62,7 +66,7 @@ export class AddTaskComponent implements OnInit {
   }
 
   getEditorValue(): string {
-    return this.addTaskForm.controls.description.value;
+    return this.taskForm.controls.description.value;
   }
 
   onSubmit(): void {

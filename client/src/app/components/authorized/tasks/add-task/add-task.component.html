@@ -1,8 +1,8 @@
-<mat-stepper>
-  <mat-step>
+<mat-stepper linear>
+  <mat-step [completed]="taskForm.valid">
     <ng-template matStepLabel>Add title and description</ng-template>
     <ng-template matStepContent>
-      <form (ngSubmit)="onSubmit()" [formGroup]="addTaskForm" class="add-task-form">
+      <form (ngSubmit)="onSubmit()" [formGroup]="taskForm" class="add-task-form">
         <mat-form-field appearance="fill">
           <mat-label>Task title</mat-label>
           <input formControlName="title" matInput type="text">
@@ -16,7 +16,6 @@
                     type="text">
           </textarea>
         </mat-form-field>
-        <div [innerHTML]="markdownToHtml(addTaskForm.controls['description'].value)"></div>
         <!--        <button [disabled]="!addTaskForm.controls.description.value"-->
         <!--                mat-raised-button-->
         <!--                type="submit">-->
@@ -28,11 +27,22 @@
   </mat-step>
   <mat-step>
     <ng-template matStepLabel>Step 2</ng-template>
+
     <ng-template matStepContent>
-      <p>This content was also rendered lazily</p>
-      <button mat-button matStepperPrevious>Back</button>
-      <button mat-button matStepperNext>Next</button>
+      <mat-form-field appearance="fill">
+        <mat-label>Choose team</mat-label>
+        <mat-select [(ngModel)]="selectedTeam">
+          <mat-option *ngFor="let team of teams | async" [value]="team">
+            {{team.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div>
+        <button mat-raised-button matStepperPrevious>Back</button>
+        <button mat-raised-button matStepperNext [disabled]="!selectedTeam">Next</button>
+      </div>
     </ng-template>
+
   </mat-step>
   <mat-step>
     <ng-template matStepLabel>Step 3</ng-template>
