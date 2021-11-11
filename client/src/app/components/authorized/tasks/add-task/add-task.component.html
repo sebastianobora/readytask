@@ -32,22 +32,34 @@
       <button mat-raised-button matStepperPrevious>Back</button>
       <button [disabled]="!selectedTeam" mat-raised-button matStepperNext>Next</button>
     </ng-template>
+  </mat-step>
 
+  <mat-step [completed]="!!selectedUser">
+    <ng-template matStepLabel>Choose user</ng-template>
+    <ng-template matStepContent>
+      <mat-form-field appearance="fill">
+        <mat-label>Users</mat-label>
+        <mat-select [(ngModel)]="selectedUser">
+          <mat-option *ngFor="let user of usersFromPickedTeam | async" [value]="user">
+            {{user.firstName}} {{user.lastName}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <button mat-button matStepperPrevious>Back</button>
+      <button [disabled]="!selectedUser" mat-raised-button matStepperNext>Next</button>
+    </ng-template>
   </mat-step>
   <mat-step>
-    <ng-template matStepLabel>Choose user</ng-template>
-    <mat-form-field appearance="fill">
-      <mat-label>Users</mat-label>
-      <mat-select [(ngModel)]="selectedUser">
-        <mat-option *ngFor="let user of usersFromPickedTeam | async" [value]="user">
-          {{user.firstName}} {{user.lastName}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-    <button mat-button matStepperPrevious>Back</button>
-    <button [disabled]="!selectedUser"
-            mat-raised-button
-            matStepperNext>Next
-    </button>
+    <ng-template matStepLabel>Choose deadline</ng-template>
+    <ng-template matStepContent>
+      <mat-form-field appearance="fill">
+        <mat-label>Choose deadline</mat-label>
+        <input [(ngModel)]="selectedDeadline" matInput [matDatepicker]="picker">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+      <button mat-button matStepperPrevious>Back</button>
+      <button [disabled]="!selectedUser" mat-raised-button matStepperNext>Add task</button>
+    </ng-template>
   </mat-step>
 </mat-stepper>

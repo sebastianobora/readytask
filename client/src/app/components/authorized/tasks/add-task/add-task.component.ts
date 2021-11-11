@@ -25,6 +25,7 @@ export class AddTaskComponent implements OnInit {
 
   selectedTeam?: Team;
   selectedUser?: User;
+  selectedDeadline?: Date;
 
   task: Partial<Task> = {};
 
