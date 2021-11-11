@@ -18,7 +18,7 @@ export class TeamsListComponent implements OnInit {
 
   ngOnInit(): void {
     this.isLoading = true;
-    this.teamService.getTeams().subscribe(data => {
+    this.teamService.getLoggedUserTeams().subscribe(data => {
         this.teams = data;
       },
       () => {

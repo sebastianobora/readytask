@@ -1,52 +1,53 @@
-<mat-stepper linear>
+<mat-stepper class="stepper" linear>
   <mat-step [completed]="taskForm.valid">
     <ng-template matStepLabel>Add title and description</ng-template>
     <ng-template matStepContent>
-      <form (ngSubmit)="onSubmit()" [formGroup]="taskForm" class="add-task-form">
+      <form [formGroup]="taskForm" class="add-task-form">
         <mat-form-field appearance="fill">
           <mat-label>Task title</mat-label>
           <input formControlName="title" matInput type="text">
         </mat-form-field>
         <mat-form-field appearance="fill">
           <mat-label>Task description</mat-label>
-          <textarea cdkTextareaAutosize
-                    class="test"
-                    formControlName="description"
-                    matInput
-                    type="text">
+          <textarea cdkTextareaAutosize class="task-description" formControlName="description" matInput type="text">
           </textarea>
         </mat-form-field>
-        <!--        <button [disabled]="!addTaskForm.controls.description.value"-->
-        <!--                mat-raised-button-->
-        <!--                type="submit">-->
-        <!--          Submit task-->
-        <!--        </button>-->
         <button mat-raised-button matStepperNext type="button">Submit task</button>
       </form>
     </ng-template>
   </mat-step>
-  <mat-step>
-    <ng-template matStepLabel>Step 2</ng-template>
 
+  <mat-step [completed]="!!selectedTeam">
+    <ng-template matStepLabel>Choose team</ng-template>
     <ng-template matStepContent>
-      <mat-form-field appearance="fill">
-        <mat-label>Choose team</mat-label>
-        <mat-select [(ngModel)]="selectedTeam">
-          <mat-option *ngFor="let team of teams | async" [value]="team">
-            {{team.name}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-      <div>
-        <button mat-raised-button matStepperPrevious>Back</button>
-        <button mat-raised-button matStepperNext [disabled]="!selectedTeam">Next</button>
+      <div class="step-container">
+        <mat-form-field appearance="fill">
+          <mat-label>Teams</mat-label>
+          <mat-select (selectionChange)="setUsersFromPickedTeam()" [(ngModel)]="selectedTeam">
+            <mat-option *ngFor="let team of teamsManagedByUser | async" [value]="team">{{team.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
       </div>
+      <button mat-raised-button matStepperPrevious>Back</button>
+      <button [disabled]="!selectedTeam" mat-raised-button matStepperNext>Next</button>
     </ng-template>
 
   </mat-step>
   <mat-step>
-    <ng-template matStepLabel>Step 3</ng-template>
-    <p>This content was rendered eagerly</p>
+    <ng-template matStepLabel>Choose user</ng-template>
+    <mat-form-field appearance="fill">
+      <mat-label>Users</mat-label>
+      <mat-select [(ngModel)]="selectedUser">
+        <mat-option *ngFor="let user of usersFromPickedTeam | async" [value]="user">
+          {{user.firstName}} {{user.lastName}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
     <button mat-button matStepperPrevious>Back</button>
+    <button [disabled]="!selectedUser"
+            mat-raised-button
+            matStepperNext>Next
+    </button>
   </mat-step>
 </mat-stepper>

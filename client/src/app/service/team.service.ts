@@ -29,7 +29,7 @@ export class TeamService {
     );
   }
 
-  getTeams(): Observable<Team[]> {
+  getLoggedUserTeams(): Observable<Team[]> {
     return this.httpClient.get<Team[]>(this.url).pipe(
       mergeMap(teams => {
         return forkJoin(

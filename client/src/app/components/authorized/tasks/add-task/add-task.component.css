@@ -6,14 +6,23 @@
   padding: 20px;
 }
 
+.stepper {
+  border-radius: 3px;
+  background-color: #2a2a2a;
+}
+
 .add-task-form {
   display: flex;
   flex-direction: column;
   width: 100%;
 }
 
-.test {
+.task-description {
   caret-color: #FFFFFF;
   min-height: 200px;
   max-height: 400px;
+}
+
+.step-container {
+  display: flex;
 }
