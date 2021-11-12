@@ -1,65 +1,95 @@
 <mat-stepper class="stepper" linear>
-  <mat-step [completed]="taskForm.valid">
+  <mat-step [completed]="!!task.title && !!task.description">
     <ng-template matStepLabel>Add title and description</ng-template>
     <ng-template matStepContent>
-      <form [formGroup]="taskForm" class="add-task-form">
-        <mat-form-field appearance="fill">
-          <mat-label>Task title</mat-label>
-          <input formControlName="title" matInput type="text">
-        </mat-form-field>
-        <mat-form-field appearance="fill">
-          <mat-label>Task description</mat-label>
-          <textarea cdkTextareaAutosize class="task-description" formControlName="description" matInput type="text">
-          </textarea>
-        </mat-form-field>
-        <button mat-raised-button matStepperNext type="button">Submit task</button>
-      </form>
+      <div class="step-content">
+        <div class="preview-toggle-container">
+          <mat-slide-toggle [(ngModel)]="previewMode" [disabled]="!task.title || !task.description" color="primary">
+            <p>Preview task</p>
+          </mat-slide-toggle>
+        </div>
+        <div class="editor-container">
+          <div *ngIf="previewMode && task.title && task.description else editor" class="preview" id="markdown">
+            <p [innerHTML]="markdownToHtml(task.title)" class="preview-title"></p>
+            <div [innerHTML]="markdownToHtml(task.description)" class="preview-description"></div>
+          </div>
+          <ng-template #editor>
+            <mat-form-field appearance="fill">
+              <mat-label>Task title</mat-label>
+              <input [(ngModel)]="task.title" matInput required type="text">
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+              <mat-label>Task description</mat-label>
+              <textarea [(ngModel)]="task.description" cdkTextareaAutosize class="task-description"
+                        matInput required type="text"></textarea>
+            </mat-form-field>
+          </ng-template>
+        </div>
+        <div class="step-button-container">
+          <button mat-flat-button matStepperNext>Next</button>
+        </div>
+      </div>
     </ng-template>
   </mat-step>
-
-  <mat-step [completed]="!!selectedTeam">
+  <mat-step [completed]="!!task.teamId">
     <ng-template matStepLabel>Choose team</ng-template>
     <ng-template matStepContent>
       <div class="step-container">
-        <mat-form-field appearance="fill">
-          <mat-label>Teams</mat-label>
-          <mat-select (selectionChange)="setUsersFromPickedTeam()" [(ngModel)]="selectedTeam">
-            <mat-option *ngFor="let team of teamsManagedByUser | async" [value]="team">{{team.name}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
+        <div class="step-content">
+          <mat-form-field appearance="fill">
+            <mat-label>Teams</mat-label>
+            <mat-select (selectionChange)="setUsersFromPickedTeam()" [(ngModel)]="task.teamId">
+              <mat-option *ngFor="let team of teamsManagedByUser | async" [value]="team.id">{{team.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <div class="step-button-container">
+            <button mat-flat-button matStepperPrevious>Back</button>
+            <button [disabled]="!task.teamId" mat-flat-button matStepperNext>Next</button>
+          </div>
+        </div>
       </div>
-      <button mat-raised-button matStepperPrevious>Back</button>
-      <button [disabled]="!selectedTeam" mat-raised-button matStepperNext>Next</button>
     </ng-template>
   </mat-step>
-
-  <mat-step [completed]="!!selectedUser">
+  <mat-step [completed]="!!task.userAssignedToTaskId">
     <ng-template matStepLabel>Choose user</ng-template>
     <ng-template matStepContent>
-      <mat-form-field appearance="fill">
-        <mat-label>Users</mat-label>
-        <mat-select [(ngModel)]="selectedUser">
-          <mat-option *ngFor="let user of usersFromPickedTeam | async" [value]="user">
-            {{user.firstName}} {{user.lastName}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-      <button mat-button matStepperPrevious>Back</button>
-      <button [disabled]="!selectedUser" mat-raised-button matStepperNext>Next</button>
+      <div class="step-container">
+        <div class="step-content">
+          <mat-form-field appearance="fill">
+            <mat-label>Users</mat-label>
+            <mat-select [(ngModel)]="task.userAssignedToTaskId">
+              <mat-option *ngFor="let user of usersFromSelectedTeam | async" [value]="user.id">
+                {{user.firstName}} {{user.lastName}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <div class="step-button-container">
+            <button mat-flat-button matStepperPrevious>Back</button>
+            <button [disabled]="!task.userAssignedToTaskId" mat-flat-button matStepperNext>Next</button>
+          </div>
+        </div>
+      </div>
     </ng-template>
   </mat-step>
   <mat-step>
     <ng-template matStepLabel>Choose deadline</ng-template>
     <ng-template matStepContent>
-      <mat-form-field appearance="fill">
-        <mat-label>Choose deadline</mat-label>
-        <input [(ngModel)]="selectedDeadline" matInput [matDatepicker]="picker">
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
-      </mat-form-field>
-      <button mat-button matStepperPrevious>Back</button>
-      <button [disabled]="!selectedUser" mat-raised-button matStepperNext>Add task</button>
+      <div class="step-container">
+        <div class="step-content">
+          <mat-form-field appearance="fill">
+            <mat-label>Choose deadline</mat-label>
+            <input [(ngModel)]="task.deadline" [matDatepicker]="picker" [max]="maxDeadline" [min]="minDeadline"
+                   matInput>
+            <mat-datepicker-toggle [for]="picker" matSuffix></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+          <div class="step-button-container">
+            <button mat-flat-button matStepperPrevious>Back</button>
+            <button [disabled]="!task.deadline" mat-flat-button matStepperNext>Add task</button>
+          </div>
+        </div>
+      </div>
     </ng-template>
   </mat-step>
 </mat-stepper>

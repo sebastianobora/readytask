@@ -1,6 +1,4 @@
-import {Component, OnInit} from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {MatDialog} from '@angular/material/dialog';
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {TeamService} from '../../../../service/team.service';
 import {UserService} from '../../../../service/user.service';
 import {Task} from '../../../../entity/task';
@@ -11,39 +9,53 @@ import {Team} from '../../../../entity/team';
 import {Observable} from 'rxjs';
 import {User} from '../../../../entity/user';
 import * as marked from 'marked';
-import {DomSanitizer} from '@angular/platform-browser';
+import {DomSanitizer, SafeHtml} from '@angular/platform-browser';
 import {map} from 'rxjs/operators';
+
+marked.setOptions({
+  smartypants: true,
+  smartLists: true
+});
 
 @Component({
   selector: 'app-add-task',
   templateUrl: './add-task.component.html',
-  styleUrls: ['./add-task.component.css']
+  styleUrls: ['./add-task.component.css', './../../../../../assets/markdown-preview.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class AddTaskComponent implements OnInit {
+  previewMode: boolean = false;
+  minDeadline: Date;
+  maxDeadline: Date;
   teamsManagedByUser: Observable<Team[]>;
-  usersFromPickedTeam?: Observable<User[]>;
+  usersFromSelectedTeam?: Observable<User[]>;
+  task: Partial<Task> = {title: '', description: ''};
 
-  selectedTeam?: Team;
-  selectedUser?: User;
-  selectedDeadline?: Date;
-
-  task: Partial<Task> = {};
-
-  taskForm: FormGroup = new FormGroup({
-    title: new FormControl('', Validators.required),
-    description: new FormControl('', Validators.required)
-  });
-
-  constructor(public dialog: MatDialog,
-              private teamService: TeamService,
+  constructor(private teamService: TeamService,
               private userService: UserService,
               private taskService: TaskService,
               private router: Router,
               private sanitizer: DomSanitizer) {
     this.teamsManagedByUser = this.getTeamsManagedByUser();
+    this.minDeadline = this.getMinDeadline();
+    this.maxDeadline = this.getMaxDeadline();
   }
 
   ngOnInit(): void {
+  }
+
+  getMinDeadline(): Date {
+    const date = new Date();
+    const day = date.getDate();
+    const month = date.getMonth();
+    const year = date.getFullYear();
+    return new Date(year, month, day);
+  }
+
+  getMaxDeadline(): Date {
+    const date = this.getMinDeadline();
+    date.setMonth(date.getMonth() + 3);
+    return date;
   }
 
   getTeamsManagedByUser(): Observable<Team[]> {
@@ -51,39 +63,26 @@ export class AddTaskComponent implements OnInit {
       .pipe(map(teams => this.filterTeamsByAdminRole(teams)));
   }
 
-  setUsersFromPickedTeam(): void {
-    console.log('dziala');
-    this.usersFromPickedTeam = this.userService.getUsersByTeamId(this.selectedTeam?.id);
+  filterTeamsByAdminRole(teams: Team[]): Team[] {
+    return teams.filter(team => team.membership.memberRole === MemberRole.ADMIN);
   }
 
-  markdownToHtml(markdownText: string): string {
-    return this.sanitizer.bypassSecurityTrustHtml(marked.parse(markdownText)) as string;
+  setUsersFromPickedTeam(): void {
+    const id = this.task?.teamId;
+    if (id) {
+      this.usersFromSelectedTeam = this.userService.getUsersByTeamId(id);
+    }
+  }
+
+  markdownToHtml(markdownText: string): SafeHtml {
+    return this.sanitizer.bypassSecurityTrustHtml(marked.parse(markdownText));
   }
 
   addTaskAndRedirect(task: Task): void {
-    task.title = 'title';
     this.taskService.addTask(task).subscribe(res => {
         const url = '/tasks/task/' + res.id;
         this.router.navigate([url]);
       }
     );
-  }
-
-  filterTeamsByAdminRole(teams: Team[]): Team[] {
-    return teams.filter(team => team.membership.memberRole === MemberRole.ADMIN);
-  }
-
-
-  getEditorValue(): string {
-    return this.taskForm.controls.description.value;
-  }
-
-  saveTask(): void {
-    this.task.description = this.getEditorValue();
-  }
-
-  handlePickDateDialog(): void {
-    // this.task.deadline = deadline;
-    this.addTaskAndRedirect(this.task as Task);
   }
 }

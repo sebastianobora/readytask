@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import pl.readyTask.entity.Task;
+import pl.readyTask.entity.extended.TaskExtended;
 import pl.readyTask.service.TaskService;
 
 import java.util.List;
@@ -17,13 +18,17 @@ public class TaskController {
     private final TaskService taskService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<Task> getById(@PathVariable("id") Long id) {
-        return ResponseEntity.ok(taskService.getById(id));
+    public ResponseEntity<Task> getById(@PathVariable("id") Long id,
+                                        @RequestParam(required = false, defaultValue = "false") Boolean extended) {
+        Task task = taskService.getById(id);
+        return ResponseEntity.ok(extended ? TaskExtended.get(task) : task);
     }
 
     @GetMapping("/user-assigned-to/{userId}")
-    public ResponseEntity<List<Task>> getByUserAssignedToId(@PathVariable Long userId){
-        return ResponseEntity.ok(taskService.getByUserAssignedToId(userId));
+    public ResponseEntity<List<Task>> getByUserAssignedToId(@PathVariable Long userId,
+                                                            @RequestParam(required = false, defaultValue = "false") Boolean extended) {
+        List<Task> tasks = taskService.getByUserAssignedToId(userId);
+        return ResponseEntity.ok(extended ? TaskExtended.get(tasks) : tasks);
     }
 
     @PostMapping

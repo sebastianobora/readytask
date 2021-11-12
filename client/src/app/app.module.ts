@@ -41,10 +41,7 @@ import {MatNativeDateModule, MatRippleModule} from '@angular/material/core';
 import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import {A11yModule} from '@angular/cdk/a11y';
-import {PickTeamDialogComponent} from './components/authorized/tasks/add-task/add-task-dialogs/pick-team-dialog/pick-team-dialog.component';
 import {MatDialogModule} from '@angular/material/dialog';
-import {PickUserDialogComponent} from './components/authorized/tasks/add-task/add-task-dialogs/pick-user-dialog/pick-user-dialog.component';
-import {PickDateDialogComponent} from './components/authorized/tasks/add-task/add-task-dialogs/pick-date-dialog/pick-date-dialog.component';
 import {MatCardModule} from '@angular/material/card';
 import {TaskComponent} from './components/authorized/tasks/task/task.component';
 import {MatTreeModule} from '@angular/material/tree';
@@ -78,6 +75,7 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MarkedTestComponent} from './components/authorized/tasks/marked-test/marked-test.component';
 import {MyTasksComponent} from './components/authorized/tasks/my-tasks/my-tasks.component';
 import {MatStepperModule} from '@angular/material/stepper';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
 @NgModule({
   declarations: [
@@ -103,9 +101,6 @@ import {MatStepperModule} from '@angular/material/stepper';
     TeamComponent,
     NotFoundTeamsComponent,
     AddTaskComponent,
-    PickTeamDialogComponent,
-    PickUserDialogComponent,
-    PickDateDialogComponent,
     TaskComponent,
     NotificationComponent,
     ConfirmationComponent,
@@ -158,7 +153,8 @@ import {MatStepperModule} from '@angular/material/stepper';
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireStorageModule,
     MatProgressBarModule,
-    MatStepperModule
+    MatStepperModule,
+    MatSlideToggleModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},

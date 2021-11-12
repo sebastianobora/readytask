@@ -1,6 +1,8 @@
 package pl.readyTask.service;
 
 import lombok.AllArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import pl.readyTask.entity.Task;
@@ -8,15 +10,18 @@ import pl.readyTask.entity.User;
 import pl.readyTask.entity.enumeration.TaskState;
 import pl.readyTask.exception.NoDataFoundException;
 import pl.readyTask.repository.TaskRepository;
+import pl.readyTask.security.JwtUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
 public class TaskService {
     private final TaskRepository taskRepository;
     private final SecurityService securityService;
+    private static final Logger logger = LoggerFactory.getLogger(TaskService.class);
 
     public Task getById(Long id) {
         return taskRepository.findById(id).orElseThrow(() -> new NoDataFoundException("task", id));
@@ -30,6 +35,7 @@ public class TaskService {
     }
 
     public List<Task> getByUserAssignedToId(Long userId) {
-        return new ArrayList<Task>();
+        //TODO: implement
+        return taskRepository.findAll();
     }
 }

@@ -22,7 +22,7 @@ export class UserService {
     return this.httpClient.get<User>(url);
   }
 
-  getUsersByTeamId(id: any): Observable<User[]> {
+  getUsersByTeamId(id: number | string): Observable<User[]> {
     const url = `${this.baseUrl}/by-team-id/${id}`;
     return this.httpClient.get<User[]>(url);
   }

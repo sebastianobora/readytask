@@ -10,7 +10,7 @@ import {Observable} from 'rxjs';
   styleUrls: ['./task.component.css']
 })
 export class TaskComponent implements OnInit {
-  task: Observable<Task> | undefined;
+  task?: Observable<Task>;
 
   constructor(private taskService: TaskService,
               private route: ActivatedRoute) {

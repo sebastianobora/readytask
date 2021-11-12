@@ -1,7 +1,7 @@
 package pl.readyTask.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.*;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
@@ -24,40 +24,52 @@ public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
-    private Long id;
+    protected Long id;
 
     @Column(name = "title", nullable = false)
-    private String title;
+    protected String title;
 
     @Lob
     @Column(name = "description", nullable = false)
-    private String description;
+    protected String description;
 
     @Column(name = "deadline", nullable = false)
-    private Date deadline;
+    protected Date deadline;
 
     @CreationTimestamp
     @Column(name = "created_at")
-    private Date createdAt;
+    protected Date createdAt;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "state", nullable = false)
-    private TaskState state;
+    protected TaskState state;
 
     @ManyToOne
     @JoinColumn(name = "user_assigned_to_id", nullable = false)
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
+    @JsonProperty("userAssignedToTaskId")
+    @Setter(AccessLevel.NONE)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private User userAssignedToTask;
+    protected User userAssignedToTask;
 
     @ManyToOne
     @JoinColumn(name = "user_assigned_by_id", nullable = false)
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
+    @JsonProperty("authorOfTaskId")
+    @Setter(AccessLevel.NONE)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private User authorOfTask;
+    protected User authorOfTask;
 
     @ManyToOne
     @JoinColumn(name = "team_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private Team team;
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
+    @JsonProperty("teamId")
+    @Setter(AccessLevel.NONE)
+    protected Team team;
 
     @JsonIgnore
     @OneToMany(mappedBy = "task")

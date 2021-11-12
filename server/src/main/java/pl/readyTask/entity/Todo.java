@@ -23,11 +23,14 @@ public class Todo {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private Long id;
+
     @Column(name = "content", nullable = false)
     private String content;
+
     @CreationTimestamp
     @Column(name = "created_at")
     private Date createdAt;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
