@@ -1,9 +1,10 @@
 import {TaskState} from './task-state.enum';
 import {User} from './user';
 import {Team} from './team';
+import {UUID} from '../../assets/uuid-type';
 
 interface TaskBase {
-  id: number;
+  id: UUID;
   title: string;
   description: string;
   deadline: Date;
