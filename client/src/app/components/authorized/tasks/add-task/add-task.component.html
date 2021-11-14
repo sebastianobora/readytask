@@ -9,7 +9,7 @@
           </mat-slide-toggle>
         </div>
         <div class="editor-container">
-          <div *ngIf="previewMode && task.title && task.description else editor" class="preview" id="markdown">
+          <div *ngIf="previewMode && task.title && task.description else editor" class="preview" id="md-preview">
             <p [innerHTML]="markdownToHtml(task.title)" class="preview-title"></p>
             <div [innerHTML]="markdownToHtml(task.description)" class="preview-description"></div>
           </div>
@@ -86,7 +86,7 @@
           </mat-form-field>
           <div class="step-button-container">
             <button mat-flat-button matStepperPrevious>Back</button>
-            <button [disabled]="!task.deadline" mat-flat-button matStepperNext>Add task</button>
+            <button (click)="saveTaskAndRedirect()" [disabled]="!task.deadline" mat-flat-button matStepperNext>Add task</button>
           </div>
         </div>
       </div>

@@ -1,3 +1,10 @@
-<ng-container *ngIf="task | async as task">
-  <div [innerHTML]="task.description"></div>
+<ng-container *ngIf="task | async as task else loader">
+  <div id="md-preview" [innerHTML]="markdownToHtml(task.description)"></div>
+  {{ task.description }}
 </ng-container>
+
+<ng-template #loader>
+  <div class="loader">
+    <mat-spinner></mat-spinner>
+  </div>
+</ng-template>

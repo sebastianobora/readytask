@@ -8,23 +8,18 @@ import {MemberRole} from '../../../../entity/member-role.enum';
 import {Team} from '../../../../entity/team';
 import {Observable} from 'rxjs';
 import {User} from '../../../../entity/user';
-import * as marked from 'marked';
 import {DomSanitizer, SafeHtml} from '@angular/platform-browser';
 import {map} from 'rxjs/operators';
-
-marked.setOptions({
-  smartypants: true,
-  smartLists: true
-});
+import {MarkdownService} from '../../../../service/markdown.service';
 
 @Component({
   selector: 'app-add-task',
   templateUrl: './add-task.component.html',
-  styleUrls: ['./add-task.component.css', './../../../../../assets/markdown-preview.scss'],
+  styleUrls: ['./add-task.component.css', '../../../../../assets/markdown.scss'],
   encapsulation: ViewEncapsulation.None
 })
 export class AddTaskComponent implements OnInit {
-  previewMode: boolean = false;
+  previewMode = false;
   minDeadline: Date;
   maxDeadline: Date;
   teamsManagedByUser: Observable<Team[]>;
@@ -35,7 +30,7 @@ export class AddTaskComponent implements OnInit {
               private userService: UserService,
               private taskService: TaskService,
               private router: Router,
-              private sanitizer: DomSanitizer) {
+              private markdownService: MarkdownService) {
     this.teamsManagedByUser = this.getTeamsManagedByUser();
     this.minDeadline = this.getMinDeadline();
     this.maxDeadline = this.getMaxDeadline();
@@ -74,13 +69,13 @@ export class AddTaskComponent implements OnInit {
     }
   }
 
-  markdownToHtml(markdownText: string): SafeHtml {
-    return this.sanitizer.bypassSecurityTrustHtml(marked.parse(markdownText));
-  }
+  markdownToHtml(markdownText: string): SafeHtml{
+    return this.markdownService.markdownToHtml(markdownText);
+}
 
-  addTaskAndRedirect(task: Task): void {
-    this.taskService.addTask(task).subscribe(res => {
-        const url = '/tasks/task/' + res.id;
+  saveTaskAndRedirect(): void {
+    this.taskService.addTask(this.task as Task).subscribe(task => {
+        const url = '/tasks/task/' + task.id;
         this.router.navigate([url]);
       }
     );
