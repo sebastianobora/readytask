@@ -9,6 +9,7 @@ import pl.readyTask.entity.extended.TaskExtended;
 import pl.readyTask.service.TaskService;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @AllArgsConstructor
@@ -18,7 +19,7 @@ public class TaskController {
     private final TaskService taskService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<Task> getById(@PathVariable("id") Long id,
+    public ResponseEntity<Task> getById(@PathVariable("id") UUID id,
                                         @RequestParam(required = false, defaultValue = "false") Boolean extended) {
         Task task = taskService.getById(id);
         return ResponseEntity.ok(extended ? TaskExtended.get(task) : task);

@@ -8,10 +8,13 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.UUID;
 
 @Entity(name = "TaskComment")
 @Table(name = "task_comment")
@@ -44,6 +47,7 @@ public class TaskComment extends SocialResource {
     @JsonIdentityReference(alwaysAsId = true)
     @JsonProperty("taskId")
     @Setter(AccessLevel.NONE)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Task task;
 
     @JsonProperty("userId")
@@ -52,7 +56,7 @@ public class TaskComment extends SocialResource {
     }
 
     @JsonProperty("taskId")
-    public void setTaskById(Long taskId) {
+    public void setTaskById(UUID taskId) {
         task = Task.getNewTaskFromId(taskId);
     }
 }

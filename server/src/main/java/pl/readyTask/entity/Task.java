@@ -7,11 +7,13 @@ import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.hibernate.annotations.Type;
 import pl.readyTask.entity.enumeration.TaskState;
 
 import javax.persistence.*;
 import java.util.Date;
 import java.util.Set;
+import java.util.UUID;
 
 @Entity(name = "Task")
 @Table(name = "task")
@@ -22,9 +24,9 @@ public class Task {
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Type(type="uuid-char")
     @Column(name = "id")
-    protected Long id;
+    protected UUID id = UUID.randomUUID();
 
     @Column(name = "title", nullable = false)
     protected String title;
@@ -90,7 +92,7 @@ public class Task {
         authorOfTask = User.getNewUserFromId(userId);
     }
 
-    public static Task getNewTaskFromId(Long taskId) {
+    public static Task getNewTaskFromId(UUID taskId) {
         Task task = new Task();
         task.setId(taskId);
         return task;

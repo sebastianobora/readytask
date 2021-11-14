@@ -10,11 +10,9 @@ import pl.readyTask.entity.User;
 import pl.readyTask.entity.enumeration.TaskState;
 import pl.readyTask.exception.NoDataFoundException;
 import pl.readyTask.repository.TaskRepository;
-import pl.readyTask.security.JwtUtils;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @AllArgsConstructor
@@ -23,7 +21,7 @@ public class TaskService {
     private final SecurityService securityService;
     private static final Logger logger = LoggerFactory.getLogger(TaskService.class);
 
-    public Task getById(Long id) {
+    public Task getById(UUID id) {
         return taskRepository.findById(id).orElseThrow(() -> new NoDataFoundException("task", id));
     }
 
