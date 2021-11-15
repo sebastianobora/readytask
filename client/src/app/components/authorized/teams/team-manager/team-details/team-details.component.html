@@ -17,13 +17,9 @@
       </div>
       <div class="field-wrapper">
         <p class="field-header">code</p>
-        <span (click)="showCopyNotification()"
-              [cdkCopyToClipboard]="team.code"
-              class="team-field code"
-              matTooltip="{{copyCodeTooltipMessage}}"
-              matTooltipPosition="above">
-        {{team.code}} <i class="far fa-clone icon code-icon"></i>
-      </span>
+        <app-copy-to-clipboard [contentToCopy]="team.code">
+          <span class="team-field code">{{team.code}} <i class="far fa-clone icon code-icon"></i></span>
+        </app-copy-to-clipboard>
       </div>
       <div *ngIf="hasMemberAdminRole(team)" class="field-wrapper">
         <button (click)="confirmAndDelete(team)" mat-raised-button><i class="far fa-trash-alt icon"></i> Delete team
@@ -33,7 +29,8 @@
            [matTooltip]="cannotLeaveTeamTooltipMessage"
            class="field-wrapper"
            matTooltipClass="tooltip">
-        <button (click)="confirmAndLeave(team)" [disabled]="!isLeaveTeamPossible(numberOfAdminRoleMembers) && hasMemberAdminRole(team)"
+        <button (click)="confirmAndLeave(team)"
+                [disabled]="!isLeaveTeamPossible(numberOfAdminRoleMembers) && hasMemberAdminRole(team)"
                 mat-raised-button>
           <i class="far fa-times-circle icon"></i> Leave team
         </button>

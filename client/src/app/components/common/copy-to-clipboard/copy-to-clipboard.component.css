@@ -1,0 +1,13 @@
+.copy-to-clipboard {
+  cursor: pointer;
+}
+
+.copy-to-clipboard:hover {
+  opacity: 0.9;
+}
+
+::ng-deep .tooltip {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: rgba(255, 255, 255, 0.9) !important;
+}
