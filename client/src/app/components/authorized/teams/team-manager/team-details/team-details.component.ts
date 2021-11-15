@@ -27,20 +27,18 @@ export class TeamDetailsComponent implements OnInit {
               private notifierService: NotifierService,
               private confirmationService: ConfirmationService,
               private teamService: TeamService,
-              private membershipService: MembershipService) { }
+              private membershipService: MembershipService) {
+  }
 
   ngOnInit(): void {
     if (this.teamId) {
       this.team = this.teamService.getTeam(this.teamId);
-      this.membershipService.getAmountOfAdminRoleMembersByTeamId(this.teamId).subscribe(
-        numberOfAdminRoleMembers => {
-          this.numberOfAdminRoleMembers = numberOfAdminRoleMembers;
-        }
-      );
+      this.membershipService.getAmountOfAdminRoleMembersByTeamId(this.teamId)
+        .subscribe(numberOfAdminRoleMembers => this.numberOfAdminRoleMembers = numberOfAdminRoleMembers);
     }
   }
 
-  showCopyNotification(): void{
+  showCopyNotification(): void {
     this.notifierService.notify('Code has been copied.', 'success');
   }
 
@@ -48,7 +46,7 @@ export class TeamDetailsComponent implements OnInit {
     this.confirmationService.isConfirmed(() => this.delete(team));
   }
 
-  delete(team: Team): void{
+  delete(team: Team): void {
     this.teamService.deleteTeam(team.id).subscribe(
       () => {
         this.router.navigate([this.deleteLeaveRedirectUrl]);
@@ -57,7 +55,7 @@ export class TeamDetailsComponent implements OnInit {
     );
   }
 
-  confirmAndLeave(team: Team): void{
+  confirmAndLeave(team: Team): void {
     this.confirmationService.isConfirmed(() => this.leave(team));
   }
 
@@ -70,7 +68,7 @@ export class TeamDetailsComponent implements OnInit {
     );
   }
 
-  hasMemberAdminRole(team: Team): boolean{
+  hasMemberAdminRole(team: Team): boolean {
     return team.membership.memberRole === MemberRole.ADMIN;
   }
 

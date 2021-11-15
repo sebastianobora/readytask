@@ -4,25 +4,22 @@
   height: 100%;
 }
 
-@media (max-width: 667px){
+@media (max-width: 667px) {
   :host {
     height: calc(100% - 40px);
   }
 }
 
-.mat-tab-group{
+.mat-tab-group {
   flex-grow: 1;
   height: 100%;
 }
 
-.back-button{
+.back-button {
   position: absolute;
   z-index: 2;
-  top: 10px;
-  left: -32px;
-  color: #cfcfcf;
-}
-
-.icon{
+  margin: 7px;
+  padding: 7px;
   font-size: 20px;
+  color: #cfcfcf;
 }

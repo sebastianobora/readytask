@@ -1,4 +1,4 @@
-import {Component, OnInit, Output, EventEmitter, Input} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormControl, Validators} from '@angular/forms';
 import {TeamForumPost} from '../../../../../../entity/team-forum-post';
 import {TeamForumPostService} from '../../../../../../service/team-forum-post.service';
@@ -17,7 +17,8 @@ export class AddPostComponent implements OnInit {
     Validators.minLength(this.postMinLength),
     Validators.maxLength(this.postMaxLength)]);
 
-  constructor(private teamForumPostService: TeamForumPostService) { }
+  constructor(private teamForumPostService: TeamForumPostService) {
+  }
 
   ngOnInit(): void {
   }
@@ -28,7 +29,8 @@ export class AddPostComponent implements OnInit {
       () => {
         this.addPostEvent.emit();
       },
-      () => {},
+      () => {
+      },
       () => {
         this.newPostMessage.reset();
       }

@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Location} from '@angular/common';
 import {ActivatedRoute, Router} from '@angular/router';
-import {TeamService} from '../../../../service/team.service';
+import {TeamService} from '../../../../../service/team.service';
 
 @Component({
   selector: 'app-team',
@@ -21,10 +21,11 @@ export class TeamComponent implements OnInit {
 
   ngOnInit(): void {
     const teamId = this.route.snapshot.paramMap.get('id');
-    if (teamId){
+    if (teamId) {
       this.teamId = teamId;
     }
-    this.teamService.getTeam(teamId as string).subscribe(() => {}, () => this.router.navigate(['teams/my-teams']));
+    this.teamService.getTeam(teamId as string).subscribe(() => {
+    }, () => this.router.navigate(['teams/my-teams']));
   }
 
   goBack(): void {

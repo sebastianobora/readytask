@@ -1,8 +1,8 @@
-import {Component, OnInit } from '@angular/core';
-import {Team} from '../../../../../entity/team';
-import {TeamService} from '../../../../../service/team.service';
+import {Component, OnInit} from '@angular/core';
+import {Team} from '../../../../entity/team';
+import {TeamService} from '../../../../service/team.service';
 import {Router} from '@angular/router';
-import {NotifierService} from '../../../../../service/notifier.service';
+import {NotifierService} from '../../../../service/notifier.service';
 
 @Component({
   selector: 'app-add-team',

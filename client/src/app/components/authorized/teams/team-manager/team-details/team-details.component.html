@@ -8,7 +8,7 @@
   <div class="team-container">
     <div class="team-img-container">
       <i *ngIf="hasMemberAdminRole(team)" class="fas fa-crown own-team-icon"></i>
-      <app-placeholder size="x-large" color="purple" shape="square" [text]="team.name"></app-placeholder>
+      <app-placeholder [text]="team.name" color="purple" shape="square" size="x-large"></app-placeholder>
     </div>
     <div class="team-details-container">
       <div class="field-wrapper">
@@ -17,23 +17,24 @@
       </div>
       <div class="field-wrapper">
         <p class="field-header">code</p>
-        <span class="team-field code"
-              (click)="showCopyNotification()"
+        <span (click)="showCopyNotification()"
+              [cdkCopyToClipboard]="team.code"
+              class="team-field code"
               matTooltip="{{copyCodeTooltipMessage}}"
-              matTooltipPosition="above"
-              ngxClipboard [cbContent]="team.code">
+              matTooltipPosition="above">
         {{team.code}} <i class="far fa-clone icon code-icon"></i>
       </span>
       </div>
       <div *ngIf="hasMemberAdminRole(team)" class="field-wrapper">
-        <button mat-raised-button (click)="confirmAndDelete(team)"><i class="far fa-trash-alt icon"></i> Delete team</button>
+        <button (click)="confirmAndDelete(team)" mat-raised-button><i class="far fa-trash-alt icon"></i> Delete team
+        </button>
       </div>
-      <div class="field-wrapper"
+      <div [matTooltipDisabled]="isLeaveTeamPossible(numberOfAdminRoleMembers) || !hasMemberAdminRole(team)"
            [matTooltip]="cannotLeaveTeamTooltipMessage"
-           [matTooltipDisabled]="isLeaveTeamPossible(numberOfAdminRoleMembers) || !hasMemberAdminRole(team)"
+           class="field-wrapper"
            matTooltipClass="tooltip">
-        <button mat-raised-button (click)="confirmAndLeave(team)"
-                [disabled]="!isLeaveTeamPossible(numberOfAdminRoleMembers) && hasMemberAdminRole(team)">
+        <button (click)="confirmAndLeave(team)" [disabled]="!isLeaveTeamPossible(numberOfAdminRoleMembers) && hasMemberAdminRole(team)"
+                mat-raised-button>
           <i class="far fa-times-circle icon"></i> Leave team
         </button>
       </div>

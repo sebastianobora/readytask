@@ -25,31 +25,32 @@ export class TeamForumComponent implements OnInit {
     this.getCurrentTeam();
   }
 
-  getCurrentTeam(): void{
+  getCurrentTeam(): void {
     this.teamService.getTeam(this.teamId).subscribe(
       team => this.team = team
     );
   }
 
-  setLoader(state: true | false): void{
+  setLoader(state: true | false): void {
     this.isLoading = state;
   }
 
-  clearPosts(): void{
-    if (this.posts.length > 0){
+  clearPosts(): void {
+    if (this.posts.length > 0) {
       this.posts.length = 0;
     }
   }
 
-  loadPosts(): void{
+  loadPosts(): void {
     this.setLoader(true);
     this.clearPosts();
     this.teamForumPostService.getPostsByTeamId(this.teamId).subscribe(
       posts => {
         this.posts = posts;
       },
-    () => {},
-    () => {
+      () => {
+      },
+      () => {
         this.setLoader(false);
       }
     );

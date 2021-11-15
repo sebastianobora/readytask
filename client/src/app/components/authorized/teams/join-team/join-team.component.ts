@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {MembershipService} from '../../../../../service/membership.service';
+import {MembershipService} from '../../../../service/membership.service';
 import {Router} from '@angular/router';
-import {NotifierService} from '../../../../../service/notifier.service';
+import {NotifierService} from '../../../../service/notifier.service';
 
 @Component({
   selector: 'app-join-team',
