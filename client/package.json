@@ -26,7 +26,6 @@
     "@auth0/angular-jwt": "^5.0.2",
     "firebase": "^9.2.0",
     "marked": "^4.0.0",
-    "ngx-clipboard": "^14.0.1",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.11.4"

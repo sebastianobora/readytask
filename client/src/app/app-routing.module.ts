@@ -7,10 +7,10 @@ import {LoginComponent} from './components/non-authorized/authorization/login/lo
 import {RegisterComponent} from './components/non-authorized/authorization/register/register.component';
 import {AuthLayoutComponent} from './components/authorized/auth-layout/auth-layout.component';
 import {TodoComponent} from './components/authorized/todo/todo.component';
-import {TeamsListComponent} from './components/authorized/teams/teams-list/teams-list.component';
-import {AddTeamComponent} from './components/authorized/teams/manage-team/add-team/add-team.component';
-import {JoinTeamComponent} from './components/authorized/teams/manage-team/join-team/join-team.component';
-import {TeamComponent} from './components/authorized/teams/team/team.component';
+import {TeamsListComponent} from './components/authorized/teams/my-teams/teams-list.component';
+import {AddTeamComponent} from './components/authorized/teams/add-team/add-team.component';
+import {JoinTeamComponent} from './components/authorized/teams/join-team/join-team.component';
+import {TeamComponent} from './components/authorized/teams/team-manager/team/team.component';
 import {AuthGuard} from './security/auth.guard';
 import {NonAuthGuard} from './security/non-auth.guard';
 import {AddTaskComponent} from './components/authorized/tasks/add-task/add-task.component';

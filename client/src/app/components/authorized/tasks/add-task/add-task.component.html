@@ -1,4 +1,5 @@
-<mat-stepper class="stepper" linear>
+<base target="_blank">
+<mat-stepper [orientation]="(stepperOrientation | async)!" class="stepper" linear>
   <mat-step [completed]="!!task.title && !!task.description">
     <ng-template matStepLabel>Add title and description</ng-template>
     <ng-template matStepContent>
@@ -9,12 +10,12 @@
           </mat-slide-toggle>
         </div>
         <div class="editor-container">
-          <div *ngIf="previewMode && task.title && task.description else editor" class="preview" id="md-preview">
+          <div *ngIf="previewMode && task.title && task.description else editor" id="md-preview">
             <p [innerHTML]="markdownToHtml(task.title)" class="preview-title"></p>
             <div [innerHTML]="markdownToHtml(task.description)" class="preview-description"></div>
           </div>
           <ng-template #editor>
-            <mat-form-field appearance="fill">
+            <mat-form-field appearance="fill" class="title-field">
               <mat-label>Task title</mat-label>
               <input [(ngModel)]="task.title" matInput required type="text">
             </mat-form-field>
@@ -86,7 +87,9 @@
           </mat-form-field>
           <div class="step-button-container">
             <button mat-flat-button matStepperPrevious>Back</button>
-            <button (click)="saveTaskAndRedirect()" [disabled]="!task.deadline" mat-flat-button matStepperNext>Add task</button>
+            <button (click)="saveTaskAndRedirect()" [disabled]="!task.deadline" mat-flat-button matStepperNext>Add
+              task
+            </button>
           </div>
         </div>
       </div>

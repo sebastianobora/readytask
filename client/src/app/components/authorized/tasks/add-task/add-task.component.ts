@@ -8,9 +8,12 @@ import {MemberRole} from '../../../../entity/member-role.enum';
 import {Team} from '../../../../entity/team';
 import {Observable} from 'rxjs';
 import {User} from '../../../../entity/user';
-import {DomSanitizer, SafeHtml} from '@angular/platform-browser';
+import {SafeHtml} from '@angular/platform-browser';
 import {map} from 'rxjs/operators';
 import {MarkdownService} from '../../../../service/markdown.service';
+import {NotifierService} from '../../../../service/notifier.service';
+import {StepperOrientation} from '@angular/cdk/stepper';
+import {BreakpointObserver} from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-add-task',
@@ -24,14 +27,18 @@ export class AddTaskComponent implements OnInit {
   maxDeadline: Date;
   teamsManagedByUser: Observable<Team[]>;
   usersFromSelectedTeam?: Observable<User[]>;
-  task: Partial<Task> = {title: '', description: ''};
+  stepperOrientation: Observable<StepperOrientation>;
+  task: Partial<Task> = {};
 
   constructor(private teamService: TeamService,
               private userService: UserService,
               private taskService: TaskService,
+              private markdownService: MarkdownService,
+              private notifierService: NotifierService,
               private router: Router,
-              private markdownService: MarkdownService) {
+              private breakpointObserver: BreakpointObserver) {
     this.teamsManagedByUser = this.getTeamsManagedByUser();
+    this.stepperOrientation = this.getStepperOrientation();
     this.minDeadline = this.getMinDeadline();
     this.maxDeadline = this.getMaxDeadline();
   }
@@ -53,6 +60,12 @@ export class AddTaskComponent implements OnInit {
     return date;
   }
 
+  getStepperOrientation(): Observable<StepperOrientation> {
+    return this.breakpointObserver
+      .observe('(min-width: 1090px)')
+      .pipe(map(({matches}) => (matches ? 'horizontal' : 'vertical')));
+  }
+
   getTeamsManagedByUser(): Observable<Team[]> {
     return this.teamService.getLoggedUserTeams()
       .pipe(map(teams => this.filterTeamsByAdminRole(teams)));
@@ -69,15 +82,25 @@ export class AddTaskComponent implements OnInit {
     }
   }
 
-  markdownToHtml(markdownText: string): SafeHtml{
+  markdownToHtml(markdownText: string): SafeHtml {
     return this.markdownService.markdownToHtml(markdownText);
-}
+  }
 
   saveTaskAndRedirect(): void {
-    this.taskService.addTask(this.task as Task).subscribe(task => {
-        const url = '/tasks/task/' + task.id;
-        this.router.navigate([url]);
-      }
-    );
+    this.taskService.addTask(this.task as Task)
+      .subscribe(task => {
+        this.successfulNotify();
+        this.redirectToTask(task.id);
+      });
+  }
+
+  successfulNotify(): void {
+    const message = this.task.title + 'task has been added';
+    this.notifierService.notify(message, 'success');
+  }
+
+  redirectToTask(id: string): void {
+    const url = '/tasks/task/' + id;
+    this.router.navigate([url]);
   }
 }

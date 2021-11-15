@@ -3,7 +3,6 @@ import {UserService} from '../../../../service/user.service';
 import {User} from '../../../../entity/user';
 import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
 import {Subscription} from 'rxjs';
-import {NotifierService} from '../../../../service/notifier.service';
 
 @Component({
   selector: 'app-public-profile',
@@ -18,7 +17,6 @@ export class PublicProfileComponent implements OnInit, OnDestroy {
   usernameCopyMessage = 'Username has been copied.';
 
   constructor(private userService: UserService,
-              private notifierService: NotifierService,
               private route: ActivatedRoute,
               private router: Router) {
   }
@@ -54,9 +52,5 @@ export class PublicProfileComponent implements OnInit, OnDestroy {
     this.userService.getByUsername(this.username)
       .subscribe(user => this.user = user,
         error => this.doesUserNotExists = error.status === 404);
-  }
-
-  showCopyNotification(): void {
-    this.notifierService.notify(this.usernameCopyMessage, 'success');
   }
 }

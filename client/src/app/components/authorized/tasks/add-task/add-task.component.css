@@ -3,6 +3,7 @@ app-add-task {
   flex-direction: column;
   width: 100%;
   height: 100%;
+  overflow: auto;
 }
 
 .stepper {
@@ -39,7 +40,7 @@ app-add-task {
 .step-content {
   display: flex;
   flex-direction: column;
-  padding: 15px 20px;
+  padding: 15px 20px 10px 20px;
   margin-top: 10px;
   background-color: #2a2a2a;
   border: solid 1px rgba(255, 255, 255, 0.05);
@@ -50,6 +51,10 @@ app-add-task {
   display: flex;
   justify-content: space-around;
   margin-top: 5px;
+}
+
+.title-field {
+  margin-top: 10px;
 }
 
 .preview-title {

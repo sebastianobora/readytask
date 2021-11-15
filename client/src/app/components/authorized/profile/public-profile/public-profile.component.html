@@ -13,11 +13,9 @@
     <div class="user-info-header">
       <div class="user-names-container">
         <p class="names">{{user?.firstName}} {{user?.lastName}}</p>
-        <p (click)="showCopyNotification()"
-           [cbContent]="user?.username"
-           class="username"
-           matTooltip="Copy username"
-           ngxClipboard>@{{user?.username}}</p>
+        <app-copy-to-clipboard [contentToCopy]="user.username">
+          <p class="username">@{{user.username}}</p>
+        </app-copy-to-clipboard>
       </div>
       <p class="join-date">Joined {{user?.creationTime | date: 'dd.MM.yyyy'}}</p>
     </div>

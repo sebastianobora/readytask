@@ -11,7 +11,6 @@ import {SectionComponent} from './components/common/section/section.component';
 import {NonAuthIndexComponent} from './components/non-authorized/non-auth-index/non-auth-index.component';
 import {LoginComponent} from './components/non-authorized/authorization/login/login.component';
 import {RegisterComponent} from './components/non-authorized/authorization/register/register.component';
-import {TutorialComponent} from './components/non-authorized/tutorial/tutorial.component';
 import {AboutComponent} from './components/non-authorized/about/about.component';
 import {ContactComponent} from './components/non-authorized/contact/contact.component';
 import {AuthHeaderComponent} from './components/authorized/auth-header/auth-header.component';
@@ -20,17 +19,16 @@ import {AuthNavComponent} from './components/authorized/auth-nav/auth-nav.compon
 import {TodoComponent} from './components/authorized/todo/todo.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {TeamsListComponent} from './components/authorized/teams/teams-list/teams-list.component';
-import {AddTeamComponent} from './components/authorized/teams/manage-team/add-team/add-team.component';
-import {JoinTeamComponent} from './components/authorized/teams/manage-team/join-team/join-team.component';
-import {TeamComponent} from './components/authorized/teams/team/team.component';
-import {ClipboardModule} from 'ngx-clipboard';
+import {TeamsListComponent} from './components/authorized/teams/my-teams/teams-list.component';
+import {AddTeamComponent} from './components/authorized/teams/add-team/add-team.component';
+import {JoinTeamComponent} from './components/authorized/teams/join-team/join-team.component';
+import {TeamComponent} from './components/authorized/teams/team-manager/team/team.component';
 import {JwtInterceptor} from './security/jwt.interceptor';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatButtonModule} from '@angular/material/button';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-import {NotFoundTeamsComponent} from './components/authorized/teams/manage-team/not-found-teams/not-found-teams.component';
+import {NotFoundTeamsComponent} from './components/authorized/teams/not-found-teams/not-found-teams.component';
 import {AuthGuard} from './security/auth.guard';
 import {NonAuthGuard} from './security/non-auth.guard';
 import {MatTooltipModule} from '@angular/material/tooltip';
@@ -50,16 +48,16 @@ import {NotificationComponent} from './components/common/notification/notificati
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatTabsModule} from '@angular/material/tabs';
 import {ConfirmationComponent} from './components/common/confirmation/confirmation.component';
-import {TeamDetailsComponent} from './components/authorized/teams/team/team-details/team-details.component';
-import {ParticipantsComponent} from './components/authorized/teams/team/participants/participants.component';
+import {TeamDetailsComponent} from './components/authorized/teams/team-manager/team-details/team-details.component';
+import {ParticipantsComponent} from './components/authorized/teams/team-manager/participants/participants.component';
 import {MatTableModule} from '@angular/material/table';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
-import {TeamForumComponent} from './components/authorized/teams/team/forum/team-forum/team-forum.component';
+import {TeamForumComponent} from './components/authorized/teams/team-manager/forum/team-forum/team-forum.component';
 import {TrimTextPipe} from './pipes/trim-text.pipe';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatIconModule} from '@angular/material/icon';
-import {AddPostComponent} from './components/authorized/teams/team/forum/add-post/add-post.component';
-import {PostComponent} from './components/authorized/teams/team/forum/post/post.component';
+import {AddPostComponent} from './components/authorized/teams/team-manager/forum/add-post/add-post.component';
+import {PostComponent} from './components/authorized/teams/team-manager/forum/post/post.component';
 import {FocusOnChangeDirective} from './directives/focus-on-change.directive';
 import {InformationComponent} from './components/common/information/information.component';
 import {PublicProfileComponent} from './components/authorized/profile/public-profile/public-profile.component';
@@ -76,6 +74,8 @@ import {MarkedTestComponent} from './components/authorized/tasks/marked-test/mar
 import {MyTasksComponent} from './components/authorized/tasks/my-tasks/my-tasks.component';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {ClipboardModule} from '@angular/cdk/clipboard';
+import { CopyToClipboardComponent } from './components/common/copy-to-clipboard/copy-to-clipboard.component';
 
 @NgModule({
   declarations: [
@@ -88,7 +88,6 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
     NonAuthIndexComponent,
     LoginComponent,
     RegisterComponent,
-    TutorialComponent,
     AboutComponent,
     ContactComponent,
     AuthHeaderComponent,
@@ -119,7 +118,8 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
     EditAccountComponent,
     ChangePhotoComponent,
     MarkedTestComponent,
-    MyTasksComponent
+    MyTasksComponent,
+    CopyToClipboardComponent
   ],
   imports: [
     BrowserModule,
@@ -154,7 +154,8 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
     AngularFireStorageModule,
     MatProgressBarModule,
     MatStepperModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    ClipboardModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
