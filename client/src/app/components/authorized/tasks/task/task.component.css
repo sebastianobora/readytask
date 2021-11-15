@@ -3,3 +3,7 @@ app-task {
   height: 100%;
   padding: 5px;
 }
+
+.md-icon {
+  font-size: 2rem;
+}

@@ -1,6 +1,13 @@
 <ng-container *ngIf="task | async as task else loader">
-  <div id="md-preview" [innerHTML]="markdownToHtml(task.description)"></div>
-  {{ task.description }}
+  <div style="display: flex">
+    <app-copy-to-clipboard [contentToCopy]="task.description">
+      <i class="fab fa-markdown md-icon"></i>
+    </app-copy-to-clipboard>
+  </div>
+  <div id="md-preview">
+    <div></div>
+    <div [innerHTML]="markdownToHtml(task.description)"></div>
+  </div>
 </ng-container>
 
 <ng-template #loader>

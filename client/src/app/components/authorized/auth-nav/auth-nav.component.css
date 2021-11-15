@@ -1,22 +1,35 @@
 :host {
-  width: 100%;
   height: 100%;
-  min-width: 170px;
+  width: 100%;
   max-width: 240px;
+}
+
+.minimize-button-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  height: 50px;
+}
+
+.minimize-button,
+.maximize-button,
+.minimize-menu-button {
+  opacity: 0.9;
+  margin: 7px;
+  padding: 7px;
+  font-size: 2rem;
 }
 
 .main-avatar-container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  padding-top: 50px;
-  border-radius: 5px;
 }
 
 .main-avatar {
   height: 146px;
   width: 146px;
+  margin: 0 20px 30px 20px;
   border-radius: 50%;
   box-shadow: 0 0 50px rgba(255, 255, 255, 0.15);
 }
@@ -24,7 +37,6 @@
 .main-nav-a {
   display: inline-block;
   max-width: 200px;
-  margin-top: 20px;
   letter-spacing: 2px;
   font-size: 1.3rem;
   line-height: 30px;
@@ -49,10 +61,9 @@
 .main-nav {
   display: flex;
   flex-direction: column;
+  height: 100%;
   border-radius: 5px 0 0 5px;
   background-color: rgba(17, 17, 17, 0.6);
-  height: 100%;
-  width: 100%;
   transition: transform 0.3s;
 }
 
@@ -90,28 +101,42 @@
   align-items: center;
   width: 100%;
   height: 100%;
-  border-bottom: 1px #3b3b3b solid;
-}
-
-.auth-nav-mobile:hover {
-  cursor: pointer;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .nav-mobile-icon {
-  font-size: 32px;
-  margin-right: 12px;
+  width: 30px;
+  font-size: 2.2rem;
+  margin: 3px 7px;
+  padding: 10px;
+}
+
+.nav-mobile-icon {
+  cursor: pointer;
 }
 
 .mobile-category {
+  margin: 0 auto;
+  transform: translateX(-22px);
   font-weight: bold;
-  font-size: 20px;
-  margin-left: auto;
-  margin-right: calc(50% - 40px);
-  transform: translateX(50%);
+  font-size: 1.8rem;
 }
 
 .hamburger-menu-btn {
   font-family: 'Montserrat', sans-serif;
+}
+
+.nav-minimized {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: rgba(17, 17, 17, 0.6);
+  height: 100%;
+}
+
+:host.minimized {
+  width: fit-content;
 }
 
 @media (max-width: 667px) {
@@ -128,5 +153,9 @@
 
   .auth-nav-mobile {
     display: flex;
+  }
+
+  .nav-minimized {
+    display: none;
   }
 }

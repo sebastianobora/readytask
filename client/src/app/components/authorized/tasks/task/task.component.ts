@@ -5,6 +5,7 @@ import {Task} from '../../../../entity/task';
 import {Observable} from 'rxjs';
 import {SafeHtml} from '@angular/platform-browser';
 import {MarkdownService} from '../../../../service/markdown.service';
+import {MatTooltip} from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-task',
@@ -13,6 +14,7 @@ import {MarkdownService} from '../../../../service/markdown.service';
   encapsulation: ViewEncapsulation.None
 })
 export class TaskComponent implements OnInit {
+  copyTooltipMessage = 'Copy markdown';
   task?: Observable<Task>;
 
   constructor(private taskService: TaskService,
@@ -27,7 +29,13 @@ export class TaskComponent implements OnInit {
     }
   }
 
-  markdownToHtml(markdownText: string): SafeHtml{
+  markdownToHtml(markdownText: string): SafeHtml {
     return this.markdownService.markdownToHtml(markdownText);
+  }
+
+  showCopiedMessage(tooltip: MatTooltip) {
+    tooltip.disabled = false;
+    tooltip.show();
+    setTimeout(() => tooltip.disabled = true, 2000);
   }
 }
