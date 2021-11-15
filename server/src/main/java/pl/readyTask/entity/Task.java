@@ -1,9 +1,7 @@
 package pl.readyTask.entity;
 
 import com.fasterxml.jackson.annotation.*;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -19,10 +17,9 @@ import java.util.UUID;
 @Table(name = "task")
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Task {
-    public Task() {
-    }
-
     @Id
     @Type(type="uuid-char")
     @Column(name = "id")

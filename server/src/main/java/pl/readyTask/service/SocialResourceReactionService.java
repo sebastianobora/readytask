@@ -3,6 +3,7 @@ package pl.readyTask.service;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
+import pl.readyTask.dto.ResourceStatisticsResponse;
 import pl.readyTask.entity.*;
 import pl.readyTask.exception.AccessDeniedToActionException;
 import pl.readyTask.exception.NoDataFoundException;
@@ -16,7 +17,7 @@ public class SocialResourceReactionService {
     private final MembershipService membershipService;
     private final TeamForumPostService teamForumPostService;
 
-    public ResourceStatistics addPostReaction(Authentication authentication, Long postId, boolean isPositive) {
+    public ResourceStatisticsResponse addPostReaction(Authentication authentication, Long postId, boolean isPositive) {
         User user = securityService.getUserByEmailFromAuthentication(authentication);
         TeamForumPost post = teamForumPostService.getById(postId);
         checkUserIsAllowedToActionOnPost(user, post.getTeam());
@@ -24,7 +25,7 @@ public class SocialResourceReactionService {
         return getResourceStatistics(post.getId(), user.getId());
     }
 
-    public ResourceStatistics swapPostReaction(Authentication authentication, Long postId) {
+    public ResourceStatisticsResponse swapPostReaction(Authentication authentication, Long postId) {
         User user = securityService.getUserByEmailFromAuthentication(authentication);
         TeamForumPost post = teamForumPostService.getById(postId);
         checkUserIsAllowedToActionOnPost(user, post.getTeam());
@@ -32,7 +33,7 @@ public class SocialResourceReactionService {
         return getResourceStatistics(post.getId(), user.getId());
     }
 
-    public ResourceStatistics deletePostReaction(Authentication authentication, Long postId) {
+    public ResourceStatisticsResponse deletePostReaction(Authentication authentication, Long postId) {
         User user = securityService.getUserByEmailFromAuthentication(authentication);
         TeamForumPost post = teamForumPostService.getById(postId);
         checkUserIsAllowedToActionOnPost(user, post.getTeam());
@@ -55,13 +56,13 @@ public class SocialResourceReactionService {
         socialResourceReactionRepository.deleteBySocialResourceIdAndUserId(resourceId, userId);
     }
 
-    public ResourceStatistics getResourceStatistics(Authentication authentication, Long resourceId) {
+    public ResourceStatisticsResponse getResourceStatistics(Authentication authentication, Long resourceId) {
         User user = securityService.getUserByEmailFromAuthentication(authentication);
         return getResourceStatistics(resourceId, user.getId());
     }
 
-    private ResourceStatistics getResourceStatistics(Long resourceId, Long userId) {
-        ResourceStatistics response = new ResourceStatistics();
+    private ResourceStatisticsResponse getResourceStatistics(Long resourceId, Long userId) {
+        ResourceStatisticsResponse response = new ResourceStatisticsResponse();
         response.setLikes(socialResourceReactionRepository
                 .countAllBySocialResourceIdAndPositiveEquals(resourceId, true));
         response.setDislikes(socialResourceReactionRepository

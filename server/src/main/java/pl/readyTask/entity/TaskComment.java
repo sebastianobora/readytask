@@ -4,9 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -20,8 +18,9 @@ import java.util.UUID;
 @Table(name = "task_comment")
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class TaskComment extends SocialResource {
-
     @Column(name = "message", nullable = false)
     private String message;
 

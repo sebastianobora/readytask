@@ -4,9 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -18,6 +16,8 @@ import java.util.Date;
 @Table(name = "todo")
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Todo {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -39,9 +39,6 @@ public class Todo {
     @Setter(AccessLevel.NONE)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
-
-    public Todo() {
-    }
 
     @JsonProperty("userId")
     public void setUserById(Long userId) {

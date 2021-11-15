@@ -10,11 +10,10 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 
-
-@AllArgsConstructor
-@NoArgsConstructor
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity(name = "SocialResourceReaction")
 @Table(name = "social_resource_reaction",
         uniqueConstraints = {

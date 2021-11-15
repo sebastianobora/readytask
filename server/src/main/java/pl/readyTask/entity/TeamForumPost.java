@@ -20,7 +20,6 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class TeamForumPost extends SocialResource {
-
     @Column(name = "message", columnDefinition = "TEXT")
     private String message;
 

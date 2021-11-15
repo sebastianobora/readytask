@@ -3,6 +3,7 @@ package pl.readyTask.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -15,10 +16,8 @@ import java.util.Set;
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 public class Team {
-    public Team() {
-    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
