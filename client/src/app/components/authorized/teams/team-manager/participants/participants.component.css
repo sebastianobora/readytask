@@ -1,39 +1,43 @@
-.participants-table{
+.participants-table {
   background-color: #333333;
   width: 100%;
 }
 
-th{
+th {
   font-weight: bold;
 }
 
-.center-cell{
+.center-cell {
   text-align: center;
 }
 
-.mat-paginator{
+.role-cell {
+  width: 71px;
+}
+
+.mat-paginator {
   border-bottom-right-radius: 5px;
   background-color: #333333;
   width: 100%;
 }
 
-.filter{
+.filter {
   width: 100%;
   padding: 0 24px;
   font-size: 1.1em;
   background-color: #333333;
 }
 
-.filter-input-label, .filter-input{
+.filter-input-label, .filter-input {
   font-size: 1.2em;
   color: #FFFFFF;
 }
 
-.role-icon{
+.role-icon {
   padding: 10px;
 }
 
-.member-role{
+.member-role {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -42,11 +46,11 @@ th{
   max-height: 35px;
 }
 
-.mat-column-changeRole, .mat-column-deleteMember{
+.mat-column-changeRole, .mat-column-deleteMember {
   width: 15%;
 }
 
-.icon{
+.icon {
   margin: 0 2px;
 }
 
@@ -54,24 +58,37 @@ button:disabled > .icon:hover {
   opacity: unset;
 }
 
-button:disabled{
+button:disabled {
   opacity: 0.5;
 }
 
-.avatar{
+.avatar {
   border-radius: 50%;
   width: 38px;
   height: 38px;
   box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2),
-              0 1px 1px 0 rgba(0, 0, 0, 0.14),
-              0 1px 3px 0 rgba(0, 0, 0, 0.12);
+  0 1px 1px 0 rgba(0, 0, 0, 0.14),
+  0 1px 3px 0 rgba(0, 0, 0, 0.12);
 }
 
-.user-details-container{
+.user-details-container {
   display: flex;
   align-items: center;
 }
 
-.user-names{
+.user-names {
   margin-left: 10px;
+}
+
+::ng-deep .mat-button-toggle-appearance-standard .mat-button-toggle-label-content {
+  width: 35px;
+  line-height: 30px !important;
+  padding: 0 !important;
+}
+
+mat-button-toggle-group {
+  border: none !important;
+  box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2),
+  0 1px 1px 0 rgba(0, 0, 0, 0.14),
+  0 1px 3px 0 rgba(0, 0, 0, 0.12);
 }

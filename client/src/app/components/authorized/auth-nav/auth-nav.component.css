@@ -122,10 +122,6 @@
   font-size: 1.8rem;
 }
 
-.hamburger-menu-btn {
-  font-family: 'Montserrat', sans-serif;
-}
-
 .nav-minimized {
   display: flex;
   flex-direction: column;
@@ -133,6 +129,10 @@
   align-items: center;
   background-color: rgba(17, 17, 17, 0.6);
   height: 100%;
+}
+
+.minimized-button {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 :host.minimized {

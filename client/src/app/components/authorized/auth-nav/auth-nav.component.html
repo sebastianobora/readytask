@@ -28,11 +28,11 @@
 
 <ng-template #minimizedNav>
   <div class="nav-minimized">
-    <button [matMenuTriggerFor]="navMobile" matTooltip="Menu" matTooltipPosition="right">
-      <i class="fas fa-chevron-down minimize-menu-button"></i>
-    </button>
-    <button (click)="maximize()" matTooltip="Maximize" matTooltipPosition="right">
+    <button (click)="maximize()" class="minimized-button" matTooltip="Maximize" matTooltipPosition="right">
       <i class="fas fa-angle-double-right maximize-button"></i>
+    </button>
+    <button [matMenuTriggerFor]="navMobile" class="minimized-button" matTooltip="Menu" matTooltipPosition="right">
+      <i class="fas fa-chevron-down minimize-menu-button"></i>
     </button>
   </div>
 </ng-template>
@@ -42,10 +42,9 @@
   <p class="mobile-category">{{currentNavContent?.title | titlecase}}</p>
 </div>
 
-<mat-menu #navMobile="matMenu" xPosition="before">
+<mat-menu #navMobile="matMenu" xPosition="after">
   <button *ngFor="let navElement of currentNavContent?.elements"
           [routerLink]="navElement?.link"
-          class="hamburger-menu-btn"
           mat-menu-item
           routerLinkActive="active-link">
     {{ navElement?.content | titlecase}}
