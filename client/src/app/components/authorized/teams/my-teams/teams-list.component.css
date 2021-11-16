@@ -3,12 +3,12 @@
   width: 100%;
 }
 
-.mat-paginator{
+.mat-paginator {
   border-bottom-right-radius: 5px;
   background-color: #252525;
 }
 
-.teams-list-container{
+.teams-list-container {
   display: flex;
   flex-wrap: wrap;
   align-content: flex-start;
@@ -18,7 +18,7 @@
   overflow-y: auto;
 }
 
-.space-for-paginator{
+.space-for-paginator {
   max-height: calc(100% - 56px);
 }
 
@@ -33,7 +33,7 @@
   border: 2px rgba(255, 255, 255, 0.05) solid;
   border-radius: 3px;
   cursor: pointer;
-  transition: background-color 0.10s;
+  transition: transform 0.25s, background-color 0.1s;
 }
 
 .team-wrapper:hover {

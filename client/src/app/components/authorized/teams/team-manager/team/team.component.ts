@@ -27,8 +27,4 @@ export class TeamComponent implements OnInit {
     this.teamService.getTeam(teamId as string).subscribe(() => {
     }, () => this.router.navigate(['teams/my-teams']));
   }
-
-  goBack(): void {
-    this.location.back();
-  }
 }

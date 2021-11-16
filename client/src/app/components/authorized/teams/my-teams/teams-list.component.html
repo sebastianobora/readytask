@@ -1,15 +1,15 @@
-<div class="teams-list-container" [ngClass]="{'space-for-paginator' : teams}">
-  <div class="loader" *ngIf="isLoading; else content">
+<div [ngClass]="{'space-for-paginator' : teams}" class="teams-list-container">
+  <div *ngIf="isLoading; else content" class="loader">
     <mat-spinner></mat-spinner>
   </div>
 
   <ng-template #content>
     <app-not-found-teams *ngIf="!teams"></app-not-found-teams>
-    <div class="team-wrapper" [routerLink]="['/teams/team', team.id]" *ngFor="let team of teams">
+    <div *ngFor="let team of teams" [routerLink]="['/teams/team', team.id]" class="team-wrapper">
       <div class="team-img-wrapper">
         <i *ngIf="team.membership.memberRole === adminRole" class="fas fa-crown own-team-icon"></i>
         <a>
-          <app-placeholder size="large" shape="square" color="purple" [text]="team.name"></app-placeholder>
+          <app-placeholder [text]="team.name" color="purple" shape="square" size="large"></app-placeholder>
         </a>
       </div>
       <a class="team-title">{{team.name}}</a>
@@ -18,8 +18,8 @@
 </div>
 
 <mat-paginator *ngIf="teams"
+               [hidePageSize]="true"
                [length]="100"
                [pageSize]="15"
-               [hidePageSize]="true"
                [showFirstLastButtons]="true">
 </mat-paginator>

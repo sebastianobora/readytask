@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 import {TaskService} from '../../../../service/task.service';
 import {ActivatedRoute} from '@angular/router';
 import {Task} from '../../../../entity/task';
@@ -6,6 +6,7 @@ import {Observable} from 'rxjs';
 import {SafeHtml} from '@angular/platform-browser';
 import {MarkdownService} from '../../../../service/markdown.service';
 import {MatTooltip} from '@angular/material/tooltip';
+import {TaskState} from '../../../../entity/task-state.enum';
 
 @Component({
   selector: 'app-task',
@@ -14,8 +15,12 @@ import {MatTooltip} from '@angular/material/tooltip';
   encapsulation: ViewEncapsulation.None
 })
 export class TaskComponent implements OnInit {
-  copyTooltipMessage = 'Copy markdown';
+  @ViewChild('taskPreview') taskPreview!: ElementRef;
+  taskState = TaskState;
   task?: Observable<Task>;
+  copyTooltip = 'Copy markdown';
+  downloadTaskTooltip = 'Download task as pdf';
+  deadlineTooltip = 'Deadline';
 
   constructor(private taskService: TaskService,
               private markdownService: MarkdownService,
@@ -37,5 +42,9 @@ export class TaskComponent implements OnInit {
     tooltip.disabled = false;
     tooltip.show();
     setTimeout(() => tooltip.disabled = true, 2000);
+  }
+
+  downloadTaskAsPdf(taskPreview: HTMLDivElement): void {
+    console.log(taskPreview);
   }
 }

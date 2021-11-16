@@ -1,14 +1,53 @@
-<ng-container *ngIf="task | async as task else loader">
-  <div style="display: flex">
-    <app-copy-to-clipboard [contentToCopy]="task.description">
-      <i class="fab fa-markdown md-icon"></i>
-    </app-copy-to-clipboard>
-  </div>
-  <div id="md-preview">
-    <div></div>
-    <div [innerHTML]="markdownToHtml(task.description)"></div>
-  </div>
-</ng-container>
+<app-go-back-button></app-go-back-button>
+<mat-tab-group class="tab-group" mat-align-tabs="center">
+  <mat-tab label="Task details">
+    <ng-template matTabContent>
+      <div *ngIf="task | async as task else loader" class="task-details-container">
+        <div class="task-details-header">
+          <button class="start-button" mat-raised-button>
+            <i class="fas fa-play"></i>
+            <span class="button-label">Start task</span>
+          </button>
+          <div>
+            <div [matTooltip]="deadlineTooltip" class="deadline-container" matTooltipClass="tooltip">
+              <i class="fas fa-hourglass-end deadline-icon"></i>
+              <p class="button-label deadline">{{task.deadline | date}}</p>
+            </div>
+          </div>
+          <div class="task-details-header-right">
+            <div class="task-progress-bar">
+              <div [ngClass]="{'task-new': task.state === taskState.NEW}" class="task-progress-state">
+                <p class="task-progress-state-label">New</p>
+              </div>
+              <div [ngClass]="{'task-in-progress': task.state === taskState.IN_PROGRESS}" class="task-progress-state">
+                <p class="task-progress-state-label">In progress</p>
+              </div>
+              <div [ngClass]="{'task-finished': task.state === taskState.FINISHED}" class="task-progress-state">
+                <p class="task-progress-state-label">Finished</p>
+              </div>
+            </div>
+            <div class="download-task-container">
+              <button (click)="downloadTaskAsPdf(taskPreview)" [matTooltip]="downloadTaskTooltip"
+                      class="download-task-button"
+                      matTooltipClass="tooltip">
+                <i class="fas fa-file-download"></i>
+              </button>
+            </div>
+            <app-copy-to-clipboard [contentToCopy]="task.description" [copyTooltipMessage]="copyTooltip" class="test">
+              <i class="fab fa-markdown md-icon"></i>
+            </app-copy-to-clipboard>
+          </div>
+        </div>
+        <div #taskPreview class="task-preview" id="md-preview">
+          <div [innerHTML]="markdownToHtml(task.title)" class="task-title"></div>
+          <div [innerHTML]="markdownToHtml(task.description)"></div>
+        </div>
+      </div>
+    </ng-template>
+  </mat-tab>
+  <mat-tab label="Task forum">
+  </mat-tab>
+</mat-tab-group>
 
 <ng-template #loader>
   <div class="loader">
