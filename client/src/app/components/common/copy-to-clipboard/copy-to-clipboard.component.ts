@@ -8,11 +8,11 @@ import {MatTooltip} from '@angular/material/tooltip';
 })
 export class CopyToClipboardComponent implements OnInit {
   @Input() contentToCopy!: string;
-  @Input() copySuccessfulMessage = 'Copied!';
-  copySuccessfulMessageDelayInMs = 200;
-  copySuccessfulMessageDurationInMs = 2000;
-  copyTooltipMessage = 'Copy';
+  @Input() copyTooltipMessage = 'Copy';
   copyTooltipMessageDelayInMs = 100;
+  copySuccessfulMessage = 'Copied!';
+  copySuccessfulMessageDelayInMs = 150;
+  copySuccessfulMessageDurationInMs = 1000;
 
   constructor() {
   }

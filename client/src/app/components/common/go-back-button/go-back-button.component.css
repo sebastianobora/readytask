@@ -1,0 +1,8 @@
+.back-button {
+  position: absolute;
+  z-index: 2;
+  margin: 7px;
+  padding: 7px;
+  font-size: 20px;
+  color: #cfcfcf;
+}

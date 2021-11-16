@@ -7,20 +7,20 @@
 <div *ngIf="participantsDataSource.data.length && team else loader">
   <mat-form-field appearance="standard" class="filter">
     <mat-label class="filter-input-label">Find member</mat-label>
-    <input matInput (keyup)="applyFilter($event)" class="filter-input" #filterInput>
+    <input #filterInput (keyup)="applyFilter($event)" class="filter-input" matInput>
   </mat-form-field>
 
-  <table mat-table [dataSource]="participantsDataSource" class="participants-table">
+  <table [dataSource]="participantsDataSource" class="participants-table" mat-table>
     <ng-container matColumnDef="memberDetails">
-      <th mat-header-cell *matHeaderCellDef>Member details</th>
-      <td mat-cell *matCellDef="let membership">
+      <th *matHeaderCellDef mat-header-cell>Member details</th>
+      <td *matCellDef="let membership" mat-cell>
         <div class="user-details-container">
           <img *ngIf="membership.user?.img else placeholder"
                [src]="membership.user.img"
                alt="Avatar"
                class="avatar"/>
           <ng-template #placeholder>
-            <app-placeholder size="x-small" shadow="dark" [text]="membership.user.firstName"></app-placeholder>
+            <app-placeholder [text]="membership.user.firstName" shadow="dark" size="x-small"></app-placeholder>
           </ng-template>
           <p class="user-names">{{membership.user.firstName}} {{membership.user.lastName}}</p>
         </div>
@@ -28,43 +28,43 @@
     </ng-container>
 
     <ng-container matColumnDef="memberFrom">
-      <th mat-header-cell *matHeaderCellDef>Member from</th>
-      <td mat-cell *matCellDef="let element"> {{element.memberFrom | date: 'dd.MM.yyyy'}} </td>
+      <th *matHeaderCellDef mat-header-cell>Member from</th>
+      <td *matCellDef="let element" mat-cell> {{element.memberFrom | date: 'dd.MM.yyyy'}} </td>
     </ng-container>
 
     <ng-container matColumnDef="userRole">
-      <th mat-header-cell *matHeaderCellDef>Role</th>
-      <td mat-cell *matCellDef="let membership">
-        <mat-button-toggle-group [formControl]="selectedRole" *ngIf="isRoleEditable(membership) else memberRoleCard">
+      <th *matHeaderCellDef mat-header-cell>Role</th>
+      <td *matCellDef="let membership" class="role-cell" mat-cell>
+        <mat-button-toggle-group *ngIf="isRoleEditable(membership) else memberRoleCard" [formControl]="selectedRole">
           <mat-button-toggle checked="{{isMemberAdmin(membership)}}" value="{{memberRole.ADMIN}}">
-            <i matTooltip="Admin role"
-               matTooltipPosition="right"
+            <i class="fas fa-crown role-icon"
+               matTooltip="Admin role"
                matTooltipClass="tooltip"
-               class="fas fa-crown role-icon">
+               matTooltipPosition="right">
             </i>
           </mat-button-toggle>
           <mat-button-toggle checked="{{!isMemberAdmin(membership)}}" value="{{memberRole.PARTICIPANT}}">
-            <i matTooltip="User role"
-               matTooltipPosition="right"
+            <i class="fas fa-user role-icon"
+               matTooltip="User role"
                matTooltipClass="tooltip"
-               class="fas fa-user role-icon">
+               matTooltipPosition="right">
             </i>
           </mat-button-toggle>
         </mat-button-toggle-group>
 
         <ng-template #memberRoleCard>
           <mat-card class="member-role">
-            <i matTooltip="Admin role"
-               matTooltipPosition="right"
+            <i *ngIf="isMemberAdmin(membership) else userIcon"
+               class="fas fa-crown role-icon"
+               matTooltip="Admin role"
                matTooltipClass="tooltip"
-               *ngIf="isMemberAdmin(membership) else userIcon"
-               class="fas fa-crown role-icon">
+               matTooltipPosition="right">
             </i>
             <ng-template #userIcon>
-              <i matTooltip="User role"
-                 matTooltipPosition="right"
+              <i class="fas fa-user role-icon"
+                 matTooltip="User role"
                  matTooltipClass="tooltip"
-                 class="fas fa-user role-icon">
+                 matTooltipPosition="right">
               </i>
             </ng-template>
           </mat-card>
@@ -73,40 +73,40 @@
     </ng-container>
 
     <ng-container matColumnDef="changeRole">
-      <th mat-header-cell *matHeaderCellDef class="center-cell">Change Role</th>
-      <td mat-cell *matCellDef="let membership" class="center-cell">
+      <th *matHeaderCellDef class="center-cell" mat-header-cell>Change Role</th>
+      <td *matCellDef="let membership" class="center-cell" mat-cell>
         <ng-container *ngIf="isRoleEditable(membership) else editRoleButton">
           <i (click)="confirmChanges()" class="far fa-check-square icon"></i>
           <i (click)="cancelChanges()" class="far fa-window-close icon"></i>
         </ng-container>
         <ng-template #editRoleButton>
           <button (click)="edit(membership)" [disabled]="isItCurrentUserMembership(membership)">
-            <i  class="fas fa-cog icon"></i>
+            <i class="fas fa-cog icon"></i>
           </button>
         </ng-template>
       </td>
     </ng-container>
 
     <ng-container matColumnDef="deleteMember">
-      <th mat-header-cell *matHeaderCellDef class="center-cell">Delete member</th>
-      <td mat-cell *matCellDef="let membership" class="center-cell">
+      <th *matHeaderCellDef class="center-cell" mat-header-cell>Delete member</th>
+      <td *matCellDef="let membership" class="center-cell" mat-cell>
         <button (click)="deleteMembership(membership)" [disabled]="isItCurrentUserMembership(membership)">
           <i class="fas fa-user-minus icon"></i>
         </button>
       </td>
     </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="columns"></tr>
-    <tr mat-row *matRowDef="let row; columns: columns;"></tr>
+    <tr *matHeaderRowDef="columns" mat-header-row></tr>
+    <tr *matRowDef="let row; columns: columns;" mat-row></tr>
 
-    <tr class="mat-row" *matNoDataRow>
+    <tr *matNoDataRow class="mat-row">
       <td class="mat-cell" colspan="4">No data matching the filter "{{filterInput.value}}"</td>
     </tr>
   </table>
 
-  <mat-paginator [length]="100"
+  <mat-paginator [hidePageSize]="true"
+                 [length]="100"
                  [pageSize]="15"
-                 [hidePageSize]="true"
                  [showFirstLastButtons]="true">
   </mat-paginator>
 </div>

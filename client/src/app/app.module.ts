@@ -76,6 +76,7 @@ import {MatStepperModule} from '@angular/material/stepper';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {ClipboardModule} from '@angular/cdk/clipboard';
 import { CopyToClipboardComponent } from './components/common/copy-to-clipboard/copy-to-clipboard.component';
+import { GoBackButtonComponent } from './components/common/go-back-button/go-back-button.component';
 
 @NgModule({
   declarations: [
@@ -119,7 +120,8 @@ import { CopyToClipboardComponent } from './components/common/copy-to-clipboard/
     ChangePhotoComponent,
     MarkedTestComponent,
     MyTasksComponent,
-    CopyToClipboardComponent
+    CopyToClipboardComponent,
+    GoBackButtonComponent
   ],
   imports: [
     BrowserModule,
