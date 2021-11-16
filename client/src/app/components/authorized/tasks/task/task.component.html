@@ -26,6 +26,9 @@
                 <p class="task-progress-state-label">Finished</p>
               </div>
             </div>
+            <app-copy-to-clipboard [contentToCopy]="task.description" [copyTooltipMessage]="copyTooltip" class="test">
+              <i class="fab fa-markdown md-icon"></i>
+            </app-copy-to-clipboard>
             <div class="download-task-container">
               <button (click)="downloadTaskAsPdf(taskPreview)" [matTooltip]="downloadTaskTooltip"
                       class="download-task-button"
@@ -33,9 +36,6 @@
                 <i class="fas fa-file-download"></i>
               </button>
             </div>
-            <app-copy-to-clipboard [contentToCopy]="task.description" [copyTooltipMessage]="copyTooltip" class="test">
-              <i class="fab fa-markdown md-icon"></i>
-            </app-copy-to-clipboard>
           </div>
         </div>
         <div #taskPreview class="task-preview" id="md-preview">
