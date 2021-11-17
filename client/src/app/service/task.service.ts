@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {Task} from '../entity/task';
+import {Task, TaskExtended} from '../entity/task';
 
 @Injectable({
   providedIn: 'root'
@@ -12,8 +12,8 @@ export class TaskService {
   constructor(private httpClient: HttpClient) {
   }
 
-  getTask(id: string): Observable<Task> {
-    return this.httpClient.get<Task>(`${this.url}/${id}`);
+  getTask(id: string): Observable<TaskExtended> {
+    return this.httpClient.get<TaskExtended>(`${this.url}/${id}?extended=true`);
   }
 
   addTask(task: Task): Observable<Task> {

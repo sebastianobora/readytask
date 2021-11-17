@@ -26,11 +26,11 @@
                 <p class="task-progress-state-label">Finished</p>
               </div>
             </div>
-            <app-copy-to-clipboard [contentToCopy]="task.description" [copyTooltipMessage]="copyTooltip" class="test">
+            <app-copy-to-clipboard [contentToCopy]="task.description" [copyTooltipMessage]="copyTooltip">
               <i class="fab fa-markdown md-icon"></i>
             </app-copy-to-clipboard>
             <div class="download-task-container">
-              <button (click)="downloadTaskAsPdf(taskPreview)" [matTooltip]="downloadTaskTooltip"
+              <button (click)="downloadTaskAsPdf(task.id)" [matTooltip]="downloadTaskTooltip"
                       class="download-task-button"
                       matTooltipClass="tooltip">
                 <i class="fas fa-file-download"></i>
@@ -38,9 +38,30 @@
             </div>
           </div>
         </div>
-        <div #taskPreview class="task-preview" id="md-preview">
+        <div class="task-preview md-preview">
           <div [innerHTML]="markdownToHtml(task.title)" class="task-title"></div>
           <div [innerHTML]="markdownToHtml(task.description)"></div>
+        </div>
+
+        <div #taskPreview class="print-container hide-print-container">
+          <p class="print-app-name">Readytask</p>
+          <div class="print-content-header">
+            <div>
+              <p><span>Task reference: </span>{{task.id}}</p>
+              <p><span>Team: </span>{{task.team.name}}</p>
+              <p><span>Assigned by: </span>{{task.authorOfTask.firstName}} {{task.authorOfTask.lastName}}</p>
+              <p><span>Assigned to: </span>{{task.userAssignedToTask.firstName}} {{task.userAssignedToTask.lastName}}
+              </p>
+            </div>
+            <div>
+              <p><span>Task created at: </span>{{task.createdAt | date: 'dd.MM.yyyy'}}</p>
+              <p><span>Deadline: </span>{{task.deadline | date: 'dd.MM.yyyy'}}</p>
+            </div>
+          </div>
+          <div class="md-print">
+            <div [innerHTML]="markdownToHtml(task.title)" class="task-title"></div>
+            <div [innerHTML]="markdownToHtml(task.description)" class="md-print"></div>
+          </div>
         </div>
       </div>
     </ng-template>

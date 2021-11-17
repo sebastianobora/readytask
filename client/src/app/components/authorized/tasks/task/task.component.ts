@@ -1,12 +1,12 @@
 import {Component, ElementRef, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 import {TaskService} from '../../../../service/task.service';
 import {ActivatedRoute} from '@angular/router';
-import {Task} from '../../../../entity/task';
+import {TaskExtended} from '../../../../entity/task';
 import {Observable} from 'rxjs';
 import {SafeHtml} from '@angular/platform-browser';
 import {MarkdownService} from '../../../../service/markdown.service';
-import {MatTooltip} from '@angular/material/tooltip';
 import {TaskState} from '../../../../entity/task-state.enum';
+import {jsPDF} from 'jspdf';
 
 @Component({
   selector: 'app-task',
@@ -17,7 +17,7 @@ import {TaskState} from '../../../../entity/task-state.enum';
 export class TaskComponent implements OnInit {
   @ViewChild('taskPreview') taskPreview!: ElementRef;
   taskState = TaskState;
-  task?: Observable<Task>;
+  task?: Observable<TaskExtended>;
   copyTooltip = 'Copy markdown';
   downloadTaskTooltip = 'Download task as pdf';
   deadlineTooltip = 'Deadline';
@@ -38,13 +38,23 @@ export class TaskComponent implements OnInit {
     return this.markdownService.markdownToHtml(markdownText);
   }
 
-  showCopiedMessage(tooltip: MatTooltip) {
-    tooltip.disabled = false;
-    tooltip.show();
-    setTimeout(() => tooltip.disabled = true, 2000);
+  downloadTaskAsPdf(taskUUID: string): void {
+    const htmlContent = this.taskPreview.nativeElement.cloneNode(true);
+    htmlContent.classList.remove('hide-print-container');
+
+    const img = this.getLogoImage();
+    const pdf = new jsPDF('portrait', 'pt', 'a4');
+
+    pdf.html(htmlContent, {autoPaging: true})
+      .then(() => {
+        pdf.addImage(img, 40, 40, 28, 28);
+        pdf.save(taskUUID);
+      });
   }
 
-  downloadTaskAsPdf(taskPreview: HTMLDivElement): void {
-    console.log(taskPreview);
+  getLogoImage(): HTMLImageElement {
+    let img = new Image();
+    img.src = 'assets/img/logo.png';
+    return img;
   }
 }

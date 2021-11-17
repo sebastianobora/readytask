@@ -10,7 +10,7 @@
           </mat-slide-toggle>
         </div>
         <div class="editor-container">
-          <div *ngIf="previewMode && task.title && task.description else editor" id="md-preview">
+          <div *ngIf="previewMode && task.title && task.description else editor" class="md-preview">
             <p [innerHTML]="markdownToHtml(task.title)" class="preview-title"></p>
             <div [innerHTML]="markdownToHtml(task.description)" class="preview-description"></div>
           </div>

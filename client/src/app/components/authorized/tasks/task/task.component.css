@@ -66,7 +66,7 @@ app-task {
 .task-title {
   font-weight: bolder;
   text-transform: uppercase;
-  opacity: 0.6;
+  color: #aaaaaa;
 }
 
 .md-icon {
@@ -135,4 +135,37 @@ app-task {
 
 .task-finished {
   background-color: rgba(0, 116, 194, 0.8);
+}
+
+.print-container {
+  min-height: 841px;
+  min-width: 595px;
+  padding: 40px;
+  background-color: #2a2a2a;
+}
+
+.hide-print-container {
+  display: none;
+}
+
+.print-content-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #343434;
+}
+
+.print-content-header span {
+  display: inline-block;
+  min-width: 85px;
+  margin: 2px 0;
+  color: #cccccc;
+}
+
+.print-app-name {
+  margin-left: 40px;
+  padding-bottom: 15px;
+  font-size: 2.5rem;
+  color: #eee;
 }
