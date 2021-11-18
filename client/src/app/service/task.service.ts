@@ -2,6 +2,8 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Task, TaskExtended} from '../entity/task';
+import {UUID} from '../../assets/uuid-type';
+import {TaskState} from '../entity/task-state.enum';
 
 @Injectable({
   providedIn: 'root'
@@ -18,5 +20,11 @@ export class TaskService {
 
   addTask(task: Task): Observable<Task> {
     return this.httpClient.post<Task>(this.url, task);
+  }
+
+  changeState(taskId: UUID, state: TaskState): Observable<any> {
+    const url = `${this.url}/state/${taskId}`;
+    const task: Partial<Task> = {state: state};
+    return this.httpClient.patch<any>(url, task);
   }
 }

@@ -8,7 +8,7 @@ app-task {
   display: flex;
   flex-direction: column;
   margin: 15px;
-  padding: 0 15px 10px 15px;
+  padding: 0 20px 10px 20px;
   background-color: #2a2a2a;
   border: 1px solid rgba(255, 255, 255, 0.03);
   border-radius: 3px;
@@ -21,8 +21,8 @@ app-task {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 6px 0;
   height: 42px;
+  margin: 6px 0;
 }
 
 .start-button {
@@ -35,9 +35,14 @@ app-task {
   margin-left: 8px;
 }
 
+.task-details-header-left {
+  display: flex;
+}
+
 .deadline-container {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   padding: 0 12px;
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 3px;
@@ -51,6 +56,35 @@ app-task {
 
 .deadline {
   font-weight: bold;
+}
+
+.task-user-details-container {
+  display: flex;
+  align-items: center;
+  margin: 0 5px;
+}
+
+.task-user-details-container:hover {
+  cursor: pointer;
+  opacity: 0.8;
+}
+
+.task-user-avatar {
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  margin: 0 8px;
+}
+
+.avatar-placeholder {
+  margin: 0 8px;
+}
+
+.task-user-details {
+  display: flex;
+  flex-direction: column;
+  font-weight: bold;
+  opacity: 0.9;
 }
 
 .task-details-header-right {
@@ -69,6 +103,11 @@ app-task {
   color: #aaaaaa;
 }
 
+.task-preview-date {
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+
 .md-icon {
   font-size: 3.2rem;
 }
@@ -77,8 +116,14 @@ app-task {
   padding-top: 5px;
   padding-bottom: 10px;
   margin-bottom: 10px;
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.task-preview-header {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .download-task-container {
@@ -133,13 +178,21 @@ app-task {
   background-color: rgba(117, 65, 141, 0.8);
 }
 
+.task-to-review {
+  background-color: rgba(23, 171, 129, 0.8);
+}
+
+.task-to-fix {
+  background-color: rgba(178, 82, 27, 0.8);
+}
+
 .task-finished {
   background-color: rgba(0, 116, 194, 0.8);
 }
 
 .print-container {
   min-height: 841px;
-  min-width: 595px;
+  min-width: 596px;
   padding: 40px;
   background-color: #2a2a2a;
 }

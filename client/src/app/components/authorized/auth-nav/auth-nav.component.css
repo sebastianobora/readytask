@@ -34,6 +34,10 @@
   box-shadow: 0 0 50px rgba(255, 255, 255, 0.15);
 }
 
+.main-avatar-placeholder {
+  margin: 0 20px 30px 20px;
+}
+
 .main-nav-a {
   display: inline-block;
   max-width: 200px;

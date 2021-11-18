@@ -10,7 +10,8 @@
          alt="Avatar"
          class="main-avatar"/>
     <ng-template #placeholder>
-      <app-placeholder [text]="currentUser?.firstName" shadow="light" size="large"></app-placeholder>
+      <app-placeholder [text]="currentUser?.firstName" class="main-avatar-placeholder" shadow="light"
+                       size="large"></app-placeholder>
     </ng-template>
     <a class="main-nav-a"
        routerLink="profile/public/{{currentUser?.username}}">{{currentUser?.firstName | uppercase}} {{currentUser?.lastName | uppercase}}</a>

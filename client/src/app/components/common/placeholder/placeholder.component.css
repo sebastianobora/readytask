@@ -9,6 +9,12 @@ p {
   font-family: 'Bebas Neue', cursive;
 }
 
+.xxs {
+  height: 28px;
+  width: 28px;
+  font-size: 1.4rem;
+}
+
 .x-small {
   height: 40px;
   width: 40px;
