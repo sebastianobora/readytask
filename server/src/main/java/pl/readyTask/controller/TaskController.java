@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import pl.readyTask.entity.Task;
+import pl.readyTask.entity.enumeration.TaskState;
 import pl.readyTask.entity.extended.TaskExtended;
 import pl.readyTask.service.TaskService;
 
@@ -35,5 +36,13 @@ public class TaskController {
     @PostMapping
     public ResponseEntity<Task> add(@RequestBody Task task, Authentication authentication) {
         return ResponseEntity.ok(taskService.add(task, authentication));
+    }
+
+    @PatchMapping("/state/{taskId}")
+    public ResponseEntity<Object> changeTaskState(@PathVariable UUID taskId,
+                                                  @RequestBody Task task,
+                                                  Authentication authentication){
+        this.taskService.changeTaskState(taskId, task.getState(), authentication);
+        return ResponseEntity.ok().build();
     }
 }

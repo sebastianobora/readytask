@@ -14,6 +14,10 @@ public final class ExceptionsMessages {
         return String.format("User %s is not allowed to %s", user.getEmail(), action);
     }
 
+    public static String getAccessDeniedToActionMessage(String action){
+        return String.format("Access denied to action: %s", action);
+    }
+
     public static String getNoDataFoundMessage(String dataSource, Object value){
         return String.format("Can't find data in: '%s' with value '%s'", dataSource, value);
     }
