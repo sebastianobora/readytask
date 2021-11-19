@@ -21,34 +21,18 @@
               <span class="button-label">Send to review</span>
             </button>
           </div>
-          <div (click)="redirectToProfileUrl(task.authorOfTask.username)" class="task-user-details-container">
-            <img *ngIf="task.authorOfTask.img else authorAvatarPlaceholder" [src]="task.authorOfTask.img"
-                 alt="author of task avatar" class="task-user-avatar"/>
-            <ng-template #authorAvatarPlaceholder>
-              <app-placeholder [text]="task.authorOfTask.firstName" class="avatar-placeholder"
-                               size="xxs"></app-placeholder>
-            </ng-template>
-            <div class="task-user-details">
-              <p>Assigned by</p>
-              <p>{{task.authorOfTask.firstName}} {{task.authorOfTask.lastName}}</p>
-            </div>
-          </div>
-          <div (click)="redirectToProfileUrl(task.userAssignedToTask.username)" class="task-user-details-container">
-            <img *ngIf="task.userAssignedToTask.img else userAssignedToPlaceholder"
-                 [src]="task.userAssignedToTask.img" alt="user assigned to task avatar" class="task-user-avatar"/>
-            <ng-template #userAssignedToPlaceholder>
-              <app-placeholder [text]="task.userAssignedToTask.firstName" class="avatar-placeholder"
-                               size="xxs"></app-placeholder>
-            </ng-template>
-            <div class="task-user-details">
-              <p>Assigned to</p>
-              <p>{{task.userAssignedToTask.firstName}} {{task.userAssignedToTask.lastName}}</p>
-            </div>
-          </div>
+
           <ng-template #authorOfTaskPanel>
             <div class="task-details-header-left">
               <button (click)="confirmAndStartTask(task.id)"
-                      *ngIf="task.state === taskState.IN_PROGRESS"
+                      *ngIf="task.state === taskState.TO_REVIEW"
+                      class="start-button"
+                      mat-raised-button>
+                <i class="fas fa-wrench"></i>
+                <span class="button-label">Set to fix</span>
+              </button>
+              <button (click)="confirmAndStartTask(task.id)"
+                      *ngIf="task.state === taskState.TO_REVIEW"
                       class="start-button"
                       mat-raised-button>
                 <i class="fas fa-wrench"></i>
@@ -56,11 +40,8 @@
               </button>
             </div>
           </ng-template>
+
           <div class="task-details-header-right">
-            <div [matTooltip]="deadlineTooltip" class="deadline-container" matTooltipClass="tooltip">
-              <i class="fas fa-hourglass-end deadline-icon"></i>
-              <p class="button-label deadline">{{task.deadline | date: 'dd.MM.yyyy'}}</p>
-            </div>
             <div class="task-progress-bar">
               <div [ngClass]="{'task-new': task.state === taskState.NEW}" class="task-progress-state">
                 <p class="task-progress-state-label">New</p>
@@ -77,6 +58,40 @@
               <div [ngClass]="{'task-finished': task.state === taskState.FINISHED}" class="task-progress-state">
                 <p class="task-progress-state-label">Finished</p>
               </div>
+            </div>
+          </div>
+        </div>
+        <div class="task-details-header">
+          <div class="task-details-header-left">
+            <div (click)="redirectToProfileUrl(task.authorOfTask.username)" class="task-user-details-container">
+              <img *ngIf="task.authorOfTask.img else authorAvatarPlaceholder" [src]="task.authorOfTask.img"
+                   alt="author of task avatar" class="task-user-avatar"/>
+              <ng-template #authorAvatarPlaceholder>
+                <app-placeholder [text]="task.authorOfTask.firstName" class="avatar-placeholder"
+                                 size="xxs"></app-placeholder>
+              </ng-template>
+              <div class="task-user-details">
+                <p>Assigned by</p>
+                <p>{{task.authorOfTask.firstName}} {{task.authorOfTask.lastName}}</p>
+              </div>
+            </div>
+            <div (click)="redirectToProfileUrl(task.userAssignedToTask.username)" class="task-user-details-container">
+              <img *ngIf="task.userAssignedToTask.img else userAssignedToPlaceholder"
+                   [src]="task.userAssignedToTask.img" alt="user assigned to task avatar" class="task-user-avatar"/>
+              <ng-template #userAssignedToPlaceholder>
+                <app-placeholder [text]="task.userAssignedToTask.firstName" class="avatar-placeholder"
+                                 size="xxs"></app-placeholder>
+              </ng-template>
+              <div class="task-user-details">
+                <p>Assigned to</p>
+                <p>{{task.userAssignedToTask.firstName}} {{task.userAssignedToTask.lastName}}</p>
+              </div>
+            </div>
+          </div>
+          <div class="task-details-header-right">
+            <div [matTooltip]="deadlineTooltip" class="deadline-container" matTooltipClass="tooltip">
+              <i class="fas fa-hourglass-end deadline-icon"></i>
+              <p class="button-label deadline">{{task.deadline | date: 'dd.MM.yyyy'}}</p>
             </div>
             <app-copy-to-clipboard [contentToCopy]="task.description" [copyTooltipMessage]="copyTooltip">
               <i class="fab fa-markdown md-icon"></i>

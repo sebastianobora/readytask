@@ -64,8 +64,8 @@ export class TaskComponent implements OnInit {
     const img = this.getLogoImage();
     const pdf = new jsPDF('portrait', 'pt', 'a4');
 
-    pdf.addImage(img, 40, 40, 28, 28);
     pdf.html(htmlContent, {autoPaging: true}).then(() => {
+        pdf.addImage(img, 40, 40, 28, 28);
         pdf.save(taskUUID);
       }
     );
