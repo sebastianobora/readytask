@@ -75,8 +75,9 @@ import {MyTasksComponent} from './components/authorized/tasks/my-tasks/my-tasks.
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {ClipboardModule} from '@angular/cdk/clipboard';
-import { CopyToClipboardComponent } from './components/common/copy-to-clipboard/copy-to-clipboard.component';
-import { GoBackButtonComponent } from './components/common/go-back-button/go-back-button.component';
+import {CopyToClipboardComponent} from './components/common/copy-to-clipboard/copy-to-clipboard.component';
+import {GoBackButtonComponent} from './components/common/go-back-button/go-back-button.component';
+import {OverlayModule} from '@angular/cdk/overlay';
 
 @NgModule({
   declarations: [
@@ -157,7 +158,8 @@ import { GoBackButtonComponent } from './components/common/go-back-button/go-bac
     MatProgressBarModule,
     MatStepperModule,
     MatSlideToggleModule,
-    ClipboardModule
+    ClipboardModule,
+    OverlayModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},

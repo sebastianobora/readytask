@@ -32,22 +32,6 @@
   blockquote {
     margin: 25px;
   }
-
-  pre {
-    width: fit-content;
-    margin: 20px 0;
-    padding: 15px;
-    background-color: #222;
-    border-radius: 5px;
-  }
-
-  code {
-    font-family: 'Consolas', sans-serif;
-    padding: 5px 10px;
-    line-height: 2rem;
-    background-color: #222;
-    border-radius: 3px;
-  }
 }
 
 .md-print > * {
@@ -98,5 +82,21 @@
 
   a:visited {
     color: #C58AF9;
+  }
+
+  pre {
+    width: fit-content;
+    margin: 20px 0;
+    padding: 10px 15px;
+    background-color: #222;
+    border-radius: 5px;
+  }
+
+  code {
+    font-family: 'Consolas', sans-serif;
+    padding: 5px 10px;
+    line-height: 2rem;
+    background-color: #222;
+    border-radius: 3px;
   }
 }

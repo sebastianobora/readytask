@@ -4,6 +4,29 @@ app-task {
   overflow: auto;
 }
 
+.task-header {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  height: 48px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.task-header-label-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 160px;
+  height: 100%;
+  border-bottom: 2px solid #7b1fa2;
+}
+
+.task-header-label {
+  font-size: 14px;
+  opacity: 0.6;
+  cursor: default;
+}
+
 .task-details-container {
   display: flex;
   flex-direction: column;
@@ -25,7 +48,7 @@ app-task {
   margin-top: 6px;
 }
 
-.start-button {
+.manage-state-button {
   font-size: 1.2rem;
   font-weight: bold;
   line-height: 28px !important;
@@ -152,23 +175,25 @@ app-task {
   flex-direction: row;
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 3px;
-  cursor: default;
+  cursor: pointer;
+}
+
+.task-progress-bar-overlay {
+  margin-top: 3px;
+  background-color: #424242;
+}
+
+.task-progress-bar-overlay .task-progress-state {
+  border-radius: unset;
 }
 
 .task-progress-state {
+  border-radius: 3px;
   padding: 0 12px;
 }
 
 .task-progress-state:not(:last-of-type) {
   border-right: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.task-progress-state:first-of-type {
-  border-radius: 3px 0 0 3px;
-}
-
-.task-progress-state:last-of-type {
-  border-radius: 0 3px 3px 0;
 }
 
 .task-progress-state-label {
@@ -189,11 +214,15 @@ app-task {
 }
 
 .task-to-fix {
-  background-color: rgba(178, 82, 27, 0.8);
+  background-color: rgba(171, 33, 101, 0.8);
 }
 
 .task-finished {
   background-color: rgba(0, 116, 194, 0.8);
+}
+
+.task-archived {
+  background-color: rgba(178, 82, 27, 0.8);
 }
 
 .print-container {
@@ -222,9 +251,18 @@ app-task {
   color: #cccccc;
 }
 
-.print-app-name {
-  margin-left: 40px;
+.print-app-header {
+  display: flex;
   padding-bottom: 15px;
+}
+
+.print-app-name {
+  margin-left: 12px;
   font-size: 2.5rem;
   color: #eee;
+}
+
+.print-logo {
+  width: 28px;
+  height: 28px;
 }

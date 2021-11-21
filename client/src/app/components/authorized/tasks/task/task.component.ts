@@ -2,7 +2,7 @@ import {Component, ElementRef, OnInit, ViewChild, ViewEncapsulation} from '@angu
 import {TaskService} from '../../../../service/task.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {TaskExtended} from '../../../../entity/task';
-import {SafeHtml} from '@angular/platform-browser';
+import {DomSanitizer, SafeHtml, SafeUrl} from '@angular/platform-browser';
 import {MarkdownService} from '../../../../service/markdown.service';
 import {TaskState} from '../../../../entity/task-state.enum';
 import {jsPDF} from 'jspdf';
@@ -11,6 +11,12 @@ import {ConfirmationService} from '../../../../service/confirmation.service';
 import {NotifierService} from '../../../../service/notifier.service';
 import {LoggedUserService} from '../../../../service/logged-user.service';
 import {User} from '../../../../entity/user';
+import {ConnectionPositionPair} from '@angular/cdk/overlay';
+
+interface taskStateProgressBar {
+  taskStateLabel: string;
+  taskStateClassName: string;
+}
 
 @Component({
   selector: 'app-task',
@@ -23,18 +29,36 @@ export class TaskComponent implements OnInit {
   loggedUser?: User;
   taskState = TaskState;
   task?: TaskExtended;
+  logoSafeUrl;
   copyTooltip = 'Copy markdown';
   downloadTaskTooltip = 'Download task as pdf';
   deadlineTooltip = 'Deadline';
   taskStartedMessage = 'Now the task is in progress';
+  taskDeletionSuccessfulMessage = 'Task has been deleted';
+  taskDeletionFailureMessage = 'Task cannot be deleted';
+  taskStateProgressBarMap = new Map<string, taskStateProgressBar>([
+    [TaskState.NEW, {taskStateLabel: 'New', taskStateClassName: 'task-new'}],
+    [TaskState.IN_PROGRESS, {taskStateLabel: 'In progress', taskStateClassName: 'task-in-progress'}],
+    [TaskState.TO_REVIEW, {taskStateLabel: 'To review', taskStateClassName: 'task-to-review'}],
+    [TaskState.TO_FIX, {taskStateLabel: 'To fix', taskStateClassName: 'task-to-fix'}],
+    [TaskState.FINISHED, {taskStateLabel: 'Finished', taskStateClassName: 'task-finished'}],
+    [TaskState.ARCHIVED, {taskStateLabel: 'Archived', taskStateClassName: 'task-archived'}]
+  ]);
+  isProgressBarTriggered = false;
+  positions = [
+    new ConnectionPositionPair(
+      {originX: 'end', originY: 'bottom'},
+      {overlayX: 'end', overlayY: 'top'})];
 
   constructor(private taskService: TaskService,
               private loggedUserService: LoggedUserService,
               private markdownService: MarkdownService,
               private confirmationService: ConfirmationService,
               private notifierService: NotifierService,
+              private sanitizer: DomSanitizer,
               private route: ActivatedRoute,
               private router: Router) {
+    this.logoSafeUrl = this.getSafeLogoImg();
   }
 
   ngOnInit(): void {
@@ -43,6 +67,11 @@ export class TaskComponent implements OnInit {
     if (id) {
       this.loadTask(id);
     }
+  }
+
+  getSafeLogoImg(): SafeUrl {
+    const logoUrl = 'assets/img/logo.png';
+    return this.sanitizer.bypassSecurityTrustUrl(logoUrl);
   }
 
   loadLoggedUser(): void {
@@ -61,20 +90,11 @@ export class TaskComponent implements OnInit {
     const htmlContent = this.taskPreview.nativeElement.cloneNode(true);
     htmlContent.classList.remove('hide-print-container');
 
-    const img = this.getLogoImage();
+    console.log(htmlContent)
+
     const pdf = new jsPDF('portrait', 'pt', 'a4');
-
-    pdf.html(htmlContent, {autoPaging: true}).then(() => {
-        pdf.addImage(img, 40, 40, 28, 28);
-        pdf.save(taskUUID);
-      }
-    );
-  }
-
-  getLogoImage(): HTMLImageElement {
-    let img = new Image();
-    img.src = 'assets/img/logo.png';
-    return img;
+    pdf.html(htmlContent, {autoPaging: 'text'})
+      .then(() => pdf.save(taskUUID));
   }
 
   redirectToProfileUrl(username: string): void {
@@ -95,7 +115,24 @@ export class TaskComponent implements OnInit {
     );
   }
 
-  confirmAndFinishTask(id: UUID) {
-    this.confirmationService.isConfirmed(() => this.saveTaskState(id, TaskState.FINISHED));
+  confirmAndChangeState(id: UUID, taskState: TaskState): void {
+    this.confirmationService.isConfirmed(() => this.saveTaskState(id, taskState));
+  }
+
+  confirmAndDeleteTask(id: UUID): void {
+    this.confirmationService.isConfirmed(() => this.deleteTask(id));
+  }
+
+  deleteTask(id: UUID): void {
+    this.taskService.delete(id).subscribe(
+      () => this.notifyAndRedirectAfterSuccessfulDeletion(),
+      () => this.notifierService.notify(this.taskDeletionFailureMessage, 'error')
+    );
+  }
+
+  notifyAndRedirectAfterSuccessfulDeletion(): void {
+    this.notifierService.notify(this.taskDeletionSuccessfulMessage, 'success');
+    const path = 'tasks/my-tasks';
+    this.router.navigate([path]);
   }
 }

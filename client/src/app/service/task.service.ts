@@ -27,4 +27,9 @@ export class TaskService {
     const task: Partial<Task> = {state: state};
     return this.httpClient.patch<any>(url, task);
   }
+
+  delete(taskId: UUID): Observable<any> {
+    const url = `${this.url}/task/${taskId}`;
+    return this.httpClient.delete<any>(url);
+  }
 }

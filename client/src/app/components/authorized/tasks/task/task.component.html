@@ -1,145 +1,155 @@
-<app-go-back-button></app-go-back-button>
-<mat-tab-group mat-align-tabs="center">
-  <mat-tab label="Task details">
-    <ng-template matTabContent>
-      <div *ngIf="task else loader" class="task-details-container">
-        <div class="task-details-header">
-          <div *ngIf="loggedUser?.id === task.userAssignedToTask.id else authorOfTaskPanel"
-               class="task-details-header-left">
-            <button (click)="confirmAndStartTask(task.id)"
-                    *ngIf="task.state === taskState.NEW"
-                    class="start-button"
-                    mat-raised-button>
-              <i class="fas fa-play"></i>
-              <span class="button-label">Start task</span>
-            </button>
-            <button (click)="confirmAndFinishTask(task.id)"
-                    *ngIf="task.state === taskState.IN_PROGRESS || task.state === taskState.TO_FIX"
-                    class="start-button"
-                    mat-raised-button>
-              <i class="fas fa-check-double"></i>
-              <span class="button-label">Send to review</span>
-            </button>
-          </div>
+<div class="task-header">
+  <app-go-back-button></app-go-back-button>
+  <div class="task-header-label-container">
+    <p class="task-header-label">Task details</p>
+  </div>
+</div>
+<div *ngIf="task else loader" class="task-details-container">
+  <div class="task-details-header">
+    <div class="task-details-header-left">
+      <ng-container *ngIf="loggedUser?.id === task.userAssignedToTask?.id">
+        <button (click)="confirmAndChangeState(task.id, taskState.IN_PROGRESS)"
+                *ngIf="task.state === taskState.NEW"
+                class="manage-state-button"
+                mat-raised-button>
+          <i class="fas fa-play"></i>
+          <span class="button-label">Start task</span>
+        </button>
+        <button (click)="confirmAndChangeState(task.id, taskState.TO_REVIEW)"
+                *ngIf="task.state === taskState.IN_PROGRESS || task.state === taskState.TO_FIX"
+                class="manage-state-button"
+                mat-raised-button>
+          <i class="fas fa-check-double"></i>
+          <span class="button-label">Send to review</span>
+        </button>
+      </ng-container>
 
-          <ng-template #authorOfTaskPanel>
-            <div class="task-details-header-left">
-              <button (click)="confirmAndStartTask(task.id)"
-                      *ngIf="task.state === taskState.TO_REVIEW"
-                      class="start-button"
-                      mat-raised-button>
-                <i class="fas fa-wrench"></i>
-                <span class="button-label">Set to fix</span>
-              </button>
-              <button (click)="confirmAndStartTask(task.id)"
-                      *ngIf="task.state === taskState.TO_REVIEW"
-                      class="start-button"
-                      mat-raised-button>
-                <i class="fas fa-wrench"></i>
-                <span class="button-label">Set to fix</span>
-              </button>
-            </div>
-          </ng-template>
+      <ng-container *ngIf="loggedUser?.id === task.authorOfTask?.id">
+        <button (click)="confirmAndChangeState(task.id, taskState.TO_FIX)"
+                *ngIf="task.state === taskState.TO_REVIEW"
+                class="manage-state-button"
+                mat-raised-button>
+          <i class="fas fa-wrench"></i>
+          <span class="button-label">Set to fix</span>
+        </button>
+        <button (click)="confirmAndChangeState(task.id, taskState.FINISHED)"
+                *ngIf="task.state === taskState.TO_REVIEW"
+                class="manage-state-button"
+                mat-raised-button>
+          <i class="fas fa-flag-checkered"></i>
+          <span class="button-label">Finish</span>
+        </button>
+        <button (click)="confirmAndChangeState(task.id, taskState.ARCHIVED)"
+                *ngIf="task.state === taskState.FINISHED"
+                class="manage-state-button"
+                mat-raised-button>
+          <i class="fas fa-box"></i>
+          <span class="button-label">Archive</span>
+        </button>
+        <button (click)="confirmAndDeleteTask(task.id)"
+                *ngIf="task.state === taskState.ARCHIVED"
+                class="manage-state-button"
+                mat-raised-button>
+          <i class="fas fa-trash-alt"></i>
+          <span class="button-label">Delete</span>
+        </button>
+      </ng-container>
 
-          <div class="task-details-header-right">
-            <div class="task-progress-bar">
-              <div [ngClass]="{'task-new': task.state === taskState.NEW}" class="task-progress-state">
-                <p class="task-progress-state-label">New</p>
-              </div>
-              <div [ngClass]="{'task-in-progress': task.state === taskState.IN_PROGRESS}" class="task-progress-state">
-                <p class="task-progress-state-label">In progress</p>
-              </div>
-              <div [ngClass]="{'task-to-review': task.state === taskState.TO_REVIEW}" class="task-progress-state">
-                <p class="task-progress-state-label">To review</p>
-              </div>
-              <div [ngClass]="{'task-to-fix': task.state === taskState.TO_FIX}" class="task-progress-state">
-                <p class="task-progress-state-label">To fix</p>
-              </div>
-              <div [ngClass]="{'task-finished': task.state === taskState.FINISHED}" class="task-progress-state">
-                <p class="task-progress-state-label">Finished</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="task-details-header">
-          <div class="task-details-header-left">
-            <div (click)="redirectToProfileUrl(task.authorOfTask.username)" class="task-user-details-container">
-              <img *ngIf="task.authorOfTask.img else authorAvatarPlaceholder" [src]="task.authorOfTask.img"
-                   alt="author of task avatar" class="task-user-avatar"/>
-              <ng-template #authorAvatarPlaceholder>
-                <app-placeholder [text]="task.authorOfTask.firstName" class="avatar-placeholder"
-                                 size="xxs"></app-placeholder>
-              </ng-template>
-              <div class="task-user-details">
-                <p>Assigned by</p>
-                <p>{{task.authorOfTask.firstName}} {{task.authorOfTask.lastName}}</p>
-              </div>
-            </div>
-            <div (click)="redirectToProfileUrl(task.userAssignedToTask.username)" class="task-user-details-container">
-              <img *ngIf="task.userAssignedToTask.img else userAssignedToPlaceholder"
-                   [src]="task.userAssignedToTask.img" alt="user assigned to task avatar" class="task-user-avatar"/>
-              <ng-template #userAssignedToPlaceholder>
-                <app-placeholder [text]="task.userAssignedToTask.firstName" class="avatar-placeholder"
-                                 size="xxs"></app-placeholder>
-              </ng-template>
-              <div class="task-user-details">
-                <p>Assigned to</p>
-                <p>{{task.userAssignedToTask.firstName}} {{task.userAssignedToTask.lastName}}</p>
-              </div>
-            </div>
-          </div>
-          <div class="task-details-header-right">
-            <div [matTooltip]="deadlineTooltip" class="deadline-container" matTooltipClass="tooltip">
-              <i class="fas fa-hourglass-end deadline-icon"></i>
-              <p class="button-label deadline">{{task.deadline | date: 'dd.MM.yyyy'}}</p>
-            </div>
-            <app-copy-to-clipboard [contentToCopy]="task.description" [copyTooltipMessage]="copyTooltip">
-              <i class="fab fa-markdown md-icon"></i>
-            </app-copy-to-clipboard>
-            <div class="download-task-container">
-              <button (click)="downloadTaskAsPdf(task.id)" [matTooltip]="downloadTaskTooltip"
-                      class="download-task-button"
-                      matTooltipClass="tooltip">
-                <i class="fas fa-file-download"></i>
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <div class="task-preview md-preview">
-          <div class="task-preview-header">
-            <div [innerHTML]="markdownToHtml(task.title)" class="task-title"></div>
-            <p class="task-preview-date">Created at: {{task.createdAt | date: 'dd.MM.yyyy'}}</p>
-          </div>
-          <div [innerHTML]="markdownToHtml(task.description)"></div>
-        </div>
-
-        <div #taskPreview class="print-container hide-print-container">
-          <p class="print-app-name">Readytask</p>
-          <div class="print-content-header">
-            <div>
-              <p><span>Task reference: </span>{{task.id}}</p>
-              <p><span>Team: </span>{{task.team.name}}</p>
-              <p><span>Assigned by: </span>{{task.authorOfTask.firstName}} {{task.authorOfTask.lastName}}</p>
-              <p><span>Assigned to: </span>{{task.userAssignedToTask.firstName}} {{task.userAssignedToTask.lastName}}
-              </p>
-            </div>
-            <div>
-              <p><span>Task created at: </span>{{task.createdAt | date: 'dd.MM.yyyy'}}</p>
-              <p><span>Deadline: </span>{{task.deadline | date: 'dd.MM.yyyy'}}</p>
-            </div>
-          </div>
-          <div class="md-print">
-            <div [innerHTML]="markdownToHtml(task.title)" class="task-title"></div>
-            <div [innerHTML]="markdownToHtml(task.description)" class="md-print"></div>
-          </div>
+      <div (click)="redirectToProfileUrl(task.authorOfTask.username)" class="task-user-details-container">
+        <img *ngIf="task.authorOfTask.img else authorAvatarPlaceholder" [src]="task.authorOfTask.img"
+             alt="author of task avatar" class="task-user-avatar"/>
+        <ng-template #authorAvatarPlaceholder>
+          <app-placeholder [text]="task.authorOfTask.firstName" class="avatar-placeholder"
+                           size="xxs"></app-placeholder>
+        </ng-template>
+        <div class="task-user-details">
+          <p>Assigned by</p>
+          <p>{{task.authorOfTask.firstName}} {{task.authorOfTask.lastName}}</p>
         </div>
       </div>
-    </ng-template>
-  </mat-tab>
-  <mat-tab label="Task forum">
-  </mat-tab>
-</mat-tab-group>
+      <div (click)="redirectToProfileUrl(task.userAssignedToTask.username)" class="task-user-details-container">
+        <img *ngIf="task.userAssignedToTask.img else userAssignedToPlaceholder"
+             [src]="task.userAssignedToTask.img" alt="user assigned to task avatar" class="task-user-avatar"/>
+        <ng-template #userAssignedToPlaceholder>
+          <app-placeholder [text]="task.userAssignedToTask.firstName" class="avatar-placeholder"
+                           size="xxs"></app-placeholder>
+        </ng-template>
+        <div class="task-user-details">
+          <p>Assigned to</p>
+          <p>{{task.userAssignedToTask.firstName}} {{task.userAssignedToTask.lastName}}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="task-details-header-right">
+      <div [matTooltip]="deadlineTooltip" class="deadline-container" matTooltipClass="tooltip">
+        <i class="fas fa-hourglass-end deadline-icon"></i>
+        <p class="button-label deadline">{{task.deadline | date: 'dd.MM.yyyy'}}</p>
+      </div>
+      <div #taskProgressBarTrigger="cdkOverlayOrigin" (mouseleave)="isProgressBarTriggered = false"
+           (mouseover)="isProgressBarTriggered = true" cdkOverlayOrigin
+           class="task-progress-bar">
+        <div [ngClass]="taskStateProgressBarMap.get(task.state)!.taskStateClassName" class="task-progress-state">
+          <p class="task-progress-state-label">{{taskStateProgressBarMap.get(task.state)!.taskStateLabel}}</p>
+        </div>
+      </div>
+      <ng-template [cdkConnectedOverlayOpen]="isProgressBarTriggered"
+                   [cdkConnectedOverlayOrigin]="taskProgressBarTrigger"
+                   [cdkConnectedOverlayPositions]="positions"
+                   cdkConnectedOverlay>
+        <div class="task-progress-bar task-progress-bar-overlay">
+          <div *ngFor="let taskStateProgressBar of taskStateProgressBarMap | keyvalue"
+               [ngClass]="task.state === taskStateProgressBar.key ? taskStateProgressBar.value.taskStateClassName : ''"
+               class="task-progress-state">
+            <p class="task-progress-state-label">{{taskStateProgressBar.value.taskStateLabel}}</p>
+          </div>
+        </div>
+      </ng-template>
+      <app-copy-to-clipboard [contentToCopy]="task.description" [copyTooltipMessage]="copyTooltip">
+        <i class="fab fa-markdown md-icon"></i>
+      </app-copy-to-clipboard>
+      <div class="download-task-container">
+        <button (click)="downloadTaskAsPdf(task.id)" [matTooltip]="downloadTaskTooltip"
+                class="download-task-button"
+                matTooltipClass="tooltip">
+          <i class="fas fa-file-download"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="task-preview md-preview">
+    <div class="task-preview-header">
+      <div [innerHTML]="markdownToHtml(task.title)" class="task-title"></div>
+      <p class="task-preview-date">Created at: {{task.createdAt | date: 'dd.MM.yyyy'}}</p>
+    </div>
+    <div [innerHTML]="markdownToHtml(task.description)"></div>
+  </div>
+
+  <div #taskPreview class="print-container hide-print-container">
+    <div class="print-app-header">
+      <img [src]="logoSafeUrl" alt="readytask-logo" class="print-logo">
+      <p class="print-app-name">Readytask</p>
+    </div>
+    <div class="print-content-header">
+      <div>
+        <p><span>Task reference: </span>{{task.id}}</p>
+        <p><span>Team: </span>{{task.team.name}}</p>
+        <p><span>Assigned by: </span>{{task.authorOfTask.firstName}} {{task.authorOfTask.lastName}}</p>
+        <p><span>Assigned to: </span>{{task.userAssignedToTask.firstName}} {{task.userAssignedToTask.lastName}}
+        </p>
+      </div>
+      <div>
+        <p><span>Task created at: </span>{{task.createdAt | date: 'dd.MM.yyyy'}}</p>
+        <p><span>Deadline: </span>{{task.deadline | date: 'dd.MM.yyyy'}}</p>
+      </div>
+    </div>
+    <div class="md-print">
+      <div [innerHTML]="markdownToHtml(task.title)" class="task-title"></div>
+      <div [innerHTML]="markdownToHtml(task.description)" class="md-print"></div>
+    </div>
+  </div>
+</div>
 
 <ng-template #loader>
   <div class="loader">
