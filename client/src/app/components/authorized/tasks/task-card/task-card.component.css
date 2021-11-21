@@ -1,0 +1,86 @@
+:host {
+  height: fit-content;
+  margin: 8px;
+  max-width: 300px;
+  width: 100%;
+}
+
+.task-card-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 15px;
+  background-color: #2a2a2a;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+}
+
+.task-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 0 2px;
+}
+
+.task-title {
+  text-transform: uppercase;
+  font-size: 1.1rem;
+  font-weight: bold;
+  line-height: 2.5rem;
+  cursor: default;
+  opacity: 0.8;
+}
+
+.task-state {
+  padding: 0 12px;
+  line-height: 2.5rem;
+  font-weight: bold;
+  border-radius: 3px;
+  cursor: default;
+}
+
+.task-card-body {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 12px 0;
+  padding: 12px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.task-card-body-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 0 2px;
+}
+
+.task-card-body-content:not(:first-of-type) {
+  margin-top: 12px;
+}
+
+.users-card-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-card {
+  margin-bottom: 8px;
+}
+
+.team-card {
+  background-color: #444444;
+  height: fit-content;
+  padding: 4px;
+  border-radius: 2px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  cursor: default;
+}
+
+.task-details-button {
+  width: 100%;
+}
+

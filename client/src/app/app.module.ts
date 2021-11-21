@@ -78,6 +78,9 @@ import {ClipboardModule} from '@angular/cdk/clipboard';
 import {CopyToClipboardComponent} from './components/common/copy-to-clipboard/copy-to-clipboard.component';
 import {GoBackButtonComponent} from './components/common/go-back-button/go-back-button.component';
 import {OverlayModule} from '@angular/cdk/overlay';
+import {TaskCardComponent} from './components/authorized/tasks/task-card/task-card.component';
+import {UserRelatedWithTaskCardComponent} from './components/authorized/tasks/user-related-with-task-card/user-related-with-task-card.component';
+import {DateTaskCard} from './components/authorized/tasks/date-task-card/date-task-card.component';
 
 @NgModule({
   declarations: [
@@ -122,7 +125,10 @@ import {OverlayModule} from '@angular/cdk/overlay';
     MarkedTestComponent,
     MyTasksComponent,
     CopyToClipboardComponent,
-    GoBackButtonComponent
+    GoBackButtonComponent,
+    TaskCardComponent,
+    UserRelatedWithTaskCardComponent,
+    DateTaskCard
   ],
   imports: [
     BrowserModule,

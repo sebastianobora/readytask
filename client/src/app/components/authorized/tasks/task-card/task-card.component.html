@@ -1,0 +1,32 @@
+<div class="task-card-container">
+  <div class="task-card-header">
+    <p class="task-title">{{task.title | trimText: 25}}</p>
+    <div [ngClass]="taskStateDataMap.get(task.state)!.taskStateClassName" class="task-state">
+      <p>{{taskStateDataMap.get(task.state)?.taskStateLabel}}</p>
+    </div>
+  </div>
+  <div class="task-card-body">
+    <div class="task-card-body-content">
+      <app-date-task-card [deadline]="task.createdAt" [tooltipMessage]="createdAtTooltip">
+        <i class="far fa-calendar-plus"></i>
+      </app-date-task-card>
+      <app-date-task-card [deadline]="task.deadline" [tooltipMessage]="deadlineTooltip">
+        <i class="fas fa-hourglass-end"></i>
+      </app-date-task-card>
+    </div>
+    <div class="task-card-body-content">
+      <div class="users-card-container">
+        <app-user-related-with-task-card [user]="task.authorOfTask" class="user-card"
+                                         userDetailsMessage="Assigned by"></app-user-related-with-task-card>
+        <app-user-related-with-task-card [user]="task.userAssignedToTask"
+                                         userDetailsMessage="Assigned to"></app-user-related-with-task-card>
+      </div>
+      <div [matTooltip]="'Team ' + task.team.name" class="team-card" matTooltipClass="tooltip">
+        <app-placeholder [text]="task.team.name" color="purple" shape="square" size="small"></app-placeholder>
+      </div>
+    </div>
+  </div>
+  <button (click)="taskService.redirectToTask(task.id)" class="task-details-button" mat-raised-button>Check
+    details
+  </button>
+</div>
