@@ -28,8 +28,7 @@ public class Task {
     @Column(name = "title", nullable = false)
     protected String title;
 
-    @Lob
-    @Column(name = "description", nullable = false)
+    @Column(columnDefinition="TEXT", name = "description", nullable = false)
     protected String description;
 
     @Column(name = "deadline", nullable = false)

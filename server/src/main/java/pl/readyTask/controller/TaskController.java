@@ -25,10 +25,11 @@ public class TaskController {
         return ResponseEntity.ok(extended ? TaskExtended.get(task) : task);
     }
 
-    @GetMapping("/user-assigned-to/{userId}")
-    public ResponseEntity<List<Task>> getByUserAssignedToId(@PathVariable Long userId,
-                                                            @RequestParam(required = false, defaultValue = "false") Boolean extended) {
-        List<Task> tasks = taskService.getByUserAssignedToId(userId);
+    @GetMapping("/user-assigned-to/current-logged")
+    public ResponseEntity<List<Task>> getByLoggedUserAssignedToTask(
+            @RequestParam(required = false, defaultValue = "false") Boolean extended,
+            Authentication authentication) {
+        List<Task> tasks = taskService.getByUserAssignedToId(authentication);
         return ResponseEntity.ok(extended ? TaskExtended.get(tasks) : tasks);
     }
 

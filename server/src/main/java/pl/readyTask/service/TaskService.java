@@ -36,9 +36,9 @@ public class TaskService {
         return taskRepository.save(task);
     }
 
-    public List<Task> getByUserAssignedToId(Long userId) {
-        //TODO: implement
-        return taskRepository.findAll();
+    public List<Task> getByUserAssignedToId(Authentication authentication) {
+        User user = securityService.getUserByEmailFromAuthentication(authentication);
+        return taskRepository.findByUserAssignedToTaskId(user.getId());
     }
 
     public void changeTaskState(UUID taskId, TaskState state, Authentication authentication) {
