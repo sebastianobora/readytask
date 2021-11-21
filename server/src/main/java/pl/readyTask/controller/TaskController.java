@@ -5,7 +5,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import pl.readyTask.entity.Task;
-import pl.readyTask.entity.enumeration.TaskState;
 import pl.readyTask.entity.extended.TaskExtended;
 import pl.readyTask.service.TaskService;
 
@@ -43,6 +42,12 @@ public class TaskController {
                                                   @RequestBody Task task,
                                                   Authentication authentication){
         this.taskService.changeTaskState(taskId, task.getState(), authentication);
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("/task/{taskId}")
+    public ResponseEntity<Object> delete(@PathVariable UUID taskId, Authentication authentication){
+        this.taskService.deleteById(taskId, authentication);
         return ResponseEntity.ok().build();
     }
 }

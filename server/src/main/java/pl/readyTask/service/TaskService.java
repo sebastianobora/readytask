@@ -12,7 +12,9 @@ import pl.readyTask.exception.AccessDeniedToActionException;
 import pl.readyTask.exception.NoDataFoundException;
 import pl.readyTask.repository.TaskRepository;
 
-import java.util.*;
+import java.util.List;
+import java.util.Objects;
+import java.util.UUID;
 
 @Service
 @AllArgsConstructor
@@ -21,7 +23,7 @@ public class TaskService {
     private final SecurityService securityService;
     private static final Logger logger = LoggerFactory.getLogger(TaskService.class);
     private final List<TaskState> statesAllowedToSetForUserAssignedToTask = List.of(TaskState.IN_PROGRESS, TaskState.TO_REVIEW);
-    private final List<TaskState> statesAllowedToSetForAuthorOfTask = List.of(TaskState.TO_FIX, TaskState.FINISHED);
+    private final List<TaskState> statesAllowedToSetForAuthorOfTask = List.of(TaskState.TO_FIX, TaskState.FINISHED, TaskState.ARCHIVED);
 
     public Task getById(UUID id) {
         return taskRepository.findById(id).orElseThrow(() -> new NoDataFoundException("task", id));
@@ -61,7 +63,22 @@ public class TaskService {
         return Objects.equals(user.getId(), task.getAuthorOfTask().getId());
     }
 
+    private void checkIsUserRelatedToTask(boolean isRelated){
+        if(!isRelated){
+            throw new AccessDeniedToActionException(AccessDeniedToActionException.noPermissionToTask);
+        }
+    }
+
     private boolean isUserAssignedToTask(User user, Task task){
         return Objects.equals(user.getId(), task.getUserAssignedToTask().getId());
+    }
+
+    public void deleteById(UUID taskId, Authentication authentication) {
+        User user = this.securityService.getUserByEmailFromAuthentication(authentication);
+        Task task = this.taskRepository.findById(taskId)
+                .orElseThrow(() -> new NoDataFoundException(Task.class.getName(), taskId));
+        boolean isUserAuthorOfTask = isUserAuthorOfTask(user, task);
+        checkIsUserRelatedToTask(isUserAuthorOfTask);
+        taskRepository.deleteById(taskId);
     }
 }
