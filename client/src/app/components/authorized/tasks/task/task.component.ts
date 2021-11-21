@@ -29,26 +29,16 @@ export class TaskComponent implements OnInit {
   loggedUser?: User;
   taskState = TaskState;
   task?: TaskExtended;
-  logoSafeUrl;
+  logoSafeUrl: SafeUrl;
+  overlayPosition: ConnectionPositionPair[];
+  taskStateProgressBarMap = new Map<string, taskStateProgressBar>();
   copyTooltip = 'Copy markdown';
   downloadTaskTooltip = 'Download task as pdf';
   deadlineTooltip = 'Deadline';
   taskStartedMessage = 'Now the task is in progress';
   taskDeletionSuccessfulMessage = 'Task has been deleted';
   taskDeletionFailureMessage = 'Task cannot be deleted';
-  taskStateProgressBarMap = new Map<string, taskStateProgressBar>([
-    [TaskState.NEW, {taskStateLabel: 'New', taskStateClassName: 'task-new'}],
-    [TaskState.IN_PROGRESS, {taskStateLabel: 'In progress', taskStateClassName: 'task-in-progress'}],
-    [TaskState.TO_REVIEW, {taskStateLabel: 'To review', taskStateClassName: 'task-to-review'}],
-    [TaskState.TO_FIX, {taskStateLabel: 'To fix', taskStateClassName: 'task-to-fix'}],
-    [TaskState.FINISHED, {taskStateLabel: 'Finished', taskStateClassName: 'task-finished'}],
-    [TaskState.ARCHIVED, {taskStateLabel: 'Archived', taskStateClassName: 'task-archived'}]
-  ]);
   isProgressBarTriggered = false;
-  positions = [
-    new ConnectionPositionPair(
-      {originX: 'end', originY: 'bottom'},
-      {overlayX: 'end', overlayY: 'top'})];
 
   constructor(private taskService: TaskService,
               private loggedUserService: LoggedUserService,
@@ -59,6 +49,8 @@ export class TaskComponent implements OnInit {
               private route: ActivatedRoute,
               private router: Router) {
     this.logoSafeUrl = this.getSafeLogoImg();
+    this.overlayPosition = this.getOverlayPosition();
+    this.setTaskStateProgressBarMap();
   }
 
   ngOnInit(): void {
@@ -67,6 +59,25 @@ export class TaskComponent implements OnInit {
     if (id) {
       this.loadTask(id);
     }
+  }
+
+  originalOrder = (): number => {
+    return 0;
+  };
+
+  setTaskStateProgressBarMap(): void {
+    this.taskStateProgressBarMap.set(TaskState.NEW, {taskStateLabel: 'New', taskStateClassName: 'task-new'});
+    this.taskStateProgressBarMap.set(TaskState.IN_PROGRESS, {taskStateLabel: 'In progress', taskStateClassName: 'task-in-progress'});
+    this.taskStateProgressBarMap.set(TaskState.TO_REVIEW, {taskStateLabel: 'To review', taskStateClassName: 'task-to-review'});
+    this.taskStateProgressBarMap.set(TaskState.TO_FIX, {taskStateLabel: 'To fix', taskStateClassName: 'task-to-fix'});
+    this.taskStateProgressBarMap.set(TaskState.FINISHED, {taskStateLabel: 'Finished', taskStateClassName: 'task-finished'});
+    this.taskStateProgressBarMap.set(TaskState.ARCHIVED, {taskStateLabel: 'Archived', taskStateClassName: 'task-archived'});
+  }
+
+  getOverlayPosition(): ConnectionPositionPair[] {
+    return [new ConnectionPositionPair(
+      {originX: 'end', originY: 'bottom'},
+      {overlayX: 'end', overlayY: 'top'})];
   }
 
   getSafeLogoImg(): SafeUrl {
@@ -90,7 +101,7 @@ export class TaskComponent implements OnInit {
     const htmlContent = this.taskPreview.nativeElement.cloneNode(true);
     htmlContent.classList.remove('hide-print-container');
 
-    console.log(htmlContent)
+    console.log(htmlContent);
 
     const pdf = new jsPDF('portrait', 'pt', 'a4');
     pdf.html(htmlContent, {autoPaging: 'text'})

@@ -95,10 +95,10 @@
       </div>
       <ng-template [cdkConnectedOverlayOpen]="isProgressBarTriggered"
                    [cdkConnectedOverlayOrigin]="taskProgressBarTrigger"
-                   [cdkConnectedOverlayPositions]="positions"
+                   [cdkConnectedOverlayPositions]="overlayPosition"
                    cdkConnectedOverlay>
         <div class="task-progress-bar task-progress-bar-overlay">
-          <div *ngFor="let taskStateProgressBar of taskStateProgressBarMap | keyvalue"
+          <div *ngFor="let taskStateProgressBar of taskStateProgressBarMap | keyvalue: originalOrder"
                [ngClass]="task.state === taskStateProgressBar.key ? taskStateProgressBar.value.taskStateClassName : ''"
                class="task-progress-state">
             <p class="task-progress-state-label">{{taskStateProgressBar.value.taskStateLabel}}</p>
