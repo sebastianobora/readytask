@@ -201,30 +201,6 @@ app-task {
   font-weight: bold;
 }
 
-.task-new {
-  background-color: rgba(48, 171, 83, 0.8);
-}
-
-.task-in-progress {
-  background-color: rgba(117, 65, 141, 0.8);
-}
-
-.task-to-review {
-  background-color: rgba(23, 171, 129, 0.8);
-}
-
-.task-to-fix {
-  background-color: rgba(171, 33, 101, 0.8);
-}
-
-.task-finished {
-  background-color: rgba(0, 116, 194, 0.8);
-}
-
-.task-archived {
-  background-color: rgba(178, 82, 27, 0.8);
-}
-
 .print-container {
   min-height: 841px;
   min-width: 596px;

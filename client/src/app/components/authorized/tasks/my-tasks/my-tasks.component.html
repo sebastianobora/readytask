@@ -1,1 +1,21 @@
+<mat-tab-group mat-align-tabs="center">
+  <mat-tab label="Assigned to me">
+    <ng-template matTabContent>
+      <div *ngIf="(tasksAssignedToLoggedUser | async) as tasks else loader" class="task-cards-container">
+        <app-task-card *ngFor="let task of tasks" [task]="task"></app-task-card>
+      </div>
+    </ng-template>
+  </mat-tab>
 
+  <mat-tab label="Managed by me">
+    <ng-template matTabContent>
+
+    </ng-template>
+  </mat-tab>
+</mat-tab-group>
+
+<ng-template #loader>
+  <div class="loader">
+    <mat-spinner></mat-spinner>
+  </div>
+</ng-template>

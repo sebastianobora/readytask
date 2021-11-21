@@ -1,4 +1,7 @@
 import {Component, OnInit} from '@angular/core';
+import {TaskService} from '../../../../service/task.service';
+import {Observable} from 'rxjs';
+import {TaskExtended} from '../../../../entity/task';
 
 @Component({
   selector: 'app-my-tasks',
@@ -6,9 +9,10 @@ import {Component, OnInit} from '@angular/core';
   styleUrls: ['./my-tasks.component.css']
 })
 export class MyTasksComponent implements OnInit {
-  selected = '';
+  tasksAssignedToLoggedUser?: Observable<TaskExtended[]>;
 
-  constructor() {
+  constructor(private taskService: TaskService) {
+    this.tasksAssignedToLoggedUser = this.taskService.getTasksAssignedToUser(true);
   }
 
   ngOnInit(): void {

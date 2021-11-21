@@ -12,16 +12,13 @@ import {NotifierService} from '../../../../service/notifier.service';
 import {LoggedUserService} from '../../../../service/logged-user.service';
 import {User} from '../../../../entity/user';
 import {ConnectionPositionPair} from '@angular/cdk/overlay';
-
-interface taskStateProgressBar {
-  taskStateLabel: string;
-  taskStateClassName: string;
-}
+import {TaskStateDataMap} from '../../../../../assets/TaskStateDataMap';
 
 @Component({
   selector: 'app-task',
   templateUrl: './task.component.html',
-  styleUrls: ['./task.component.css', '../../../../../assets/markdown.scss'],
+  styleUrls: ['./task.component.css',
+    '../../../../../assets/markdown.scss'],
   encapsulation: ViewEncapsulation.None
 })
 export class TaskComponent implements OnInit {
@@ -31,7 +28,7 @@ export class TaskComponent implements OnInit {
   task?: TaskExtended;
   logoSafeUrl: SafeUrl;
   overlayPosition: ConnectionPositionPair[];
-  taskStateProgressBarMap = new Map<string, taskStateProgressBar>();
+  taskStateDataMap = TaskStateDataMap;
   copyTooltip = 'Copy markdown';
   downloadTaskTooltip = 'Download task as pdf';
   deadlineTooltip = 'Deadline';
@@ -50,7 +47,6 @@ export class TaskComponent implements OnInit {
               private router: Router) {
     this.logoSafeUrl = this.getSafeLogoImg();
     this.overlayPosition = this.getOverlayPosition();
-    this.setTaskStateProgressBarMap();
   }
 
   ngOnInit(): void {
@@ -64,15 +60,6 @@ export class TaskComponent implements OnInit {
   originalOrder = (): number => {
     return 0;
   };
-
-  setTaskStateProgressBarMap(): void {
-    this.taskStateProgressBarMap.set(TaskState.NEW, {taskStateLabel: 'New', taskStateClassName: 'task-new'});
-    this.taskStateProgressBarMap.set(TaskState.IN_PROGRESS, {taskStateLabel: 'In progress', taskStateClassName: 'task-in-progress'});
-    this.taskStateProgressBarMap.set(TaskState.TO_REVIEW, {taskStateLabel: 'To review', taskStateClassName: 'task-to-review'});
-    this.taskStateProgressBarMap.set(TaskState.TO_FIX, {taskStateLabel: 'To fix', taskStateClassName: 'task-to-fix'});
-    this.taskStateProgressBarMap.set(TaskState.FINISHED, {taskStateLabel: 'Finished', taskStateClassName: 'task-finished'});
-    this.taskStateProgressBarMap.set(TaskState.ARCHIVED, {taskStateLabel: 'Archived', taskStateClassName: 'task-archived'});
-  }
 
   getOverlayPosition(): ConnectionPositionPair[] {
     return [new ConnectionPositionPair(
