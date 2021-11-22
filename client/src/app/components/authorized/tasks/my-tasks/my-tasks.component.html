@@ -1,9 +1,19 @@
 <mat-tab-group mat-align-tabs="center">
   <mat-tab label="Assigned to me">
     <ng-template matTabContent>
+      <div class="tasks-cards-header">
+        <mat-form-field appearance="fill">
+          <mat-label>Teams</mat-label>
+          <mat-select>
+            <mat-option>
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
       <div *ngIf="(tasksAssignedToLoggedUser | async) as tasks else loader" class="task-cards-container">
         <app-task-card *ngFor="let task of tasks" [task]="task"></app-task-card>
       </div>
+      <mat-paginator [length]="100" [pageSize]="15" hidePageSize showFirstLastButtons></mat-paginator>
     </ng-template>
   </mat-tab>
 

@@ -1,0 +1,4 @@
+<div [matTooltip]="tooltipMessage" class="deadline-container" matTooltipClass="tooltip">
+  <ng-content class="deadline-icon"></ng-content>
+  <p class="deadline">{{deadline | date: 'dd.MM.yyyy'}}</p>
+</div>

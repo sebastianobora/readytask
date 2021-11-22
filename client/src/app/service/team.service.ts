@@ -4,6 +4,7 @@ import {forkJoin, Observable} from 'rxjs';
 import {Team} from '../entity/team';
 import {map, mergeMap, switchMap} from 'rxjs/operators';
 import {MembershipService} from './membership.service';
+import {Router} from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,7 @@ export class TeamService {
   private url = 'http://localhost:8080/teams';
 
   constructor(private httpClient: HttpClient,
+              private router: Router,
               private membershipService: MembershipService) {
   }
 
@@ -49,5 +51,10 @@ export class TeamService {
 
   deleteTeam(id: number): Observable<any> {
     return this.httpClient.delete(this.url + '/' + id);
+  }
+
+  redirectToTeamDetails(id: number): void {
+    const url = `/teams/team/${id}`;
+    this.router.navigate([url]);
   }
 }

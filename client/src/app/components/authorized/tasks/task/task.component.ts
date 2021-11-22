@@ -95,11 +95,6 @@ export class TaskComponent implements OnInit {
       .then(() => pdf.save(taskUUID));
   }
 
-  redirectToProfileUrl(username: string): void {
-    const profilePath = `profile/public/${username}`;
-    this.router.navigate([profilePath]);
-  }
-
   confirmAndStartTask(id: UUID): void {
     this.confirmationService.isConfirmed(() => this.saveTaskState(id, TaskState.IN_PROGRESS));
   }

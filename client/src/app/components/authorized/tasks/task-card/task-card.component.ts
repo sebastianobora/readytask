@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {TaskExtended} from '../../../../entity/task';
 import {TaskStateDataMap} from '../../../../../assets/TaskStateDataMap';
 import {TaskService} from '../../../../service/task.service';
+import {TeamService} from '../../../../service/team.service';
 
 @Component({
   selector: 'app-task-card',
@@ -13,8 +14,11 @@ export class TaskCardComponent implements OnInit {
   taskStateDataMap = TaskStateDataMap;
   deadlineTooltip = 'Deadline';
   createdAtTooltip = 'Created at';
+  copyTaskRefMessage = 'Copy task reference';
+  currentDate = new Date();
 
-  constructor(public taskService: TaskService) {
+  constructor(public taskService: TaskService,
+              public teamService: TeamService) {
   }
 
   ngOnInit(): void {

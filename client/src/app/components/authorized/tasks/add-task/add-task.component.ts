@@ -47,11 +47,7 @@ export class AddTaskComponent implements OnInit {
   }
 
   getMinDeadline(): Date {
-    const date = new Date();
-    const day = date.getDate();
-    const month = date.getMonth();
-    const year = date.getFullYear();
-    return new Date(year, month, day);
+    return new Date();
   }
 
   getMaxDeadline(): Date {
@@ -90,17 +86,12 @@ export class AddTaskComponent implements OnInit {
     this.taskService.addTask(this.task as Task)
       .subscribe(task => {
         this.successfulNotify();
-        this.redirectToTask(task.id);
+        this.taskService.redirectToTask(task.id);
       });
   }
 
   successfulNotify(): void {
     const message = this.task.title + 'task has been added';
     this.notifierService.notify(message, 'success');
-  }
-
-  redirectToTask(id: string): void {
-    const url = '/tasks/task/' + id;
-    this.router.navigate([url]);
   }
 }

@@ -1,7 +1,9 @@
-<div class="task-card-container">
+<div [ngClass]="taskStateDataMap.get(task.state)!.borderClassName" class="task-card-container">
   <div class="task-card-header">
-    <p class="task-title">{{task.title | trimText: 25}}</p>
-    <div [ngClass]="taskStateDataMap.get(task.state)!.taskStateClassName" class="task-state">
+    <app-copy-to-clipboard [contentToCopy]="task.id" [copyTooltipMessage]="copyTaskRefMessage">
+      <p class="task-title">{{task.title | trimText: 25}}</p>
+    </app-copy-to-clipboard>
+    <div [ngClass]="taskStateDataMap.get(task.state)!.backgroundClassName" class="task-state">
       <p>{{taskStateDataMap.get(task.state)?.taskStateLabel}}</p>
     </div>
   </div>
@@ -21,7 +23,9 @@
         <app-user-related-with-task-card [user]="task.userAssignedToTask"
                                          userDetailsMessage="Assigned to"></app-user-related-with-task-card>
       </div>
-      <div [matTooltip]="'Team ' + task.team.name" class="team-card" matTooltipClass="tooltip">
+      <div (click)="teamService.redirectToTeamDetails(task.team.id)" [matTooltip]="'Team ' + task.team.name"
+           class="team-card"
+           matTooltipClass="tooltip">
         <app-placeholder [text]="task.team.name" color="purple" shape="square" size="small"></app-placeholder>
       </div>
     </div>

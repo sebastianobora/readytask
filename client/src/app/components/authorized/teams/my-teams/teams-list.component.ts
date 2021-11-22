@@ -13,7 +13,7 @@ export class TeamsListComponent implements OnInit {
   adminRole: MemberRole = MemberRole.ADMIN;
   teams?: Team[];
 
-  constructor(private teamService: TeamService) {
+  constructor(public teamService: TeamService) {
   }
 
   ngOnInit(): void {

@@ -3,11 +3,6 @@
   width: 100%;
 }
 
-.mat-paginator {
-  border-bottom-right-radius: 5px;
-  background-color: #252525;
-}
-
 .teams-list-container {
   display: flex;
   flex-wrap: wrap;

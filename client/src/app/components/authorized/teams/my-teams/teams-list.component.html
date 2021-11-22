@@ -5,7 +5,7 @@
 
   <ng-template #content>
     <app-not-found-teams *ngIf="!teams"></app-not-found-teams>
-    <div *ngFor="let team of teams" [routerLink]="['/teams/team', team.id]" class="team-wrapper">
+    <div (click)="teamService.redirectToTeamDetails(team.id)" *ngFor="let team of teams" class="team-wrapper">
       <div class="team-img-wrapper">
         <i *ngIf="team.membership.memberRole === adminRole" class="fas fa-crown own-team-icon"></i>
         <a>

@@ -1,0 +1,12 @@
+<div (click)="redirectToProfileUrl(user.username)" class="task-user-details-container">
+  <img *ngIf="user.img else userAssignedToPlaceholder"
+       [src]="user.img" alt="user related with task avatar" class="task-user-avatar"/>
+  <ng-template #userAssignedToPlaceholder>
+    <app-placeholder [text]="user.firstName" class="avatar-placeholder"
+                     size="xxs"></app-placeholder>
+  </ng-template>
+  <div class="task-user-details">
+    <p>{{userDetailsMessage}}</p>
+    <p>{{user.firstName}} {{user.lastName}}</p>
+  </div>
+</div>

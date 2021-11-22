@@ -4,6 +4,7 @@ import {Observable} from 'rxjs';
 import {Task, TaskExtended} from '../entity/task';
 import {UUID} from '../../assets/uuid-type';
 import {TaskState} from '../entity/task-state.enum';
+import {Router} from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,13 @@ import {TaskState} from '../entity/task-state.enum';
 export class TaskService {
   private url = 'http://localhost:8080/tasks';
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private httpClient: HttpClient,
+              private router: Router) {
+  }
+
+  getTasksAssignedToUser(extended: true | false = false): Observable<TaskExtended[]> {
+    const url = `${this.url}/user-assigned-to/current-logged?extended=${extended}`;
+    return this.httpClient.get<TaskExtended[]>(url);
   }
 
   getTask(id: string): Observable<TaskExtended> {
@@ -31,5 +38,10 @@ export class TaskService {
   delete(taskId: UUID): Observable<any> {
     const url = `${this.url}/task/${taskId}`;
     return this.httpClient.delete<any>(url);
+  }
+
+  redirectToTask(id: string): void {
+    const url = '/tasks/task/' + id;
+    this.router.navigate([url]);
   }
 }

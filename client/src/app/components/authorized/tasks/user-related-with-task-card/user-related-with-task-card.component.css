@@ -1,0 +1,27 @@
+.task-user-details-container {
+  display: flex;
+  align-items: center;
+}
+
+.task-user-details-container:hover {
+  cursor: pointer;
+  opacity: 0.8;
+}
+
+.task-user-avatar {
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  margin-right: 8px;
+}
+
+.avatar-placeholder {
+  margin-right: 8px;
+}
+
+.task-user-details {
+  display: flex;
+  flex-direction: column;
+  font-weight: bold;
+  opacity: 0.9;
+}
