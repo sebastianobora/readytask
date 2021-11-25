@@ -19,21 +19,29 @@ export class MembershipService {
   }
 
   getLoggedUserMembershipByTeamId(id: number | string): Observable<Membership>;
-  getLoggedUserMembershipByTeamId(id: number | string, extended: true): Observable<MembershipExtended>;
-  getLoggedUserMembershipByTeamId(id: number | string, extended: boolean = false): Observable<Membership | MembershipExtended> {
-    const url = `${this.url}/user/logged/team/${id}?extended=${extended}`;
+  getLoggedUserMembershipByTeamId(id: number | string, options: { extended: true }): Observable<MembershipExtended>;
+  getLoggedUserMembershipByTeamId(id: number | string, options: { extended: boolean } = {extended: false}): Observable<Membership | MembershipExtended> {
+    const url = `${this.url}/user/logged/team/${id}?extended=${options.extended}`;
     return this.httpClient.get<Membership | MembershipExtended>(url);
   }
 
-  getMembershipsByTeamId(id: string | number, extended: true): Observable<MembershipExtended[]>;
   getMembershipsByTeamId(id: string | number): Observable<Membership[]>;
+  getMembershipsByTeamId(id: string | number, extended: true): Observable<MembershipExtended[]>;
   getMembershipsByTeamId(id: string | number, extended: boolean = false): Observable<Membership[] | MembershipExtended[]> {
     const url = `${this.url}/team-id/${id}?extended=${extended}`;
     return this.httpClient.get<Membership[] | MembershipExtended[]>(url);
   }
 
+  getLoggedUserMemberships(): Observable<Membership[]>;
+  getLoggedUserMemberships(options: { extended: true }): Observable<MembershipExtended[]>;
+  getLoggedUserMemberships(options: { extended: boolean } = {extended: false}): Observable<Membership[] | MembershipExtended[]> {
+    const url = `${this.url}/user/logged?extended=${options.extended}`;
+    return this.httpClient.get<Membership[] | MembershipExtended[]>(url);
+  }
+
   addByTeamCode(code: string): Observable<Membership> {
-    return this.httpClient.post<Membership>(`${this.url}/add-by-code/${code}`, null);
+    const url = `${this.url}/add-by-code/${code}`;
+    return this.httpClient.post<Membership>(url, null);
   }
 
   updateMembership(id: string | number, role: MemberRole): Observable<Membership> {

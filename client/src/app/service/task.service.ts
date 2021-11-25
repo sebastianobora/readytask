@@ -21,9 +21,13 @@ export class TaskService {
     return this.httpClient.get<TaskExtended[]>(url);
   }
 
-  getTask(id: string): Observable<TaskExtended> {
-    return this.httpClient.get<TaskExtended>(`${this.url}/${id}?extended=true`);
+  getTask(id: string | number): Observable<Task>
+  getTask(id: string | number, options: { extended: true }): Observable<TaskExtended>
+  getTask(id: string | number, options = {extended: false}): Observable<Task | TaskExtended> {
+    const url = `${this.url}/${id}?extended=${options.extended}`;
+    return this.httpClient.get<Task | TaskExtended>(url);
   }
+
 
   addTask(task: Task): Observable<Task> {
     return this.httpClient.post<Task>(this.url, task);

@@ -13,9 +13,15 @@
 }
 
 .tasks-cards-header {
+  display: flex;
+  align-items: center;
   padding: 0 14px;
-  min-height: 56px;
+  height: 56px;
   background-color: #252525;
+}
+
+.mat-form-field {
+  padding-top: 1.34375em;
 }
 
 @media (max-width: 667px) {

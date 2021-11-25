@@ -2,10 +2,11 @@
   <mat-tab label="Assigned to me">
     <ng-template matTabContent>
       <div class="tasks-cards-header">
-        <mat-form-field appearance="fill">
+        <mat-form-field appearance="fill" class="select-form-field">
           <mat-label>Teams</mat-label>
-          <mat-select>
-            <mat-option>
+          <mat-select [(ngModel)]="selectValue">
+            <mat-option *ngFor="let membership of (loggedUserMemberships | async)" [value]="membership.team.id">
+              {{membership.team.name}}
             </mat-option>
           </mat-select>
         </mat-form-field>

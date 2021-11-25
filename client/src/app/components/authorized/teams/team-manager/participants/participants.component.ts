@@ -37,7 +37,7 @@ export class ParticipantsComponent implements OnInit {
   }
 
   getLoggedUserMembershipAndSetTableColumns(): void {
-    this.membershipService.getLoggedUserMembershipByTeamId(this.teamId, true).subscribe(
+    this.membershipService.getLoggedUserMembershipByTeamId(this.teamId, {extended: true}).subscribe(
       membership => {
         this.loggedUserMembership = membership;
         this.setTableColumns(membership);

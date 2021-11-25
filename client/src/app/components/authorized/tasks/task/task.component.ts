@@ -77,7 +77,7 @@ export class TaskComponent implements OnInit {
   }
 
   loadTask(id: UUID): void {
-    this.taskService.getTask(id).subscribe(task => this.task = task);
+    this.taskService.getTask(id, {extended: true}).subscribe(task => this.task = task);
   }
 
   markdownToHtml(markdownText: string): SafeHtml {

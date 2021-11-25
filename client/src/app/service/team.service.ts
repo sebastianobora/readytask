@@ -18,7 +18,7 @@ export class TeamService {
               private membershipService: MembershipService) {
   }
 
-  getTeam(id: string): Observable<Team> {
+  getTeam(id: string | number): Observable<Team> {
     return this.httpClient.get<Team>(`${this.url}/${id}`).pipe(
       switchMap(team => {
         return this.membershipService.getLoggedUserMembershipByTeamId(team.id).pipe(

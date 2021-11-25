@@ -40,7 +40,8 @@
           <mat-form-field appearance="fill">
             <mat-label>Teams</mat-label>
             <mat-select (selectionChange)="setUsersFromPickedTeam()" [(ngModel)]="task.teamId">
-              <mat-option *ngFor="let team of teamsManagedByUser | async" [value]="team.id">{{team.name}}
+              <mat-option *ngFor="let membership of (loggedUserMemberships | async)"
+                          [value]="membership.team.id">{{membership.team.name}}
               </mat-option>
             </mat-select>
           </mat-form-field>

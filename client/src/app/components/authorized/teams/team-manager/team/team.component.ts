@@ -23,8 +23,8 @@ export class TeamComponent implements OnInit {
     const teamId = this.route.snapshot.paramMap.get('id');
     if (teamId) {
       this.teamId = teamId;
+      this.teamService.getTeam(teamId).subscribe(() => {
+      }, () => this.router.navigate(['teams/my-teams']));
     }
-    this.teamService.getTeam(teamId as string).subscribe(() => {
-    }, () => this.router.navigate(['teams/my-teams']));
   }
 }

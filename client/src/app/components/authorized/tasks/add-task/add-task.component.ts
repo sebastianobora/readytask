@@ -5,7 +5,6 @@ import {Task} from '../../../../entity/task';
 import {TaskService} from '../../../../service/task.service';
 import {Router} from '@angular/router';
 import {MemberRole} from '../../../../entity/member-role.enum';
-import {Team} from '../../../../entity/team';
 import {Observable} from 'rxjs';
 import {User} from '../../../../entity/user';
 import {SafeHtml} from '@angular/platform-browser';
@@ -14,6 +13,8 @@ import {MarkdownService} from '../../../../service/markdown.service';
 import {NotifierService} from '../../../../service/notifier.service';
 import {StepperOrientation} from '@angular/cdk/stepper';
 import {BreakpointObserver} from '@angular/cdk/layout';
+import {MembershipExtended} from '../../../../entity/membership';
+import {MembershipService} from '../../../../service/membership.service';
 
 @Component({
   selector: 'app-add-task',
@@ -25,19 +26,20 @@ export class AddTaskComponent implements OnInit {
   previewMode = false;
   minDeadline: Date;
   maxDeadline: Date;
-  teamsManagedByUser: Observable<Team[]>;
+  loggedUserMemberships: Observable<MembershipExtended[]>;
   usersFromSelectedTeam?: Observable<User[]>;
   stepperOrientation: Observable<StepperOrientation>;
   task: Partial<Task> = {};
 
   constructor(private teamService: TeamService,
+              private membershipService: MembershipService,
               private userService: UserService,
               private taskService: TaskService,
               private markdownService: MarkdownService,
               private notifierService: NotifierService,
               private router: Router,
               private breakpointObserver: BreakpointObserver) {
-    this.teamsManagedByUser = this.getTeamsManagedByUser();
+    this.loggedUserMemberships = this.getLoggedUserMemberships();
     this.stepperOrientation = this.getStepperOrientation();
     this.minDeadline = this.getMinDeadline();
     this.maxDeadline = this.getMaxDeadline();
@@ -62,13 +64,9 @@ export class AddTaskComponent implements OnInit {
       .pipe(map(({matches}) => (matches ? 'horizontal' : 'vertical')));
   }
 
-  getTeamsManagedByUser(): Observable<Team[]> {
-    return this.teamService.getLoggedUserTeams()
-      .pipe(map(teams => this.filterTeamsByAdminRole(teams)));
-  }
-
-  filterTeamsByAdminRole(teams: Team[]): Team[] {
-    return teams.filter(team => team.membership.memberRole === MemberRole.ADMIN);
+  getLoggedUserMemberships(): Observable<MembershipExtended[]> {
+    return this.membershipService.getLoggedUserMemberships({extended: true})
+      .pipe(map(memberships => memberships.filter(membership => membership.memberRole === MemberRole.ADMIN)));
   }
 
   setUsersFromPickedTeam(): void {
