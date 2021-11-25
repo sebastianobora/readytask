@@ -28,8 +28,16 @@ public class MembershipController {
             @PathVariable Long teamId,
             Authentication authentication,
             @RequestParam(required = false, defaultValue = "false") Boolean extended) {
-        Membership membership = membershipService.getByAndTeamIdAndLoggedUser(teamId, authentication);
+        Membership membership = membershipService.getByTeamIdAndLoggedUser(teamId, authentication);
         return ResponseEntity.ok(extended ? MembershipExtended.get(membership) : membership);
+    }
+
+    @GetMapping("/user/logged")
+    public ResponseEntity<List<Membership>> getLoggedUserMemberships(
+            Authentication authentication,
+            @RequestParam(required = false, defaultValue = "false") Boolean extended){
+        List<Membership> memberships = membershipService.getLoggedUserMemberships(authentication);
+        return ResponseEntity.ok(extended ? MembershipExtended.get(memberships) : memberships);
     }
 
     @GetMapping("/team-id/{id}")

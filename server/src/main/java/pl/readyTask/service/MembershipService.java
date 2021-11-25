@@ -42,10 +42,16 @@ public class MembershipService {
         return membership;
     }
 
-    public Membership getByAndTeamIdAndLoggedUser(Long teamId, Authentication authentication) {
+    public Membership getByTeamIdAndLoggedUser(Long teamId, Authentication authentication) {
         User user = securityService.getUserByEmailFromAuthentication(authentication);
         return membershipRepository.findMembershipByTeamIdAndUserId(teamId, user.getId())
                 .orElseThrow(() -> new NoDataFoundException("membership", teamId));
+    }
+
+    public List<Membership> getLoggedUserMemberships(Authentication authentication) {
+        User user = securityService.getUserByEmailFromAuthentication(authentication);
+        return membershipRepository.findAllByUserId(user.getId())
+                .orElseThrow(() -> new NoDataFoundException(Membership.class.getName(), "id", user.getId()));
     }
 
     public List<Membership> getMembershipsByTeamId(Long teamId) {
