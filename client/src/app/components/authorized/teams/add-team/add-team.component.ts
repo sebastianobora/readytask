@@ -22,9 +22,8 @@ export class AddTeamComponent implements OnInit {
 
   addTeam(): void {
     this.teamService.addTeam(this.team as Team).subscribe(
-      res => {
-        const url = '/teams/team/' + res.id;
-        this.router.navigate([url]);
+      team => {
+        this.teamService.redirectToTeamDetails(team.id);
         this.notifierService.notify(`${this.team.name} has been created successfully!`, 'success');
       }
     );

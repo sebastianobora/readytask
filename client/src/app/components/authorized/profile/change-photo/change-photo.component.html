@@ -9,7 +9,7 @@
     <img (load)="freeMemory()" [src]="currentDisplayedImage" alt="User photo"/>
   </div>
   <ng-template #placeholder>
-    <app-placeholder [text]="user?.firstName" shadow="dark" shape="rounded" size="x-large"></app-placeholder>
+    <app-placeholder [text]="user?.firstName" shadow="dark" shape="rounded" size="xl"></app-placeholder>
   </ng-template>
   <mat-error>
     <p class="photo-error">{{invalidImageError}}</p>
