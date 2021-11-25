@@ -26,7 +26,7 @@ public class Membership {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
-    private Long id;
+    protected Long id;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
@@ -35,7 +35,7 @@ public class Membership {
     @JsonIdentityReference(alwaysAsId = true)
     @JsonProperty("userId")
     @Setter(AccessLevel.NONE)
-    private User user;
+    protected User user;
 
     @ManyToOne
     @JoinColumn(name = "team_id", nullable = false)
@@ -44,15 +44,15 @@ public class Membership {
     @JsonIdentityReference(alwaysAsId = true)
     @JsonProperty("teamId")
     @Setter(AccessLevel.NONE)
-    private Team team;
+    protected Team team;
 
     @CreationTimestamp
     @Column(name = "member_from")
-    private Date memberFrom;
+    protected Date memberFrom;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "member_role", nullable = false)
-    private MemberRole memberRole;
+    protected MemberRole memberRole;
 
     @JsonProperty("userId")
     public void setUserById(Long userId) {

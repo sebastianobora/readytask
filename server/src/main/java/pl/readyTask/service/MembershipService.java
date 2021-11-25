@@ -42,7 +42,7 @@ public class MembershipService {
         return membership;
     }
 
-    public Membership getByTeamAndUserId(Long teamId, Authentication authentication) {
+    public Membership getByAndTeamIdAndLoggedUser(Long teamId, Authentication authentication) {
         User user = securityService.getUserByEmailFromAuthentication(authentication);
         return membershipRepository.findMembershipByTeamIdAndUserId(teamId, user.getId())
                 .orElseThrow(() -> new NoDataFoundException("membership", teamId));
@@ -58,7 +58,10 @@ public class MembershipService {
                 .orElseThrow(() -> new NoDataFoundException("membership", teamId));
     }
 
-    public Membership update(Membership membership) {
+    public Membership updateRole(Long id, MemberRole role) {
+        Membership membership = membershipRepository.findById(id)
+                .orElseThrow(() -> new NoDataFoundException(Membership.class.getName(), id));
+        membership.setMemberRole(role);
         return membershipRepository.save(membership);
     }
 

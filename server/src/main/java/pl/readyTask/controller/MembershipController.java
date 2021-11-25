@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import pl.readyTask.entity.Membership;
+import pl.readyTask.entity.extended.MembershipExtended;
 import pl.readyTask.service.MembershipService;
 
 import java.util.List;
@@ -22,14 +23,21 @@ public class MembershipController {
         return ResponseEntity.ok(membershipService.getById(id));
     }
 
-    @GetMapping("/getByTeamId/{id}")
-    public ResponseEntity<Membership> getByTeamId(@PathVariable Long id, Authentication authentication) {
-        return ResponseEntity.ok(membershipService.getByTeamAndUserId(id, authentication));
+    @GetMapping("/user/logged/team/{teamId}")
+    public ResponseEntity<Membership> getLoggedUserMembershipByTeamId(
+            @PathVariable Long teamId,
+            Authentication authentication,
+            @RequestParam(required = false, defaultValue = "false") Boolean extended) {
+        Membership membership = membershipService.getByAndTeamIdAndLoggedUser(teamId, authentication);
+        return ResponseEntity.ok(extended ? MembershipExtended.get(membership) : membership);
     }
 
-    @GetMapping("/get-memberships-by-team-id/{id}")
-    public ResponseEntity<List<Membership>> getMembershipsByTeamId(@PathVariable Long id) {
-        return ResponseEntity.ok(membershipService.getMembershipsByTeamId(id));
+    @GetMapping("/team-id/{id}")
+    public ResponseEntity<List<Membership>> getMembershipsByTeamId(
+            @PathVariable Long id,
+            @RequestParam(required = false, defaultValue = "false") Boolean extended) {
+        List<Membership> memberships = membershipService.getMembershipsByTeamId(id);
+        return ResponseEntity.ok(extended ? MembershipExtended.get(memberships) : memberships);
     }
 
     @GetMapping("/get-amount-of-admin-role-members-by-team-id/{teamId}")
@@ -48,9 +56,9 @@ public class MembershipController {
         return ResponseEntity.ok(membershipService.addByCode(code, authentication));
     }
 
-    @PutMapping("/update-membership")
-    public ResponseEntity<Membership> updateMembership(@RequestBody Membership membership) {
-        return ResponseEntity.ok(membershipService.update(membership));
+    @PatchMapping("/membership/{id}")
+    public ResponseEntity<Membership> updateMembership(@PathVariable Long id, @RequestBody Membership membership) {
+        return ResponseEntity.ok(membershipService.updateRole(id, membership.getMemberRole()));
     }
 
     @DeleteMapping("/{id}")
