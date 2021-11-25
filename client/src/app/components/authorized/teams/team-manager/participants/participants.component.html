@@ -4,7 +4,7 @@
   </div>
 </ng-template>
 
-<div *ngIf="participantsDataSource.data.length && team else loader">
+<div *ngIf="participantsDataSource.data.length && loggedUserMembership?.team else loader">
   <mat-form-field appearance="standard" class="filter">
     <mat-label class="filter-input-label">Find member</mat-label>
     <input #filterInput (keyup)="applyFilter($event)" class="filter-input" matInput>

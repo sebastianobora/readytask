@@ -21,7 +21,7 @@ export class TeamService {
   getTeam(id: string): Observable<Team> {
     return this.httpClient.get<Team>(`${this.url}/${id}`).pipe(
       switchMap(team => {
-        return this.membershipService.getByTeamId(team.id).pipe(
+        return this.membershipService.getLoggedUserMembershipByTeamId(team.id).pipe(
           map(membership => {
             team.membership = membership;
             return team;
@@ -36,7 +36,7 @@ export class TeamService {
       mergeMap(teams => {
         return forkJoin(
           teams.map(team => {
-            return this.membershipService.getByTeamId(team.id).pipe(
+            return this.membershipService.getLoggedUserMembershipByTeamId(team.id).pipe(
               map(membership => {
                 team.membership = membership;
                 return team;

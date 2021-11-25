@@ -13,7 +13,7 @@ export interface Membership extends MembershipBase {
   teamId: number;
 }
 
-export interface Membership extends MembershipBase {
+export interface MembershipExtended extends MembershipBase {
   user: User;
   team: Team;
 }
