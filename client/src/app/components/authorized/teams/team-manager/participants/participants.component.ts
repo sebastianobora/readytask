@@ -32,24 +32,28 @@ export class ParticipantsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.setProperColumnsDependsOnLoggedUserMembership();
+    this.getLoggedUserMembershipAndSetTableColumns();
     this.loadMembershipData();
   }
 
-  setProperColumnsDependsOnLoggedUserMembership(): void {
+  getLoggedUserMembershipAndSetTableColumns(): void {
     this.membershipService.getLoggedUserMembershipByTeamId(this.teamId, true).subscribe(
       membership => {
         this.loggedUserMembership = membership;
-        switch (membership.memberRole) {
-          case MemberRole.ADMIN:
-            this.columns = this.participantCols.concat(this.adminCols);
-            break;
-          case MemberRole.PARTICIPANT:
-            this.columns = this.participantCols;
-            break;
-        }
+        this.setTableColumns(membership);
       }
     );
+  }
+
+  setTableColumns(membership: MembershipExtended): void {
+    switch (membership.memberRole) {
+      case MemberRole.ADMIN:
+        this.columns = this.participantCols.concat(this.adminCols);
+        break;
+      case MemberRole.PARTICIPANT:
+        this.columns = this.participantCols;
+        break;
+    }
   }
 
   applyFilter(event: Event): void {
