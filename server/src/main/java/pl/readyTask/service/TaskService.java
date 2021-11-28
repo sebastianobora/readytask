@@ -38,7 +38,8 @@ public class TaskService {
 
     public List<Task> getByUserAssignedToId(Authentication authentication) {
         User user = securityService.getUserByEmailFromAuthentication(authentication);
-        return taskRepository.findByUserAssignedToTaskId(user.getId());
+        return taskRepository.findByUserAssignedToTaskIdOrderByState(user.getId())
+                .orElseThrow(() -> new NoDataFoundException(Task.class.getName(), "userId", user.getId()));
     }
 
     public void changeTaskState(UUID taskId, TaskState state, Authentication authentication) {
@@ -80,5 +81,11 @@ public class TaskService {
         boolean isUserAuthorOfTask = isUserAuthorOfTask(user, task);
         checkIsUserRelatedToTask(isUserAuthorOfTask);
         taskRepository.deleteById(taskId);
+    }
+
+    public List<Task> getByUserAssignedToAndTeamId(Long userId, Long teamId) {
+        return taskRepository.findByUserAssignedToTaskIdAndTeamIdOrderByState(userId, teamId)
+            .orElseThrow(() -> new NoDataFoundException(
+                    Task.class.getName(), "userAssignedToTaskId, teamId", userId + ' ' + teamId));
     }
 }

@@ -5,7 +5,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import pl.readyTask.entity.Task;
+import pl.readyTask.entity.User;
 import pl.readyTask.entity.extended.TaskExtended;
+import pl.readyTask.service.SecurityService;
 import pl.readyTask.service.TaskService;
 
 import java.util.List;
@@ -17,12 +19,23 @@ import java.util.UUID;
 @CrossOrigin("http://localhost:4200")
 public class TaskController {
     private final TaskService taskService;
+    private final SecurityService securityService;
 
     @GetMapping("/{id}")
     public ResponseEntity<Task> getById(@PathVariable("id") UUID id,
                                         @RequestParam(required = false, defaultValue = "false") Boolean extended) {
         Task task = taskService.getById(id);
         return ResponseEntity.ok(extended ? TaskExtended.get(task) : task);
+    }
+
+    @GetMapping("/user-assigned-to/current-logged/team/{teamId}")
+    public ResponseEntity<List<Task>> getByTeamIdAndLoggedUserAssignedToTask(
+            @PathVariable Long teamId,
+            @RequestParam(required = false, defaultValue = "false") Boolean extended,
+            Authentication authentication){
+        User user = securityService.getUserByEmailFromAuthentication(authentication);
+        List<Task> tasks = taskService.getByUserAssignedToAndTeamId(user.getId(), teamId);
+        return ResponseEntity.ok(extended ? TaskExtended.get(tasks) : tasks);
     }
 
     @GetMapping("/user-assigned-to/current-logged")

@@ -66,16 +66,25 @@ public class TeamService {
         return isCodeAlreadyExists(code) ? getUniqueTeamCode() : code;
     }
 
-    public boolean isCodeAlreadyExists(String code) {
-        return teamRepository.existsTeamByCode(code);
+    private String generateTeamCode() {
+        String codeCharPool = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        Integer codeLength = 8;
+        return generateCode(codeCharPool, codeLength);
     }
 
-    public String generateTeamCode() {
-        String AB = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        SecureRandom rnd = new SecureRandom();
-        StringBuilder sb = new StringBuilder(8);
-        for (int i = 0; i < 8; i++)
-            sb.append(AB.charAt(rnd.nextInt(AB.length())));
+    private String generateCode(String charPool, Integer codeLength){
+        SecureRandom rand = new SecureRandom();
+        StringBuilder sb = new StringBuilder(codeLength);
+
+        for (int i = 0; i < codeLength; i++){
+            var randomNumberFromPoolRange = rand.nextInt(charPool.length());
+            var randCharFromPool = charPool.charAt(randomNumberFromPoolRange);
+            sb.append(randCharFromPool);
+        }
         return sb.toString();
+    }
+
+    public boolean isCodeAlreadyExists(String code) {
+        return teamRepository.existsTeamByCode(code);
     }
 }

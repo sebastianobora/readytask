@@ -5,9 +5,12 @@ import org.springframework.stereotype.Repository;
 import pl.readyTask.entity.Task;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Repository
 public interface TaskRepository extends JpaRepository<Task, UUID> {
-    List<Task> findByUserAssignedToTaskId(Long id);
+    Optional<List<Task>> findByUserAssignedToTaskIdOrderByState(Long id);
+
+    Optional<List<Task>> findByUserAssignedToTaskIdAndTeamIdOrderByState(Long userAssignedToTask_id, Long team_id);
 }
