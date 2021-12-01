@@ -4,8 +4,8 @@ import {Pipe, PipeTransform} from '@angular/core';
   name: 'trimText'
 })
 export class TrimTextPipe implements PipeTransform {
-  private ellipsis: string = '...';
-  private separator: string = ' ';
+  private ellipsis = '...';
+  private separator = ' ';
 
   transform(text: string, limit: number): string {
     if (text.length < limit) {

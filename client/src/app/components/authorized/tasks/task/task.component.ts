@@ -59,7 +59,7 @@ export class TaskComponent implements OnInit {
 
   originalOrder = (): number => {
     return 0;
-  };
+  }
 
   getOverlayPosition(): ConnectionPositionPair[] {
     return [new ConnectionPositionPair(
