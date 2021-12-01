@@ -1,4 +1,3 @@
-<div [ngStyle]="customSizes"
-     class="{{placeholderClasses}}">
+<div [ngClass]="placeholderClasses" [ngStyle]="customSizes">
   <p>{{text | slice: 0 : 1 | uppercase }}</p>
 </div>

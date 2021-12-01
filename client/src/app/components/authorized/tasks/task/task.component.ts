@@ -88,8 +88,6 @@ export class TaskComponent implements OnInit {
     const htmlContent = this.taskPreview.nativeElement.cloneNode(true);
     htmlContent.classList.remove('hide-print-container');
 
-    console.log(htmlContent);
-
     const pdf = new jsPDF('portrait', 'pt', 'a4');
     pdf.html(htmlContent, {autoPaging: 'text'})
       .then(() => pdf.save(taskUUID));

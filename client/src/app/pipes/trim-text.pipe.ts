@@ -11,13 +11,11 @@ export class TrimTextPipe implements PipeTransform {
     if (text.length < limit) {
       return text;
     }
-
     const indexOfLastSeparator = this.getIndexOfLastSeparator(text, limit);
 
     if (this.hasMultipleWords(indexOfLastSeparator)) {
       limit = indexOfLastSeparator;
     }
-
     return this.getTrimmedText(text, limit);
   }
 

@@ -13,7 +13,6 @@ import {MembershipService} from '../../../../service/membership.service';
 export class MyTasksComponent implements OnInit {
   tasksAssignedToLoggedUser: Observable<TaskExtended[]>;
   loggedUserMemberships?: Observable<MembershipExtended[]>;
-  selectValue?: number;
 
   constructor(private taskService: TaskService,
               private membershipService: MembershipService) {
@@ -22,6 +21,10 @@ export class MyTasksComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  setTasksDependsOnSelectedTeam(teamId: number) {
+    // this.tasksAssignedToLoggedUser = this.taskService.
   }
 
 }

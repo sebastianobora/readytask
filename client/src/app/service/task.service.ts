@@ -21,6 +21,10 @@ export class TaskService {
     return this.httpClient.get<TaskExtended[]>(url);
   }
 
+  getTasksAssignedToUserByTeamId(id: string | number, options = {extended: false}) {
+    const url = `${this.url}/`;
+  }
+
   getTask(id: string | number): Observable<Task>
   getTask(id: string | number, options: { extended: true }): Observable<TaskExtended>
   getTask(id: string | number, options = {extended: false}): Observable<Task | TaskExtended> {

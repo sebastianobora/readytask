@@ -9,9 +9,9 @@ export class PlaceholderComponent implements OnInit, OnChanges {
   @Input() text?: string;
   @Input() shape: 'rounded' | 'square' = 'rounded';
   @Input() color: 'grey' | 'purple' = 'grey';
+  @Input() shadow: 'dark' | 'light' = 'dark';
   @Input() size!: 'xxs' | 'xs' | 's' | 'm' | 'l' | 'xl' | number;
-  @Input() shadow!: 'dark' | 'light';
-  placeholderClasses!: string;
+  placeholderClasses!: string[];
   customSizes = {};
   private customSizeErrorMessage = 'Value of passed \"size\" parameter is invalid.\nSize must to be greater than 0.';
 
@@ -19,8 +19,8 @@ export class PlaceholderComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    const size = changes['size'].currentValue;
-    if (this.isTypeOfNumber(size)) {
+    const size = changes.size?.currentValue;
+    if (size && this.isTypeOfNumber(size)) {
       this.validateCustomSize();
       this.customSizes = this.buildCustomStyles();
     } else {
@@ -29,10 +29,10 @@ export class PlaceholderComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-    this.placeholderClasses = this.getPlaceholderClasses();
+    this.placeholderClasses = this.getProperties();
   }
 
-  isTypeOfNumber(value: any) {
+  isTypeOfNumber(value: any): boolean {
     return typeof value === 'number';
   }
 
@@ -43,18 +43,18 @@ export class PlaceholderComponent implements OnInit, OnChanges {
   }
 
   private getProperties(): string[] {
-    const properties = [this.shape, this.color, this.shadow, this.size.toString()];
-    if (this.isTypeOfNumber(this.size)) {
-      properties.pop();
+    const properties = [this.shape.toString(), this.color.toString(), this.shadow.toString()];
+    if (!this.isTypeOfNumber(this.size)) {
+      properties.push(this.size.toString());
     }
     return properties;
   }
 
-  private getPlaceholderClasses(): string {
-    return this.getProperties().join(' ');
-  }
-
-  private buildCustomStyles() {
-    return {'font-size': Number(this.size) / 2 + 'px', 'height': this.size + 'px', 'width': this.size + 'px'};
+  private buildCustomStyles(): object {
+    return {
+      'font-size': Number(this.size) / 2 + 'px',
+      'height': this.size + 'px',
+      'width': this.size + 'px'
+    };
   }
 }
