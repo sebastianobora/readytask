@@ -74,14 +74,14 @@ public class TeamService {
 
     private String generateCode(String charPool, Integer codeLength){
         SecureRandom rand = new SecureRandom();
-        StringBuilder sb = new StringBuilder(codeLength);
+        StringBuilder codeBuilder = new StringBuilder(codeLength);
 
         for (int i = 0; i < codeLength; i++){
             var randomNumberFromPoolRange = rand.nextInt(charPool.length());
             var randCharFromPool = charPool.charAt(randomNumberFromPoolRange);
-            sb.append(randCharFromPool);
+            codeBuilder.append(randCharFromPool);
         }
-        return sb.toString();
+        return codeBuilder.toString();
     }
 
     public boolean isCodeAlreadyExists(String code) {
