@@ -12,5 +12,5 @@ import java.util.UUID;
 public interface TaskRepository extends JpaRepository<Task, UUID> {
     Optional<List<Task>> findByUserAssignedToTaskIdOrderByState(Long id);
 
-    Optional<List<Task>> findByUserAssignedToTaskIdAndTeamIdOrderByState(Long userAssignedToTask_id, Long team_id);
+    Optional<List<Task>> findByUserAssignedToTaskIdAndTeamId(Long userAssignedToTask_id, Long team_id);
 }

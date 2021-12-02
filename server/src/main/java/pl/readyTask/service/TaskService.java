@@ -12,9 +12,11 @@ import pl.readyTask.exception.AccessDeniedToActionException;
 import pl.readyTask.exception.NoDataFoundException;
 import pl.readyTask.repository.TaskRepository;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -84,8 +86,11 @@ public class TaskService {
     }
 
     public List<Task> getByUserAssignedToAndTeamId(Long userId, Long teamId) {
-        return taskRepository.findByUserAssignedToTaskIdAndTeamIdOrderByState(userId, teamId)
-            .orElseThrow(() -> new NoDataFoundException(
-                    Task.class.getName(), "userAssignedToTaskId, teamId", userId + ' ' + teamId));
+        return taskRepository.findByUserAssignedToTaskIdAndTeamId(userId, teamId)
+                .orElseThrow(() -> new NoDataFoundException(
+                        Task.class.getName(), "userAssignedToTaskId, teamId", userId + ' ' + teamId))
+                .stream()
+                .sorted(Task.getComparator())
+                .collect(Collectors.toList());
     }
 }

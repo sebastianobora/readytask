@@ -9,6 +9,7 @@ import org.hibernate.annotations.Type;
 import pl.readyTask.entity.enumeration.TaskState;
 
 import javax.persistence.*;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.Set;
 import java.util.UUID;
@@ -92,5 +93,11 @@ public class Task {
         Task task = new Task();
         task.setId(taskId);
         return task;
+    }
+
+    public static Comparator<Task> getComparator(){
+        Comparator<Task> stateComparator = Comparator.comparing(Task::getState);
+        Comparator<Task> deadlineComparator = Comparator.comparing(Task::getDeadline);
+        return stateComparator.thenComparing(deadlineComparator);
     }
 }
