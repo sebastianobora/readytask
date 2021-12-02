@@ -4,7 +4,8 @@
       <div class="tasks-cards-header">
         <mat-form-field appearance="fill" class="select-form-field">
           <mat-label>Teams</mat-label>
-          <mat-select #teamSelect (selectionChange)="setTasksDependsOnSelectedTeam(teamSelect.value)">
+          <mat-select [value]="0" #teamSelect (selectionChange)="setTasksDependsOnSelectedTeam(teamSelect.value)">
+            <mat-option [value]="0">All teams</mat-option>
             <mat-option *ngFor="let membership of (loggedUserMemberships | async)" [value]="membership.team.id">
               {{membership.team.name}}
             </mat-option>

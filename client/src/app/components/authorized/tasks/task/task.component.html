@@ -61,7 +61,7 @@
     </div>
 
     <div class="task-details-header-right">
-      <app-date-task-card [deadline]="task.deadline" [tooltipMessage]="deadlineTooltip">
+      <app-date-task-card [date]="task.deadline" [tooltipMessage]="deadlineTooltip">
         <i class="fas fa-hourglass-end"></i>
       </app-date-task-card>
       <div #taskProgressBarTrigger="cdkOverlayOrigin" (mouseleave)="isProgressBarTriggered = false"

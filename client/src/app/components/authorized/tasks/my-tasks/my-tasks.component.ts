@@ -23,8 +23,12 @@ export class MyTasksComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  setTasksDependsOnSelectedTeam(teamId: number) {
-    // this.tasksAssignedToLoggedUser = this.taskService.
+  setTasksDependsOnSelectedTeam(teamId: number): void {
+    if (teamId !== 0) {
+      this.tasksAssignedToLoggedUser = this.taskService.getTasksAssignedToUserByTeamId(teamId);
+    }else{
+      this.tasksAssignedToLoggedUser = this.taskService.getTasksAssignedToUser(true);
+    }
   }
 
 }

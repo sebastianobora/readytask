@@ -79,7 +79,7 @@ import {GoBackButtonComponent} from './components/common/go-back-button/go-back-
 import {OverlayModule} from '@angular/cdk/overlay';
 import {TaskCardComponent} from './components/authorized/tasks/task-card/task-card.component';
 import {UserRelatedWithTaskCardComponent} from './components/authorized/tasks/user-related-with-task-card/user-related-with-task-card.component';
-import {DateTaskCard} from './components/authorized/tasks/date-task-card/date-task-card.component';
+import {DateTaskCardComponent} from './components/authorized/tasks/date-task-card/date-task-card.component';
 
 @NgModule({
   declarations: [
@@ -126,7 +126,7 @@ import {DateTaskCard} from './components/authorized/tasks/date-task-card/date-ta
     GoBackButtonComponent,
     TaskCardComponent,
     UserRelatedWithTaskCardComponent,
-    DateTaskCard
+    DateTaskCardComponent
   ],
   imports: [
     BrowserModule,

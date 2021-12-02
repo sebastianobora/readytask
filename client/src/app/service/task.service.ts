@@ -10,41 +10,42 @@ import {Router} from '@angular/router';
   providedIn: 'root'
 })
 export class TaskService {
-  private url = 'http://localhost:8080/tasks';
+  private baseUrl = 'http://localhost:8080/tasks';
 
   constructor(private httpClient: HttpClient,
               private router: Router) {
   }
 
   getTasksAssignedToUser(extended: true | false = false): Observable<TaskExtended[]> {
-    const url = `${this.url}/user-assigned-to/current-logged?extended=${extended}`;
+    const url = `${this.baseUrl}/user-assigned-to/current-logged?extended=${extended}`;
     return this.httpClient.get<TaskExtended[]>(url);
   }
 
-  getTasksAssignedToUserByTeamId(id: string | number, options = {extended: false}) {
-    const url = `${this.url}/`;
+  getTasksAssignedToUserByTeamId(id: string | number, options = {extended: true}): Observable<TaskExtended[]> {
+    const url = `${this.baseUrl}/user-assigned-to/current-logged/team/${id}?extended=${options.extended}`;
+    return this.httpClient.get<TaskExtended[]>(url);
   }
 
-  getTask(id: string | number): Observable<Task>
-  getTask(id: string | number, options: { extended: true }): Observable<TaskExtended>
+  getTask(id: string | number): Observable<Task>;
+  getTask(id: string | number, options: { extended: true }): Observable<TaskExtended>;
   getTask(id: string | number, options = {extended: false}): Observable<Task | TaskExtended> {
-    const url = `${this.url}/${id}?extended=${options.extended}`;
+    const url = `${this.baseUrl}/${id}?extended=${options.extended}`;
     return this.httpClient.get<Task | TaskExtended>(url);
   }
 
 
   addTask(task: Task): Observable<Task> {
-    return this.httpClient.post<Task>(this.url, task);
+    return this.httpClient.post<Task>(this.baseUrl, task);
   }
 
   changeState(taskId: UUID, state: TaskState): Observable<any> {
-    const url = `${this.url}/state/${taskId}`;
-    const task: Partial<Task> = {state: state};
+    const url = `${this.baseUrl}/state/${taskId}`;
+    const task: Partial<Task> = {state};
     return this.httpClient.patch<any>(url, task);
   }
 
   delete(taskId: UUID): Observable<any> {
-    const url = `${this.url}/task/${taskId}`;
+    const url = `${this.baseUrl}/task/${taskId}`;
     return this.httpClient.delete<any>(url);
   }
 
