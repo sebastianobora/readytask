@@ -6,20 +6,13 @@ import {Component, Input, OnInit} from '@angular/core';
   styleUrls: ['./date-task-card.css']
 })
 export class DateTaskCardComponent implements OnInit {
-  @Input() type: 'date' | 'deadline' = 'date';
   @Input() date!: Date;
   @Input() tooltipMessage!: string;
-  currentDateString?: String;
-  deadlineDateString?: String;
 
   constructor() {
   }
 
   ngOnInit(): void {
-    if (this.type === 'deadline') {
-      this.currentDateString = new Date().toLocaleDateString();
-      this.deadlineDateString = new Date(this.date).toLocaleDateString();
-    }
   }
 
 }

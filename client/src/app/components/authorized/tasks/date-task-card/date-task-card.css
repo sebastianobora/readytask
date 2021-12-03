@@ -1,4 +1,4 @@
-.deadline-container {
+.date-container {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
@@ -9,15 +9,11 @@
   line-height: 2.8rem;
 }
 
-.deadline-icon {
+.date-icon {
   font-size: 1.3rem;
 }
 
-.deadline {
+.date {
   margin-left: 8px;
   font-weight: bold;
-}
-
-.deadline-today {
-  border-color: rgba(255, 0, 0, 0.6);
 }

@@ -1,43 +1,50 @@
 <mat-tab-group mat-align-tabs="center">
   <mat-tab label="Assigned to me">
-    <ng-template matTabContent>
-      <div class="tasks-cards-header">
-        <mat-form-field appearance="fill" class="select-form-field">
-          <mat-label>All teams</mat-label>
-          <mat-select #teamSelect (selectionChange)="setTasksDependsOnSelectedTeam(teamSelect.value)">
-            <mat-option>All teams</mat-option>
-            <mat-option *ngFor="let membership of (loggedUserMemberships | async)" [value]="membership.team.id">
-              {{membership.team.name}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-      <div *ngIf="(tasksAssignedToLoggedUser | async) as tasks else loader" class="task-cards-container">
-        <app-task-card *ngFor="let task of tasks" [task]="task"></app-task-card>
-      </div>
-      <mat-paginator [length]="100" [pageSize]="15" hidePageSize showFirstLastButtons></mat-paginator>
-    </ng-template>
+    <div class="tasks-cards-header">
+      <mat-form-field appearance="fill" class="select-form-field">
+        <mat-label>All teams</mat-label>
+        <mat-select #userTeam (selectionChange)="setTasksAssignedToUser(userTeam.value)">
+          <mat-option>All teams</mat-option>
+          <mat-option *ngFor="let membership of (loggedUserMemberships | async)" [value]="membership.team.id">
+            {{membership.team.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div *ngIf="!isLoading else loader" class="task-cards-container">
+      <app-task-card *ngFor="let task of tasksAssignedToUser?.content" [task]="task"></app-task-card>
+    </div>
+    <mat-paginator (page)="setTasksAssignedToUser(userTeam.value, $event.pageIndex)"
+                   [length]="tasksAssignedToUser?.totalElements"
+                   [pageIndex]="tasksAssignedToUser?.number"
+                   [pageSize]="tasksAssignedToUser?.size"
+                   hidePageSize
+                   showFirstLastButtons>
+    </mat-paginator>
   </mat-tab>
-
   <mat-tab label="Managed by me">
-    <ng-template matTabContent>
-      <div class="tasks-cards-header">
-        <mat-form-field appearance="fill" class="select-form-field">
-          <mat-label>Teams</mat-label>
-          <mat-select #teamSelect (selectionChange)="setTasksDependsOnSelectedTeam(teamSelect.value)" [value]="0">
-            <mat-option [value]="0">All teams</mat-option>
-            <mat-option *ngFor="let membership of (loggedUserAdminRoleMemberships | async)"
-                        [value]="membership.team.id">
-              {{membership.team.name}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-      <div *ngIf="(tasksAssignedToLoggedUser | async) as tasks else loader" class="task-cards-container">
-        <app-task-card *ngFor="let task of tasks" [task]="task"></app-task-card>
-      </div>
-      <mat-paginator [length]="100" [pageSize]="15" hidePageSize showFirstLastButtons></mat-paginator>
-    </ng-template>
+    <div class="tasks-cards-header">
+      <mat-form-field appearance="fill" class="select-form-field">
+        <mat-label>Teams</mat-label>
+        <mat-select #managerTeam (selectionChange)="setTasksManagedByUser(managerTeam.value)" [value]="0">
+          <mat-option [value]="0">All teams</mat-option>
+          <mat-option *ngFor="let membership of (loggedUserAdminRoleMemberships | async)"
+                      [value]="membership.team.id">
+            {{membership.team.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div *ngIf="!isLoading else loader" class="task-cards-container">
+      <app-task-card *ngFor="let task of tasksManagedByUser?.content" [task]="task"></app-task-card>
+    </div>
+    <mat-paginator (page)="setTasksManagedByUser(managerTeam.value, $event.pageIndex)"
+                   [length]="tasksManagedByUser?.totalElements"
+                   [pageIndex]="tasksManagedByUser?.number"
+                   [pageSize]="tasksManagedByUser?.size"
+                   hidePageSize
+                   showFirstLastButtons>
+    </mat-paginator>
   </mat-tab>
 </mat-tab-group>
 

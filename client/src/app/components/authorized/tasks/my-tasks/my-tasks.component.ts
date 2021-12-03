@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {TaskService} from '../../../../service/task.service';
 import {Observable} from 'rxjs';
-import {TaskExtended} from '../../../../entity/task';
+import {PagedTasksExtended} from '../../../../entity/task';
 import {MembershipExtended} from '../../../../entity/membership';
 import {MembershipService} from '../../../../service/membership.service';
 import {map} from 'rxjs/operators';
@@ -13,29 +13,65 @@ import {MemberRole} from '../../../../entity/member-role.enum';
   styleUrls: ['./my-tasks.component.css']
 })
 export class MyTasksComponent implements OnInit {
-  tasksAssignedToLoggedUser: Observable<TaskExtended[]>;
-  tasksManagedByUser?: Observable<TaskExtended[]>;
-
+  tasksAssignedToUser?: PagedTasksExtended;
+  tasksManagedByUser?: PagedTasksExtended;
   loggedUserMemberships?: Observable<MembershipExtended[]>;
   loggedUserAdminRoleMemberships?: Observable<MembershipExtended[]>;
+  isLoading = false;
 
   constructor(private taskService: TaskService,
               private membershipService: MembershipService) {
-    this.tasksAssignedToLoggedUser = this.taskService.getTasksAssignedToUser(true);
+  }
+
+  ngOnInit(): void {
+    this.setTasksAssignedToUser();
+    this.setTasksManagedByUser();
+    this.setLoggedUserMemberships();
+    this.setLoggedUserAdminRoleMemberships();
+  }
+
+  setLoggedUserMemberships(): void {
     this.loggedUserMemberships = this.membershipService.getLoggedUserMemberships({extended: true});
+  }
+
+  setLoggedUserAdminRoleMemberships(): void {
     this.loggedUserAdminRoleMemberships = this.membershipService.getLoggedUserMemberships({extended: true})
       .pipe(map(memberships => memberships.filter(membership => membership.memberRole === MemberRole.ADMIN)));
   }
 
-  ngOnInit(): void {
+  setTasksAssignedToUser(teamId?: number, pageNumber: number = 0): void {
+    const tasksSource = this.setTasksAssignedToUserSource(pageNumber, teamId);
+    this.isLoading = true;
+    tasksSource.subscribe(pagedTasks => {
+      this.tasksAssignedToUser = pagedTasks;
+      this.isLoading = false;
+    });
   }
 
-  setTasksDependsOnSelectedTeam(teamId?: number): void {
+  setTasksAssignedToUserSource(pageNumber: number, teamId?: number): Observable<PagedTasksExtended> {
     if (teamId) {
-      this.tasksAssignedToLoggedUser = this.taskService.getTasksAssignedToUserByTeamId(teamId);
+      return this.taskService.getTasksAssignedToUserByTeamId(teamId, pageNumber);
     } else {
-      this.tasksAssignedToLoggedUser = this.taskService.getTasksAssignedToUser(true);
+      return this.taskService.getPagedTasksAssignedToUser(pageNumber);
     }
   }
 
+  setTasksManagedByUser(teamId?: number, pageNumber: number = 0): void {
+    console.log(pageNumber);
+    const tasksSource = this.setTasksManagedByUserSource(pageNumber, teamId);
+    this.isLoading = true;
+    tasksSource.subscribe(pagedTasks => {
+      this.tasksManagedByUser = pagedTasks;
+      this.isLoading = false;
+    });
+  }
+
+  setTasksManagedByUserSource(pageNumber: number, teamId?: number): Observable<PagedTasksExtended> {
+    if (teamId) {
+      return this.taskService.getTasksManagedByUserByTeamId(teamId, pageNumber);
+    } else {
+      return this.taskService.getTasksManagedByUser(pageNumber);
+    }
+  }
 }
+

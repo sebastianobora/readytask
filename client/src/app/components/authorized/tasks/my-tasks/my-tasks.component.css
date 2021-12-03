@@ -25,6 +25,10 @@
   padding-top: 1.34375em;
 }
 
+.loader {
+  height: calc(100% - 96px);
+}
+
 mat-paginator {
   bottom: 0;
 }

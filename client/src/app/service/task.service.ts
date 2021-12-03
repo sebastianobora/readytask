@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {Task, TaskExtended} from '../entity/task';
+import {PagedTasksExtended, Task, TaskExtended} from '../entity/task';
 import {UUID} from '../../assets/uuid-type';
 import {TaskState} from '../entity/task-state.enum';
 import {Router} from '@angular/router';
@@ -16,14 +16,24 @@ export class TaskService {
               private router: Router) {
   }
 
-  getTasksAssignedToUser(extended: true | false = false): Observable<TaskExtended[]> {
-    const url = `${this.baseUrl}/user-assigned-to/current-logged?extended=${extended}`;
-    return this.httpClient.get<TaskExtended[]>(url);
+  getTasksManagedByUser(page: number, options = {extended: true}): Observable<PagedTasksExtended> {
+    const url = `${this.baseUrl}/managed-by-user/current-logged?extended=${options.extended}&page=${page}`;
+    return this.httpClient.get<PagedTasksExtended>(url);
   }
 
-  getTasksAssignedToUserByTeamId(id: string | number, options = {extended: true}): Observable<TaskExtended[]> {
-    const url = `${this.baseUrl}/user-assigned-to/current-logged/team/${id}?extended=${options.extended}`;
-    return this.httpClient.get<TaskExtended[]>(url);
+  getTasksManagedByUserByTeamId(id: string | number, page: number, options = {extended: true}): Observable<PagedTasksExtended> {
+    const url = `${this.baseUrl}/managed-by-user/current-logged/team/${id}?extended=${options.extended}&page=${page}`;
+    return this.httpClient.get<PagedTasksExtended>(url);
+  }
+
+  getPagedTasksAssignedToUser(page: number, options = {extended: true}): Observable<PagedTasksExtended> {
+    const url = `${this.baseUrl}/user-assigned-to/current-logged?extended=${options.extended}&page=${page}`;
+    return this.httpClient.get<PagedTasksExtended>(url);
+  }
+
+  getTasksAssignedToUserByTeamId(id: string | number, page: number, options = {extended: true}): Observable<PagedTasksExtended> {
+    const url = `${this.baseUrl}/user-assigned-to/current-logged/team/${id}?extended=${options.extended}&page=${page}`;
+    return this.httpClient.get<PagedTasksExtended>(url);
   }
 
   getTask(id: string | number): Observable<Task>;

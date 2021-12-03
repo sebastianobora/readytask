@@ -1,7 +1,4 @@
-<div [matTooltip]="tooltipMessage"
-     [ngClass]="{'deadline-today': deadlineDateString && (deadlineDateString === currentDateString)}"
-     class="deadline-container"
-     matTooltipClass="tooltip">
-  <ng-content class="deadline-icon"></ng-content>
-  <p class="deadline">{{date | date: 'dd.MM.yyyy'}}</p>
+<div [matTooltip]="tooltipMessage" class="date-container" matTooltipClass="tooltip">
+  <ng-content class="date-icon"></ng-content>
+  <p class="date">{{date | date: 'dd.MM.yyyy'}}</p>
 </div>

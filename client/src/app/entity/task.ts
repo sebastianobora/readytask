@@ -23,3 +23,10 @@ export interface TaskExtended extends TaskBase {
   authorOfTask: User;
   team: Team;
 }
+
+export interface PagedTasksExtended {
+  content: TaskExtended[],
+  number: number,
+  totalElements: number,
+  size: number
+}
