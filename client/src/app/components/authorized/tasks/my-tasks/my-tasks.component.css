@@ -6,22 +6,27 @@
 .task-cards-container {
   display: flex;
   flex-wrap: wrap;
+  align-content: flex-start;
   width: 100%;
-  overflow-y: auto;
+  height: calc(100% - 96px);
   padding: 6px;
-  height: calc(100% - 112px);
+  overflow-y: auto;
 }
 
 .tasks-cards-header {
   display: flex;
   align-items: center;
   padding: 0 14px;
-  height: 56px;
+  height: 48px;
   background-color: #252525;
 }
 
 .mat-form-field {
   padding-top: 1.34375em;
+}
+
+mat-paginator {
+  bottom: 0;
 }
 
 @media (max-width: 667px) {

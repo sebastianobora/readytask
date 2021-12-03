@@ -3,9 +3,9 @@
     <ng-template matTabContent>
       <div class="tasks-cards-header">
         <mat-form-field appearance="fill" class="select-form-field">
-          <mat-label>Teams</mat-label>
-          <mat-select [value]="0" #teamSelect (selectionChange)="setTasksDependsOnSelectedTeam(teamSelect.value)">
-            <mat-option [value]="0">All teams</mat-option>
+          <mat-label>All teams</mat-label>
+          <mat-select #teamSelect (selectionChange)="setTasksDependsOnSelectedTeam(teamSelect.value)">
+            <mat-option>All teams</mat-option>
             <mat-option *ngFor="let membership of (loggedUserMemberships | async)" [value]="membership.team.id">
               {{membership.team.name}}
             </mat-option>
@@ -21,7 +21,22 @@
 
   <mat-tab label="Managed by me">
     <ng-template matTabContent>
-
+      <div class="tasks-cards-header">
+        <mat-form-field appearance="fill" class="select-form-field">
+          <mat-label>Teams</mat-label>
+          <mat-select #teamSelect (selectionChange)="setTasksDependsOnSelectedTeam(teamSelect.value)" [value]="0">
+            <mat-option [value]="0">All teams</mat-option>
+            <mat-option *ngFor="let membership of (loggedUserAdminRoleMemberships | async)"
+                        [value]="membership.team.id">
+              {{membership.team.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div *ngIf="(tasksAssignedToLoggedUser | async) as tasks else loader" class="task-cards-container">
+        <app-task-card *ngFor="let task of tasks" [task]="task"></app-task-card>
+      </div>
+      <mat-paginator [length]="100" [pageSize]="15" hidePageSize showFirstLastButtons></mat-paginator>
     </ng-template>
   </mat-tab>
 </mat-tab-group>

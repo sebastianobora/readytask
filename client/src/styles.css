@@ -359,3 +359,7 @@ main {
   border-bottom-right-radius: 5px;
   background-color: #252525;
 }
+
+.mat-paginator-container {
+  min-height: 48px;
+}

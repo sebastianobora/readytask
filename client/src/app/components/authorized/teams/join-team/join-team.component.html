@@ -1,14 +1,14 @@
 <div class="manage-team-container">
-  <h2 class="team-h">Join to the team</h2>
-  <form class="manage-team-form-container" #form="ngForm" (ngSubmit)="addMembership(code)">
-    <input class="input manage-team-input"
-           type="text"
+  <h2 class="team-h">Join the team</h2>
+  <form #form="ngForm" (ngSubmit)="addMembership(code)" class="manage-team-form-container">
+    <input [(ngModel)]="code"
+           class="input manage-team-input"
+           maxlength="8"
+           minlength="8"
+           name="code"
            placeholder="Unique team code"
            required
-           name="code"
-           [(ngModel)]="code"
-           minlength="8"
-           maxlength="8">
-    <button class="btn purple-btn" type="submit" [disabled]="form.invalid">Join to the team</button>
+           type="text">
+    <button [disabled]="form.invalid" class="btn purple-btn" type="submit">Join to the team</button>
   </form>
 </div>

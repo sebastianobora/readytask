@@ -15,7 +15,6 @@ export class TaskCardComponent implements OnInit {
   deadlineTooltip = 'Deadline';
   createdAtTooltip = 'Created at';
   copyTaskRefMessage = 'Copy task reference';
-  currentDate = new Date();
 
   constructor(public taskService: TaskService,
               public teamService: TeamService) {
