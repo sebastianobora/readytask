@@ -21,11 +21,11 @@ public class MembershipExtended extends Membership {
         this.memberRole = membership.getMemberRole();
     }
 
-    public static Membership get(Membership membership){
+    public static Membership get(Membership membership) {
         return new MembershipExtended(membership);
     }
 
-    public static List<Membership> get(List<Membership> memberships){
+    public static List<Membership> get(List<Membership> memberships) {
         return memberships.stream()
                 .map(MembershipExtended::new)
                 .collect(Collectors.toList());

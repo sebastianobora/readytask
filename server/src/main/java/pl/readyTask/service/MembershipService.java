@@ -78,4 +78,10 @@ public class MembershipService {
     public boolean isUserMemberOfTeam(User user, Team team) {
         return membershipRepository.existsByUserIdAndTeamId(user.getId(), team.getId());
     }
+
+    public boolean isUserAdminOfTeam(User user, Team team) {
+        Membership membership = membershipRepository.findMembershipByTeamIdAndUserId(team.getId(), user.getId())
+                .orElseThrow(() -> new NoDataFoundException(Membership.class.getName(), team.getId()));
+        return membership.getMemberRole() == MemberRole.ADMIN;
+    }
 }

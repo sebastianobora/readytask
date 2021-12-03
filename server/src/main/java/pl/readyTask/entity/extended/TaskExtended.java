@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Getter
-public class TaskExtended extends Task{
+public class TaskExtended extends Task {
     private final User userAssignedToTask;
     private final User authorOfTask;
     private final Team team;
@@ -26,11 +26,11 @@ public class TaskExtended extends Task{
         this.team = task.getTeam();
     }
 
-    public static Task get(Task task){
+    public static Task get(Task task) {
         return new TaskExtended(task);
     }
 
-    public static List<Task> get(List<Task> tasks){
+    public static List<Task> get(List<Task> tasks) {
         return tasks.stream()
                 .map(TaskExtended::new)
                 .collect(Collectors.toList());

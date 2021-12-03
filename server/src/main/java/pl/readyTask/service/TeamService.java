@@ -72,11 +72,11 @@ public class TeamService {
         return generateCode(codeCharPool, codeLength);
     }
 
-    private String generateCode(String charPool, Integer codeLength){
+    private String generateCode(String charPool, Integer codeLength) {
         SecureRandom rand = new SecureRandom();
         StringBuilder codeBuilder = new StringBuilder(codeLength);
 
-        for (int i = 0; i < codeLength; i++){
+        for (int i = 0; i < codeLength; i++) {
             var randomNumberFromPoolRange = rand.nextInt(charPool.length());
             var randCharFromPool = charPool.charAt(randomNumberFromPoolRange);
             codeBuilder.append(randCharFromPool);

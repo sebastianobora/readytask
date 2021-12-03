@@ -5,7 +5,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import pl.readyTask.entity.Membership;
 
-import java.lang.reflect.Member;
 import java.util.List;
 import java.util.Optional;
 

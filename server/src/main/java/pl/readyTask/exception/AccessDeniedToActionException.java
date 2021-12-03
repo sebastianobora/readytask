@@ -10,7 +10,7 @@ public class AccessDeniedToActionException extends RuntimeException {
         super(ExceptionsMessages.getAccessDeniedToActionMessage(user, action));
     }
 
-    public AccessDeniedToActionException(String action){
+    public AccessDeniedToActionException(String action) {
         super(ExceptionsMessages.getAccessDeniedToActionMessage(action));
     }
 }

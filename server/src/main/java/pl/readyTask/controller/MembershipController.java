@@ -35,7 +35,7 @@ public class MembershipController {
     @GetMapping("/user/logged")
     public ResponseEntity<List<Membership>> getLoggedUserMemberships(
             Authentication authentication,
-            @RequestParam(required = false, defaultValue = "false") Boolean extended){
+            @RequestParam(required = false, defaultValue = "false") Boolean extended) {
         List<Membership> memberships = membershipService.getLoggedUserMemberships(authentication);
         return ResponseEntity.ok(extended ? MembershipExtended.get(memberships) : memberships);
     }

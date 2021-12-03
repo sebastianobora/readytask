@@ -1,16 +1,17 @@
 package pl.readyTask.controller;
 
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import pl.readyTask.entity.Task;
+import pl.readyTask.entity.Team;
 import pl.readyTask.entity.User;
 import pl.readyTask.entity.extended.TaskExtended;
 import pl.readyTask.service.SecurityService;
 import pl.readyTask.service.TaskService;
 
-import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -23,27 +24,53 @@ public class TaskController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Task> getById(@PathVariable("id") UUID id,
-                                        @RequestParam(required = false, defaultValue = "false") Boolean extended) {
+                                        @RequestParam(required = false, defaultValue = "false") Boolean extended,
+                                        Authentication authentication) {
+        User user = securityService.getUserByEmailFromAuthentication(authentication);
         Task task = taskService.getById(id);
+        taskService.checkIsUserAllowedToGetTask(user, task);
         return ResponseEntity.ok(extended ? TaskExtended.get(task) : task);
     }
 
+    @GetMapping("/managed-by-user/current-logged")
+    public ResponseEntity<Page<Task>> getTasksManagedByUser(
+            @RequestParam(required = false, defaultValue = "false") Boolean extended,
+            @RequestParam int page,
+            Authentication authentication) {
+        User user = securityService.getUserByEmailFromAuthentication(authentication);
+        Page<Task> tasks = taskService.getPagedByUserIdAndTeamAdminRole(user.getId(), page);
+        return ResponseEntity.ok(extended ? tasks.map(TaskExtended::get) : tasks);
+    }
+
+    @GetMapping("/managed-by-user/current-logged/team/{teamId}")
+    public ResponseEntity<Page<Task>> getByTeamId(@PathVariable Long teamId,
+                                                  @RequestParam(required = false, defaultValue = "false") Boolean extended,
+                                                  @RequestParam int page,
+                                                  Authentication authentication) {
+        User user = securityService.getUserByEmailFromAuthentication(authentication);
+        taskService.checkIsUserAdminOfTeamRelatedToTask(user, Team.getNewTeamFromId(teamId));
+        Page<Task> tasks = taskService.getPagedByTeamId(teamId, page);
+        return ResponseEntity.ok(extended ? tasks.map(TaskExtended::get) : tasks);
+    }
+
     @GetMapping("/user-assigned-to/current-logged/team/{teamId}")
-    public ResponseEntity<List<Task>> getByTeamIdAndLoggedUserAssignedToTask(
+    public ResponseEntity<Page<Task>> getByTeamIdAndLoggedUserAssignedToTask(
             @PathVariable Long teamId,
             @RequestParam(required = false, defaultValue = "false") Boolean extended,
-            Authentication authentication){
+            @RequestParam int page,
+            Authentication authentication) {
         User user = securityService.getUserByEmailFromAuthentication(authentication);
-        List<Task> tasks = taskService.getByUserAssignedToAndTeamId(user.getId(), teamId);
-        return ResponseEntity.ok(extended ? TaskExtended.get(tasks) : tasks);
+        Page<Task> tasks = taskService.getPagedByUserAssignedToAndTeamId(user.getId(), teamId, page);
+        return ResponseEntity.ok(extended ? tasks.map(TaskExtended::get) : tasks);
     }
 
     @GetMapping("/user-assigned-to/current-logged")
-    public ResponseEntity<List<Task>> getByLoggedUserAssignedToTask(
+    public ResponseEntity<Page<Task>> getByLoggedUserAssignedToTask(
             @RequestParam(required = false, defaultValue = "false") Boolean extended,
+            @RequestParam int page,
             Authentication authentication) {
-        List<Task> tasks = taskService.getByUserAssignedToId(authentication);
-        return ResponseEntity.ok(extended ? TaskExtended.get(tasks) : tasks);
+        Page<Task> tasks = taskService.getPagedByUserAssignedToId(authentication, page);
+        return ResponseEntity.ok(extended ? tasks.map(TaskExtended::get) : tasks);
     }
 
     @PostMapping
@@ -54,13 +81,13 @@ public class TaskController {
     @PatchMapping("/state/{taskId}")
     public ResponseEntity<Object> changeTaskState(@PathVariable UUID taskId,
                                                   @RequestBody Task task,
-                                                  Authentication authentication){
+                                                  Authentication authentication) {
         this.taskService.changeTaskState(taskId, task.getState(), authentication);
         return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/task/{taskId}")
-    public ResponseEntity<Object> delete(@PathVariable UUID taskId, Authentication authentication){
+    public ResponseEntity<Object> delete(@PathVariable UUID taskId, Authentication authentication) {
         this.taskService.deleteById(taskId, authentication);
         return ResponseEntity.ok().build();
     }

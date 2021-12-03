@@ -1,6 +1,9 @@
 package pl.readyTask.entity;
 
-import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.OnDelete;
@@ -11,8 +14,9 @@ import pl.readyTask.entity.enumeration.TaskState;
 import javax.persistence.*;
 import java.util.Comparator;
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Entity(name = "Task")
 @Table(name = "task")
@@ -22,14 +26,14 @@ import java.util.UUID;
 @NoArgsConstructor
 public class Task {
     @Id
-    @Type(type="uuid-char")
+    @Type(type = "uuid-char")
     @Column(name = "id")
     protected UUID id = UUID.randomUUID();
 
     @Column(name = "title", nullable = false)
     protected String title;
 
-    @Column(columnDefinition="TEXT", name = "description", nullable = false)
+    @Column(columnDefinition = "TEXT", name = "description", nullable = false)
     protected String description;
 
     @Column(name = "deadline", nullable = false)
@@ -39,7 +43,7 @@ public class Task {
     @Column(name = "created_at")
     protected Date createdAt;
 
-    @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.ORDINAL)
     @Column(name = "state", nullable = false)
     protected TaskState state;
 
@@ -70,9 +74,24 @@ public class Task {
     @Setter(AccessLevel.NONE)
     protected Team team;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "task")
-    private Set<TaskComment> taskComments;
+    public static Task getNewTaskFromId(UUID taskId) {
+        Task task = new Task();
+        task.setId(taskId);
+        return task;
+    }
+
+    public static List<Task> sorted(List<Task> unorderedTasks) {
+        return unorderedTasks
+                .stream()
+                .sorted(Task.getComparator())
+                .collect(Collectors.toList());
+    }
+
+    private static Comparator<Task> getComparator() {
+        Comparator<Task> stateComparator = Comparator.comparing(Task::getState);
+        Comparator<Task> deadlineComparator = Comparator.comparing(Task::getDeadline);
+        return stateComparator.thenComparing(deadlineComparator);
+    }
 
     @JsonProperty("teamId")
     public void setTeamById(Long teamId) {
@@ -87,17 +106,5 @@ public class Task {
     @JsonProperty("authorOfTaskId")
     public void setAuthorOfTaskById(Long userId) {
         authorOfTask = User.getNewUserFromId(userId);
-    }
-
-    public static Task getNewTaskFromId(UUID taskId) {
-        Task task = new Task();
-        task.setId(taskId);
-        return task;
-    }
-
-    public static Comparator<Task> getComparator(){
-        Comparator<Task> stateComparator = Comparator.comparing(Task::getState);
-        Comparator<Task> deadlineComparator = Comparator.comparing(Task::getDeadline);
-        return stateComparator.thenComparing(deadlineComparator);
     }
 }

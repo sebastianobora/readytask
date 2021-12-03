@@ -76,10 +76,6 @@ public class User {
     private Set<TeamForumPost> teamForumPosts;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-    private Set<TaskComment> taskComments;
-
-    @JsonIgnore
     @OneToMany(mappedBy = "userAssignedToTask", fetch = FetchType.LAZY)
     private Set<Task> tasksAssignedToUser;
 
