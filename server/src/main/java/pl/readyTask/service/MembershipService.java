@@ -1,12 +1,18 @@
 package pl.readyTask.service;
 
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import pl.readyTask.entity.Membership;
 import pl.readyTask.entity.Team;
 import pl.readyTask.entity.User;
 import pl.readyTask.entity.enumeration.MemberRole;
+import pl.readyTask.exception.AccessDeniedToActionException;
+import pl.readyTask.exception.ExceptionsMessages;
 import pl.readyTask.exception.NoDataFoundException;
 import pl.readyTask.repository.MembershipRepository;
 
@@ -54,9 +60,24 @@ public class MembershipService {
                 .orElseThrow(() -> new NoDataFoundException(Membership.class.getName(), "id", user.getId()));
     }
 
+    public Page<Membership> getPagedMembershipsByUserId(Long userId, int page) {
+        Pageable pageable = buildPageable(page);
+        return membershipRepository.findAllByUserId(userId, pageable);
+    }
+
+    private Pageable buildPageable(int page){
+        final int pageSize = 15;
+        return PageRequest.of(page, pageSize, Sort.by("memberRole"));
+    }
+
     public List<Membership> getMembershipsByTeamId(Long teamId) {
         return membershipRepository.findMembershipsByTeamIdOrderByMemberFrom(teamId)
                 .orElseThrow(() -> new NoDataFoundException("membership", teamId));
+    }
+
+    public Page<Membership> getPagedMembershipsByTeamId(Long teamId, int page){
+        Pageable pageable = buildPageable(page);
+        return membershipRepository.findAllByTeamId(teamId, pageable);
     }
 
     public Integer getAmountOfAdminRoleMembersByTeamId(Long teamId) {
@@ -79,9 +100,21 @@ public class MembershipService {
         return membershipRepository.existsByUserIdAndTeamId(user.getId(), team.getId());
     }
 
+    public void checkIsUserMemberOfTeam(User user, Team team){
+        if(!isUserMemberOfTeam(user, team)){
+            throw new AccessDeniedToActionException(ExceptionsMessages.getAccessDeniedToActionMessage(user));
+        }
+    }
+
     public boolean isUserAdminOfTeam(User user, Team team) {
         Membership membership = membershipRepository.findMembershipByTeamIdAndUserId(team.getId(), user.getId())
                 .orElseThrow(() -> new NoDataFoundException(Membership.class.getName(), team.getId()));
         return membership.getMemberRole() == MemberRole.ADMIN;
+    }
+
+    public void checkIsUserAdminOfTeam(User user, Team team){
+        if(!isUserAdminOfTeam(user, team)){
+            throw new AccessDeniedToActionException(user);
+        }
     }
 }

@@ -9,6 +9,7 @@ import pl.readyTask.entity.Task;
 import pl.readyTask.entity.Team;
 import pl.readyTask.entity.User;
 import pl.readyTask.entity.extended.TaskExtended;
+import pl.readyTask.service.MembershipService;
 import pl.readyTask.service.SecurityService;
 import pl.readyTask.service.TaskService;
 
@@ -20,6 +21,7 @@ import java.util.UUID;
 @CrossOrigin("http://localhost:4200")
 public class TaskController {
     private final TaskService taskService;
+    private final MembershipService membershipService;
     private final SecurityService securityService;
 
     @GetMapping("/{id}")
@@ -32,7 +34,7 @@ public class TaskController {
         return ResponseEntity.ok(extended ? TaskExtended.get(task) : task);
     }
 
-    @GetMapping("/managed-by-user/current-logged")
+    @GetMapping("/paged/managed-by-user/current-logged")
     public ResponseEntity<Page<Task>> getTasksManagedByUser(
             @RequestParam(required = false, defaultValue = "false") Boolean extended,
             @RequestParam int page,
@@ -42,18 +44,18 @@ public class TaskController {
         return ResponseEntity.ok(extended ? tasks.map(TaskExtended::get) : tasks);
     }
 
-    @GetMapping("/managed-by-user/current-logged/team/{teamId}")
+    @GetMapping("/paged/managed-by-user/current-logged/team/{teamId}")
     public ResponseEntity<Page<Task>> getByTeamId(@PathVariable Long teamId,
                                                   @RequestParam(required = false, defaultValue = "false") Boolean extended,
                                                   @RequestParam int page,
                                                   Authentication authentication) {
         User user = securityService.getUserByEmailFromAuthentication(authentication);
-        taskService.checkIsUserAdminOfTeamRelatedToTask(user, Team.getNewTeamFromId(teamId));
+        membershipService.checkIsUserAdminOfTeam(user, Team.getNewTeamFromId(teamId));
         Page<Task> tasks = taskService.getPagedByTeamId(teamId, page);
         return ResponseEntity.ok(extended ? tasks.map(TaskExtended::get) : tasks);
     }
 
-    @GetMapping("/user-assigned-to/current-logged/team/{teamId}")
+    @GetMapping("/paged/user-assigned-to/current-logged/team/{teamId}")
     public ResponseEntity<Page<Task>> getByTeamIdAndLoggedUserAssignedToTask(
             @PathVariable Long teamId,
             @RequestParam(required = false, defaultValue = "false") Boolean extended,
@@ -64,7 +66,7 @@ public class TaskController {
         return ResponseEntity.ok(extended ? tasks.map(TaskExtended::get) : tasks);
     }
 
-    @GetMapping("/user-assigned-to/current-logged")
+    @GetMapping("/paged/user-assigned-to/current-logged")
     public ResponseEntity<Page<Task>> getByLoggedUserAssignedToTask(
             @RequestParam(required = false, defaultValue = "false") Boolean extended,
             @RequestParam int page,

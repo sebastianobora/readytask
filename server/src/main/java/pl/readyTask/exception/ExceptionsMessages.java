@@ -15,6 +15,10 @@ public final class ExceptionsMessages {
         return String.format("User %s is not allowed to: %s", user.getEmail(), action);
     }
 
+    public static String getAccessDeniedToActionMessage(User user){
+        return String.format("User %s is not allowed to the action", user.getEmail());
+    }
+
     public static String getAccessDeniedToActionMessage(String action) {
         return String.format("Access denied to action: %s", action);
     }

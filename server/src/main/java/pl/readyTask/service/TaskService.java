@@ -34,27 +34,27 @@ public class TaskService {
     }
 
     public Page<Task> getPagedByUserIdAndTeamAdminRole(Long userId, int page) {
-        Pageable pageable = getPageable(page);
+        Pageable pageable = buildPageable(page);
         return taskRepository.findAllTasksManagedByUser(userId, MemberRole.ADMIN, pageable);
     }
 
     public Page<Task> getPagedByTeamId(Long teamId, int page) {
-        Pageable pageable = getPageable(page);
+        Pageable pageable = buildPageable(page);
         return taskRepository.findAllByTeamId(teamId, pageable);
     }
 
     public Page<Task> getPagedByUserAssignedToAndTeamId(Long userId, Long teamId, int page) {
-        Pageable pageable = getPageable(page);
+        Pageable pageable = buildPageable(page);
         return taskRepository.findByUserAssignedToTaskIdAndTeamId(userId, teamId, pageable);
     }
 
     public Page<Task> getPagedByUserAssignedToId(Authentication authentication, int page) {
         User user = securityService.getUserByEmailFromAuthentication(authentication);
-        Pageable pageable = getPageable(page);
+        Pageable pageable = buildPageable(page);
         return taskRepository.findByUserAssignedToTaskIdOrderByState(user.getId(), pageable);
     }
 
-    private Pageable getPageable(int page) {
+    private Pageable buildPageable(int page) {
         int pageSize = 6;
         return PageRequest.of(page, pageSize, Sort.by("state").and(Sort.by("deadline")));
     }
@@ -89,7 +89,7 @@ public class TaskService {
         User user = this.securityService.getUserByEmailFromAuthentication(authentication);
         Task task = this.taskRepository.findById(taskId)
                 .orElseThrow(() -> new NoDataFoundException(Task.class.getName(), taskId));
-        checkIsUserAdminOfTeamRelatedToTask(user, task.getTeam());
+        membershipService.checkIsUserAdminOfTeam(user, task.getTeam());
         taskRepository.deleteById(taskId);
     }
 
@@ -111,9 +111,5 @@ public class TaskService {
         boolean isUserMemberOfTeam = membershipService.isUserMemberOfTeam(user, task.getTeam());
         boolean isUserAdminOfTeamRelatedToTask = membershipService.isUserAdminOfTeam(user, task.getTeam());
         checkIsUserRelatedToTask(isUserMemberOfTeam || isUserAdminOfTeamRelatedToTask);
-    }
-
-    public void checkIsUserAdminOfTeamRelatedToTask(User user, Team team) {
-        membershipService.isUserAdminOfTeam(user, team);
     }
 }
