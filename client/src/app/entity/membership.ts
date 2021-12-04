@@ -17,3 +17,10 @@ export interface MembershipExtended extends MembershipBase {
   user: User;
   team: Team;
 }
+
+export interface PagedMembershipsExtended {
+  content: MembershipExtended[],
+  number: number,
+  totalElements: number,
+  size: number
+}

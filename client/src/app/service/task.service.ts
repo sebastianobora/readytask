@@ -17,22 +17,22 @@ export class TaskService {
   }
 
   getTasksManagedByUser(page: number, options = {extended: true}): Observable<PagedTasksExtended> {
-    const url = `${this.baseUrl}/managed-by-user/current-logged?extended=${options.extended}&page=${page}`;
+    const url = `${this.baseUrl}/paged/managed-by-user/current-logged?extended=${options.extended}&page=${page}`;
     return this.httpClient.get<PagedTasksExtended>(url);
   }
 
   getTasksManagedByUserByTeamId(id: string | number, page: number, options = {extended: true}): Observable<PagedTasksExtended> {
-    const url = `${this.baseUrl}/managed-by-user/current-logged/team/${id}?extended=${options.extended}&page=${page}`;
+    const url = `${this.baseUrl}/paged/managed-by-user/current-logged/team/${id}?extended=${options.extended}&page=${page}`;
     return this.httpClient.get<PagedTasksExtended>(url);
   }
 
   getPagedTasksAssignedToUser(page: number, options = {extended: true}): Observable<PagedTasksExtended> {
-    const url = `${this.baseUrl}/user-assigned-to/current-logged?extended=${options.extended}&page=${page}`;
+    const url = `${this.baseUrl}/paged/user-assigned-to/current-logged?extended=${options.extended}&page=${page}`;
     return this.httpClient.get<PagedTasksExtended>(url);
   }
 
   getTasksAssignedToUserByTeamId(id: string | number, page: number, options = {extended: true}): Observable<PagedTasksExtended> {
-    const url = `${this.baseUrl}/user-assigned-to/current-logged/team/${id}?extended=${options.extended}&page=${page}`;
+    const url = `${this.baseUrl}/paged/user-assigned-to/current-logged/team/${id}?extended=${options.extended}&page=${page}`;
     return this.httpClient.get<PagedTasksExtended>(url);
   }
 

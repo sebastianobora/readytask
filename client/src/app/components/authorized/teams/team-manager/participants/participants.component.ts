@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {MembershipExtended} from '../../../../../entity/membership';
+import {MembershipExtended, PagedMembershipsExtended} from '../../../../../entity/membership';
 import {MembershipService} from '../../../../../service/membership.service';
 import {TeamService} from '../../../../../service/team.service';
 import {MemberRole} from '../../../../../entity/member-role.enum';
@@ -15,8 +15,9 @@ import {NotifierService} from '../../../../../service/notifier.service';
 export class ParticipantsComponent implements OnInit {
   @Input() teamId!: string;
   loggedUserMembership?: MembershipExtended;
-  memberRole = MemberRole;
+  membershipsPage?: PagedMembershipsExtended;
   participantsDataSource = new MatTableDataSource<MembershipExtended>();
+  memberRole = MemberRole;
   selectedMembership = new FormControl();
   selectedRole = new FormControl();
   columns: string[] = [];
@@ -56,14 +57,12 @@ export class ParticipantsComponent implements OnInit {
     }
   }
 
-  applyFilter(event: Event): void {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.participantsDataSource.filter = filterValue.trim().toLowerCase();
-  }
-
-  loadMembershipData(): void {
-    this.membershipService.getMembershipsByTeamId(this.teamId, true)
-      .subscribe(memberships => this.participantsDataSource.data = memberships);
+  loadMembershipData(page: number = 0): void {
+    this.membershipService.getPagedMembershipsByTeamId(this.teamId, page)
+      .subscribe(membershipsPage => {
+        this.participantsDataSource.data = membershipsPage.content;
+        this.membershipsPage = membershipsPage;
+      });
   }
 
   edit(membership: MembershipExtended): void {
@@ -121,5 +120,10 @@ export class ParticipantsComponent implements OnInit {
         this.notifierService.notify(message, 'success');
         this.loadMembershipData();
       });
+  }
+
+  applyFilter(event: Event): void {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.participantsDataSource.filter = filterValue.trim().toLowerCase();
   }
 }

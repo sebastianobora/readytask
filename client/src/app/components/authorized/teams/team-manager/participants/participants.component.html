@@ -104,9 +104,10 @@
     </tr>
   </table>
 
-  <mat-paginator [hidePageSize]="true"
-                 [length]="100"
-                 [pageSize]="15"
+  <mat-paginator (page)="loadMembershipData($event.pageIndex)" [hidePageSize]="true"
+                 [length]="membershipsPage?.totalElements"
+                 [pageIndex]="membershipsPage?.number"
+                 [pageSize]="membershipsPage?.size"
                  [showFirstLastButtons]="true">
   </mat-paginator>
 </div>

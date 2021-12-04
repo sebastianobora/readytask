@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {forkJoin, Observable} from 'rxjs';
+import {Observable} from 'rxjs';
 import {Team} from '../entity/team';
-import {map, mergeMap, switchMap} from 'rxjs/operators';
+import {map, switchMap} from 'rxjs/operators';
 import {MembershipService} from './membership.service';
 import {Router} from '@angular/router';
 
@@ -29,20 +29,6 @@ export class TeamService {
         );
       })
     );
-  }
-
-  getLoggedUserTeams(): Observable<Team[]> {
-    return this.httpClient.get<Team[]>(this.url).pipe(
-      mergeMap(teams => {
-        return forkJoin(
-          teams.map(team => {
-            return this.membershipService.getLoggedUserMembershipByTeamId(team.id).pipe(
-              map(membership => {
-                team.membership = membership;
-                return team;
-              }));
-          }));
-      }));
   }
 
   addTeam(team: Team): Observable<Team> {

@@ -1,25 +1,25 @@
-<div [ngClass]="{'space-for-paginator' : teams}" class="teams-list-container">
+<div class="teams-list-container space-for-paginator">
   <div *ngIf="isLoading; else content" class="loader">
     <mat-spinner></mat-spinner>
   </div>
-
   <ng-template #content>
-    <app-not-found-teams *ngIf="!teams"></app-not-found-teams>
-    <div (click)="teamService.redirectToTeamDetails(team.id)" *ngFor="let team of teams" class="team-wrapper">
+    <app-not-found-teams *ngIf="!membershipsPage?.content"></app-not-found-teams>
+    <div (click)="teamService.redirectToTeamDetails(membership.team.id)"
+         *ngFor="let membership of membershipsPage?.content" class="team-wrapper">
       <div class="team-img-wrapper">
-        <i *ngIf="team.membership.memberRole === adminRole" class="fas fa-crown own-team-icon"></i>
+        <i *ngIf="membership.memberRole === adminRole" class="fas fa-crown own-team-icon"></i>
         <a>
-          <app-placeholder [text]="team.name" color="purple" shape="square" size="l"></app-placeholder>
+          <app-placeholder [text]="membership.team.name" color="purple" shape="square" size="l"></app-placeholder>
         </a>
       </div>
-      <a class="team-title">{{team.name}}</a>
+      <a class="team-title">{{membership.team.name}}</a>
     </div>
   </ng-template>
 </div>
-
-<mat-paginator *ngIf="teams"
+<mat-paginator (page)="loadMembershipsPage($event.pageIndex)"
                [hidePageSize]="true"
-               [length]="100"
-               [pageSize]="15"
+               [length]="membershipsPage?.totalElements"
+               [pageIndex]="membershipsPage?.number"
+               [pageSize]="membershipsPage?.size"
                [showFirstLastButtons]="true">
 </mat-paginator>

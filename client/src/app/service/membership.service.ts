@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {Membership, MembershipExtended} from '../entity/membership';
+import {Membership, MembershipExtended, PagedMembershipsExtended} from '../entity/membership';
 import {MemberRole} from '../entity/member-role.enum';
 
 @Injectable({
@@ -32,8 +32,20 @@ export class MembershipService {
     return this.httpClient.get<Membership[] | MembershipExtended[]>(url);
   }
 
+  getPagedMembershipsByTeamId(teamId: string | number, page: number): Observable<PagedMembershipsExtended> {
+    const url = `${this.url}/paged/team/${teamId}?extended=true&page=${page}`;
+    return this.httpClient.get<PagedMembershipsExtended>(url);
+  }
+
+  getPagedLoggedUserMemberships(page: number): Observable<PagedMembershipsExtended> {
+    const url = `${this.url}/paged/user/logged?extended=true&page=${page}`;
+    return this.httpClient.get<PagedMembershipsExtended>(url);
+  }
+
   getLoggedUserMemberships(): Observable<Membership[]>;
+
   getLoggedUserMemberships(options: { extended: true }): Observable<MembershipExtended[]>;
+
   getLoggedUserMemberships(options: { extended: boolean } = {extended: false}): Observable<Membership[] | MembershipExtended[]> {
     const url = `${this.url}/user/logged?extended=${options.extended}`;
     return this.httpClient.get<Membership[] | MembershipExtended[]>(url);

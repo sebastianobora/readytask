@@ -1,7 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {Team} from '../../../../entity/team';
 import {TeamService} from '../../../../service/team.service';
 import {MemberRole} from '../../../../entity/member-role.enum';
+import {PagedMembershipsExtended} from '../../../../entity/membership';
+import {MembershipService} from '../../../../service/membership.service';
+import {finalize} from 'rxjs/operators';
 
 @Component({
   selector: 'app-teams-list',
@@ -9,22 +11,22 @@ import {MemberRole} from '../../../../entity/member-role.enum';
   styleUrls: ['./teams-list.component.css']
 })
 export class TeamsListComponent implements OnInit {
-  isLoading = true;
+  membershipsPage?: PagedMembershipsExtended;
   adminRole: MemberRole = MemberRole.ADMIN;
-  teams?: Team[];
+  isLoading = false;
 
-  constructor(public teamService: TeamService) {
+  constructor(public teamService: TeamService,
+              private membershipService: MembershipService) {
   }
 
   ngOnInit(): void {
+    this.loadMembershipsPage();
+  }
+
+  loadMembershipsPage(page: number = 0): void {
     this.isLoading = true;
-    this.teamService.getLoggedUserTeams().subscribe(data => {
-        this.teams = data;
-      },
-      () => {
-      },
-      () => {
-        this.isLoading = false;
-      });
+    this.membershipService.getPagedLoggedUserMemberships(page)
+      .pipe(finalize(() => this.isLoading = false))
+      .subscribe(membershipsPage => this.membershipsPage = membershipsPage);
   }
 }
