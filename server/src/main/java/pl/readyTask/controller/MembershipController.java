@@ -6,7 +6,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import pl.readyTask.entity.Membership;
-import pl.readyTask.entity.Task;
 import pl.readyTask.entity.Team;
 import pl.readyTask.entity.User;
 import pl.readyTask.entity.extended.MembershipExtended;

@@ -1,6 +1,5 @@
 package pl.readyTask.entity.extended;
 
-import pl.readyTask.entity.Task;
 import pl.readyTask.entity.Team;
 import pl.readyTask.entity.TeamForumPost;
 import pl.readyTask.entity.User;
