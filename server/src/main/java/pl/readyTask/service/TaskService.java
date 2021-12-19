@@ -8,7 +8,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import pl.readyTask.entity.Task;
-import pl.readyTask.entity.Team;
 import pl.readyTask.entity.User;
 import pl.readyTask.entity.enumeration.MemberRole;
 import pl.readyTask.entity.enumeration.TaskState;

@@ -21,15 +21,15 @@ import java.util.Date;
 @NoArgsConstructor
 public class TeamForumPost extends SocialResource {
     @Column(name = "message", columnDefinition = "TEXT")
-    private String message;
+    protected String message;
 
     @Column(name = "creation_time")
     @CreationTimestamp
-    private Date creationTime;
+    protected Date creationTime;
 
     @Column(name = "update_time")
     @UpdateTimestamp
-    private Date updateTime;
+    protected Date updateTime;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -38,7 +38,7 @@ public class TeamForumPost extends SocialResource {
     @JsonIdentityReference(alwaysAsId = true)
     @JsonProperty("userId")
     @Setter(AccessLevel.NONE)
-    private User user;
+    protected User user;
 
     @ManyToOne
     @JoinColumn(name = "team_id", nullable = false)
@@ -47,7 +47,7 @@ public class TeamForumPost extends SocialResource {
     @JsonIdentityReference(alwaysAsId = true)
     @JsonProperty("teamId")
     @Setter(AccessLevel.NONE)
-    private Team team;
+    protected Team team;
 
     @JsonProperty("userId")
     public void setUserById(Long userId) {
