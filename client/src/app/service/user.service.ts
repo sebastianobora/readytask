@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {User} from '../entity/user';
+import {Router} from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,8 @@ import {User} from '../entity/user';
 export class UserService {
   private baseUrl = 'http://localhost:8080/users';
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private httpClient: HttpClient,
+              private router: Router) {
   }
 
   getById(id: number): Observable<User> {
@@ -50,6 +52,11 @@ export class UserService {
   updatePassword(userId: number, currentPassword: string, newPassword: string): Observable<any> {
     const url = `${this.baseUrl}/password`;
     return this.httpClient.patch(url, {userId, currentPassword, newPassword});
+  }
+
+  redirectToProfileUrl(username: string): void {
+    const profilePath = `profile/public/${username}`;
+    this.router.navigate([profilePath]);
   }
 }
 
