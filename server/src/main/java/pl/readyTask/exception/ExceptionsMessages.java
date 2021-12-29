@@ -6,6 +6,10 @@ import pl.readyTask.entity.User;
 public final class ExceptionsMessages {
     @Getter
     private static final String invalidPasswordMessage = "Invalid password";
+    @Getter
+    private static final String changeTaskStateMessage = "Change task state";
+    @Getter
+    private static final String noPermissionToTask = "User has no permission to task";
 
     public static String getInvalidHeaderMessage(String headerContent) {
         return String.format("Header with %s is invalid!", headerContent);
@@ -37,5 +41,9 @@ public final class ExceptionsMessages {
 
     public static String getRegisterMessage(String field) {
         return String.format("User with this %s already exists", field);
+    }
+
+    public static String getResourceAlreadyExistsMessage(String resource, String field, Object value){
+        return String.format("Resource: %s with field: %s = %s already exists", resource, field, value);
     }
 }

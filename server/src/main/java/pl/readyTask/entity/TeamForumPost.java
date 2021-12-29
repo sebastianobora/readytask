@@ -13,12 +13,12 @@ import org.hibernate.annotations.UpdateTimestamp;
 import javax.persistence.*;
 import java.util.Date;
 
-@Entity(name = "TeamForumPost")
-@Table(name = "team_forum_post")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Entity(name = "TeamForumPost")
+@Table(name = "team_forum_post")
 public class TeamForumPost extends SocialResource {
     @Column(name = "message", columnDefinition = "TEXT")
     protected String message;

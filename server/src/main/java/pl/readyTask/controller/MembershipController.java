@@ -14,7 +14,6 @@ import pl.readyTask.service.SecurityService;
 
 import java.util.List;
 
-
 @RestController
 @AllArgsConstructor
 @RequestMapping("memberships")
@@ -31,9 +30,10 @@ public class MembershipController {
     @GetMapping("/user/logged/team/{teamId}")
     public ResponseEntity<Membership> getLoggedUserMembershipByTeamId(
             @PathVariable Long teamId,
-            Authentication authentication,
-            @RequestParam(required = false, defaultValue = "false") Boolean extended) {
-        Membership membership = membershipService.getByTeamIdAndLoggedUser(teamId, authentication);
+            @RequestParam(required = false, defaultValue = "false") Boolean extended,
+            Authentication authentication) {
+        User user = securityService.getUserByEmailFromAuthentication(authentication);
+        Membership membership = membershipService.getByTeamIdAndUserId(teamId, user.getId());
         return ResponseEntity.ok(extended ? MembershipExtended.get(membership) : membership);
     }
 
@@ -44,7 +44,6 @@ public class MembershipController {
         List<Membership> memberships = membershipService.getLoggedUserMemberships(authentication);
         return ResponseEntity.ok(extended ? MembershipExtended.get(memberships) : memberships);
     }
-
     @GetMapping("/paged/user/logged")
     public ResponseEntity<Page<Membership>> getPagedLoggedUserMemberships(
             Authentication authentication,

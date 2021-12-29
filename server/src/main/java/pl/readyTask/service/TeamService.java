@@ -54,14 +54,16 @@ public class TeamService {
         String code = getUniqueTeamCode();
         team.setCode(code);
         team = teamRepository.save(team);
-
-        Membership membership = membershipService.getMembershipFromFields(
-                MemberRole.ADMIN, team.getId(), user.getId());
-        membershipService.add(membership);
+        addAdminRoleMembership(team.getId(), user.getId());
         return team;
     }
 
-    public String getUniqueTeamCode() {
+    private void addAdminRoleMembership(Long teamId, Long userId){
+        Membership membership = membershipService.getMembershipFromFields(MemberRole.ADMIN, teamId, userId);
+        membershipService.add(membership);
+    }
+
+    private String getUniqueTeamCode() {
         String code = generateTeamCode();
         return isCodeAlreadyExists(code) ? getUniqueTeamCode() : code;
     }
@@ -75,7 +77,6 @@ public class TeamService {
     private String generateCode(String charPool, Integer codeLength) {
         SecureRandom rand = new SecureRandom();
         StringBuilder codeBuilder = new StringBuilder(codeLength);
-
         for (int i = 0; i < codeLength; i++) {
             var randomNumberFromPoolRange = rand.nextInt(charPool.length());
             var randCharFromPool = charPool.charAt(randomNumberFromPoolRange);

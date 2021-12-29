@@ -24,6 +24,13 @@ public class ExceptionsHandler {
         return new ResponseEntity<>(body, status);
     }
 
+    @ExceptionHandler(ResourceAlreadyExistsException.class)
+    public ResponseEntity<Object> alreadyExistsHandler(ResourceAlreadyExistsException e){
+        HttpStatus status = HttpStatus.CONFLICT;
+        ExceptionBody body = createExceptionBody(status, e.getMessage());
+        return new ResponseEntity<>(body, status);
+    }
+
     @ExceptionHandler(AccessDeniedToActionException.class)
     public ResponseEntity<Object> AccessDeniedToActionExceptionHandler(AccessDeniedToActionException e) {
         HttpStatus status = HttpStatus.FORBIDDEN;
@@ -46,10 +53,6 @@ public class ExceptionsHandler {
     }
 
     private ExceptionBody createExceptionBody(HttpStatus status, String message) {
-        return new ExceptionBody(
-                status,
-                ZonedDateTime.now(ZoneId.of("Z")),
-                message
-        );
+        return new ExceptionBody(status, ZonedDateTime.now(ZoneId.of("Z")), message);
     }
 }

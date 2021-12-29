@@ -14,6 +14,7 @@ import pl.readyTask.entity.enumeration.MemberRole;
 import pl.readyTask.exception.AccessDeniedToActionException;
 import pl.readyTask.exception.ExceptionsMessages;
 import pl.readyTask.exception.NoDataFoundException;
+import pl.readyTask.exception.ResourceAlreadyExistsException;
 import pl.readyTask.repository.MembershipRepository;
 
 import java.util.List;
@@ -36,6 +37,9 @@ public class MembershipService {
     public Membership addByCode(String code, Authentication authentication) {
         User user = securityService.getUserByEmailFromAuthentication(authentication);
         Team team = teamService.getByCode(code);
+        if(membershipRepository.existsByUserIdAndTeamId(user.getId(), team.getId())){
+            throw new ResourceAlreadyExistsException(Membership.class.getName(), "userId, teamId",user.getId() + ", " + team.getId());
+        }
         Membership membership = getMembershipFromFields(MemberRole.PARTICIPANT, team.getId(), user.getId());
         return membershipRepository.save(membership);
     }
@@ -48,9 +52,8 @@ public class MembershipService {
         return membership;
     }
 
-    public Membership getByTeamIdAndLoggedUser(Long teamId, Authentication authentication) {
-        User user = securityService.getUserByEmailFromAuthentication(authentication);
-        return membershipRepository.findMembershipByTeamIdAndUserId(teamId, user.getId())
+    public Membership getByTeamIdAndUserId(Long teamId, Long userId) {
+        return membershipRepository.findMembershipByTeamIdAndUserId(teamId, userId)
                 .orElseThrow(() -> new NoDataFoundException("membership", teamId));
     }
 

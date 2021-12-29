@@ -23,5 +23,5 @@ public interface TaskRepository extends PagingAndSortingRepository<Task, UUID> {
             "JOIN task.team team " +
             "JOIN team.memberships m " +
             "WHERE m.user.id = ?1 AND m.memberRole = ?2")
-    Page<Task> findAllTasksManagedByUser(Long userId, MemberRole role, Pageable pageable);
+    Page<Task> findAllTasksUserIdAndTeamMemberRole(Long userId, MemberRole role, Pageable pageable);
 }

@@ -12,6 +12,7 @@ import pl.readyTask.entity.User;
 import pl.readyTask.entity.enumeration.MemberRole;
 import pl.readyTask.entity.enumeration.TaskState;
 import pl.readyTask.exception.AccessDeniedToActionException;
+import pl.readyTask.exception.ExceptionsMessages;
 import pl.readyTask.exception.NoDataFoundException;
 import pl.readyTask.repository.TaskRepository;
 
@@ -34,7 +35,7 @@ public class TaskService {
 
     public Page<Task> getPagedByUserIdAndTeamAdminRole(Long userId, int page) {
         Pageable pageable = buildPageable(page);
-        return taskRepository.findAllTasksManagedByUser(userId, MemberRole.ADMIN, pageable);
+        return taskRepository.findAllTasksUserIdAndTeamMemberRole(userId, MemberRole.ADMIN, pageable);
     }
 
     public Page<Task> getPagedByTeamId(Long teamId, int page) {
@@ -80,7 +81,7 @@ public class TaskService {
         boolean isUserAssignedToTaskAllowedToChangeState =
                 isUserAssignedToTask(user, task) && statesAllowedToSetForUserAssignedToTask.contains(state);
         if (!(isAuthorOfTaskAllowedToChangeState || isUserAssignedToTaskAllowedToChangeState)) {
-            throw new AccessDeniedToActionException(AccessDeniedToActionException.changeTaskStateMessage);
+            throw new AccessDeniedToActionException(ExceptionsMessages.getChangeTaskStateMessage());
         }
     }
 
@@ -102,7 +103,7 @@ public class TaskService {
 
     private void checkIsUserRelatedToTask(boolean isRelated) {
         if (!isRelated) {
-            throw new AccessDeniedToActionException(AccessDeniedToActionException.noPermissionToTask);
+            throw new AccessDeniedToActionException(ExceptionsMessages.getNoPermissionToTask());
         }
     }
 
