@@ -19,6 +19,7 @@
 
 
 .avatar {
+  cursor: pointer;
   height: 50px;
   border-radius: 50%;
   box-shadow: 0 4px 2px -2px rgba(0, 0, 0, 0.2),
@@ -40,6 +41,7 @@
 }
 
 .post-author-details {
+  cursor: pointer;
   font-weight: bold;
   font-size: 1.2rem;
 }

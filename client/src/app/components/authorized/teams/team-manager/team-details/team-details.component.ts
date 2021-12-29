@@ -19,6 +19,8 @@ export class TeamDetailsComponent implements OnInit {
   memberRole = MemberRole;
   copyCodeTooltipMessage = 'Copy team code';
   cannotLeaveTeamTooltipMessage = 'You are only admin role member, you cannot leave the team!';
+  deleteTeamConfirmationMessage = 'Removal of a team cannot be undone!';
+  successfulTeamDeletionMessage = 'Team has been deleted successfully!';
   deleteLeaveRedirectUrl = '/teams/my-teams/';
   team?: Observable<Team>;
   numberOfAdminRoleMembers?: number;
@@ -43,20 +45,20 @@ export class TeamDetailsComponent implements OnInit {
   }
 
   confirmAndDelete(team: Team): void {
-    this.confirmationService.isConfirmed(() => this.delete(team));
+    this.confirmationService.confirm(() => this.delete(team), this.deleteTeamConfirmationMessage);
   }
 
   delete(team: Team): void {
     this.teamService.deleteTeam(team.id).subscribe(
       () => {
         this.router.navigate([this.deleteLeaveRedirectUrl]);
-        this.notifierService.notify('Team has been deleted successfully!', 'success');
+        this.notifierService.notify(this.successfulTeamDeletionMessage, 'success');
       }
     );
   }
 
   confirmAndLeave(team: Team): void {
-    this.confirmationService.isConfirmed(() => this.leave(team));
+    this.confirmationService.confirm(() => this.leave(team));
   }
 
   leave(team: Team): void {

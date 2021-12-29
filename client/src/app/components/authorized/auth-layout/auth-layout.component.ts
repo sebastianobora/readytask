@@ -9,12 +9,11 @@ import {Subscription} from 'rxjs';
 @Component({
   selector: 'app-auth-layout',
   templateUrl: './auth-layout.component.html',
-  styleUrls: ['./auth-layout.component.css'],
-  providers: [LoggedUserService]
+  styleUrls: ['./auth-layout.component.css']
 })
 export class AuthLayoutComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild(FooterComponent, {read: ElementRef}) footerEl!: ElementRef;
-  public currentUser?: User;
+  public loggedUser?: User;
   private authLayoutFooterClass = 'auth-layout-footer';
   private loggedUserSubscription = new Subscription();
 
@@ -29,7 +28,7 @@ export class AuthLayoutComponent implements OnInit, AfterViewInit, OnDestroy {
 
   setCurrentUser(): void {
     this.loggedUserSubscription = this.loggedUserService.loggedUser
-      .subscribe(user => this.currentUser = user);
+      .subscribe(user => this.loggedUser = user);
   }
 
   ngAfterViewInit(): void {

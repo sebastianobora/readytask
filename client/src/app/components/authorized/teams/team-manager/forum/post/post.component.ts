@@ -7,6 +7,7 @@ import {Team} from '../../../../../../entity/team';
 import {MemberRole} from '../../../../../../entity/member-role.enum';
 import {FormControl} from '@angular/forms';
 import {ReactionService} from '../../../../../../service/reaction.service';
+import {UserService} from '../../../../../../service/user.service';
 
 @Component({
   selector: 'app-post',
@@ -26,7 +27,8 @@ export class PostComponent implements OnInit {
   unsuccessfulDeleteMessage = 'Post can not be deleted!';
   successfulUpdateMessage = 'Post has been updated successfully!';
 
-  constructor(private teamForumPostService: TeamForumPostService,
+  constructor(public userService: UserService,
+              private teamForumPostService: TeamForumPostService,
               private notifierService: NotifierService,
               private confirmationService: ConfirmationService,
               private reactionService: ReactionService) {
@@ -37,7 +39,7 @@ export class PostComponent implements OnInit {
   }
 
   confirmAndDeletePost(post: any): void {
-    this.confirmationService.isConfirmed(() => this.deletePost(post));
+    this.confirmationService.confirm(() => this.deletePost(post));
   }
 
   deletePost(post: TeamForumPost): void {

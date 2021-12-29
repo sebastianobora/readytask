@@ -32,7 +32,7 @@ export class CloseAccountComponent implements OnInit {
   }
 
   confirmAndCloseAccount(): void {
-    this.confirmationService.isConfirmed(() => this.closeAccount());
+    this.confirmationService.confirm(() => this.closeAccount());
   }
 
   closeAccount(): void {

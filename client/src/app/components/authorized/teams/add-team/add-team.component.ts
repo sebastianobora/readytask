@@ -7,7 +7,7 @@ import {NotifierService} from '../../../../service/notifier.service';
 @Component({
   selector: 'app-add-team',
   templateUrl: './add-team.component.html',
-  styleUrls: ['../manage-team-form.css']
+  styleUrls: ['../team-manager.css']
 })
 export class AddTeamComponent implements OnInit {
   team: Partial<Team> = {};

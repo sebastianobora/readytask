@@ -1,6 +1,7 @@
 <div class="post-container">
   <div class="avatar-container">
-    <img *ngIf="post.user?.img else placeholder"
+    <img (click)="userService.redirectToProfileUrl(post.user.username)"
+         *ngIf="post.user?.img else placeholder"
          [src]="post.user.img"
          alt="Avatar"
          class="avatar"/>
@@ -10,7 +11,8 @@
   </div>
   <div [matRippleCentered]="isExpanded" [matRippleTrigger]="trigger" class="message-container" mat-ripple>
     <div class="message-header-container">
-      <p class="post-author-details">{{post.user.firstName}} {{post.user.lastName}}</p>
+      <p (click)="userService.redirectToProfileUrl(post.user.username)"
+         class="post-author-details">{{post.user.firstName}} {{post.user.lastName}}</p>
       <p class="post-creation-time">{{post.creationTime | date: 'dd.MM.y HH:mm'}}</p>
       <div *ngIf="isUserAuthor(post) || isUserAdminOfTeam()" class="post-modify-actions">
         <i (click)="toggleEditable()" *ngIf="!isEditable else confirmChanges" class="far fa-edit icon"></i>

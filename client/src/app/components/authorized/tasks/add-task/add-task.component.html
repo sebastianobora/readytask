@@ -39,7 +39,7 @@
         <div class="step-content">
           <mat-form-field appearance="fill">
             <mat-label>Teams</mat-label>
-            <mat-select (selectionChange)="setUsersFromPickedTeam()" [(ngModel)]="task.teamId">
+            <mat-select (selectionChange)="setUsersFromPickedTeam()" [(ngModel)]="task.teamId" disableOptionCentering>
               <mat-option *ngFor="let membership of (loggedUserMemberships | async)"
                           [value]="membership.team.id">{{membership.team.name}}
               </mat-option>
@@ -60,7 +60,7 @@
         <div class="step-content">
           <mat-form-field appearance="fill">
             <mat-label>Users</mat-label>
-            <mat-select [(ngModel)]="task.userAssignedToTaskId">
+            <mat-select [(ngModel)]="task.userAssignedToTaskId" disableOptionCentering>
               <mat-option *ngFor="let user of usersFromSelectedTeam | async" [value]="user.id">
                 {{user.firstName}} {{user.lastName}}
               </mat-option>

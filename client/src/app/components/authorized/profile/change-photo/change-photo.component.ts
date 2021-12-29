@@ -131,7 +131,7 @@ export class ChangePhotoComponent implements OnInit, OnDestroy {
   }
 
   confirmAndDeleteImage(): void {
-    this.confirmationService.isConfirmed(() => this.deleteImage());
+    this.confirmationService.confirm(() => this.deleteImage());
   }
 
   deleteImage(): void {

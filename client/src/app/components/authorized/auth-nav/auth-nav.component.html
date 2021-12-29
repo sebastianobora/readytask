@@ -5,7 +5,8 @@
     </button>
   </div>
   <div class="main-avatar-container">
-    <img *ngIf="currentUser?.img else placeholder"
+    <img (click)="userService.redirectToProfileUrl(currentUser!.username)"
+         *ngIf="currentUser?.img else placeholder"
          [src]="currentUser?.img"
          alt="Avatar"
          class="main-avatar"/>

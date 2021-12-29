@@ -1,5 +1,6 @@
-<div [cdkCopyToClipboard]="contentToCopy" [matTooltipShowDelay]="copyTooltipMessageDelayInMs" [matTooltip]="copyTooltipMessage"
-     class="copy-to-clipboard" matTooltipClass="tooltip">
+<div [cdkCopyToClipboard]="contentToCopy" [matTooltipShowDelay]="copyTooltipMessageDelayInMs"
+     [matTooltip]="copyTooltipMessage" class="copy-to-clipboard"
+     matTooltipClass="tooltip">
   <div #tooltip="matTooltip" (click)="showCopiedMessage(tooltip)" [matTooltip]="copySuccessfulMessage"
        matTooltipClass="tooltip" matTooltipDisabled>
     <ng-content></ng-content>

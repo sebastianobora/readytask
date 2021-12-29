@@ -7,3 +7,10 @@
   font-size: 20px;
   color: #cfcfcf;
 }
+
+@media (max-width: 667px) {
+  .back-button {
+    top: -50px;
+    left: 50px;
+  }
+}

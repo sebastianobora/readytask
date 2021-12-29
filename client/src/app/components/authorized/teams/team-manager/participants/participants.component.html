@@ -13,14 +13,14 @@
   <table [dataSource]="participantsDataSource" class="participants-table" mat-table>
     <ng-container matColumnDef="memberDetails">
       <th *matHeaderCellDef mat-header-cell>Member details</th>
-      <td *matCellDef="let membership" mat-cell>
+      <td (click)="userService.redirectToProfileUrl(membership.user!.username)" *matCellDef="let membership" mat-cell>
         <div class="user-details-container">
           <img *ngIf="membership.user?.img else placeholder"
                [src]="membership.user.img"
                alt="Avatar"
                class="avatar"/>
           <ng-template #placeholder>
-            <app-placeholder [text]="membership.user.firstName" size="xs"></app-placeholder>
+            <app-placeholder [text]="membership.user.firstName" class="avatar-placeholder" size="xs"></app-placeholder>
           </ng-template>
           <p class="user-names">{{membership.user.firstName}} {{membership.user.lastName}}</p>
         </div>
@@ -90,7 +90,7 @@
     <ng-container matColumnDef="deleteMember">
       <th *matHeaderCellDef class="center-cell" mat-header-cell>Delete member</th>
       <td *matCellDef="let membership" class="center-cell" mat-cell>
-        <button (click)="deleteMembership(membership)" [disabled]="isItCurrentUserMembership(membership)">
+        <button (click)="confirmAndDeleteMembership(membership)" [disabled]="isItCurrentUserMembership(membership)">
           <i class="fas fa-user-minus icon"></i>
         </button>
       </td>

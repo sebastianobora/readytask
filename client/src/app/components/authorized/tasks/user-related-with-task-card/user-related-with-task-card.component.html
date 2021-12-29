@@ -1,4 +1,4 @@
-<div (click)="redirectToProfileUrl(user.username)" class="task-user-details-container">
+<div (click)="userService.redirectToProfileUrl(user.username)" class="task-user-details-container">
   <img *ngIf="user.img else userAssignedToPlaceholder"
        [src]="user.img" alt="user related with task avatar" class="task-user-avatar"/>
   <ng-template #userAssignedToPlaceholder>

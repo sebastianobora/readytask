@@ -80,6 +80,7 @@ import {OverlayModule} from '@angular/cdk/overlay';
 import {TaskCardComponent} from './components/authorized/tasks/task-card/task-card.component';
 import {UserRelatedWithTaskCardComponent} from './components/authorized/tasks/user-related-with-task-card/user-related-with-task-card.component';
 import {DateTaskCardComponent} from './components/authorized/tasks/date-task-card/date-task-card.component';
+import {LoggedUserService} from './service/logged-user.service';
 
 @NgModule({
   declarations: [
@@ -168,7 +169,8 @@ import {DateTaskCardComponent} from './components/authorized/tasks/date-task-car
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
     AuthGuard,
-    NonAuthGuard
+    NonAuthGuard,
+    LoggedUserService
   ],
   bootstrap: [AppComponent]
 })

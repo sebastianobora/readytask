@@ -1,8 +1,8 @@
-<app-auth-header [currentUser]="currentUser"></app-auth-header>
+<app-auth-header [currentUser]="loggedUser"></app-auth-header>
 <main>
   <app-section>
     <div class="auth-section">
-      <app-auth-nav [currentUser]="currentUser"></app-auth-nav>
+      <app-auth-nav [currentUser]="loggedUser"></app-auth-nav>
       <router-outlet></router-outlet>
     </div>
   </app-section>

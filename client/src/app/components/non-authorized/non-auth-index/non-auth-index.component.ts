@@ -8,12 +8,12 @@ import {ActivatedRoute} from '@angular/router';
 })
 export class NonAuthIndexComponent implements OnInit, AfterViewInit {
   mainSections: {
-    whyReadyTask: string,
+    readytask: string,
     tutorial: string,
     about: string,
     contact: string
   } = {
-    whyReadyTask: 'why-readytask',
+    readytask: 'readytask',
     tutorial: 'tutorial',
     about: 'about',
     contact: 'contact'

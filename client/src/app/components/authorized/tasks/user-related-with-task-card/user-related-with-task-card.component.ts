@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {User} from '../../../../entity/user';
-import {Router} from '@angular/router';
+import {UserService} from '../../../../service/user.service';
 
 @Component({
   selector: 'app-user-related-with-task-card[user][userDetailsMessage]',
@@ -11,14 +11,9 @@ export class UserRelatedWithTaskCardComponent implements OnInit {
   @Input() user!: User;
   @Input() userDetailsMessage!: 'Assigned to' | 'Assigned by';
 
-  constructor(private router: Router) {
+  constructor(public userService: UserService) {
   }
 
   ngOnInit(): void {
-  }
-
-  redirectToProfileUrl(username: string): void {
-    const profilePath = `profile/public/${username}`;
-    this.router.navigate([profilePath]);
   }
 }

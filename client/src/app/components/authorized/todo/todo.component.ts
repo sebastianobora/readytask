@@ -61,7 +61,7 @@ export class TodoComponent implements OnInit {
   }
 
   confirmAndDelete(todo: Todo): void {
-    this.confirmationService.isConfirmed(() => this.delete(todo));
+    this.confirmationService.confirm(() => this.delete(todo));
   }
 
   delete(todo: Todo): void {

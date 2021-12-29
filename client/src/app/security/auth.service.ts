@@ -21,7 +21,7 @@ export class AuthService {
     return this.httpClient.post<any>(`${this.url}/login`, {username, password})
       .pipe(
         map(res => {
-          this.saveTokenDataAndRoleInWebStorage(res.token, res.tokenType, res.roles);
+          this.saveTokenDataAndRoleInLocalStorage(res.token, res.tokenType, res.roles);
         })
       );
   }
@@ -35,7 +35,7 @@ export class AuthService {
     this.router.navigate(['']);
   }
 
-  saveTokenDataAndRoleInWebStorage(token: string, tokenType: string, roles: []): void {
+  saveTokenDataAndRoleInLocalStorage(token: string, tokenType: string, roles: []): void {
     localStorage.setItem(TOKEN, token);
     localStorage.setItem(TOKEN_TYPE, tokenType);
     localStorage.setItem(ROLES, JSON.stringify(roles));

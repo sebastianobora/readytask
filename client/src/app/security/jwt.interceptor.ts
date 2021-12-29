@@ -6,7 +6,6 @@ import {TOKEN_HEADER_NAME} from '../../assets/authrorization-utils';
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
-
   constructor(private authService: AuthService) {
   }
 

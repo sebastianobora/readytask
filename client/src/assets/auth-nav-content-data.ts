@@ -1,21 +1,21 @@
-export interface NavObject {
+export interface Nav {
   title: string;
-  elements: NavElementObject[];
+  elements: NavElement[];
 }
 
-export interface NavElementObject {
+export interface NavElement {
   content: string;
   link: string;
 }
 
-export const todoNavContent: NavObject = {
+export const todoNavContent: Nav = {
   title: 'TODO',
   elements: [
     {content: 'MY TODOS', link: 'todo/my-todos'}
   ]
 };
 
-export const tasksNavContent: NavObject = {
+export const tasksNavContent: Nav = {
   title: 'TASKS',
   elements: [
     {content: 'MY TASKS', link: 'tasks/my-tasks'},
@@ -23,7 +23,7 @@ export const tasksNavContent: NavObject = {
   ]
 };
 
-export const teamsNavContent: NavObject = {
+export const teamsNavContent: Nav = {
   title: 'TEAMS',
   elements: [
     {content: 'MY TEAMS', link: 'teams/my-teams'},
@@ -33,7 +33,7 @@ export const teamsNavContent: NavObject = {
 };
 
 export const publicProfileLink = 'profile/public/';
-export const profileNavContent: NavObject = {
+export const profileNavContent: Nav = {
   title: 'PROFILE',
   elements: [
     {content: 'PUBLIC PROFILE', link: ''},

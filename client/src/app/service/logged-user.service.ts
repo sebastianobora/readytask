@@ -13,6 +13,7 @@ export class LoggedUserService {
   }
 
   loadLoggedUser(): void {
-    this.userService.getCurrentLogged().subscribe(user => this.loggedUserDataSource.next(user));
+    this.userService.getCurrentLogged()
+      .subscribe(user => this.loggedUserDataSource.next(user));
   }
 }

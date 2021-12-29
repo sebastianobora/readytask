@@ -6,6 +6,8 @@ import {MemberRole} from '../../../../../entity/member-role.enum';
 import {MatTableDataSource} from '@angular/material/table';
 import {FormControl} from '@angular/forms';
 import {NotifierService} from '../../../../../service/notifier.service';
+import {UserService} from '../../../../../service/user.service';
+import {ConfirmationService} from '../../../../../service/confirmation.service';
 
 @Component({
   selector: 'app-participants',
@@ -24,7 +26,9 @@ export class ParticipantsComponent implements OnInit {
   participantCols = ['memberDetails', 'memberFrom', 'userRole'];
   adminCols = ['changeRole', 'deleteMember'];
 
-  constructor(private membershipService: MembershipService,
+  constructor(public userService: UserService,
+              private membershipService: MembershipService,
+              private confirmationService: ConfirmationService,
               private teamService: TeamService,
               private notifierService: NotifierService) {
     this.participantsDataSource.filterPredicate = (membership: MembershipExtended, filter: string) => {
@@ -109,6 +113,10 @@ export class ParticipantsComponent implements OnInit {
 
   cancelChanges(): void {
     this.selectedMembership.reset();
+  }
+
+  confirmAndDeleteMembership(membership: MembershipExtended) {
+    this.confirmationService.confirm(() => this.deleteMembership(membership));
   }
 
   deleteMembership(membership: MembershipExtended): void {

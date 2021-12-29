@@ -6,7 +6,6 @@ import {NotificationComponent} from '../components/common/notification/notificat
   providedIn: 'root'
 })
 export class NotifierService {
-
   constructor(private snackBar: MatSnackBar) {
   }
 
@@ -14,8 +13,7 @@ export class NotifierService {
     const className = `notify-${type}`;
     this.snackBar.openFromComponent(NotificationComponent, {
       data: {
-        message,
-        type
+        message
       },
       duration: 3000,
       panelClass: ['auth-notifier-cfg', className],

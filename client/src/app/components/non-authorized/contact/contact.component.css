@@ -1,3 +1,7 @@
+:host {
+  width: 100%;
+}
+
 .third {
   box-shadow: rgba(255, 255, 255, 0.8) 0 0 0 2px inset,
   rgb(28, 0, 43) 10px -10px 0 -2px,
@@ -5,20 +9,6 @@
   0 0 10px 10px rgba(0, 0, 0, 0.05),
   rgb(28, 0, 43) 20px -20px 0 -2px,
   rgba(255, 255, 255, 0.8) 20px -20px,
-  0 0 20px 1px rgba(255, 255, 255, 0.05),
-  0 0 5em black;
-}
-
-.fourth {
-  box-shadow: rgba(255, 255, 255, 0.8) 0 0 0 2px inset,
-  rgb(28, 0, 43) 10px -10px 0 -2px,
-  rgba(255, 255, 255, 0.8) 10px -10px,
-  0 0 20px 1px rgba(255, 255, 255, 0.05),
-  rgb(28, 0, 43) 20px -20px 0 -2px,
-  rgba(255, 255, 255, 0.8) 20px -20px,
-  0 0 20px 1px rgba(255, 255, 255, 0.05),
-  rgb(28, 0, 43) 30px -30px 0 -2px,
-  rgba(255, 255, 255, 0.8) 30px -30px,
   0 0 20px 1px rgba(255, 255, 255, 0.05),
   0 0 5em black;
 }

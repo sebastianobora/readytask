@@ -50,6 +50,7 @@ export class ManageProfileComponent implements OnInit {
     this.userService.updateProfile(user)
       .subscribe(() => {
         this.notifierService.notify(this.successfulUpdateMessage, 'success');
+        this.loggedUserService.loadLoggedUser();
         this.router.navigate(['profile/public/' + this.user?.username]);
       });
   }

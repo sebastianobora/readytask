@@ -1,7 +1,7 @@
 import {Component, HostBinding, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {Router} from '@angular/router';
 import {
-  NavObject,
+  Nav,
   profileNavContent,
   publicProfileLink,
   tasksNavContent,
@@ -10,6 +10,7 @@ import {
 } from '../../../../assets/auth-nav-content-data';
 import {User} from '../../../entity/user';
 import {BreakpointObserver} from '@angular/cdk/layout';
+import {UserService} from '../../../service/user.service';
 
 @Component({
   selector: 'app-auth-nav',
@@ -19,7 +20,7 @@ import {BreakpointObserver} from '@angular/cdk/layout';
 export class AuthNavComponent implements OnInit, OnChanges {
   @HostBinding('class.minimized') minimized = false;
   @Input() currentUser?: User;
-  currentNavContent?: NavObject;
+  currentNavContent?: Nav;
   currentPath?: string;
   navContent = new Map([
     ['todo', todoNavContent],
@@ -28,7 +29,8 @@ export class AuthNavComponent implements OnInit, OnChanges {
     ['profile', profileNavContent]
   ]);
 
-  constructor(private router: Router,
+  constructor(public userService: UserService,
+              private router: Router,
               private breakpointObserver: BreakpointObserver) {
     this.getPathAndSetCurrentNavContent();
     this.maximizeNavAtMobileBreakpoint();
@@ -37,12 +39,12 @@ export class AuthNavComponent implements OnInit, OnChanges {
   ngOnInit(): void {
   }
 
-  getPathAndSetCurrentNavContent() {
+  getPathAndSetCurrentNavContent(): void {
     this.router.events.subscribe(() => {
       const path = this.router.url.split('/')[1];
       if (this.currentPath !== path) {
         this.currentPath = path;
-        this.setCurrentNavContent(this.currentPath);
+        this.currentNavContent = this.navContent.get(path);
       }
     });
   }
@@ -66,10 +68,6 @@ export class AuthNavComponent implements OnInit, OnChanges {
     const profileNavContentWithUsername = profileNavContent;
     profileNavContentWithUsername.elements[0].link = publicProfileLink + username;
     this.navContent.set('profile', profileNavContentWithUsername);
-  }
-
-  setCurrentNavContent(path: string): void {
-    this.currentNavContent = this.navContent.get(path);
   }
 
   minimizeNav(): void {

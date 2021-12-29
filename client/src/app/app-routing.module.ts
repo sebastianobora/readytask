@@ -48,7 +48,7 @@ const routes: Routes = [
       {path: 'tasks/my-tasks', component: MyTasksComponent},
       {path: 'tasks/add-task', component: AddTaskComponent},
       {path: 'tasks/task/:id', component: TaskComponent},
-      {path: 'profile/public/:username', component: PublicProfileComponent, runGuardsAndResolvers: 'always'},
+      {path: 'profile/public/:username', component: PublicProfileComponent},
       {path: 'profile/my-profile', component: PublicProfileComponent},
       {path: 'profile/manage-profile', component: ManageProfileComponent},
       {path: 'profile/change-photo', component: ChangePhotoComponent},

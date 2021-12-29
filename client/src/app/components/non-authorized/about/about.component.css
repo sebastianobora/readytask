@@ -1,3 +1,7 @@
+:host {
+  width: 100%;
+}
+
 .second {
   box-shadow: rgba(255, 255, 255, 0.8) 0 0 0 2px inset,
   rgb(28, 0, 43) 10px -10px 0 -2px,

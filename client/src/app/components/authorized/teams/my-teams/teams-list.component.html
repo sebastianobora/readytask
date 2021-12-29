@@ -3,7 +3,7 @@
     <mat-spinner></mat-spinner>
   </div>
   <ng-template #content>
-    <app-not-found-teams *ngIf="!membershipsPage?.content"></app-not-found-teams>
+    <app-not-found-teams *ngIf="membershipsPage?.content?.length === 0"></app-not-found-teams>
     <div (click)="teamService.redirectToTeamDetails(membership.team.id)"
          *ngFor="let membership of membershipsPage?.content" class="team-wrapper">
       <div class="team-img-wrapper">

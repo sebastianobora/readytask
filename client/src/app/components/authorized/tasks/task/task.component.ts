@@ -94,7 +94,7 @@ export class TaskComponent implements OnInit {
   }
 
   confirmAndStartTask(id: UUID): void {
-    this.confirmationService.isConfirmed(() => this.saveTaskState(id, TaskState.IN_PROGRESS));
+    this.confirmationService.confirm(() => this.saveTaskState(id, TaskState.IN_PROGRESS));
   }
 
   saveTaskState(id: UUID, taskState: TaskState): void {
@@ -107,11 +107,11 @@ export class TaskComponent implements OnInit {
   }
 
   confirmAndChangeState(id: UUID, taskState: TaskState): void {
-    this.confirmationService.isConfirmed(() => this.saveTaskState(id, taskState));
+    this.confirmationService.confirm(() => this.saveTaskState(id, taskState));
   }
 
   confirmAndDeleteTask(id: UUID): void {
-    this.confirmationService.isConfirmed(() => this.deleteTask(id));
+    this.confirmationService.confirm(() => this.deleteTask(id));
   }
 
   deleteTask(id: UUID): void {
