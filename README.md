@@ -19,10 +19,11 @@ CLIENT-SERVER architecture
 - Spring Security
 
 **Frontend**:
-- Angular
-- HTML / CSS
+- Angular Framework (HTML, TypeScript, CSS)
 - Angular Material
-- Quill rich text editor
+- markedJs
+- Firebase
+- particleJs
 
 ## FEAUTERS
 - login / register
