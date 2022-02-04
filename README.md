@@ -96,7 +96,7 @@ jsPDF
 
 ![6](https://user-images.githubusercontent.com/64908908/149245976-2889c4e4-a88f-4559-ab66-d1069986878a.png)
 
-![7](https://user-images!.githubusercontent.com/64908908/149245977-fad517ed-bc22-4034-af49-f974e239efb4.png)
+![7](https://user-images.githubusercontent.com/64908908/149245977-fad517ed-bc22-4034-af49-f974e239efb4.png)
 
 ![8](https://user-images.githubusercontent.com/64908908/149245980-9218df45-1c05-40a4-a42e-f1537acccec4.png)
 
