@@ -44,6 +44,6 @@ public final class ExceptionsMessages {
     }
 
     public static String getResourceAlreadyExistsMessage(String resource, String field, Object value){
-        return String.format("Resource: %s with field: %s = %s already exists", resource, field, value);
+        return String.format("Resource: %s with field: %s, equals: %s already exists", resource, field, value);
     }
 }

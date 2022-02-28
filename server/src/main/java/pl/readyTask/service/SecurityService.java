@@ -87,7 +87,6 @@ public class SecurityService implements UserDetailsService {
 
     public User getNewUserFromRequest(RegisterRequest request) {
         User user = new User();
-
         user.setEmail(request.getEmail());
         user.setUsername(request.getUsername());
         user.setPassword(encodePassword(request.getPassword()));

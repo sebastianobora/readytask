@@ -36,7 +36,7 @@ public class TeamService {
 
     public Team getByCode(String code) {
         return teamRepository.findByCode(code)
-                .orElseThrow(() -> new NoDataFoundException("team", code));
+                .orElseThrow(() -> new NoDataFoundException("team", "code", code));
     }
 
     public List<Team> getAllByAuthUser(Authentication authentication) {

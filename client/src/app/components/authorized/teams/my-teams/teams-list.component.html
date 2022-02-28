@@ -17,6 +17,7 @@
   </ng-template>
 </div>
 <mat-paginator (page)="loadMembershipsPage($event.pageIndex)"
+               *ngIf="membershipsPage?.content?.length !== 0"
                [hidePageSize]="true"
                [length]="membershipsPage?.totalElements"
                [pageIndex]="membershipsPage?.number"

@@ -52,8 +52,8 @@ header {
 }
 
 .logo-a:hover .logo {
-  transform: rotate(30deg) scale(1.15);
-  -webkit-transform: rotate(30deg) scale(1.15);
+  transform: rotate(5deg) scale(1.05);
+  -webkit-transform: rotate(5deg) scale(1.05);
 }
 
 .avatar:hover {

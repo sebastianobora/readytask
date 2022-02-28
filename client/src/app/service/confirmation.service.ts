@@ -11,17 +11,19 @@ export class ConfirmationService {
   constructor(private dialog: MatDialog) {
   }
 
-  isConfirmedWithSubscribe(): Observable<boolean> {
-    return this.dialog.open(ConfirmationComponent).afterClosed();
-  }
-
   confirm(callback: () => any, message = ''): void {
     this.dialog
-      .open(ConfirmationComponent, {autoFocus: true, data: {message: message}})
+      .open(ConfirmationComponent, {autoFocus: true, data: {message}})
       .afterClosed()
       .subscribe(value => value ? callback() : this.dialog.closeAll());
   }
+
+  isConfirmedWithSubscribe(): Observable<boolean> {
+    return this.dialog.open(ConfirmationComponent).afterClosed();
+  }
 }
+
+
 
 
 

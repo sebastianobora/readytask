@@ -38,7 +38,7 @@ public class MembershipService {
         User user = securityService.getUserByEmailFromAuthentication(authentication);
         Team team = teamService.getByCode(code);
         if(membershipRepository.existsByUserIdAndTeamId(user.getId(), team.getId())){
-            throw new ResourceAlreadyExistsException(Membership.class.getName(), "userId, teamId",user.getId() + ", " + team.getId());
+            throw new ResourceAlreadyExistsException(Membership.class.getName().split("\\.")[3], "userId, teamId",user.getId() + ", " + team.getId());
         }
         Membership membership = getMembershipFromFields(MemberRole.PARTICIPANT, team.getId(), user.getId());
         return membershipRepository.save(membership);
