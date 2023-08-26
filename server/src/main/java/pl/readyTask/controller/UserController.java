@@ -6,6 +6,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import pl.readyTask.dto.UpdatePasswordRequest;
 import pl.readyTask.entity.User;
+import pl.readyTask.security.passwordCheck.PasswordCheck;
 import pl.readyTask.service.UserService;
 
 import java.util.List;
@@ -49,8 +50,10 @@ public class UserController {
         return ResponseEntity.ok().build();
     }
 
+    @PasswordCheck
     @PatchMapping("/password")
-    public ResponseEntity<Object> updatePassword(@RequestBody UpdatePasswordRequest updatePasswordRequest, Authentication authentication) {
+    public ResponseEntity<Object> updatePassword(@RequestBody UpdatePasswordRequest updatePasswordRequest,
+                                                 Authentication authentication) {
         userService.updatePassword(updatePasswordRequest, authentication);
         return ResponseEntity.ok().build();
     }

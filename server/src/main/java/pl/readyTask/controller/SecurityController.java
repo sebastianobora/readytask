@@ -1,12 +1,15 @@
 package pl.readyTask.controller;
 
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.readyTask.dto.JwtResponse;
 import pl.readyTask.dto.LoginRequest;
 import pl.readyTask.dto.RegisterRequest;
 import pl.readyTask.service.SecurityService;
+
+import javax.validation.Valid;
 
 @RestController
 @AllArgsConstructor
@@ -21,7 +24,7 @@ public class SecurityController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody RegisterRequest request) {
+    public ResponseEntity<HttpStatus> register(@Valid @RequestBody RegisterRequest request) {
         securityService.register(request);
         return ResponseEntity.ok().build();
     }

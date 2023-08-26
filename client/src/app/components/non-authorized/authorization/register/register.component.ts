@@ -1,14 +1,15 @@
-import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {Component} from '@angular/core';
+import {AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {AuthService} from '../../../../security/auth.service';
+import PasswordValidator from '../../../../validators/PasswordValidator';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['../authorization.components.css']
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent {
   registerForm: FormGroup;
   errorMessage = '';
 
@@ -18,14 +19,24 @@ export class RegisterComponent implements OnInit {
     this.registerForm = this.initializeRegisterForm();
   }
 
-  ngOnInit(): void {
+  get password(): AbstractControl {
+    const passwordControlName = 'password';
+    return this.registerForm.controls[passwordControlName];
+  }
+
+  getPasswordErrorMessage(error: ValidationErrors): string | null {
+    return PasswordValidator.getErrorMessage(error);
   }
 
   initializeRegisterForm(): FormGroup {
     return this.formBuilder.group({
       username: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(20)]),
       email: new FormControl('', [Validators.required, Validators.email]),
-      password: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(20)]),
+      password : new FormControl('', [
+        Validators.required,
+        Validators.minLength(12),
+        PasswordValidator.validator()
+      ]),
       firstName: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(30)]),
       lastName: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(30)])
     });
@@ -50,4 +61,6 @@ export class RegisterComponent implements OnInit {
         }
       );
   }
+
+  protected readonly PasswordValidator = PasswordValidator;
 }

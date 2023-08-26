@@ -12,8 +12,8 @@
           Provided email is not correct!
         </p>
         <input type="password" placeholder="password" formControlName="password" class="input auth-input"/>
-        <p *ngIf="registerForm.controls.password.dirty && registerForm.controls.password.invalid" class="msg-error-p">
-          Field must be between 6 & 30 characters!
+        <p *ngIf="password.errors && password.invalid && (password.dirty || password.touched)" class="msg-error-p">
+          {{getPasswordErrorMessage(password.errors)}}
         </p>
         <input placeholder="first name" formControlName="firstName" class="input auth-input"/>
         <p *ngIf="registerForm.controls.firstName.dirty && registerForm.controls.firstName.invalid" class="msg-error-p">

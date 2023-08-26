@@ -81,7 +81,7 @@ public class TaskService {
         boolean isUserAssignedToTaskAllowedToChangeState =
                 isUserAssignedToTask(user, task) && statesAllowedToSetForUserAssignedToTask.contains(state);
         if (!(isAuthorOfTaskAllowedToChangeState || isUserAssignedToTaskAllowedToChangeState)) {
-            throw new AccessDeniedToActionException(ExceptionsMessages.getChangeTaskStateMessage());
+            throw new AccessDeniedToActionException(ExceptionsMessages.CHANGE_TASK_STATE);
         }
     }
 
@@ -103,7 +103,7 @@ public class TaskService {
 
     private void checkIsUserRelatedToTask(boolean isRelated) {
         if (!isRelated) {
-            throw new AccessDeniedToActionException(ExceptionsMessages.getNoPermissionToTask());
+            throw new AccessDeniedToActionException(ExceptionsMessages.NO_PERMISSION_TO_TASK);
         }
     }
 

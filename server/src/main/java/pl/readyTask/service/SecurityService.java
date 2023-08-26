@@ -1,5 +1,7 @@
 package pl.readyTask.service;
 
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -23,7 +25,9 @@ import pl.readyTask.security.CustomUserDetails;
 import pl.readyTask.security.JwtUtils;
 
 import javax.transaction.Transactional;
+import java.util.Objects;
 
+@Slf4j
 @Service
 public class SecurityService implements UserDetailsService {
     private final UserRepository userRepository;
@@ -31,6 +35,7 @@ public class SecurityService implements UserDetailsService {
     private final AuthenticationManager authenticationManager;
     private final PasswordEncoder encoder;
 
+    @Autowired
     public SecurityService(UserRepository userRepository,
                            JwtUtils jwtUtils,
                            @Lazy AuthenticationManager authenticationManager,
@@ -67,9 +72,20 @@ public class SecurityService implements UserDetailsService {
         userRepository.save(user);
     }
 
+    private User getNewUserFromRequest(RegisterRequest request) {
+        User user = new User();
+        user.setEmail(request.getEmail());
+        user.setUsername(request.getUsername());
+        user.setPassword(encoder.encode(request.getPassword()));
+        user.setFirstName(request.getFirstName());
+        user.setLastName(request.getLastName());
+        user.setUserRole(UserRole.ROLE_USER);
+        return user;
+    }
+
     public JwtResponse login(LoginRequest request) {
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
+        var authenticationToken = new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword());
+        Authentication authentication = authenticationManager.authenticate(authenticationToken);
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwtToken = jwtUtils.generateJwtToken(authentication);
         CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
@@ -85,19 +101,9 @@ public class SecurityService implements UserDetailsService {
                 userDetails.getListOfAuthorities());
     }
 
-    public User getNewUserFromRequest(RegisterRequest request) {
-        User user = new User();
-        user.setEmail(request.getEmail());
-        user.setUsername(request.getUsername());
-        user.setPassword(encodePassword(request.getPassword()));
-        user.setFirstName(request.getFirstName());
-        user.setLastName(request.getLastName());
-        user.setUserRole(UserRole.ROLE_USER);
-        return user;
-    }
-
     public void checkPasswords(String rawPassword, String expectedPassword) {
         if (!encoder.matches(rawPassword, expectedPassword)) {
+            log.warn("Passed password is invalid");
             throw new InvalidPasswordException();
         }
     }

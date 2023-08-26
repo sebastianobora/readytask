@@ -1,12 +1,12 @@
-package pl.readyTask.exception;
+package pl.readyTask.exception.handlers;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import pl.readyTask.exception.*;
 
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
+import static pl.readyTask.exception.ExceptionUtils.createExceptionBody;
 
 @RestControllerAdvice
 public class ExceptionsHandler {
@@ -43,16 +43,5 @@ public class ExceptionsHandler {
         HttpStatus status = HttpStatus.UNAUTHORIZED;
         ExceptionBody body = createExceptionBody(status, e.getMessage());
         return new ResponseEntity<>(body, status);
-    }
-
-    @ExceptionHandler(InvalidHeaderException.class)
-    public ResponseEntity<Object> invalidHeaderExceptionHandler(InvalidHeaderException e) {
-        HttpStatus status = HttpStatus.BAD_REQUEST;
-        ExceptionBody body = createExceptionBody(status, e.getMessage());
-        return new ResponseEntity<>(body, status);
-    }
-
-    private ExceptionBody createExceptionBody(HttpStatus status, String message) {
-        return new ExceptionBody(status, ZonedDateTime.now(ZoneId.of("Z")), message);
     }
 }

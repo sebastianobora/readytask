@@ -19,7 +19,7 @@ export class NonAuthGuard implements CanActivate {
     if (isAuthenticated) {
       this.router.navigate(['/teams/my-teams']);
     }
-    return !this.authService.isAuthenticated();
+    return !isAuthenticated;
   }
 
 }

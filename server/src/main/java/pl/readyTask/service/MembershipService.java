@@ -38,7 +38,7 @@ public class MembershipService {
         User user = securityService.getUserByEmailFromAuthentication(authentication);
         Team team = teamService.getByCode(code);
         if(membershipRepository.existsByUserIdAndTeamId(user.getId(), team.getId())){
-            throw new ResourceAlreadyExistsException(Membership.class.getName().split("\\.")[3], "userId, teamId",user.getId() + ", " + team.getId());
+            throw new ResourceAlreadyExistsException(Membership.class.getSimpleName(), "userId, teamId",user.getId() + ", " + team.getId());
         }
         Membership membership = getMembershipFromFields(MemberRole.PARTICIPANT, team.getId(), user.getId());
         return membershipRepository.save(membership);
@@ -60,7 +60,7 @@ public class MembershipService {
     public List<Membership> getLoggedUserMemberships(Authentication authentication) {
         User user = securityService.getUserByEmailFromAuthentication(authentication);
         return membershipRepository.findAllByUserId(user.getId())
-                .orElseThrow(() -> new NoDataFoundException(Membership.class.getName(), "id", user.getId()));
+                .orElseThrow(() -> new NoDataFoundException(Membership.class.getSimpleName(), "id", user.getId()));
     }
 
     public Page<Membership> getPagedMembershipsByUserId(Long userId, int page) {
@@ -75,7 +75,7 @@ public class MembershipService {
 
     public List<Membership> getMembershipsByTeamId(Long teamId) {
         return membershipRepository.findMembershipsByTeamIdOrderByMemberFrom(teamId)
-                .orElseThrow(() -> new NoDataFoundException("membership", teamId));
+                .orElseThrow(() -> new NoDataFoundException(Membership.class.getSimpleName(), teamId));
     }
 
     public Page<Membership> getPagedMembershipsByTeamId(Long teamId, int page){
@@ -85,7 +85,7 @@ public class MembershipService {
 
     public Integer getAmountOfAdminRoleMembersByTeamId(Long teamId) {
         return membershipRepository.getAmountOfAdminRoleMembersByTeamId(teamId)
-                .orElseThrow(() -> new NoDataFoundException("membership", teamId));
+                .orElseThrow(() -> new NoDataFoundException(Membership.class.getSimpleName(), teamId));
     }
 
     public Membership updateRole(Long id, MemberRole role) {
@@ -111,7 +111,7 @@ public class MembershipService {
 
     public boolean isUserAdminOfTeam(User user, Team team) {
         Membership membership = membershipRepository.findMembershipByTeamIdAndUserId(team.getId(), user.getId())
-                .orElseThrow(() -> new NoDataFoundException(Membership.class.getName(), team.getId()));
+                .orElseThrow(() -> new NoDataFoundException(Membership.class.getSimpleName(), team.getId()));
         return membership.getMemberRole() == MemberRole.ADMIN;
     }
 

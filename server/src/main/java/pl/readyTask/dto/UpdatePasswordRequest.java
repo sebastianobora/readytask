@@ -1,12 +1,18 @@
 package pl.readyTask.dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import pl.readyTask.security.passwordCheck.PasswordChecker;
 
 @Getter
-@AllArgsConstructor
-public class UpdatePasswordRequest {
+@RequiredArgsConstructor
+public class UpdatePasswordRequest implements PasswordChecker {
     private final Long userId;
-    private final String currentPassword;
     private final String newPassword;
+    private final String currentPassword;
+
+    @Override
+    public String getPasswordToCheck() {
+        return currentPassword;
+    }
 }

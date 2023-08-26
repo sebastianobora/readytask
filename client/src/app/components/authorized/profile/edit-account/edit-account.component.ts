@@ -1,10 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService} from '../../../../service/user.service';
-import {AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, Validators} from '@angular/forms';
+import {AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
 import {User} from '../../../../entity/user';
-import CustomValidators from '../../../../validators/CustomValidators';
+import PasswordValidator from '../../../../validators/PasswordValidator';
 import {NotifierService} from '../../../../service/notifier.service';
 import {LoggedUserService} from '../../../../service/logged-user.service';
+import MatchValidator from '../../../../validators/MatchValidator';
 
 @Component({
   selector: 'app-edit-account',
@@ -16,6 +17,10 @@ export class EditAccountComponent implements OnInit {
   changePasswordForm: FormGroup;
   successfulMessage = 'Your password has been changed!';
 
+  private currentPasswordControlName: string = 'currentPassword';
+  private newPasswordControlName: string = 'newPassword';
+  private confirmPasswordControlName: string = 'confirmNewPassword';
+
   constructor(private userService: UserService,
               private loggedUserService: LoggedUserService,
               private notifierService: NotifierService,
@@ -24,18 +29,15 @@ export class EditAccountComponent implements OnInit {
   }
 
   get currentPassword(): AbstractControl {
-    const currentPasswordControlName = 'currentPassword';
-    return this.changePasswordForm.controls[currentPasswordControlName];
+    return this.changePasswordForm.controls[this.currentPasswordControlName];
   }
 
   get newPassword(): AbstractControl {
-    const newPasswordControlName = 'newPassword';
-    return this.changePasswordForm.controls[newPasswordControlName];
+    return this.changePasswordForm.controls[this.newPasswordControlName];
   }
 
   get confirmNewPassword(): AbstractControl {
-    const confirmNewPasswordControlName = 'confirmNewPassword';
-    return this.changePasswordForm.controls[confirmNewPasswordControlName];
+    return this.changePasswordForm.controls[this.confirmPasswordControlName];
   }
 
   ngOnInit(): void {
@@ -46,21 +48,25 @@ export class EditAccountComponent implements OnInit {
     this.loggedUserService.loggedUser.subscribe(user => this.user = user);
   }
 
-  getChangePasswordForm(): FormGroup {
+  private getChangePasswordForm(): FormGroup {
     return this.formBuilder.group({
-      currentPassword: new FormControl('', Validators.required),
-      newPassword: new FormControl('',
-        [Validators.required,
-          CustomValidators.Password(),
-          Validators.maxLength(30),
-          Validators.minLength(6)]
-      ),
-      confirmNewPassword: new FormControl('', Validators.required)
-    }, {
-      validators: [
-        CustomValidators.ValuesMatch('newPassword', 'confirmNewPassword')
-      ]
-    });
+        [this.currentPasswordControlName]: new FormControl('', Validators.required),
+        [this.newPasswordControlName]: new FormControl('', this.getPasswordValidators()),
+        [this.confirmPasswordControlName]: new FormControl('', Validators.required)
+      },
+      {
+        validators: [
+          MatchValidator.valuesMatch(this.newPasswordControlName, this.confirmPasswordControlName)
+        ]
+      });
+  }
+
+  private getPasswordValidators(): ValidatorFn[] {
+    return [
+      Validators.required,
+      PasswordValidator.validator(),
+      Validators.minLength(12)
+    ];
   }
 
   changePassword(): void {
@@ -79,7 +85,7 @@ export class EditAccountComponent implements OnInit {
   }
 
   getNewPasswordErrorMessage(error: ValidationErrors): string | null {
-    return CustomValidators.getPasswordErrorMessage(error);
+    return PasswordValidator.getErrorMessage(error);
   }
 
   resetChangePasswordForm(): void {

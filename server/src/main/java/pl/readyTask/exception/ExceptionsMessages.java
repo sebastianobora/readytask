@@ -1,16 +1,16 @@
 package pl.readyTask.exception;
 
+import lombok.AccessLevel;
 import lombok.Getter;
 import pl.readyTask.entity.User;
 
-public final class ExceptionsMessages {
-    @Getter
-    private static final String invalidPasswordMessage = "Invalid password";
-    @Getter
-    private static final String changeTaskStateMessage = "Change task state";
-    @Getter
-    private static final String noPermissionToTask = "User has no permission to task";
 
+public final class ExceptionsMessages {
+    public static final String INVALID_PASSWORD = "Invalid password";
+    public static final String CHANGE_TASK_STATE = "Change task state";
+    public static final String NO_PERMISSION_TO_TASK = "User has no permission to task";
+    public static final String UNAUTHORIZED = "Unauthorized.";
+    public static final String TOO_MANY_REQUESTS = "Too many requests.";
     public static String getInvalidHeaderMessage(String headerContent) {
         return String.format("Header with %s is invalid!", headerContent);
     }

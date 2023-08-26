@@ -1,6 +1,7 @@
 package pl.readyTask.security;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -13,6 +14,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import pl.readyTask.service.SecurityService;
 
+@Slf4j
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -20,12 +22,13 @@ import pl.readyTask.service.SecurityService;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private final SecurityService securityService;
     private final AuthEntryPoint unauthorizedHandler;
-    private final PasswordConfig passwordConfig;
-    private final JwtUtils jwtUtils;
+    private final PasswordEncoderConfiguration passwordEncoderConfiguration;
+    private final AuthenticationFilter authenticationFilter;
 
     @Override
     public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
-        authenticationManagerBuilder.userDetailsService(securityService).passwordEncoder(passwordConfig.passwordEncoder());
+        authenticationManagerBuilder.userDetailsService(securityService)
+                .passwordEncoder(passwordEncoderConfiguration.passwordEncoderBean());
     }
 
     @Bean
@@ -37,15 +40,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-            .cors().and().csrf().disable()
-            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-            .and()
-            .addFilterBefore(new AuthenticationFilter(jwtUtils, securityService), UsernamePasswordAuthenticationFilter.class)
-            .exceptionHandling().authenticationEntryPoint(unauthorizedHandler)
-            .and()
-            .authorizeRequests()
-            .antMatchers("/authentication/register").permitAll()
-            .antMatchers("/authentication/login").permitAll()
-            .anyRequest().authenticated();
+                .cors().and().csrf().disable()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter.class)
+                .exceptionHandling().authenticationEntryPoint(unauthorizedHandler)
+                .and()
+                .authorizeRequests()
+                .antMatchers("/authentication/**").permitAll()
+                .antMatchers("/swagger-ui/**", "/v3/api-docs/**", "/api-docs/**").permitAll()
+                .and()
+                .authorizeRequests()
+                .anyRequest().authenticated();
     }
 }
